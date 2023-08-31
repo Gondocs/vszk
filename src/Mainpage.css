@@ -7,7 +7,6 @@
   align-content: flex-start;
 }
 
-/* Mainpage.css */
 .card-container {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -26,4 +25,17 @@
   justify-content: center;
   align-items: center;
   align-content: flex-start;
+}
+
+.butttons {
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  width: 8rem;
+  margin: 2px;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  width: 150%;
+  height: 150%;
 }
