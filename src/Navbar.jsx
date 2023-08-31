@@ -36,7 +36,7 @@ function NavbarExample() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <br />
+      
     </>
   );
 }
