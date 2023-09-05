@@ -17,27 +17,27 @@ export function Cards() {
   return (
     <>
 
-<Carousel style={{height:'320px', width:'100%', margin: 'auto', borderBottom: '4px solid grey' }} className='carousel-inner'>
+    <Carousel style={{height:'320px', width:'100%', margin: 'auto', borderBottom: '4px solid grey' }} className='carousel-inner'>
       <Carousel.Item>
-        <img src='https://i.ibb.co/cXtcyM4/bannerxd.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
+        <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
         <Carousel.Caption>
-          <h3>Hihetetlen szoftver</h3>
-          <p>Na ide mondjuk mit írjak</p>
+          <h3>Első lap</h3>
+          <p>Első alcím</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-      <img src='https://i.ibb.co/cXtcyM4/bannerxd.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
+      <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
         <Carousel.Caption>
-          <h3>Lerágom a fejemet kategóriás szoftverek </h3>
-          <p>Egyre kényelmesebben néz ki az a diófa</p>
+          <h3>Második lap </h3>
+          <p>Második alcím</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-      <img src='https://i.ibb.co/cXtcyM4/bannerxd.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
+      <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
         <Carousel.Caption>
-          <h3>Hehe miért ilyenkor csinálom ezt</h3>
+          <h3>Harmadik lap</h3>
           <p>
-            Hozzon valami finomat a foodora, de már nincsen nyitva semmi :x
+            Harmadik alcím
           </p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -47,26 +47,26 @@ export function Cards() {
 <div className='mainchecks'>
   <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} style={{marginTop: '5rem'}}>
 
-        <ToggleButton id="tbg-btn-1" value={1} variant={value.includes(1) ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-          Adatbázis
+        <ToggleButton id="tbg-btn-1" value={1} variant={value.includes(1) ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 1
         </ToggleButton>
-        <ToggleButton id="tbg-btn-2" value={2} variant={value.includes(2)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-            Pénzügy
+        <ToggleButton id="tbg-btn-2" value={2} variant={value.includes(2)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 2
         </ToggleButton>
-        <ToggleButton id="tbg-btn-3" value={3} variant={value.includes(3)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-            Szai
+        <ToggleButton id="tbg-btn-3" value={3} variant={value.includes(3)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 3
         </ToggleButton>
-        <ToggleButton id="tbg-btn-4" value={4} variant={value.includes(4)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-            Körte
+        <ToggleButton id="tbg-btn-4" value={4} variant={value.includes(4)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 4
         </ToggleButton>
-        <ToggleButton id="tbg-btn-5" value={5} variant={value.includes(5)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-            Hejo
+        <ToggleButton id="tbg-btn-5" value={5} variant={value.includes(5)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 5
         </ToggleButton>
-        <ToggleButton id="tbg-btn-6" value={6} variant={value.includes(6)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-            Úszik a pult
+        <ToggleButton id="tbg-btn-6" value={6} variant={value.includes(6)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 6
         </ToggleButton>
-        <ToggleButton id="tbg-btn-7" value={7} variant={value.includes(7)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '8rem', margin: '2px', border: '2px solid grey' }}>
-            Volt
+        <ToggleButton id="tbg-btn-7" value={7} variant={value.includes(7)  ? 'dark' : 'light'} style={{ fontSize: '1.2rem', padding: '0.6rem', width: '9rem', margin: '2px', border: '2px solid grey' }}>
+        Tulajdonság 7
         </ToggleButton>        
 
       </ToggleButtonGroup>
