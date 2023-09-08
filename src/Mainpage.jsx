@@ -4,7 +4,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import './Mainpage.css';
 import { useState } from 'react';
 import { ToggleButtonGroup, ToggleButton} from 'react-bootstrap';
-import Carousel from 'react-bootstrap/Carousel';
 
 
 export function Cards() {
@@ -17,7 +16,7 @@ export function Cards() {
   return (
     <>
 
-    <Carousel style={{height:'320px', width:'100%', margin: 'auto', borderBottom: '4px solid grey' }} className='carousel-inner'>
+   {/* <Carousel style={{height:'320px', width:'100%', margin: 'auto', borderBottom: '4px solid grey' }} className='carousel-inner'>
       <Carousel.Item>
         <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
         <Carousel.Caption>
@@ -41,7 +40,7 @@ export function Cards() {
           </p>
         </Carousel.Caption>
       </Carousel.Item>
-    </Carousel>
+  </Carousel> */}
 
 
 <div className='mainchecks'>

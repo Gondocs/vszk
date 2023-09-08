@@ -10,7 +10,7 @@ import './Navbar.css';
 function NavbarExample() {
   return (
     <>
-      <Navbar expand="lg" bg="dark" variant="dark" >
+      <Navbar expand="lg" bg="dark" variant="dark"  >
         <Container className='navleft'>
           <Navbar.Brand href="#home" className='nav-bigright'>Szoftverkereső</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
