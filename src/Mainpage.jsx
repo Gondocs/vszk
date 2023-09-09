@@ -16,32 +16,6 @@ export function Cards() {
   return (
     <>
 
-   {/* <Carousel style={{height:'320px', width:'100%', margin: 'auto', borderBottom: '4px solid grey' }} className='carousel-inner'>
-      <Carousel.Item>
-        <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
-        <Carousel.Caption>
-          <h3>Első lap</h3>
-          <p>Első alcím</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-      <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
-        <Carousel.Caption>
-          <h3>Második lap </h3>
-          <p>Második alcím</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-      <img src='https://i.ibb.co/DtZH8Dh/Hero-Banner-Placeholder-Light-1024x480-1.png' alt='kepecske1' style={{ objectFit: 'cover', width: '100%', height: '100%' }} text="First slide" />
-        <Carousel.Caption>
-          <h3>Harmadik lap</h3>
-          <p>
-            Harmadik alcím
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-  </Carousel> */}
-
 
 <div className='mainchecks'>
   <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} style={{marginTop: '5rem'}}>

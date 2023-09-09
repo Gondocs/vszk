@@ -29,13 +29,13 @@ export function ImageTrack() {
     const track = document.getElementById("image-track");
     track.animate({
         transform: `translate(${nextPercentage}%, -50%)`
-    }, {duration: 2000, fill: "forwards"})
+    }, {duration: 1200, fill: "forwards"})
 
     const images = document.getElementsByClassName("image");
     for (const image of images) {
       image.animate({
         objectPosition: `${100+nextPercentage}% center`
-      }, {duration: 2000, fill: "forwards"})
+      }, {duration: 1200, fill: "forwards"})
 
     }
   };
@@ -51,11 +51,13 @@ export function ImageTrack() {
       data-mouse-down-at={mouseDownAt}
       data-prev-percentage={prevPercentage}
     >
+
       <img
         className="image"
         alt="img1"
         src="https://i.ibb.co/KGS5ZZD/photo-1454165804606-c3d57bc86b40.png"
         draggable="false"
+        
       />
       <img
         className="image"

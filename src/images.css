@@ -1,15 +1,15 @@
 .body {
-  height: 75vh;
+  height: 68vh;
   width: 100%;
-  background-color: black;
+  background-color: white;
   margin: 0rem;
   overflow: hidden;
   position: relative;
 }
 
 .image-track > .image {
-  width: 70vmin;
-  height: 70vmin;
+  width: 85vmin;
+  height: 65vmin;
   object-fit: cover;
   object-position: 100% 50%;
 }
@@ -18,8 +18,12 @@
   display: flex;
   gap: 4vmin;
   position: absolute;
-  left: 7%;
-  width: 173%;
+  left: 3%;
+  width: 217%;
   top: 50%;
   transform: translate(0%, -50%);
+}
+
+.image-track > .image:hover {
+  filter: blur(1px);
 }
