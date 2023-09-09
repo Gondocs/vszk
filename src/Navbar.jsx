@@ -6,17 +6,17 @@ const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
   imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
 }
 
 const navigation = [
-  { name: 'Szoftverkereső', href: 'home', current: true },
-  { name: 'Szoftverek', href: 'teams', current: false },
-  { name: 'Összehasonlítás', href: 'Projects', current: false },
+  { name: 'Szoftverkereső', href: 'fooldal', current: true },
+  { name: 'Szoftverek', href: 'szoftverek', current: false },
+  { name: 'Összehasonlítás', href: 'osszehasonlitas', current: false },
 ]
 
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
+  { name: 'Profile', href: '#' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
@@ -29,8 +29,6 @@ export default function Example() {
   return (
     <>
       <div className="min-h-full">
-
-        
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>

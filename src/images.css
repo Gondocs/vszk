@@ -1,5 +1,5 @@
 .body {
-  height: 68vh;
+  height: 75vh;
   width: 100%;
   background-color: white;
   margin: 0rem;
@@ -8,22 +8,20 @@
 }
 
 .image-track > .image {
-  width: 85vmin;
-  height: 65vmin;
+  width: 45vmin;
+  height: 70vmin;
   object-fit: cover;
   object-position: 100% 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .image-track {
   display: flex;
   gap: 4vmin;
   position: absolute;
-  left: 3%;
-  width: 217%;
+  left: 5%;
+  right: 5%;
+  width: 80%;
   top: 50%;
   transform: translate(0%, -50%);
-}
-
-.image-track > .image:hover {
-  filter: blur(1px);
 }
