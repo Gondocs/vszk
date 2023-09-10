@@ -3,25 +3,58 @@
   width: 100%;
   background-color: white;
   margin: 0rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
   overflow: hidden;
   position: relative;
-}
-
-.image-track > .image {
-  width: 45vmin;
-  height: 70vmin;
-  object-fit: cover;
-  object-position: 100% 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .image-track {
   display: flex;
   gap: 4vmin;
   position: absolute;
-  left: 5%;
-  right: 5%;
-  width: 80%;
+  width: 175%;
   top: 50%;
-  transform: translate(0%, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the image track vertically */
+}
+
+.image:hover {
+  filter: blur(4px); /* Apply blur effect on hover */
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  text-align: center; /* Center the content horizontally */
+}
+
+.image-container .image {
+  width: 45vmin;
+  height: 70vmin;
+  object-fit: cover;
+  object-position: 100% 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  transition: filter 1s ease; /* Add a smooth transition effect for blur */
+}
+
+.image-container .image:hover {
+  filter: blur(2px); /* Apply blur effect on hover */
+}
+
+.image-container .image-hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.image-container:hover .image-hover-text {
+  opacity: 1; /* Show the text on hover */
 }

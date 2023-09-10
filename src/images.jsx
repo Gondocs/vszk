@@ -41,7 +41,7 @@ export function ImageTrack() {
       {
         transform: `translate(${nextPercentage}%, -50%)`,
       },
-      { duration: 1200, fill: 'forwards' }
+      { duration: 800, fill: 'forwards' }
     );
 
     const images = document.getElementsByClassName('image');
@@ -50,7 +50,7 @@ export function ImageTrack() {
         {
           objectPosition: `${100 + nextPercentage}% center`,
         },
-        { duration: 1200, fill: 'forwards' }
+        { duration: 800, fill: 'forwards' }
       );
     }
   };
@@ -67,13 +67,17 @@ export function ImageTrack() {
         data-prev-percentage={prevPercentage}
       >
         {images.map((src, index) => (
-         
-            <img
-              className='image'
-              alt={`img${index + 1}`}
-              src={src}
-              draggable='false'
-            />
+          <div className='image-container' key={index}>
+            <div className='image-aspect-ratio'>
+              <img
+                className='image'
+                alt={`img${index + 1}`}
+                src={src}
+                draggable='false'
+              />
+            </div>
+            <div className='image-hover-text'>Hover Text</div>
+          </div>
         ))}
       </div>
     </div>
