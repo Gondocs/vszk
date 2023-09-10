@@ -1,7 +1,7 @@
 .body {
   height: 75vh;
   width: 100%;
-  background-color: rgb(255, 0, 0);
+  background-color: white;
   margin: 0rem;
   overflow: hidden;
   position: relative;
@@ -13,18 +13,18 @@
   position: absolute;
   width: 75%;
   top: 50%;
-  left: 5%;
-  transform: translate(-50%, -50%); /* Center the image track vertically */
+  left: 3%;
+  transform: translate(0%, -50%); /* Center the image track vertically */
 }
 
 .image:hover {
-  filter: blur(4px); /* Apply blur effect on hover */
+  filter: blur(4px);
 }
 
 .image-container {
   position: relative;
   display: inline-block;
-  text-align: center; /* Center the content horizontally */
+  text-align: center;
 }
 
 .image-container .image {
@@ -32,12 +32,12 @@
   height: 70vmin;
   object-fit: cover;
   object-position: 100% 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-  transition: filter 1s ease; /* Add a smooth transition effect for blur */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  transition: filter 1s ease;
 }
 
 .image-container .image:hover {
-  filter: blur(2px); /* Apply blur effect on hover */
+  filter: blur(2px);
 }
 
 .image-container .image-hover-text {
@@ -54,5 +54,5 @@
 }
 
 .image-container:hover .image-hover-text {
-  opacity: 1; /* Show the text on hover */
+  opacity: 1;
 }

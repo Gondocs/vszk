@@ -76,7 +76,7 @@ export function ImageTrack() {
                 draggable='false'
               />
             </div>
-            <div className='image-hover-text'>Hover Text</div>
+            <div className='image-hover-text'>dsd</div>
           </div>
         ))}
       </div>
