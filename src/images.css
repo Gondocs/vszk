@@ -3,8 +3,6 @@
   width: 100%;
   background-color: white;
   margin: 0rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
   overflow: hidden;
   position: relative;
 }
@@ -13,7 +11,7 @@
   display: flex;
   gap: 4vmin;
   position: absolute;
-  width: 175%;
+  width: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); /* Center the image track vertically */
@@ -30,7 +28,7 @@
 }
 
 .image-container .image {
-  width: 45vmin;
+  min-width: 45vmin;
   height: 70vmin;
   object-fit: cover;
   object-position: 100% 50%;
