@@ -33,7 +33,8 @@
   object-fit: cover;
   object-position: 100% 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-  transition: filter 1s ease;
+  transition: filter 05 ease;
+  border-radius: 4px;
 }
 
 .image-container .image:hover {
@@ -44,15 +45,33 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, 50%);
+  background-color: transparent;
   color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: transform 1s ease, opacity 1s ease;
+  font-size: 50px;
+  text-align: center;
+  z-index: 1;
+  text-shadow: 0 0 10px black; 
 }
 
 .image-container:hover .image-hover-text {
+  transform: translate(-50%, -50%);
   opacity: 1;
+}
+
+
+
+.noSelect {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.noSelect:focus {
+  outline: none !important;
 }
