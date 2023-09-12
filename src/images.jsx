@@ -12,7 +12,7 @@ const imagesWithCaptions = [
   },
   {
     src: 'https://i.ibb.co/0mqFYjQ/still-life-with-scales-justice.jpg',
-    caption: 'Caption 3',
+    caption: 'Össze- hasonlítás',
   },
   {
     src: 'https://i.ibb.co/4tLK5HT/konrad-koller-K-ihp4-S96-Qs-unsplash.jpg',

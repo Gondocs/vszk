@@ -14,7 +14,7 @@
   width: 75%;
   top: 50%;
   left: 3%;
-  transform: translate(0%, -50%); /* Center the image track vertically */
+  transform: translate(0%, -50%);
 }
 
 .image:hover {
