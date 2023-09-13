@@ -62,7 +62,7 @@ export function ImageTrack() {
       {
         transform: `translate(${nextPercentage}%, -50%)`,
       },
-      { duration: 800, fill: 'forwards' }
+      { duration: 650, fill: 'forwards' }
     );
 
     const images = document.getElementsByClassName('image');
@@ -71,7 +71,7 @@ export function ImageTrack() {
         {
           objectPosition: `${100 + nextPercentage}% center`,
         },
-        { duration: 800, fill: 'forwards' }
+        { duration: 650, fill: 'forwards' }
       );
     }
   };
