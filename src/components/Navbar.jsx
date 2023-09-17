@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -10,13 +11,13 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className=" mx-2 flex items-center">
-        {/* Left Side - Logo */}
-        <div className="text-white mr-8">
-          <img src="https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png" alt="Logo" className="h-8 w-8" />
-        </div>
+    
+        <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.3rem]">
+          Főoldal
+        </Link>
 
         {/* Left Side - Szoftverek Dropdown */}
-        <div className="relative group hidden md:block mr-16 ml-16">
+        <div className="relative group hidden md:block mr-16 ml-4">
           <button
             className="text-white focus:outline-none"
             onClick={toggleDropdown}
@@ -38,9 +39,9 @@ const Navbar = () => {
         </div>
 
         {/* Left Side - Összehasonlítás */}
-        <a href="#/" className="text-white hover:text-gray-400 hidden md:block mr-8">
+        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 hidden md:block mr-8">
           Összehasonlítás
-        </a>
+        </Link>
 
         {/* Center - Search Bar */}
         <div className="flex-grow mx-8">
@@ -67,10 +68,14 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Right Side - Login/Register */}
-        <a href="#/" className="text-white hover:text-gray-400 ml-8 ">
-          Belépés/Regisztráció
-        </a>
+        {/* Right Side - Login and Register */}
+        <Link to="/belepes" className="text-white hover:text-gray-400 ml-80" >
+          Belépés
+        </Link>
+        <h5 className='text-white'>/</h5>
+        <Link to="/regisztracio" className="text-white hover:text-gray-400 ml-0">
+          Regisztráció
+        </Link>
       </div>
     </nav>
   );

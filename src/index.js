@@ -5,6 +5,8 @@ import NavbarExample from './components/Navbar';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import { ImageTrack } from './components/images';
+import LoginPage from './components/loginPage';
+import Register from './components/RegisterPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,8 +15,10 @@ root.render(
     <Router> 
       <NavbarExample/>
         <Routes> 
-            <Route path='/' element={<ImageTrack/>}>
-            </Route>
+            <Route path='/' element={<ImageTrack/>}> </Route>
+            <Route path='/belepes' element={<LoginPage/>}>  </Route>
+            <Route path='/regisztracio' element={<Register/>}>  </Route>
+
         </Routes>
     </Router>
 
