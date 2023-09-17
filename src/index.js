@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import NavbarExample from './Navbar';
+import './css/index.css';
+import NavbarExample from './components/Navbar';
 import reportWebVitals from './reportWebVitals';
-import { ImageTrack } from './images';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
+import { ImageTrack } from './components/images';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

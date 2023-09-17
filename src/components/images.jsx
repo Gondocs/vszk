@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './images.css';
+import '../css/images.css';
 
 const imagesWithCaptions = [
   {
