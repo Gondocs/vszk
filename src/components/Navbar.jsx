@@ -48,7 +48,7 @@ const Navbar = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Keresés"
               className="pl-8 pr-10 py-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full"
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
