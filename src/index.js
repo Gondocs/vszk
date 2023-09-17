@@ -3,16 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import NavbarExample from './Navbar';
 import reportWebVitals from './reportWebVitals';
-//import { Cards } from './Mainpage';
 import { ImageTrack } from './images';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <React.StrictMode>
-    
+    <Router> 
       <NavbarExample/>
-      <ImageTrack/>
-      {/*<Cards/>*/}
+        <Routes> 
+            <Route path='/' element={<ImageTrack/>}>
+            </Route>
+        </Routes>
+    </Router>
+
   </React.StrictMode>
 );
 

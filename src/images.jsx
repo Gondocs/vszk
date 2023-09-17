@@ -12,7 +12,7 @@ const imagesWithCaptions = [
   },
   {
     src: 'https://i.ibb.co/0mqFYjQ/still-life-with-scales-justice.jpg',
-    caption: 'Össze- hasonlítás',
+    caption: 'Szoftver hasonlítás',
   },
   {
     src: 'https://i.ibb.co/4tLK5HT/konrad-koller-K-ihp4-S96-Qs-unsplash.jpg',
@@ -31,6 +31,7 @@ const imagesWithCaptions = [
     caption: 'Caption 7',
   },
 ];
+
 
 export function ImageTrack() {
   const [mouseDownAt, setMouseDownAt] = useState(0);
@@ -62,7 +63,7 @@ export function ImageTrack() {
       {
         transform: `translate(${nextPercentage}%, -50%)`,
       },
-      { duration: 650, fill: 'forwards' }
+      { duration: 1000, fill: 'forwards' }
     );
 
     const images = document.getElementsByClassName('image');
@@ -71,7 +72,7 @@ export function ImageTrack() {
         {
           objectPosition: `${100 + nextPercentage}% center`,
         },
-        { duration: 650, fill: 'forwards' }
+        { duration: 1000, fill: 'forwards' }
       );
     }
   };
