@@ -24,7 +24,7 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4">
       <div className="mx-2 flex items-center">
     
-        <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.3rem] hover-scale hover-scale:hover">
+        <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.3rem] hover-scale hover-scalemain hover-scalemain:hover">
           Főoldal
         </Link>
 
@@ -35,7 +35,9 @@ const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <button className='text-white focus:outline-none'>Szoftverek</button>
+        <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} hidden md:block mr-8 hover-scale hover-scale:hover`}>
+          Szoftverek
+        </button>
           {isDropdownVisible && <DropdownMenu />}
         </div>
 

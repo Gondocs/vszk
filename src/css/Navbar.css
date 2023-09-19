@@ -26,3 +26,11 @@
   transform: scale(1.03);
 }
 
+.hover-scalemain {
+  transition: transform 0.5s ease;
+}
+
+.hover-scalemain:hover {
+  transform: scale(1.1);
+}
+
