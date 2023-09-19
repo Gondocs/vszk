@@ -21,7 +21,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your registration logic here
+    // registration logic 
     console.log('Form Data:', formData);
   };
 

@@ -96,6 +96,7 @@ export function ImageTrack() {
                 alt={`img${index + 1}`}
                 src={item.src}
                 draggable='false'
+                loading='lazy'
               />
             </div>
             <div className='image-hover-text'>{item.caption}</div>
