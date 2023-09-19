@@ -17,3 +17,12 @@
 .custom-search-bar {
   width: 20rem;
 }
+
+.hover-scale {
+  transition: transform 0.5s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
