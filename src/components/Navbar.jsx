@@ -20,7 +20,8 @@ const Navbar = () => {
         <div className="relative group hidden md:block mr-16 ml-4">
           <button
             className="text-white focus:outline-none"
-            onClick={toggleDropdown}
+            onMouseOver={() => toggleDropdown()} 
+            onMouseOut={() => {/*toggleDropdown()}*/}} // TODO: need to add keeping dropdown open when hovering over the other options!!! 
           >
             Szoftverek
           </button>

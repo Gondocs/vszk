@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/loginAndRegister.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -24,8 +25,8 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100	 flex flex-col justify-start sm:py-12">
-      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md mt-36">
+    <div className="min-h-screen bg-slate-100	flex flex-col justify-start">
+      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin">
         <h2 className="text-3xl font-semibold text-center">Jelentkezz be a fiókodba</h2>
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div>

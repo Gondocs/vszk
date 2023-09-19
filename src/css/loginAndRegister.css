@@ -1,3 +1,13 @@
 .scrollbar {
     overflow: hidden; 
   }
+
+  .marginRegister {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+  .marginLogin {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }

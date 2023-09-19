@@ -7,14 +7,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ImageTrack } from './components/images';
 import LoginPage from './components/loginPage';
 import Register from './components/RegisterPage';
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
   <React.StrictMode>
-    <RemoveScrollBar />
     <Router> 
       <NavbarExample/>
         <Routes> 
