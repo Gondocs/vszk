@@ -1,17 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+const menuItems = [
+  { label: "Menu 1", link: "/Menu1" },
+  { label: "Menu 2", link: "/Menu2" },
+  { label: "Menu 3", link: "/Menu3" },
+  { label: "Menu 4", link: "/Menu4" },
+  { label: "Menu 5", link: "/Menu5" },
+  { label: "Menu 6", link: "/Menu6" },
+  { label: "Menu 7", link: "/Menu7" },
+  { label: "Menu 8", link: "/Menu8" },
+  { label: "Menu 9", link: "/Menu9" },
+];
 
 const DropdownMenu = () => {
-  return ( // TODO: need to add links to the menu items
-           // TODO: need to add animation for dropdown menu
+  return (
     <div className="absolute bg-gray-800 z-10 w-48 mt-0 py-2 space-y-2 border border-gray-700 text-white focus:outline-none">
       <ul className="mt-2 mb-4 ml-2 mr-2">
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 1</li>
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 2</li>
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 3</li>
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 4</li>
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 5</li>
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 6</li>
-        <li className="block px-4 py-4 text-white hover:bg-gray-600">Menu 7</li>
+        {menuItems.map((item) => (
+    <Link to={item.link}>
+      <button className="block pl-6 pr-24 py-4 text-white hover:bg-gray-600">
+        <li className="">{item.label}</li>
+      </button>
+    </Link>
+
+        ))}
       </ul>
     </div>
   );
