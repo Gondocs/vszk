@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
 
         {/* Left Side - Összehasonlítás */}
-        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 hidden md:block mr-8 hover-scale hover-scale:hover">
+        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 hidden md:block mr-24 hover-scale hover-scale:hover">
           Összehasonlítás
         </Link>
 
@@ -58,11 +58,11 @@ const Navbar = () => {
         </div>
 
         {/* Right Side - Login and Register */}
-        <Link to="/belepes" className="text-white hover:text-gray-400 ml-80 hover-scale hover-scale:hover" >
+        <Link to="/belepes" className="text-white hover:text-gray-400 ml-40 hover-scale hover-scale:hover" >
           Belépés
         </Link>
         <h5 className='text-white'>/</h5>
-        <Link to="/regisztracio" className="text-white hover:text-gray-400 ml-0 hover-scale hover-scale:hover">
+        <Link to="/regisztracio" className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover">
           Regisztráció
         </Link>
       </div>

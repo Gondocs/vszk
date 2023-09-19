@@ -19,7 +19,7 @@
 }
 
 .hover-scale {
-  transition: transform 0.5s ease;
+  transition: transform 0.2s ease;
 }
 
 .hover-scale:hover {
@@ -27,7 +27,7 @@
 }
 
 .hover-scalemain {
-  transition: transform 0.5s ease;
+  transition: transform 0.2s ease;
 }
 
 .hover-scalemain:hover {
