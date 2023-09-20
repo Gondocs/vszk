@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ImageTrack } from './components/images';
 import LoginPage from './components/loginPage';
 import Register from './components/RegisterPage';
+import PageNotFound from './components/PageNotFound';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,7 +20,7 @@ root.render(
             <Route path='/' element={<ImageTrack/>}> </Route>
             <Route path='/belepes' element={<LoginPage/>}>  </Route>
             <Route path='/regisztracio' element={<Register/>}>  </Route>
-
+            <Route path='*' element={<PageNotFound/>}> </Route>
         </Routes>
     </Router>
   </React.StrictMode>

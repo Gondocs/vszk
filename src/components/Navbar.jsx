@@ -4,13 +4,8 @@ import DropdownMenu from './dropDown';
 import '../css/Navbar.css';
 
 const Navbar = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
