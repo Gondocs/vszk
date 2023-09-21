@@ -41,6 +41,8 @@ export function HomePage() {
   const sectionRef = useRef(null);
   const howtoRef = useRef(null);
   const footerRef = useRef(null);
+  const pictureRef = useRef(null);
+
 
   useEffect(() => {
     const headerObserver = new IntersectionObserver((entries) => {
@@ -60,6 +62,14 @@ export function HomePage() {
       });
     });
 
+    const pictureObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          pictureRef.current.classList.add('fadeInFromRight');
+        }
+      });
+    });
+
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -71,7 +81,7 @@ export function HomePage() {
     const footerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          footerRef.current.classList.add('fadeInFromLeft');
+          footerRef.current.classList.add('fadeInFromRight');
         }
       });
     });
@@ -80,12 +90,14 @@ export function HomePage() {
     sectionObserver.observe(sectionRef.current);
     footerObserver.observe(footerRef.current);
     howtoObserver.observe(howtoRef.current);
+    pictureObserver.observe(pictureRef.current);
 
     return () => {
       headerObserver.disconnect();
       sectionObserver.disconnect();
       footerObserver.disconnect();
       howtoObserver.disconnect();
+      pictureObserver.disconnect();
     };
   }, []);
 
@@ -181,7 +193,7 @@ export function HomePage() {
               Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
             </p>
           </div>
-          <div>
+          <div ref={pictureRef}>
             <Link to="/osszehasonlitas">
               <img
                 src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"

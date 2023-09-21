@@ -40,5 +40,5 @@
 }
 
 .fadeInFromRight {
-  animation: slideInFromLeft 1.5s ease-in-out;
+  animation: slideInFromRight 1.5s ease-in-out;
 }
