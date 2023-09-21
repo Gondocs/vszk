@@ -8,6 +8,7 @@ import { ImageTrack } from './components/images';
 import LoginPage from './components/loginPage';
 import Register from './components/RegisterPage';
 import PageNotFound from './components/PageNotFound';
+import HomePage from './components/homepage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +18,7 @@ root.render(
     <Router> 
       <NavbarExample/>
         <Routes> 
-            <Route path='/' element={<ImageTrack/>}> </Route>
+            <Route path='/' element={<ImageTrack />}> </Route>
             <Route path='/belepes' element={<LoginPage/>}>  </Route>
             <Route path='/regisztracio' element={<Register/>}>  </Route>
             <Route path='*' element={<PageNotFound/>}> </Route>
