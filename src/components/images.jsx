@@ -51,7 +51,7 @@ export function ImageTrack() {
     if (mouseDownAt === 0) return;
 
     const mouseDelta = mouseDownAt - e.clientX;
-    const maxDelta = window.innerWidth / 3;
+    const maxDelta = window.innerWidth / 2;
 
     const newPercentage = (mouseDelta / maxDelta) * -100;
     const nextPercentage = Math.min(Math.max(prevPercentage + newPercentage, -100), 0);
