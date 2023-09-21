@@ -174,7 +174,7 @@ export function HomePage() {
         </div>
       </div>
 
-      <header className="bg-gray-800 py-8 mt-0 rounded-lg" ref={headerRef}>
+      <header className="bg-gray-800 py-8 mt-0 rounded-full mx-16" ref={headerRef}>
       <div className="container mx-12 text-white">
         <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
         <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
@@ -204,10 +204,10 @@ export function HomePage() {
       </div>
     </section>
 
-          <section className="bg-gray-200 py-16 mb-12"  ref={howtoRef}>
+          <section className="bg-gray-200 py-8 mb-8 rounded-full mx-16"  ref={howtoRef}>
         <div className="container mx-auto">
-          <h2 className="text-4xl font-semibold mb-8 text-center">Hogyan működik?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="text-4xl font-semibold mb-8 text-center hover-scale hover-scale:hover">Hogyan működik?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 
             <div className="bg-white rounded-lg p-6 shadow-md">
               <h3 className="text-xl font-semibold mb-4">
