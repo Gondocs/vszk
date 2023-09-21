@@ -43,8 +43,13 @@ export function HomePage() {
   const footerRef = useRef(null);
   const pictureRef = useRef(null);
 
+  const [mouseDownAt, setMouseDownAt] = useState(0);
+  const [prevPercentage, setPrevPercentage] = useState(0);
+  const [percentage, setPercentage] = useState(0);
+
 
   useEffect(() => {
+
     const headerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -101,12 +106,6 @@ export function HomePage() {
     };
   }, []);
 
-
-
-  const [mouseDownAt, setMouseDownAt] = useState(0);
-  const [prevPercentage, setPrevPercentage] = useState(0);
-  const [percentage, setPercentage] = useState(0);
-
   const handleMouseDown = (e) => {
     setMouseDownAt(e.clientX);
   };
@@ -148,6 +147,7 @@ export function HomePage() {
 
   return (
     <>
+
         <div className='body noSelect'>
         <div
           className='image-track'
@@ -173,8 +173,6 @@ export function HomePage() {
           ))}
         </div>
       </div>
-
-
 
       <header className="bg-gray-800 py-8 mt-0 rounded-lg" ref={headerRef}>
       <div className="container mx-12 text-white">
