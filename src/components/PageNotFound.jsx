@@ -11,18 +11,15 @@ const NotFound = () => {
     const headerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Add the animation class when the header is in the viewport
           headerRef.current.classList.add('fadeIn');
         }
       });
     });
 
 
-    // Start observing the header, section, and footer elements
     headerObserver.observe(headerRef.current);
 
 
-    // Clean up the observers when the component unmounts
     return () => {
       headerObserver.disconnect();
     };

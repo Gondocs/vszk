@@ -35,7 +35,7 @@ const imagesWithCaptions = [
 ];
 
 
-export function ImageTrack() {
+export function HomePage() {
 
   const headerRef = useRef(null);
   const sectionRef = useRef(null);
@@ -45,7 +45,6 @@ export function ImageTrack() {
     const headerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Add the animation class when the header is in the viewport
           headerRef.current.classList.add('fadeInFromLeft');
         }
       });
@@ -54,7 +53,6 @@ export function ImageTrack() {
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Add the animation class when the section is in the viewport
           sectionRef.current.classList.add('fadeInFromLeft');
         }
       });
@@ -63,18 +61,15 @@ export function ImageTrack() {
     const footerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Add the animation class when the footer is in the viewport
           footerRef.current.classList.add('fadeInFromLeft');
         }
       });
     });
 
-    // Start observing the header, section, and footer elements
     headerObserver.observe(headerRef.current);
     sectionObserver.observe(sectionRef.current);
     footerObserver.observe(footerRef.current);
 
-    // Clean up the observers when the component unmounts
     return () => {
       headerObserver.disconnect();
       sectionObserver.disconnect();
@@ -165,12 +160,11 @@ export function ImageTrack() {
       </div>
     </header>
 
-      {/* Latest Blog Posts Section */}
       <section className="bg-white py-16">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div ref={sectionRef} className="animated-element">
-            {/* Add the animation class here */}
+
             <h2 className="text-4xl font-semibold mb-4">Próbáld ki az összehasonlítást</h2>
             <p className="text-gray-700 text-xl">
               Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
