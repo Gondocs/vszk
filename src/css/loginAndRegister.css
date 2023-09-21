@@ -3,24 +3,26 @@
 }
 
 .marginRegister {
-  margin-top: 5%;
+  margin-top: 1%;
   margin-bottom: 5%;
 }
 
 .marginLogin {
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 9%;
+  margin-bottom: 9%;
 }
 
-@keyframes FadeIn {
+@keyframes slideInFromBottom {
   0% {
+    transform: translateY(100%);
     opacity: 0;
   }
   100% {
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
-.fadeIn {
-  animation: FadeIn 5s ease-in-out;
+.fadeInFromBottom {
+  animation: slideInFromBottom 1.5s ease-in-out;
 }

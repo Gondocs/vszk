@@ -19,7 +19,7 @@ function LoginPage() {
     const headerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          headerRef.current.classList.add('FadeIn');
+          headerRef.current.classList.add('fadeInFromBottom');
         }
       });
     });
@@ -42,8 +42,8 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100	flex flex-col justify-start" >
-      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin" ref={headerRef}>
+    <div className="min-h-screen bg-slate-100	flex flex-col justify-start " >
+      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin " ref={headerRef}>
         <h2 className="text-3xl font-semibold text-center">Jelentkezz be a fiókodba</h2>
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div>
@@ -103,7 +103,7 @@ function LoginPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Bejelentkezés
             </button>
