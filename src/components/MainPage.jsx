@@ -195,7 +195,6 @@ export function HomePage() {
       </div>
     </section>
 
-    
       <div className='bg-slate-100 pb-12'>
           <section className="bg-gray-200 py-8 rounded-full mx-16"  ref={howtoRef}>
         <div className="container mx-auto">
@@ -238,9 +237,6 @@ export function HomePage() {
         </div>
       </section>
     </div>
-    
-
-
 </>
   );
 }
