@@ -8,7 +8,6 @@ import { ImageTrack } from './components/images';
 import LoginPage from './components/loginPage';
 import Register from './components/RegisterPage';
 import PageNotFound from './components/PageNotFound';
-import HomePage from './components/homepage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

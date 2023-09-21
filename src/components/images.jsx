@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../css/images.css';
+import '../css/Mainpage.css';
+import { Link } from 'react-router-dom';
 
 const imagesWithCaptions = [
   {
@@ -108,9 +110,9 @@ export function ImageTrack() {
 
 
 
-      <header className="bg-gray-800 py-4 mt-0 rounded-lg">
+      <header className="bg-gray-800 py-8 mt-0 rounded-lg">
         <div className="container mx-12 text-white">
-          <h1 className="text-5xl font-semibold mb-4">Üdvözöllek a Szoftverkereső weboldalon</h1>
+          <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
           <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
         </div>
       </header>
@@ -120,22 +122,18 @@ export function ImageTrack() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-4xl font-semibold mb-4">Featured Article</h2>
-              <p className="text-gray-700">
-                Discover our latest and greatest article that will change your life.
+              <h2 className="text-4xl font-semibold mb-4">Próbáld ki az összehasonlítást</h2>
+              <p className="text-gray-700 text-xl">
+                Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
               </p>
-              <a
-                href="%#"
-                className="text-blue-600 hover:underline mt-4 inline-block"
-              >
-                Read More
-              </a>
             </div>
             <div>
+              <Link to="/osszehasonlitas">
               <img
-                src="https://via.placeholder.com/400x300"
-                alt="Featured Article"
-                className="rounded-lg" />
+                src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
+                alt="Összehasonlítás"
+                className="rounded-full hover-scale hover-scale:hover ml-16" />
+              </Link>
             </div>
           </div>
         </div>
@@ -197,33 +195,32 @@ export function ImageTrack() {
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="bg-blue-600 py-16 text-white">
+      <section className="bg-gray-800 py-16 text-white border-t-4 border-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-semibold mb-4">Stay Updated</h2>
+          <h2 className="text-4xl font-semibold mb-4">Maradjon naprakész</h2>
           <p className="text-lg mb-8">
-            Subscribe to our newsletter for the latest updates and exclusive content.
+          Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a legújabb hozzáadott szoftverekért.
           </p>
           <div className="max-w-md mx-auto">
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Írja be az email címét"
               className="bg-white w-full p-3 rounded-full" />
             <button
-              className="bg-yellow-400 text-blue-600 px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-white mt-4"
+              className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8"
             >
-              Subscribe
+              Feliratkozás
             </button>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-blue-600 py-4">
-        <div className="container mx-auto text-center text-white">
-          <p className="text-lg">&copy; 2023 My Website</p>
-        </div>
-      </footer>
+      <footer className="bg-gray-800 py-3 border-t-4 border-white footer">
+  <div className="text-center text-white">
+    <p className="text-lg">2023 SzoftverKereső</p>
+  </div>
+</footer>
+
 </>
   );
 }

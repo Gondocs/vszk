@@ -1,41 +1,14 @@
-.mainpage {
-  background-color: #F5FBFF;
-  width: 100%;
+.footer {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: flex-start;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: auto; /* Make the footer take up the full height of its parent */
 }
 
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: auto;
-  max-width: 85rem;
+.hover-scale {
+  transition: transform 0.5s ease;
 }
 
-.mainchecks {
-  background-color: #F5FBFF;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: flex-start;
-}
-
-.butttons {
-  font-size: 1.2rem;
-  padding: 0.6rem;
-  width: 8rem;
-  margin: 2px;
-}
-
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-  width: 150%;
-  height: 150%;
+.hover-scale:hover {
+  transform: scale(1.1);
 }
