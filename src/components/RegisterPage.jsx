@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/loginAndRegister.css';
 
@@ -25,9 +25,30 @@ const Register = () => {
     console.log('Form Data:', formData);
   };
 
+
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          headerRef.current.classList.add('fadeInFromBottom');
+        }
+      });
+    });
+
+
+    headerObserver.observe(headerRef.current);
+
+
+    return () => {
+      headerObserver.disconnect();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-100	 flex flex-col items-center justify-center">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister"  ref={headerRef}>
         <h2 className="text-3xl font-semibold text-center">Regisztráció</h2>
 
 
