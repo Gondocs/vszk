@@ -104,10 +104,14 @@ export function ImageTrack() {
           ))}
         </div>
       </div>
-      <header className="bg-gray-800 py-4 mt-8">
-        <div className="container mx-auto text-white">
-          <h1 className="text-5xl font-semibold">Welcome to My Website</h1>
-          <p className="text-lg">Your go-to source for amazing content.</p>
+
+
+
+
+      <header className="bg-gray-800 py-4 mt-0 rounded-lg">
+        <div className="container mx-12 text-white">
+          <h1 className="text-5xl font-semibold mb-4">Üdvözöllek a Szoftverkereső weboldalon</h1>
+          <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
         </div>
       </header>
 

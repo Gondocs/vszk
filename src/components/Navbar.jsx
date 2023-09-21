@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-800 p-4 rounded-lg">
       <div className="mx-2 flex items-center">
     
         <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.3rem] hover-scale hover-scalemain hover-scalemain:hover">
