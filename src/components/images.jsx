@@ -39,6 +39,7 @@ export function ImageTrack() {
 
   const headerRef = useRef(null);
   const sectionRef = useRef(null);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     const headerObserver = new IntersectionObserver((entries) => {
@@ -54,19 +55,30 @@ export function ImageTrack() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // Add the animation class when the section is in the viewport
-          sectionRef.current.classList.add('fadeInFromLeft');
+          sectionRef.current.classList.add('slideInFromBottom');
         }
       });
     });
 
-    // Start observing the header and section elements
+    const footerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add the animation class when the footer is in the viewport
+          footerRef.current.classList.add('slideInFromBottom');
+        }
+      });
+    });
+
+    // Start observing the header, section, and footer elements
     headerObserver.observe(headerRef.current);
     sectionObserver.observe(sectionRef.current);
+    footerObserver.observe(footerRef.current);
 
     // Clean up the observers when the component unmounts
     return () => {
       headerObserver.disconnect();
       sectionObserver.disconnect();
+      footerObserver.disconnect();
     };
   }, []);
 
@@ -177,17 +189,18 @@ export function ImageTrack() {
       </div>
     </section>
 
-      <section className="bg-gray-800 py-16 text-white border-t-4 border-white">
+    <section className="bg-gray-800 py-16 text-white border-t-4 border-white" ref={footerRef}>
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-semibold mb-6">Maradjon naprakész</h2>
           <p className="text-lg mb-8">
-          Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a legújabb hozzáadott szoftverekért.
+            Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a legújabb hozzáadott szoftverekért.
           </p>
           <div className="max-w-md mx-auto">
             <input
               type="email"
               placeholder="Írja be az email címét"
-              className="bg-white w-full p-3 rounded-full" />
+              className="bg-white w-full p-3 rounded-full"
+            />
             <button
               className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8"
             >
@@ -198,10 +211,10 @@ export function ImageTrack() {
       </section>
 
       <footer className="bg-gray-800 py-3 border-t-4 border-white footer">
-  <div className="text-center text-white">
-    <p className="text-lg">2023 SzoftverKereső</p>
-  </div>
-</footer>
+        <div className="text-center text-white">
+          <p className="text-lg">2023 SzoftverKereső</p>
+        </div>
+      </footer>
 
 </>
   );
