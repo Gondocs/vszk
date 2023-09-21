@@ -255,10 +255,10 @@ export function HomePage() {
             <input
               type="email"
               placeholder="Írja be az email címét"
-              className="bg-white w-full p-3 rounded-full"
+              className="bg-white w-full p-3 rounded-full text-black pl-6 pr-6 text-center text-lg"
             />
             <button
-              className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8"
+              className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg"
             >
               Feliratkozás
             </button>
