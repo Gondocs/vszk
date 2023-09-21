@@ -55,7 +55,7 @@ export function ImageTrack() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // Add the animation class when the section is in the viewport
-          sectionRef.current.classList.add('slideInFromBottom');
+          sectionRef.current.classList.add('fadeInFromLeft');
         }
       });
     });
@@ -64,7 +64,7 @@ export function ImageTrack() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // Add the animation class when the footer is in the viewport
-          footerRef.current.classList.add('slideInFromBottom');
+          footerRef.current.classList.add('fadeInFromLeft');
         }
       });
     });
