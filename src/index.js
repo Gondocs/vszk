@@ -8,6 +8,7 @@ import LoginPage from './components/loginPage';
 import Register from './components/RegisterPage';
 import PageNotFound from './components/PageNotFound';
 import {HomePage} from './components/MainPage';
+import { Footer } from './components/Footer';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,10 +19,10 @@ root.render(
       <NavbarExample/>
         <Routes> 
             <Route path='/' element={<HomePage/>}> </Route>
-            <Route path='/belepes' element={<LoginPage/>}>  </Route>
-            <Route path='/regisztracio' element={<Register/>}>  </Route>
-            <Route path='*' element={<PageNotFound/>}> </Route>
-            <Route path='/szoftverek'> </Route>
+            <Route path='/belepes' element={ <> <LoginPage/> <Footer/> </>}>  </Route>
+            <Route path='/regisztracio' element={ <> <Register/> <Footer/> </>}>  </Route>
+            <Route path='*' element={<> <PageNotFound/> <Footer/> </>}> </Route>
+            <Route path='/szoftverek' element={<Footer/>} > </Route>
         </Routes>
     </Router>
   </React.StrictMode>

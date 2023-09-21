@@ -1,11 +1,32 @@
 
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import '../css/Mainpage.css';
 
 export function Footer() {
+
+    const footerRef = useRef(null);
+
+    useEffect(() => {
+
+        const footerObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              footerRef.current.classList.add('fadeInFromRight');
+            }
+          });
+        });
+
+        footerObserver.observe(footerRef.current);
+
+        return () => {
+            footerObserver.disconnect();
+          };
+        }, []);
+
  return (
     <>
-    <section className="bg-gray-800 py-16 text-white border-t-4 border-white rounded-lg">
+    <div className='bg-slate-100'>
+    <section className="bg-gray-800 py-16 text-white border-t-4 border-white rounded-lg" ref={footerRef}>
     <div className="container mx-auto text-center">
       <h2 className="text-4xl font-semibold mb-6 hover-scale-small:hover hover-scale-small">Maradjon naprakész</h2>
       <p className="text-lg mb-8">
@@ -31,6 +52,7 @@ export function Footer() {
       <p className="text-lg hover-scale-small:hover hover-scale-small">2023 SzoftverKereső</p>
     </div>
   </footer>
+    </div>
   </>
  );
 }
