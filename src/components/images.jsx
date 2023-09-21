@@ -37,21 +37,36 @@ const imagesWithCaptions = [
 
 export function ImageTrack() {
 
-  const elementRef = useRef(null);
+  const headerRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
+    const headerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          elementRef.current.classList.add('fadeInFromLeft');
+          // Add the animation class when the header is in the viewport
+          headerRef.current.classList.add('fadeInFromLeft');
         }
       });
     });
 
-    observer.observe(elementRef.current);
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add the animation class when the section is in the viewport
+          sectionRef.current.classList.add('fadeInFromLeft');
+        }
+      });
+    });
 
+    // Start observing the header and section elements
+    headerObserver.observe(headerRef.current);
+    sectionObserver.observe(sectionRef.current);
+
+    // Clean up the observers when the component unmounts
     return () => {
-      observer.disconnect();
+      headerObserver.disconnect();
+      sectionObserver.disconnect();
     };
   }, []);
 
@@ -131,18 +146,18 @@ export function ImageTrack() {
 
 
 
-      <header className="bg-gray-800 py-8 mt-0 rounded-lg">
-        <div className="container mx-12 text-white">
-          <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
-          <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
-        </div>
-      </header>
+      <header className="bg-gray-800 py-8 mt-0 rounded-lg" ref={headerRef}>
+      <div className="container mx-12 text-white">
+        <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
+        <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
+      </div>
+    </header>
 
       {/* Latest Blog Posts Section */}
       <section className="bg-white py-16">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div ref={elementRef} className="animated-element">
+          <div ref={sectionRef} className="animated-element">
             {/* Add the animation class here */}
             <h2 className="text-4xl font-semibold mb-4">Próbáld ki az összehasonlítást</h2>
             <p className="text-gray-700 text-xl">

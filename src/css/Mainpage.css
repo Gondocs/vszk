@@ -27,3 +27,18 @@
 .fadeInFromLeft {
   animation: slideInFromLeft 1s ease-in-out;
 }
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slideInFromBottom {
+  animation: slideInFromBottom 1s ease-in-out;
+}
