@@ -1,10 +1,38 @@
+import { useEffect, useRef } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../css/PageNotFound.css';
 
 const NotFound = () => {
+
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add the animation class when the header is in the viewport
+          headerRef.current.classList.add('fadeIn');
+        }
+      });
+    });
+
+
+    // Start observing the header, section, and footer elements
+    headerObserver.observe(headerRef.current);
+
+
+    // Clean up the observers when the component unmounts
+    return () => {
+      headerObserver.disconnect();
+    };
+  }, []);
+
+
+
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
-      <div className="bg-white p-12 rounded-lg shadow-lg">
+      <div className="bg-white p-12 rounded-lg shadow-lg"  ref={headerRef}>
         <h1 className="text-5xl font-semibold text-gray-800 mb-8">404 - Az oldal nem található</h1>
         <p className="text-gray-600 mt-2 mb-8 text-2xl">Az általad keresett oldal nem létezik.</p>
         <div className='items-center justify-center flex-col flex'>
