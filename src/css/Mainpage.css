@@ -1,8 +1,8 @@
 .footer {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: auto; /* Make the footer take up the full height of its parent */
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
 .hover-scale {
@@ -11,4 +11,19 @@
 
 .hover-scale:hover {
   transform: scale(1.1);
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fadeInFromLeft {
+  animation: slideInFromLeft 1s ease-in-out;
 }

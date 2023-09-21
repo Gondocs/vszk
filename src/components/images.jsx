@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../css/images.css';
 import '../css/Mainpage.css';
 import { Link } from 'react-router-dom';
@@ -36,6 +36,27 @@ const imagesWithCaptions = [
 
 
 export function ImageTrack() {
+
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          elementRef.current.classList.add('fadeInFromLeft');
+        }
+      });
+    });
+
+    observer.observe(elementRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+
+
   const [mouseDownAt, setMouseDownAt] = useState(0);
   const [prevPercentage, setPrevPercentage] = useState(0);
   const [percentage, setPercentage] = useState(0);
@@ -117,87 +138,33 @@ export function ImageTrack() {
         </div>
       </header>
 
-      {/* Featured Section */}
+      {/* Latest Blog Posts Section */}
       <section className="bg-white py-16">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-4xl font-semibold mb-4">Próbáld ki az összehasonlítást</h2>
-              <p className="text-gray-700 text-xl">
-                Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
-              </p>
-            </div>
-            <div>
-              <Link to="/osszehasonlitas">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div ref={elementRef} className="animated-element">
+            {/* Add the animation class here */}
+            <h2 className="text-4xl font-semibold mb-4">Próbáld ki az összehasonlítást</h2>
+            <p className="text-gray-700 text-xl">
+              Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
+            </p>
+          </div>
+          <div>
+            <Link to="/osszehasonlitas">
               <img
                 src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
                 alt="Összehasonlítás"
-                className="rounded-full hover-scale hover-scale:hover ml-16" />
-              </Link>
-            </div>
+                className="rounded-full hover-scale hover-scale:hover ml-16"
+              />
+            </Link>
           </div>
         </div>
-      </section>
-
-      {/* Latest Blog Posts Section */}
-      <section className="bg-gray-200 py-16">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-semibold mb-8 text-center">Latest Blog Posts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Blog Post 1 */}
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-4">
-                Blog Post 1 Title
-              </h3>
-              <p className="text-gray-700">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.
-              </p>
-              <a
-                href="%#"
-                className="text-blue-600 hover:underline mt-4 inline-block"
-              >
-                Read More
-              </a>
-            </div>
-
-            {/* Blog Post 2 */}
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-4">
-                Blog Post 2 Title
-              </h3>
-              <p className="text-gray-700">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.
-              </p>
-              <a
-                href="#%"
-                className="text-blue-600 hover:underline mt-4 inline-block"
-              >
-                Read More
-              </a>
-            </div>
-
-            {/* Blog Post 3 */}
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-4">
-                Blog Post 3 Title
-              </h3>
-              <p className="text-gray-700">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.
-              </p>
-              <a
-                href="#%"
-                className="text-blue-600 hover:underline mt-4 inline-block"
-              >
-                Read More
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
+    </section>
 
       <section className="bg-gray-800 py-16 text-white border-t-4 border-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-semibold mb-4">Maradjon naprakész</h2>
+          <h2 className="text-4xl font-semibold mb-6">Maradjon naprakész</h2>
           <p className="text-lg mb-8">
           Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a legújabb hozzáadott szoftverekért.
           </p>

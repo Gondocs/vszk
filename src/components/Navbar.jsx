@@ -17,9 +17,9 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-800 p-4 rounded-lg">
-      <div className="mx-2 flex items-center">
+      <div className="flex items-center">
     
-        <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.3rem] hover-scale hover-scalemain hover-scalemain:hover">
+        <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover">
           Főoldal
         </Link>
 
@@ -30,14 +30,14 @@ const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-        <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} hidden md:block mr-8 hover-scale hover-scale:hover`}>
+        <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} hidden md:block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}>
           Szoftverek
         </button>
           {isDropdownVisible && <DropdownMenu />}
         </div>
 
         {/* Left Side - Összehasonlítás */}
-        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 hidden md:block mr-24 hover-scale hover-scale:hover">
+        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 hidden md:block mr-24 hover-scale hover-scale:hover text-[1.2rem]">
           Összehasonlítás
         </Link>
 
@@ -53,11 +53,11 @@ const Navbar = () => {
         </div>
 
         {/* Right Side - Login and Register */}
-        <Link to="/belepes" className="text-white hover:text-gray-400 ml-40 hover-scale hover-scale:hover" >
+        <Link to="/belepes" className="text-white hover:text-gray-400 ml-40 hover-scale hover-scale:hover text-[1rem]" >
           Belépés
         </Link>
         <h5 className='text-white'>/</h5>
-        <Link to="/regisztracio" className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover">
+        <Link to="/regisztracio" className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]">
           Regisztráció
         </Link>
       </div>
