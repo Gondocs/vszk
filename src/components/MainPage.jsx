@@ -174,7 +174,7 @@ export function HomePage() {
         </div>
       </div>
 
-      <header className="bg-gray-800 py-8 mt-0 rounded-full mx-16" ref={headerRef}>
+      <header className="bg-gray-800 py-8 mt-0 rounded-full mx-16 hover-scale-small:hover hover-scale-small" ref={headerRef}>
       <div className="container mx-12 text-white">
         <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
         <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
@@ -186,7 +186,7 @@ export function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div ref={sectionRef} className="animated-element">
 
-            <h2 className="text-4xl font-semibold mb-4">Próbáld ki az összehasonlítást</h2>
+            <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">Próbáld ki az összehasonlítást</h2>
             <p className="text-gray-700 text-xl">
               Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
             </p>
@@ -206,10 +206,10 @@ export function HomePage() {
 
           <section className="bg-gray-200 py-8 mb-8 rounded-full mx-16"  ref={howtoRef}>
         <div className="container mx-auto">
-          <h2 className="text-4xl font-semibold mb-8 text-center hover-scale hover-scale:hover">Hogyan működik?</h2>
+          <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">Hogyan működik?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
               <h3 className="text-xl font-semibold mb-4">
                 Válasszon ki egy szimpatikus szoftvert
               </h3>
@@ -221,7 +221,7 @@ export function HomePage() {
               </Link>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
               <h3 className="text-xl font-semibold mb-4">
                 Kattintson az összehasonlításra
               </h3>
@@ -233,7 +233,7 @@ export function HomePage() {
               </Link>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
               <h3 className="text-xl font-semibold mb-4">
               Döntsön a legjobb szoftver mellett
               </h3>
@@ -247,18 +247,18 @@ export function HomePage() {
 
     <section className="bg-gray-800 py-16 text-white border-t-4 border-white" ref={footerRef}>
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-semibold mb-6">Maradjon naprakész</h2>
+          <h2 className="text-4xl font-semibold mb-6 hover-scale-small:hover hover-scale-small">Maradjon naprakész</h2>
           <p className="text-lg mb-8">
             Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a legújabb hozzáadott szoftverekért.
           </p>
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto ">
             <input
               type="email"
               placeholder="Írja be az email címét"
-              className="bg-white w-full p-3 rounded-full text-black pl-6 pr-6 text-center text-lg"
+              className="bg-white w-full p-3 rounded-full text-black pl-6 pr-6 text-center text-lg hover-scale-small:hover hover-scale-small"
             />
             <button
-              className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg"
+              className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
             >
               Feliratkozás
             </button>
@@ -268,7 +268,7 @@ export function HomePage() {
 
       <footer className="bg-gray-800 py-3 border-t-4 border-white footer">
         <div className="text-center text-white">
-          <p className="text-lg">2023 SzoftverKereső</p>
+          <p className="text-lg hover-scale-small:hover hover-scale-small">2023 SzoftverKereső</p>
         </div>
       </footer>
 

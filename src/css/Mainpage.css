@@ -42,3 +42,11 @@
 .fadeInFromRight {
   animation: slideInFromRight 1.5s ease-in-out;
 }
+
+.hover-scale-small {
+  transition: transform 0.5s ease;
+}
+
+.hover-scale-small:hover {
+  transform: scale(1.05);
+}
