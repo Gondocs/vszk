@@ -40,7 +40,6 @@ export function HomePage() {
   const headerRef = useRef(null);
   const sectionRef = useRef(null);
   const howtoRef = useRef(null);
-  const footerRef = useRef(null);
   const pictureRef = useRef(null);
 
   const [mouseDownAt, setMouseDownAt] = useState(0);
@@ -83,24 +82,14 @@ export function HomePage() {
       });
     });
 
-    const footerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          footerRef.current.classList.add('fadeInFromRight');
-        }
-      });
-    });
-
     headerObserver.observe(headerRef.current);
     sectionObserver.observe(sectionRef.current);
-    footerObserver.observe(footerRef.current);
     howtoObserver.observe(howtoRef.current);
     pictureObserver.observe(pictureRef.current);
 
     return () => {
       headerObserver.disconnect();
       sectionObserver.disconnect();
-      footerObserver.disconnect();
       howtoObserver.disconnect();
       pictureObserver.disconnect();
     };
@@ -148,7 +137,7 @@ export function HomePage() {
   return (
     <>
 
-        <div className='body noSelect'>
+        <div className='body noSelect bg-slate-100'>
         <div
           className='image-track'
           id='image-track'
@@ -174,14 +163,16 @@ export function HomePage() {
         </div>
       </div>
 
+      <div className='bg-slate-100'>
       <header className="bg-gray-800 py-8 mt-0 rounded-full mx-16 hover-scale-small:hover hover-scale-small" ref={headerRef}>
-      <div className="container mx-12 text-white">
-        <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
-        <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
+            <div className="container mx-12 text-white">
+              <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
+              <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
+            </div>
+          </header>
       </div>
-    </header>
 
-      <section className="bg-white py-16">
+      <section className="bg-slate-100 py-16">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div ref={sectionRef} className="animated-element">
@@ -204,7 +195,9 @@ export function HomePage() {
       </div>
     </section>
 
-          <section className="bg-gray-200 py-8 mb-8 rounded-full mx-16"  ref={howtoRef}>
+    
+      <div className='bg-slate-100 pb-12'>
+          <section className="bg-gray-200 py-8 rounded-full mx-16"  ref={howtoRef}>
         <div className="container mx-auto">
           <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">Hogyan működik?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -244,33 +237,9 @@ export function HomePage() {
           </div>
         </div>
       </section>
+    </div>
+    
 
-    <section className="bg-gray-800 py-16 text-white border-t-4 border-white rounded-lg" ref={footerRef}>
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-semibold mb-6 hover-scale-small:hover hover-scale-small">Maradjon naprakész</h2>
-          <p className="text-lg mb-8">
-            Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a legújabb hozzáadott szoftverekért.
-          </p>
-          <div className="max-w-md mx-auto ">
-            <input
-              type="email"
-              placeholder="Írja be az email címét"
-              className="bg-white w-full p-3 rounded-full text-black pl-6 pr-6 text-center text-lg hover-scale-small:hover hover-scale-small"
-            />
-            <button
-              className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
-            >
-              Feliratkozás
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <footer className="bg-gray-800 py-3 border-t-4 border-white footer rounded-lg">
-        <div className="text-center text-white">
-          <p className="text-lg hover-scale-small:hover hover-scale-small">2023 SzoftverKereső</p>
-        </div>
-      </footer>
 
 </>
   );

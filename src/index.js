@@ -18,7 +18,7 @@ root.render(
     <Router> 
       <NavbarExample/>
         <Routes> 
-            <Route path='/' element={<HomePage/>}> </Route>
+            <Route path='/' element={ <> <HomePage/> <Footer/> </>}> </Route>
             <Route path='/belepes' element={ <> <LoginPage/> <Footer/> </>}>  </Route>
             <Route path='/regisztracio' element={ <> <Register/> <Footer/> </>}>  </Route>
             <Route path='*' element={<> <PageNotFound/> <Footer/> </>}> </Route>
