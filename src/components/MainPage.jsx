@@ -245,7 +245,7 @@ export function HomePage() {
         </div>
       </section>
 
-    <section className="bg-gray-800 py-16 text-white border-t-4 border-white" ref={footerRef}>
+    <section className="bg-gray-800 py-16 text-white border-t-4 border-white rounded-lg" ref={footerRef}>
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-semibold mb-6 hover-scale-small:hover hover-scale-small">Maradjon naprakész</h2>
           <p className="text-lg mb-8">
@@ -266,7 +266,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <footer className="bg-gray-800 py-3 border-t-4 border-white footer">
+      <footer className="bg-gray-800 py-3 border-t-4 border-white footer rounded-lg">
         <div className="text-center text-white">
           <p className="text-lg hover-scale-small:hover hover-scale-small">2023 SzoftverKereső</p>
         </div>
