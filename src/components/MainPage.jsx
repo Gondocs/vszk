@@ -216,7 +216,7 @@ export function HomePage() {
               <p className="text-gray-700">
                 Válasszon ki egy szoftvert a kínálatunkból, amely megfelel az igényeinek.
               </p>
-              <Link to="/szoftverek" className="text-blue-600 hover:underline mt-4 inline-block"> 
+              <Link to="/szoftverek" className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"> 
                 Minden szoftver
               </Link>
             </div>
@@ -228,7 +228,7 @@ export function HomePage() {
               <p className="text-gray-700">
                 A kiválasztott szoftverek összevetésre kerülnek egymással, hogy megtalálja a legjobbat.
               </p>
-              <Link to="/osszehasonlitas" className="text-blue-600 hover:underline mt-4 inline-block"> 
+              <Link to="/osszehasonlitas" className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"> 
                 Összehasonlítás
               </Link>
             </div>
