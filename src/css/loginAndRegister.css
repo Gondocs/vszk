@@ -1,13 +1,26 @@
 .scrollbar {
-    overflow: hidden; 
-  }
+  overflow: hidden;
+}
 
-  .marginRegister {
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
+.marginRegister {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 
-  .marginLogin {
-    margin-top: 5%;
-    margin-bottom: 5%;
+.marginLogin {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: FadeIn 5s ease-in-out;
+}

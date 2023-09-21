@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../css/loginAndRegister.css';
 
 function LoginPage() {
@@ -13,20 +13,37 @@ function LoginPage() {
     setPassword(e.target.value);
   };
 
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          headerRef.current.classList.add('FadeIn');
+        }
+      });
+    });
+
+
+    headerObserver.observe(headerRef.current);
+
+
+    return () => {
+      headerObserver.disconnect();
+    };
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here, you can add your login logic, such as sending a request to your server for authentication.
 
-    // For this example, let's just log the entered email and password.
     console.log('Email:', email);
     console.log('Password:', password);
 
-    // You can replace the above log with your authentication logic.
   };
 
   return (
-    <div className="min-h-screen bg-slate-100	flex flex-col justify-start">
-      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin">
+    <div className="min-h-screen bg-slate-100	flex flex-col justify-start" >
+      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin" ref={headerRef}>
         <h2 className="text-3xl font-semibold text-center">Jelentkezz be a fiókodba</h2>
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div>
