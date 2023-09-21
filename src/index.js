@@ -21,6 +21,7 @@ root.render(
             <Route path='/belepes' element={<LoginPage/>}>  </Route>
             <Route path='/regisztracio' element={<Register/>}>  </Route>
             <Route path='*' element={<PageNotFound/>}> </Route>
+            <Route path='/szoftverek'> </Route>
         </Routes>
     </Router>
   </React.StrictMode>

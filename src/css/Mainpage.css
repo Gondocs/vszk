@@ -25,5 +25,20 @@
 }
 
 .fadeInFromLeft {
-  animation: slideInFromLeft 1s ease-in-out;
+  animation: slideInFromLeft 1.5s ease-in-out;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fadeInFromRight {
+  animation: slideInFromLeft 1.5s ease-in-out;
 }

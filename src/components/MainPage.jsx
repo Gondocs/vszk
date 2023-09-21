@@ -39,6 +39,7 @@ export function HomePage() {
 
   const headerRef = useRef(null);
   const sectionRef = useRef(null);
+  const howtoRef = useRef(null);
   const footerRef = useRef(null);
 
   useEffect(() => {
@@ -46,6 +47,15 @@ export function HomePage() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           headerRef.current.classList.add('fadeInFromLeft');
+        }
+      });
+    });
+
+
+    const howtoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          howtoRef.current.classList.add('fadeInFromLeft');
         }
       });
     });
@@ -69,11 +79,13 @@ export function HomePage() {
     headerObserver.observe(headerRef.current);
     sectionObserver.observe(sectionRef.current);
     footerObserver.observe(footerRef.current);
+    howtoObserver.observe(howtoRef.current);
 
     return () => {
       headerObserver.disconnect();
       sectionObserver.disconnect();
       footerObserver.disconnect();
+      howtoObserver.disconnect();
     };
   }, []);
 
@@ -152,7 +164,6 @@ export function HomePage() {
 
 
 
-
       <header className="bg-gray-800 py-8 mt-0 rounded-lg" ref={headerRef}>
       <div className="container mx-12 text-white">
         <h1 className="text-5xl font-semibold mb-6">Üdvözöllek a Szoftverkereső weboldalon</h1>
@@ -182,6 +193,47 @@ export function HomePage() {
         </div>
       </div>
     </section>
+
+          <section className="bg-gray-200 py-16 mb-12"  ref={howtoRef}>
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-semibold mb-8 text-center">Hogyan működik?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div className="bg-white rounded-lg p-6 shadow-md">
+              <h3 className="text-xl font-semibold mb-4">
+                Válasszon ki egy szimpatikus szoftvert
+              </h3>
+              <p className="text-gray-700">
+                Válasszon ki egy szoftvert a kínálatunkból, amely megfelel az igényeinek.
+              </p>
+              <Link to="/szoftverek" className="text-blue-600 hover:underline mt-4 inline-block"> 
+                Minden szoftver
+              </Link>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-md">
+              <h3 className="text-xl font-semibold mb-4">
+                Kattintson az összehasonlításra
+              </h3>
+              <p className="text-gray-700">
+                A kiválasztott szoftverek összevetésre kerülnek egymással, hogy megtalálja a legjobbat.
+              </p>
+              <Link to="/osszehasonlitas" className="text-blue-600 hover:underline mt-4 inline-block"> 
+                Összehasonlítás
+              </Link>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-md">
+              <h3 className="text-xl font-semibold mb-4">
+              Döntsön a legjobb szoftver mellett
+              </h3>
+              <p className="text-gray-700">
+                Az igényei alapján dönthet a legjobb szoftver mellett, amely megfelel az elvárásainak.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
     <section className="bg-gray-800 py-16 text-white border-t-4 border-white" ref={footerRef}>
         <div className="container mx-auto text-center">
