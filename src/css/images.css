@@ -8,7 +8,7 @@
 
 .image-track {
   display: flex;
-  gap: 4vmin;
+  gap: 4rem;
   position: absolute;
   width: 77%;
   top: 50%;
@@ -29,7 +29,7 @@
   object-position: 100% 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1);
   transition: filter 0.5 ease;
-  border-radius: 4px;
+  border-radius: 99px;
 }
 
 .image-container .image {
