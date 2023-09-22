@@ -1,5 +1,5 @@
 .body {
-  height: 75vh;
+  height: 45rem;
   width: 100%;
   margin: 0rem;
   overflow: hidden;
@@ -8,9 +8,9 @@
 
 .image-track {
   display: flex;
-  gap: 4rem;
+  gap: 3rem;
   position: absolute;
-  width: 77%;
+  width: 79%;
   top: 50%;
   left: 3%;
   transform: translate(0%, -50%);
