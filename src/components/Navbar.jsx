@@ -58,7 +58,7 @@ const Navbar = () => {
         <Link to="/belepes" className="text-white hover:text-gray-400 ml-40 hover-scale hover-scale:hover text-[1rem]" >
           Belépés
         </Link>
-        <h5 className='text-white'>/</h5>
+        <h5 className='text-white px-1'>/</h5>
         <Link to="/regisztracio" className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]">
           Regisztráció
         </Link>
