@@ -30,9 +30,11 @@ const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-        <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} hidden md:block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}>
+          <Link to={'/szoftverek'}>
+          <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} hidden md:block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}>
           Szoftverek
         </button>
+          </Link>
           {isDropdownVisible && <DropdownMenu />}
         </div>
 
