@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const imagesWithCaptions = [
   {
     src: 'https://i.ibb.co/KGS5ZZD/photo-1454165804606-c3d57bc86b40.png',
-    caption: 'Caption 1',
+    caption: 'Tanácsadás',
   },
   {
     src: 'https://i.ibb.co/V2pRpbd/photo-1647268357361-5a20b90c1f8b.png',
@@ -18,19 +18,19 @@ const imagesWithCaptions = [
   },
   {
     src: 'https://i.ibb.co/4tLK5HT/konrad-koller-K-ihp4-S96-Qs-unsplash.jpg',
-    caption: 'Caption 4',
+    caption: '???',
   },
   {
     src: 'https://i.ibb.co/611S9vx/glenn-carstens-peters-RLw-UC03-Gwc-unsplash.jpg',
-    caption: 'Caption 5',
+    caption: 'Szoftver szűrés',
   },
   {
     src: 'https://i.ibb.co/qxBPkzK/josh-appel-Ne-TPASr-bm-Q-unsplash.jpg',
-    caption: 'Caption 6',
+    caption: 'Legjobb ár-érték arány',
   },
   {
     src: 'https://i.ibb.co/0YNS14k/jamie-street-Y602i-Pc-Tq28-unsplash.jpg',
-    caption: 'Caption 7',
+    caption: 'Felhasználóbarát felület',
   },
 ];
 
