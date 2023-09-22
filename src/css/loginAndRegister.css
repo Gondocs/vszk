@@ -26,3 +26,11 @@
 .fadeInFromBottom {
   animation: slideInFromBottom 1s ease-in-out;
 }
+
+.hover-scale-loginandregister {
+  transition: transform 0.5s ease;
+}
+
+.hover-scale-loginandregister:hover {
+  transform: scale(1.03);
+}

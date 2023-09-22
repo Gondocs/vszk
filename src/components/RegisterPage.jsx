@@ -49,7 +49,7 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-slate-100	 flex flex-col items-center justify-center">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister"  ref={headerRef}>
-        <h2 className="text-3xl font-semibold text-center">Regisztráció</h2>
+        <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">Regisztráció</h2>
 
 
         <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ const Register = () => {
               value={formData.lastName}
               autoComplete="family-name"
               required
-              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2"
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="Minta"
             />
           </div>
@@ -84,7 +84,7 @@ const Register = () => {
               value={formData.firstName}
               autoComplete="given-name"
               required
-              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2"
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="János"
             />
           </div>
@@ -101,7 +101,7 @@ const Register = () => {
               value={formData.email}
               autoComplete="email"
               required
-              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2"
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="mintajanos@gmail.com"
             />
           </div>
@@ -118,7 +118,7 @@ const Register = () => {
               value={formData.password}
               autoComplete="new-password"
               required
-              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2"
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="Jelszó"
             />
           </div>
@@ -135,7 +135,7 @@ const Register = () => {
               value={formData.confirmPassword}
               autoComplete="new-password"
               required
-              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2"
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="Jelszó"
             />
           </div>
@@ -143,7 +143,7 @@ const Register = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6 hover-scale-loginandregister hover-scale-loginandregister:hover"
             >
               Regisztráció
             </button>
