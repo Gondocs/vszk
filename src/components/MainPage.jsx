@@ -173,14 +173,14 @@ export function HomePage() {
       </div>
 
       <section className="bg-slate-100 py-16">
-  <div className="mx-36">
-    <div className="flex flex-row items-center justify-center gap-8">
+  <div className="mx-28">
+    <div className="flex flex-row items-center justify-center gap-28">
       <div ref={sectionRef} className="animated-element text-left">
         <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
           Próbáld ki az összehasonlítást
         </h2>
         <p className="text-gray-700 text-xl">
-          Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
+          Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet. 
         </p>
       </div>
       <div ref={pictureRef} className="text-right">
