@@ -173,7 +173,7 @@ export function HomePage() {
       </div>
 
       <section className="bg-slate-100 py-16">
-  <div className="container mx-auto">
+  <div className="mx-36">
     <div className="flex flex-row items-center justify-center gap-8">
       <div ref={sectionRef} className="animated-element text-left">
         <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
