@@ -50,3 +50,8 @@
 .hover-scale-small:hover {
   transform: scale(1.05);
 }
+
+.imagedimension {
+  width: 50rem;
+  height: auto;
+}

@@ -173,70 +173,77 @@ export function HomePage() {
       </div>
 
       <section className="bg-slate-100 py-16">
-      <div className="container mx-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div ref={sectionRef} className="animated-element">
+  <div className="container mx-auto">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+      <div ref={sectionRef} className="animated-element text-center md:text-left">
+        <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
+          Próbáld ki az összehasonlítást
+        </h2>
+        <p className="text-gray-700 text-xl">
+          Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
+        </p>
+      </div>
+      <div ref={pictureRef} className="text-center md:text-right">
+        <Link to="/osszehasonlitas">
+          <img
+            src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
+            alt="Összehasonlítás"
+            className="rounded-full hover-scale hover-scale:hover ml-0 imagedimension"
+          />
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">Próbáld ki az összehasonlítást</h2>
-            <p className="text-gray-700 text-xl">
-              Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
-            </p>
-          </div>
-          <div ref={pictureRef}>
-            <Link to="/osszehasonlitas">
-              <img
-                src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
-                alt="Összehasonlítás"
-                className="rounded-full hover-scale hover-scale:hover ml-16"
-              />
-            </Link>
-          </div>
+
+
+
+
+<div className="bg-slate-100 pb-12">
+  <section className="bg-gray-200 py-8 rounded-full mx-4 md:mx-16" ref={howtoRef}>
+    <div className="container mx-auto">
+      <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
+        Hogyan működik?
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
+          <h3 className="text-xl font-semibold mb-4">Válasszon ki egy szimpatikus szoftvert</h3>
+          <p className="text-gray-700">
+            Válasszon ki egy szoftvert a kínálatunkból, amely megfelel az igényeinek.
+          </p>
+          <Link
+            to="/szoftverek"
+            className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"
+          >
+            Minden szoftver
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
+          <h3 className="text-xl font-semibold mb-4">Kattintson az összehasonlításra</h3>
+          <p className="text-gray-700">
+            A kiválasztott szoftverek összevetésre kerülnek egymással, hogy megtalálja a legjobbat.
+          </p>
+          <Link
+            to="/osszehasonlitas"
+            className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"
+          >
+            Összehasonlítás
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
+          <h3 className="text-xl font-semibold mb-4">Döntsön a legjobb szoftver mellett</h3>
+          <p className="text-gray-700">
+            Az igényei alapján dönthet a legjobb szoftver mellett, amely megfelel az elvárásainak.
+          </p>
         </div>
       </div>
-    </section>
-
-      <div className='bg-slate-100 pb-12'>
-          <section className="bg-gray-200 py-8 rounded-full mx-16"  ref={howtoRef}>
-        <div className="container mx-32">
-          <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">Hogyan működik?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-
-            <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
-              <h3 className="text-xl font-semibold mb-4">
-                Válasszon ki egy szimpatikus szoftvert
-              </h3>
-              <p className="text-gray-700">
-                Válasszon ki egy szoftvert a kínálatunkból, amely megfelel az igényeinek.
-              </p>
-              <Link to="/szoftverek" className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"> 
-                Minden szoftver
-              </Link>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
-              <h3 className="text-xl font-semibold mb-4">
-                Kattintson az összehasonlításra
-              </h3>
-              <p className="text-gray-700">
-                A kiválasztott szoftverek összevetésre kerülnek egymással, hogy megtalálja a legjobbat.
-              </p>
-              <Link to="/osszehasonlitas" className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"> 
-                Összehasonlítás
-              </Link>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
-              <h3 className="text-xl font-semibold mb-4">
-              Döntsön a legjobb szoftver mellett
-              </h3>
-              <p className="text-gray-700">
-                Az igényei alapján dönthet a legjobb szoftver mellett, amely megfelel az elvárásainak.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
+  </section>
+</div>
+
 </>
   );
 }
