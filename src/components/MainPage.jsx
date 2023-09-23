@@ -173,7 +173,7 @@ export function HomePage() {
       </div>
 
       <section className="bg-slate-100 py-16">
-      <div className="container mx-auto">
+      <div className="container mx-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div ref={sectionRef} className="animated-element">
 
@@ -197,7 +197,7 @@ export function HomePage() {
 
       <div className='bg-slate-100 pb-12'>
           <section className="bg-gray-200 py-8 rounded-full mx-16"  ref={howtoRef}>
-        <div className="container mx-auto">
+        <div className="container mx-32">
           <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">Hogyan működik?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 

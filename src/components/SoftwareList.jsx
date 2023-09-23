@@ -17,7 +17,7 @@ function SoftwareList() {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-100 py-8 px-8">
+    <div className="flex min-h-screen bg-gray-100 py-8 px-8 ">
       {/* Sidebar */}
       <div className="w-1/4 bg-gray-300 p-8 rounded-40 mr-4">
         <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
