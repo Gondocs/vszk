@@ -7,6 +7,8 @@ const Register = () => {
     firstName: '',
     lastName: '',
     email: '',
+    country: '',
+    city: '',
     password: '',
     confirmPassword: '',
   });
@@ -103,6 +105,39 @@ const Register = () => {
               required
               className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="mintajanos@gmail.com"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="country" className="block text-lg font-medium text-gray-700">
+              Ország
+            </label>
+            <input
+              id="country"
+              name="country"
+              type="country"
+              onChange={handleChange}
+              value={formData.country}
+              required
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
+              placeholder="Magyarország"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="city" className="block text-lg font-medium text-gray-700">
+              Város
+            </label>
+            <input
+              id="city"
+              name="city"
+              type="city"
+              onChange={handleChange}
+              value={formData.city}
+              autoComplete="city"
+              required
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
+              placeholder="Budapest"
             />
           </div>
 
