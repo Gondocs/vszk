@@ -201,12 +201,12 @@ export function HomePage() {
 
 
 <div className="bg-slate-100 pb-12">
-  <section className="bg-gray-200 py-8 rounded-full mx-28" ref={howtoRef}>
+  <section className="bg-gray-200 py-6 rounded-full mx-28" ref={howtoRef}>
     <div className="mx-36">
       <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
         Hogyan működik?
       </h2>
-      <div className="grid grid-cols-3 gap-8 mb-12">
+      <div className="grid grid-cols-3 gap-8 mb-4">
         <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
           <h3 className="text-xl font-semibold mb-4">Válasszon ki egy szimpatikus szoftvert</h3>
           <p className="text-gray-700">
