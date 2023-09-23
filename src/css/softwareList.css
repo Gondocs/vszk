@@ -1,3 +1,15 @@
 .bodyheight {
   height: 50rem;
 }
+
+.rounded-99 {
+  border-radius: 99px;
+}
+
+.rounded-40 {
+  border-radius: 40px;
+}
+
+.starmargin {
+  margin-bottom: 0.2rem;
+}

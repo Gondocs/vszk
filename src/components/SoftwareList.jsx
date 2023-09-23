@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../css/softwareList.css';
+import StarIcon from '@mui/icons-material/Star';
+
 
 const softwareData = [
   { id: 1, name: 'Elsoproba A', company: 'Cég A', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
@@ -34,24 +36,24 @@ function SoftwareList() {
         <ul>
           {filteredSoftware.map((software) => (
             <li key={software.id} className="mb-4">
-              <div className="bg-white rounded-lg p-4">
+              <div className="bg-white rounded-40 p-4">
                 <div className="flex mb-2">
                   <img
-                    src="https://via.placeholder.com/800x800"
+                    src="https://via.placeholder.com/400x200"
                     alt="Software Placeholder"
-                    className="w-24 h-24 mr-4 rounded-full"
+                    className="w-56 h-28 mr-4 rounded-99"
                   />
                   <div>
                     <h2 className="text-lg font-semibold">{software.name}</h2>
                     <p className="text-gray-600">{software.company}</p>
                     <div className="flex items-center">
                       <span className="text-yellow-500 text-sm mr-2">
-                        Vélemények: {software.rating}
+                        Vélemények: {software.rating}<StarIcon fontSize="small" className='starmargin' />
                       </span>
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-700">{software.description}</p>
+                <p className="text-gray-700 m-4">{software.description}</p>
               </div>
             </li>
           ))}
