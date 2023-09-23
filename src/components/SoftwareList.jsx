@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import '../css/softwareList.css';
 
 const softwareData = [
-  { id: 1, name: 'Elsoproba A', company: 'Company A', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 2, name: 'Masodik B', company: 'Company B', rating: 3.8, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 3, name: 'Harmadik C', company: 'Company C', rating: 4.2, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 4, name: 'Negyedik D', company: 'Company D', rating: 4.0, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 1, name: 'Elsoproba A', company: 'Cég A', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 2, name: 'Masodik B', company: 'Cég B', rating: 3.8, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 3, name: 'Harmadik C', company: 'Cég C', rating: 4.2, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 4, name: 'Negyedik D', company: 'Cég D', rating: 4.0, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
 ];
 
 function SoftwareList() {
@@ -15,9 +15,9 @@ function SoftwareList() {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 py-8 px-8">
       {/* Sidebar */}
-      <div className="w-1/4 bg-gray-300 p-4">
+      <div className="w-1/4 bg-gray-300 p-8 rounded-lg mr-4"> {/* Add rounded-lg class */}
         <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
         <input
           type="text"
@@ -29,20 +29,25 @@ function SoftwareList() {
       </div>
 
       {/* Content */}
-      <div className="w-3/4 p-4 bg-gray-200">
+      <div className="w-3/4 p-4 bg-gray-200 rounded-lg">
         <h1 className="text-2xl font-semibold mb-4">Szoftverlista</h1>
         <ul>
           {filteredSoftware.map((software) => (
             <li key={software.id} className="mb-4">
               <div className="bg-white rounded-lg p-4">
                 <div className="flex mb-2">
-                  <img src="https://via.placeholder.com/800x800" alt="Software Placeholder" className="w-24 h-24 mr-4 rounded-full" />
+                  <img
+                    src="https://via.placeholder.com/800x800"
+                    alt="Software Placeholder"
+                    className="w-24 h-24 mr-4 rounded-full"
+                  />
                   <div>
                     <h2 className="text-lg font-semibold">{software.name}</h2>
                     <p className="text-gray-600">{software.company}</p>
                     <div className="flex items-center">
-                      <span className="text-yellow-500 text-sm mr-2">Rating: {software.rating}</span>
-                      {/* Add your rating stars here */}
+                      <span className="text-yellow-500 text-sm mr-2">
+                        Vélemények: {software.rating}
+                      </span>
                     </div>
                   </div>
                 </div>
