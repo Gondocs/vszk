@@ -19,7 +19,7 @@ function SoftwareList() {
   return (
     <div className="flex min-h-screen bg-gray-100 py-8 px-8">
       {/* Sidebar */}
-      <div className="w-1/4 bg-gray-300 p-8 rounded-40 mr-4"> {/* Add rounded-lg class */}
+      <div className="w-1/4 bg-gray-300 p-8 rounded-40 mr-4">
         <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
         <input
           type="text"
@@ -37,18 +37,19 @@ function SoftwareList() {
           {filteredSoftware.map((software) => (
             <li key={software.id} className="mb-6 px-4">
               <div className="bg-white rounded-40 p-4">
-                <div className="flex mb-2">
+                <div className="flex mb-2 pl-4 pt-4">
                   <img
                     src="https://via.placeholder.com/400x200"
                     alt="Software Placeholder"
-                    className="w-56 h-28 mr-4 rounded-99"
+                    className="w-56 h-28 mr-4 rounded-40"
+                    draggable="false"
                   />
                   <div>
-                    <h2 className="text-lg font-semibold">{software.name}</h2>
-                    <p className="text-gray-600">{software.company}</p>
+                    <h2 className="text-3xl font-semibold">{software.name}</h2>
+                    <p className="text-gray-600 text-xl mb-2 mt-2">{software.company}</p>
                     <div className="flex items-center">
-                      <span className="text-yellow-500 text-sm mr-2">
-                        Vélemények: {software.rating}<StarIcon fontSize="small" className='starmargin' />
+                      <span className="text-black text-lg mr-2">
+                        Vélemények: {software.rating}<StarIcon fontSize="medium" className='starmargin' style={{ color: 'rgb(255, 210, 48)' }}/>
                       </span>
                     </div>
                   </div>
