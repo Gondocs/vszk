@@ -164,7 +164,7 @@ export function HomePage() {
       </div>
 
       <div className='bg-slate-100'>
-      <header className="bg-gray-800 py-6 mt-0 rounded-full mx-16 hover-scale-small:hover hover-scale-small" ref={headerRef}>
+      <header className="bg-gray-800 py-6 mt-0 rounded-full mx-24 hover-scale-small:hover hover-scale-small" ref={headerRef}>
             <div className="container mx-12 text-white">
               <h1 className="text-5xl font-semibold mb-4">Üdvözöllek a Szoftverkereső weboldalon</h1>
               <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
