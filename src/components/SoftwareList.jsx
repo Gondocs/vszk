@@ -32,10 +32,10 @@ function SoftwareList() {
 
       {/* Content */}
       <div className="w-3/4 p-4 bg-gray-200 rounded-40">
-        <h1 className="text-2xl font-semibold mb-4">Szoftverlista</h1>
+        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-8">Szoftverlista</h1>
         <ul>
           {filteredSoftware.map((software) => (
-            <li key={software.id} className="mb-4">
+            <li key={software.id} className="mb-6 px-4">
               <div className="bg-white rounded-40 p-4">
                 <div className="flex mb-2">
                   <img
