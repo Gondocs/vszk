@@ -174,8 +174,8 @@ export function HomePage() {
 
       <section className="bg-slate-100 py-16">
   <div className="container mx-auto">
-    <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-      <div ref={sectionRef} className="animated-element text-center md:text-left">
+    <div className="flex flex-row items-center justify-center gap-8">
+      <div ref={sectionRef} className="animated-element text-left">
         <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
           Próbáld ki az összehasonlítást
         </h2>
@@ -183,7 +183,7 @@ export function HomePage() {
           Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet.
         </p>
       </div>
-      <div ref={pictureRef} className="text-center md:text-right">
+      <div ref={pictureRef} className="text-right">
         <Link to="/osszehasonlitas">
           <img
             src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
@@ -201,12 +201,12 @@ export function HomePage() {
 
 
 <div className="bg-slate-100 pb-12">
-  <section className="bg-gray-200 py-8 rounded-full mx-4 md:mx-16" ref={howtoRef}>
-    <div className="container mx-auto">
+  <section className="bg-gray-200 py-8 rounded-full mx-28" ref={howtoRef}>
+    <div className="mx-36">
       <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
         Hogyan működik?
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div className="grid grid-cols-3 gap-8 mb-12">
         <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
           <h3 className="text-xl font-semibold mb-4">Válasszon ki egy szimpatikus szoftvert</h3>
           <p className="text-gray-700">
