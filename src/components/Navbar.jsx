@@ -19,19 +19,19 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4 rounded-lg">
       <div className="flex items-center">
     
-        <Link to="/" className="text-white hover:text-gray-400 hidden md:block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover">
+        <Link to="/" className="text-white hover:text-gray-400 block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover">
           Főoldal
         </Link>
 
         {/* Left Side - Szoftverek Dropdown */}
 
         <div
-          className="relative group hidden md:block mr-16 ml-4"
+          className="relative group block mr-16 ml-4"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <Link to={'/szoftverek'}>
-          <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} hidden md:block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}>
+          <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}>
           Szoftverek
         </button>
           </Link>
@@ -39,7 +39,7 @@ const Navbar = () => {
         </div>
 
         {/* Left Side - Összehasonlítás */}
-        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 hidden md:block mr-24 hover-scale hover-scale:hover text-[1.2rem]">
+        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 block mr-24 hover-scale hover-scale:hover text-[1.2rem]">
           Összehasonlítás
         </Link>
 
