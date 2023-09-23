@@ -19,7 +19,7 @@ function SoftwareList() {
   return (
     <div className="flex min-h-screen bg-gray-100 py-8 px-8">
       {/* Sidebar */}
-      <div className="w-1/4 bg-gray-300 p-8 rounded-lg mr-4"> {/* Add rounded-lg class */}
+      <div className="w-1/4 bg-gray-300 p-8 rounded-40 mr-4"> {/* Add rounded-lg class */}
         <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
         <input
           type="text"
@@ -31,7 +31,7 @@ function SoftwareList() {
       </div>
 
       {/* Content */}
-      <div className="w-3/4 p-4 bg-gray-200 rounded-lg">
+      <div className="w-3/4 p-4 bg-gray-200 rounded-40">
         <h1 className="text-2xl font-semibold mb-4">Szoftverlista</h1>
         <ul>
           {filteredSoftware.map((software) => (
