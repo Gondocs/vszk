@@ -29,7 +29,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-slate-100	 flex flex-col items-center justify-center">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister fadeInFromBottom" >
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister FadeInSmall" >
         <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">Regisztráció</h2>
 
 

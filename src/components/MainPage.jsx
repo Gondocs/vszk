@@ -137,7 +137,7 @@ export function HomePage() {
   return (
     <>
 
-        <div className='body noSelect bg-slate-100'>
+        <div className='body noSelect bg-slate-100 FadeInSmall'>
         <div
           className='image-track'
           id='image-track'
