@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/index.css';
-import NavbarExample from './components/Navbar';
+import NavbarExample from './components/Navbar/Navbar';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
-import LoginPage from './components/loginPage';
-import Register from './components/RegisterPage';
+import LoginPage from './components/LoginAndRegister/loginPage';
+import Register from './components/LoginAndRegister/RegisterPage';
 import PageNotFound from './components/PageNotFound';
 import {HomePage} from './components/MainPage';
 import { Footer } from './components/Footer';

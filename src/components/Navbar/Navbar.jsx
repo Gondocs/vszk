@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
 import DropdownMenu from './dropDown';
-import '../css/Navbar.css';
+import '../../css/Navbar.css';
 
 const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
