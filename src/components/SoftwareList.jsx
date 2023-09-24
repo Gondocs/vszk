@@ -6,23 +6,28 @@ import { Link } from 'react-router-dom';
 
 
 const softwareData = [
-  { id: 1, name: 'Elsoproba A', company: 'Cég A', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 2, name: 'Masodik B', company: 'Cég B', rating: 3.8, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 3, name: 'Harmadik C', company: 'Cég C', rating: 4.2, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 4, name: 'Negyedik D', company: 'Cég D', rating: 4.0, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 1, name: 'Elso  A', company: 'Helloszia', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 2, name: 'Masodik B', company: 'Majkroszaft', rating: 3.8, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 3, name: 'Harmadik C', company: 'KisC Kft.', rating: 4.2, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
+  { id: 4, name: 'Negyedik D', company: 'Hihihe Bt.', rating: 4.0, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
 ];
 
 function SoftwareList() {
   const [searchTerm, setSearchTerm] = useState('');
   const filteredSoftware = softwareData.filter((software) =>
+
+    software.company.toLowerCase().includes(searchTerm.toLowerCase())
+                                ||  // OR
     software.name.toLowerCase().includes(searchTerm.toLowerCase())
+
+
   );
 
   return (
     <div className="flex min-h-screen bg-gray-100 py-8 px-16 FadeInSmall">
       {/* Sidebar */}
       <div className="w-1/5 bg-gray-200 p-8 rounded-40 mr-16">
-        <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
+        <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">Szoftverkeresés</h2>
         <input
           type="text"
           placeholder="Szoftver neve..."
@@ -34,7 +39,7 @@ function SoftwareList() {
 
       {/* Content */}
       <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
-        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-8">Szoftverlista</h1>
+        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
   {filteredSoftware.map((software) => (
     <li key={software.id} className="mb-6 px-4 hover-scale-element:hover hover-scale-element">
@@ -57,7 +62,9 @@ function SoftwareList() {
             >
               {software.name}
             </Link>
+            <Link to={`/szoftverek/${software.company.replace(/\s+/g, '-').toLowerCase()}`}>
             <p className="text-gray-600 text-xl mb-2 mt-2">{software.company}</p>
+            </Link>
             <div className="flex items-center">
               <span className="text-black text-lg mr-2">
                 Vélemények: {software.rating}
