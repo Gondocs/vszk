@@ -1,7 +1,20 @@
 .hover-scale {
-    transition: transform 0.5s ease;
+  transition: transform 0.5s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+@keyframes FastFadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  .hover-scale:hover {
-    transform: scale(1.05);
+  100% {
+    opacity: 1;
   }
+}
+
+.FadeInSmall {
+  animation: FastFadeIn 0.7s ease-in-out;
+}
