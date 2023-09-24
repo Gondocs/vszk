@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../css/softwareList.css';
 import StarIcon from '@mui/icons-material/Star';
+import { Link } from 'react-router-dom';
+
 
 
 const softwareData = [
@@ -17,9 +19,9 @@ function SoftwareList() {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-100 py-8 px-8 ">
+    <div className="flex min-h-screen bg-gray-100 py-8 px-16 ">
       {/* Sidebar */}
-      <div className="w-1/4 bg-gray-300 p-8 rounded-40 mr-4">
+      <div className="w-1/5 bg-gray-300 p-8 rounded-40 mr-16">
         <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
         <input
           type="text"
@@ -31,34 +33,44 @@ function SoftwareList() {
       </div>
 
       {/* Content */}
-      <div className="w-3/4 p-4 bg-gray-200 rounded-40">
+      <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-8">Szoftverlista</h1>
         <ul>
-          {filteredSoftware.map((software) => (
-            <li key={software.id} className="mb-6 px-4">
-              <div className="bg-white rounded-40 p-4">
-                <div className="flex mb-2 pl-4 pt-4">
-                  <img
-                    src="https://via.placeholder.com/400x200"
-                    alt="Software Placeholder"
-                    className="w-56 h-28 mr-4 rounded-40"
-                    draggable="false"
-                  />
-                  <div>
-                    <h2 className="text-3xl font-semibold">{software.name}</h2>
-                    <p className="text-gray-600 text-xl mb-2 mt-2">{software.company}</p>
-                    <div className="flex items-center">
-                      <span className="text-black text-lg mr-2">
-                        Vélemények: {software.rating}<StarIcon fontSize="medium" className='starmargin' style={{ color: 'rgb(255, 210, 48)' }}/>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-700 m-4">{software.description}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+  {filteredSoftware.map((software) => (
+    <li key={software.id} className="mb-6 px-4 hover-scale-element:hover hover-scale-element">
+      <div className="bg-white rounded-40 p-4">
+        <div className="flex mb-2 pl-4 pt-4">
+          {/* Modify the Link element */}
+          <Link to={`/software/${software.name.replace(/\s+/g, '-').toLowerCase()}`}>
+            <img
+              src="https://via.placeholder.com/400x200"
+              alt="Software Placeholder"
+              className="w-56 h-28 mr-4 rounded-40"
+              draggable="false"
+            />
+          </Link>
+          <div>
+            {/* Display the modified name as link text */}
+            <Link
+              to={`/software/${software.name.replace(/\s+/g, '-').toLowerCase()}`}
+              className="text-3xl font-semibold text-black"
+            >
+              {software.name}
+            </Link>
+            <p className="text-gray-600 text-xl mb-2 mt-2">{software.company}</p>
+            <div className="flex items-center">
+              <span className="text-black text-lg mr-2">
+                Vélemények: {software.rating}
+                <StarIcon fontSize="medium" className='starmargin' style={{ color: 'rgb(255, 210, 48)' }}/>
+              </span>
+            </div>
+          </div>
+        </div>
+        <p className="text-gray-700 m-4">{software.description}</p>
+      </div>
+    </li>
+  ))}
+</ul>
       </div>
     </div>
   );
