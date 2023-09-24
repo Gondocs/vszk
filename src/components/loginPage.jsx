@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../css/loginAndRegister.css';
 
 function LoginPage() {
@@ -13,26 +13,6 @@ function LoginPage() {
     setPassword(e.target.value);
   };
 
-  const headerRef = useRef(null);
-
-  useEffect(() => {
-    const headerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          headerRef.current.classList.add('fadeInFromBottom');
-        }
-      });
-    });
-
-
-    headerObserver.observe(headerRef.current);
-
-
-    return () => {
-      headerObserver.disconnect();
-    };
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,7 +23,7 @@ function LoginPage() {
 
   return (
     <div className="min-h-screen bg-slate-100	flex flex-col justify-start " >
-      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin " ref={headerRef}>
+      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin fadeInFromBottom" >
         <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">Jelentkezz be a fiókodba</h2>
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div>
