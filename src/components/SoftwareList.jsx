@@ -26,7 +26,7 @@ function SoftwareList() {
         <input
           type="text"
           placeholder="Szoftver neve..."
-          className="border rounded-lg p-2 w-full"
+          className="border rounded-lg p-2 w-full hover-scale-element:hover hover-scale-element"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
