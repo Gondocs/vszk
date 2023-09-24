@@ -1,35 +1,15 @@
-import { useEffect, useRef } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/PageNotFound.css';
 
 const NotFound = () => {
 
-  const headerRef = useRef(null);
-
-  useEffect(() => {
-    const headerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          headerRef.current.classList.add('fadeIn');
-        }
-      });
-    });
-
-
-    headerObserver.observe(headerRef.current);
-
-
-    return () => {
-      headerObserver.disconnect();
-    };
-  }, []);
 
 
 
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
-      <div className="bg-white py-8 px-20 rounded-full shadow-lg mb-24"  ref={headerRef}>
+      <div className="bg-white py-8 px-20 rounded-full shadow-lg mb-24 fadeIn">
         <h1 className="text-4xl font-semibold text-gray-800 mb-4 mt-4">404 - Az oldal nem található</h1>
         <p className="text-gray-600 mt-2 mb-4 text-xl">Az általad keresett oldal nem létezik.</p>
         <div className='items-center justify-center flex-col flex'>

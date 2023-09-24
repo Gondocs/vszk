@@ -21,7 +21,7 @@ function SoftwareList() {
   return (
     <div className="flex min-h-screen bg-gray-100 py-8 px-16 ">
       {/* Sidebar */}
-      <div className="w-1/5 bg-gray-300 p-8 rounded-40 mr-16">
+      <div className="w-1/5 bg-gray-200 p-8 rounded-40 mr-16">
         <h2 className="text-lg font-semibold mb-4">Szoftverkeresés</h2>
         <input
           type="text"
@@ -41,7 +41,7 @@ function SoftwareList() {
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
           {/* Modify the Link element */}
-          <Link to={`/software/${software.name.replace(/\s+/g, '-').toLowerCase()}`}>
+          <Link to={`/szoftverek/${software.name.replace(/\s+/g, '-').toLowerCase()}`}>
             <img
               src="https://via.placeholder.com/400x200"
               alt="Software Placeholder"
@@ -52,7 +52,7 @@ function SoftwareList() {
           <div>
             {/* Display the modified name as link text */}
             <Link
-              to={`/software/${software.name.replace(/\s+/g, '-').toLowerCase()}`}
+              to={`/szoftverek/${software.name.replace(/\s+/g, '-').toLowerCase()}`}
               className="text-3xl font-semibold text-black"
             >
               {software.name}
