@@ -42,9 +42,7 @@ function SoftwareDetail() {
         </button>
       </div>
     </div>
-
     </div>
-
   );
 }
 
