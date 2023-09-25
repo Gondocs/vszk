@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 function SoftwareDetail({ softwareData }) {
   const { name } = useParams();
 
-  // Find the software with the matching name
+  
   const selectedSoftware = softwareData.find(
     (software) =>
       software.name.replace(/\s+/g, '-').toLowerCase() === name

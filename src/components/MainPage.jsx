@@ -164,6 +164,8 @@ export function HomePage() {
       </div>
 
       <div className='bg-slate-100'>
+
+
       <header className="bg-gray-800 py-6 mt-0 rounded-full mx-24 hover-scale-small:hover hover-scale-small" ref={headerRef}>
             <div className="container mx-12 text-white">
               <h1 className="text-5xl font-semibold mb-4">Üdvözöllek a Szoftverkereső weboldalon</h1>
@@ -176,9 +178,11 @@ export function HomePage() {
   <div className="mx-28">
     <div className="flex flex-row items-center justify-center gap-28">
       <div ref={sectionRef} className="animated-element text-left">
+        <Link to={"/osszehasonlitas"}>
         <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
           Próbáld ki az összehasonlítást
         </h2>
+        </Link>
         <p className="text-gray-700 text-xl">
           Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet. 
         </p>
