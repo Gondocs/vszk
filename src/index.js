@@ -25,7 +25,7 @@ root.render(
             <Route path='/regisztracio' element={ <> <Register/> <Footer/> </> }>  </Route>
             <Route path='*' element={ <> <PageNotFound/> <Footer/> </> }> </Route>
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
-            <Route path='/szoftverek/:name' element= {<SoftwareDetail/>}></Route>
+            <Route path='/szoftverek/:name' element= {<> <SoftwareDetail/> <Footer/> </>}></Route>
         </Routes>
     </Router>
   </React.StrictMode>
