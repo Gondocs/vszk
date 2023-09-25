@@ -10,6 +10,7 @@ import PageNotFound from './components/PageNotFound';
 import {HomePage} from './components/MainPage';
 import { Footer } from './components/Footer';
 import SoftwareList from './components/SoftwareList';
+import SoftwareDetail from './components/SoftwareDetail';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,6 +25,7 @@ root.render(
             <Route path='/regisztracio' element={ <> <Register/> <Footer/> </> }>  </Route>
             <Route path='*' element={ <> <PageNotFound/> <Footer/> </> }> </Route>
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
+            <Route path='/szoftverek/:name' element= {<SoftwareDetail/>}></Route>
         </Routes>
     </Router>
   </React.StrictMode>
