@@ -14,7 +14,7 @@ const imagesWithCaptions = [
   },
   {
     src: 'https://i.ibb.co/0mqFYjQ/still-life-with-scales-justice.jpg',
-    caption: 'Szoftver hasonlítás',
+    caption: 'Összehasonlítás',
   },
   {
     src: 'https://i.ibb.co/4tLK5HT/konrad-koller-K-ihp4-S96-Qs-unsplash.jpg',
@@ -163,28 +163,28 @@ export function HomePage() {
         </div>
       </div>
 
-      <div className='bg-slate-100'>
+      <div className='bg-slate-100 pb-24'>
 
 
       <header className="bg-gray-800 py-6 mt-0 rounded-full mx-24 hover-scale-small:hover hover-scale-small" ref={headerRef}>
             <div className="container mx-12 text-white">
-              <h1 className="text-5xl font-semibold mb-4">Üdvözöllek a Szoftverkereső weboldalon</h1>
-              <p className="text-lg">Válaszd ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
+              <h1 className="text-5xl font-semibold mb-4">Üdvözöljük a Szoftverkereső weboldalon</h1>
+              <p className="text-lg">Válassza ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
             </div>
           </header>
       </div>
 
-      <section className="bg-slate-100 py-16">
+      <section className="bg-slate-100">
   <div className="mx-28">
     <div className="flex flex-row items-center justify-center gap-28">
       <div ref={sectionRef} className="animated-element text-left">
         <Link to={"/osszehasonlitas"}>
         <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
-          Próbáld ki az összehasonlítást
+          Próbálja ki az összehasonlítást
         </h2>
         </Link>
         <p className="text-gray-700 text-xl">
-          Hasonlítsd össze a szoftvereinket, hogy megtaláld a számodra legmegfelelőbbet. 
+          Hasonlítsa össze a szoftvereinket, hogy megtalálja a számára legmegfelelőbbet. 
         </p>
       </div>
       <div ref={pictureRef} className="text-right">
@@ -204,9 +204,9 @@ export function HomePage() {
 
 
 
-<div className="bg-slate-100 pb-12">
-  <section className="bg-gray-200 py-6 rounded-full mx-28" ref={howtoRef}>
-    <div className="mx-36">
+<div className="bg-slate-100 pb-12 pt-24">
+<section className="bg-slate-200  py-6 rounded-40 mx-28" ref={howtoRef} style={{ width: '85%' }}>    
+  <div className="mx-12">
       <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
         Hogyan működik?
       </h2>
