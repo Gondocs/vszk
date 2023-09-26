@@ -11,11 +11,11 @@
   display: flex;
   gap: 3rem;
   position: absolute;
+  width: 60%;
   top: 50%;
   left: 3%;
   transform: translate(0%, -50%);
 }
-
 
 .image-container {
   position: relative;
