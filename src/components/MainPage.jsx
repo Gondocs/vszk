@@ -107,7 +107,7 @@ export function HomePage() {
     const maxDelta = window.innerWidth / 2;
 
     const newPercentage = (mouseDelta / maxDelta) * -100;
-    const nextPercentage = Math.min(Math.max(prevPercentage + newPercentage, -100), 0);
+    const nextPercentage = Math.min(Math.max(prevPercentage + newPercentage, -40.5), 0);
 
     setPercentage(nextPercentage);
 
@@ -159,7 +159,7 @@ export function HomePage() {
         </div>
       </div>
 
-    <div className='bg-slate-100  px-24'>
+    <div className='bg-slate-100 px-24'>
 
       <header className="bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover hover-scale-small" ref={headerRef}>
             <div className="container pl-12 text-white">

@@ -16,7 +16,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 rounded-lg">
+    <nav className="bg-gray-800 p-4 rounded-lg flex-grow">
       <div className="flex items-center">
     
         <Link to="/" className="text-white hover:text-gray-400 block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover">
