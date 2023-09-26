@@ -14,7 +14,7 @@ const imagesWithCaptions = [
   },
   {
     src: 'https://i.ibb.co/0mqFYjQ/still-life-with-scales-justice.jpg',
-    caption: 'Összehasonlítás',
+    caption: 'Szoftverek összehasonlítása',
   },
   {
     src: 'https://i.ibb.co/4tLK5HT/konrad-koller-K-ihp4-S96-Qs-unsplash.jpg',
@@ -175,9 +175,9 @@ export function HomePage() {
     </div>
 
       <section className="bg-slate-100">
-  <div className="p-28 bg-slate-100">
-    <div className="flex flex-row items-center justify-center gap-28">
-      <div ref={sectionRef} className="animated-element text-left">
+  <div className="p-16 bg-slate-100">
+    <div className="p-12 flex flex-row items-center justify-center gap-2">
+      <div ref={sectionRef} className=" container first-letter:animated-element text-left">
         <Link to={"/osszehasonlitas"}>
         <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
           Próbálja ki az összehasonlítást
@@ -187,12 +187,12 @@ export function HomePage() {
           Hasonlítsa össze a szoftvereinket, hogy megtalálja a számára legmegfelelőbbet. 
         </p>
       </div>
-      <div ref={pictureRef} className="text-right">
+      <div ref={pictureRef} className="">
         <Link to="/osszehasonlitas">
           <img
             src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
             alt="Összehasonlítás"
-            className="rounded-full hover-scale hover-scale:hover ml-0 imagedimension"
+            className="rounded-full hover-scale hover-scale:hover ml-0 imagedimension float-right"
           />
         </Link>
       </div>

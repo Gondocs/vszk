@@ -44,7 +44,7 @@ const Navbar = () => {
         </Link>
 
         {/* Center - Search Bar */}
-        <div className="flex-grow mx-8">
+        <div className="flex-grow">
           <div className="relative">
             <input
               type="text"
