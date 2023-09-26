@@ -163,11 +163,10 @@ export function HomePage() {
         </div>
       </div>
 
-    <div className='bg-slate-100 pb-24'>
+    <div className='bg-slate-100  px-24'>
 
-
-      <header className="bg-gray-800 py-6 mt-0 rounded-full mx-24 hover-scale-small:hover hover-scale-small" ref={headerRef}>
-            <div className="container mx-12 text-white">
+      <header className="bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover hover-scale-small" ref={headerRef}>
+            <div className="container pl-12 text-white">
               <h1 className="text-5xl font-semibold mb-4">Üdvözöljük a Szoftverkereső weboldalon</h1>
               <p className="text-lg">Válassza ki az igényeidhez megfelelő szoftvereket kínálatunkból</p>
             </div>
@@ -176,7 +175,7 @@ export function HomePage() {
     </div>
 
       <section className="bg-slate-100">
-  <div className="mx-28">
+  <div className="p-28 bg-slate-100">
     <div className="flex flex-row items-center justify-center gap-28">
       <div ref={sectionRef} className="animated-element text-left">
         <Link to={"/osszehasonlitas"}>
@@ -205,7 +204,7 @@ export function HomePage() {
 
 
 
-<div className="bg-red-800 pb-16 pt-16 pl-24 pr-24">
+<div className="bg-slate-100 pb-16 pl-24 pr-24">
 <section className="bg-slate-200  py-6 rounded-40" ref={howtoRef} style={{ width: '100%' }}>    
   <div className="px-12">
       <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
