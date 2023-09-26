@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/index.css';
-import NavbarExample from './components/Navbar/Navbar';
+import {Navbar} from './components/Navbar/Navbar';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import LoginPage from './components/LoginAndRegister/loginPage';
@@ -18,7 +18,7 @@ root.render(
   
   <React.StrictMode>
     <Router> 
-      <NavbarExample/>
+      <Navbar/>
         <Routes> 
             <Route path='/' element={ <> <HomePage/> <Footer/> </> }> </Route>
             <Route path='/belepes' element={ <> <LoginPage/> <Footer/> </> }>  </Route>

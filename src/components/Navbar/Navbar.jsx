@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DropdownMenu from './dropDown';
 import '../../css/Navbar.css';
 
-const Navbar = () => {
+export const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
 
@@ -26,7 +26,7 @@ const Navbar = () => {
         {/* Left Side - Szoftverek Dropdown */}
 
         <div
-          className="relative group block mr-16 ml-4"
+          className="relative group block mr-8 ml-2"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -39,12 +39,12 @@ const Navbar = () => {
         </div>
 
         {/* Left Side - Összehasonlítás */}
-        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 block mr-24 hover-scale hover-scale:hover text-[1.2rem]">
+        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]">
           Összehasonlítás
         </Link>
 
         {/* Center - Search Bar */}
-        <div className="flex-grow">
+        <div className="flex-grow px-8">
           <div className="relative">
             <input
               type="text"
@@ -55,7 +55,7 @@ const Navbar = () => {
         </div>
 
         {/* Right Side - Login and Register */}
-        <Link to="/belepes" className="text-white hover:text-gray-400 ml-40 hover-scale hover-scale:hover text-[1rem]" >
+        <Link to="/belepes" className="text-white hover:text-gray-400 ml-12 hover-scale hover-scale:hover text-[1rem]" >
           Belépés
         </Link>
         <h5 className='text-white px-1'>/</h5>
@@ -67,4 +67,3 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;

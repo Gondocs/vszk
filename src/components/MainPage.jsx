@@ -17,10 +17,6 @@ const imagesWithCaptions = [
     caption: 'Szoftverek összehasonlítása',
   },
   {
-    src: 'https://i.ibb.co/4tLK5HT/konrad-koller-K-ihp4-S96-Qs-unsplash.jpg',
-    caption: '???',
-  },
-  {
     src: 'https://i.ibb.co/611S9vx/glenn-carstens-peters-RLw-UC03-Gwc-unsplash.jpg',
     caption: 'Szoftver szűrés',
   },
