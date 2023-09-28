@@ -18,3 +18,16 @@
 .FadeInSmall {
   animation: FastFadeIn 0.7s ease-in-out;
 }
+
+.sub-menu {
+  white-space: nowrap; /* Prevent text from wrapping */
+  max-width: auto; /* Ensure it doesn't exceed the parent's width */
+}
+
+.group:hover .sub-menu {
+  display: block; /* Show sub-menu when the parent li is hovered */
+  position: absolute;
+  top: 0;
+  left: 100%; /* Position the sub-menu to the right of the main category */
+  z-index: 1; /* Ensure sub-menu is on top of other content */
+}
