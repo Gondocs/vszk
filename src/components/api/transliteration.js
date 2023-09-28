@@ -1,4 +1,5 @@
 export function transliterate(text) {
+    
     const transliterationMap = {
       'á': 'a',
       'é': 'e',
