@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { get } from './api';
 import { useState, useEffect } from 'react';
 
