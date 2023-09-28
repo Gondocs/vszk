@@ -12,7 +12,7 @@ export const Apitest = () => {
     console.log(CategoryData);
 
     return (
-        <h1 className='text-5xl text-center mt-10'> Api teszt: </h1>
+        <h1 className='text-5xl text-center mt-10'> Api teszt: {JSON.stringify(CategoryData)}</h1>
 
 
     )
