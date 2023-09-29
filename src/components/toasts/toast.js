@@ -4,7 +4,7 @@ export const showToast = (message, type = 'success') => {
 
     const toastOptions = {
     duration: 3000,
-    position: 'top-center',
+    position: 'bottom-right',
   };
 
   switch (type) {
