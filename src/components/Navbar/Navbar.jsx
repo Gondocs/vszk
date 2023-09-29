@@ -49,7 +49,7 @@ export const Navbar = () => {
             <input
               type="text"
               placeholder="Keresés"
-              className="pl-8 pr-10 py-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full hover-scale hover-scale:hover"
+              className="pl-8 pr-10 py-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full hover-scale-small hover-scale-small:hover"
             />
           </div>
         </div>
