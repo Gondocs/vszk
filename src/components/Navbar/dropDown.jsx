@@ -20,7 +20,7 @@ const DropdownMenu = () => {
         showToast('Hiba történt az adatok lekérése közben', 'error')          
         
       });
-  }, [MainCategoryData]);
+  }, []);
 
   const uniqueCategories = Array.from(
     new Set(MainCategoryData.map((category) => category.categoryGroup.name))

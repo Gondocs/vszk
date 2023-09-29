@@ -1,33 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/softwareList.css';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from 'react-router-dom';
 import { transliterate } from './api/transliteration';
+import { get } from './api/api';
+import { showToast } from './toasts/toast';
 
 
 
-
-const softwareData = [
-  { id: 1, name: 'Első van sok ékezetes betűkék  A', company: 'Helloszia', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 2, name: 'Masodik B', company: 'Majkroszaft', rating: 3.8, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 3, name: 'Harmadik C', company: 'KisC Kft.', rating: 4.2, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 4, name: 'Negyedik D', company: 'Hihihe Bt.', rating: 4.0, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-];
-
-function SoftwareList() {
+const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const filteredSoftware = softwareData.filter((software) =>
 
-    software.company.toLowerCase().includes(searchTerm.toLowerCase())
-                                ||  // OR
-    software.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const [SoftwareData, setSoftwareData] = useState([]);
 
+  useEffect(() => {
+    get.SoftwareAll()
+      .then((data) => {
+        setSoftwareData(data);
+      })
+      .catch((error) => {
+        showToast('Hiba történt az adatok lekérése közben', 'error')          
+        
+      });
+  }, []);
 
+  useEffect(() => {
+    console.log(SoftwareData);
+  }
   );
 
   return (
     <div className="flex min-h-screen bg-gray-100 py-8 px-16 FadeInSmall">
-      {/* Sidebar */}
+
       <div className="w-1/5 bg-gray-200 p-8 rounded-40 mr-16">
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">Szoftverkeresés</h2>
         <input
@@ -39,37 +43,35 @@ function SoftwareList() {
         />
       </div>
 
-      {/* Content */}
       <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
-  {filteredSoftware.map((software) => (
-    <li key={software.id} className="mb-6 px-4 hover-scale-element:hover hover-scale-element">
+  {SoftwareData.map((software) => (
+    <li key={software.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element">
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
-          {/* Modify the Link element */}
+
           <Link to={`/szoftverek/${transliterate(software.name)}`}>
             <img
-              src="https://via.placeholder.com/400x200"
+              src={software.logo_link}
               alt="Software Placeholder"
               className="w-56 h-28 mr-4 rounded-40"
               draggable="false"
             />
           </Link>
           <div>
-            {/* Display the modified name as link text */}
             <Link
               to={`/szoftverek/${transliterate(software.name)}`}
               className="text-3xl font-semibold text-black"
             >
               {software.name}
             </Link>
-            <Link to={`/szoftverek/${transliterate(software.company)}`}>
-            <p className="text-gray-600 text-xl mb-2 mt-2">{software.company}</p>
+            <Link to={`/szoftverek/${transliterate(software.company.name)}`}>
+            <p className="text-gray-600 text-xl mb-2 mt-2">{software.company.name}</p>
             </Link>
             <div className="flex items-center">
               <span className="text-black text-lg mr-2">
-                Vélemények: {software.rating}
+                Vélemények: 
                 <StarIcon fontSize="medium" className='starmargin' style={{ color: 'rgb(255, 210, 48)' }}/>
               </span>
             </div>
@@ -83,6 +85,6 @@ function SoftwareList() {
       </div>
     </div>
   );
-}
+};
 
 export default SoftwareList;
