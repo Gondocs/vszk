@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import SoftwareList from './components/SoftwareList';
 import SoftwareDetail from './components/SoftwareDetail';
 import { Apitest } from './components/api/apitest';
+import { Toaster } from 'react-hot-toast';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,6 +20,7 @@ root.render(
   
   <React.StrictMode>
     <Router> 
+      <Toaster/>
       <Navbar/>
         <Routes> 
             <Route path='/' element={ <> <HomePage/> <Footer/> </> }> </Route>

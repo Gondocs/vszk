@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../../css/dropDown.css';
 import { get } from '../api/api';
 import { transliterate } from '../api/transliteration';
+import { showToast } from '../toasts/toast';
+
 
 
 const DropdownMenu = () => {
@@ -10,8 +12,15 @@ const DropdownMenu = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
   useEffect(() => {
-    get.Category().then((data) => setMainCategoryData(data));
-  }, []);
+    get.Category()
+      .then((data) => {
+        setMainCategoryData(data);
+      })
+      .catch((error) => {
+        showToast('Hiba történt az adatok lekérése közben', 'error')          
+        
+      });
+  }, [MainCategoryData]);
 
   const uniqueCategories = Array.from(
     new Set(MainCategoryData.map((category) => category.categoryGroup.name))
@@ -26,8 +35,8 @@ const DropdownMenu = () => {
           <li
             key={categoryName}
             className="relative group"
-            onMouseEnter={() => setHoveredCategory(categoryName)}
-            onMouseLeave={() => setHoveredCategory(null)}
+            onMouseEnter={() => setHoveredCategory(categoryName) && uniqueCategories.length === 0 && showToast('info', 'Kategória kinyitva')}
+            onMouseLeave={() => setHoveredCategory(null) && showToast('info', 'Kategória bezárva')}
           >
             <Link to={`/szoftverek/${transliterate(categoryName)}`}>
             <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600">
