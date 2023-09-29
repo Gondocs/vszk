@@ -35,8 +35,8 @@ const DropdownMenu = () => {
           <li
             key={categoryName}
             className="relative group"
-            onMouseEnter={() => setHoveredCategory(categoryName) && uniqueCategories.length === 0 && showToast('info', 'Kategória kinyitva')}
-            onMouseLeave={() => setHoveredCategory(null) && showToast('info', 'Kategória bezárva')}
+            onMouseEnter={() => setHoveredCategory(categoryName)}
+            onMouseLeave={() => setHoveredCategory(null)}
           >
             <Link to={`/szoftverek/${transliterate(categoryName)}`}>
             <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600">
