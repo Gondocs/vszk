@@ -97,7 +97,7 @@ const SoftwareList = () => {
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
 
-          <Link to={`/szoftverek/${transliterate(software.name)}`}>
+          <Link to={`/szoftverek/${category}/${transliterate(software.name)}`}>
             <img
               src={software.logo_link}
               alt="Software Placeholder"
@@ -107,12 +107,12 @@ const SoftwareList = () => {
           </Link>
           <div>
             <Link
-              to={`/szoftverek/${transliterate(software.name)}`}
+              to={`/szoftverek/${category}/${transliterate(software.name)}`}
               className="text-3xl font-semibold text-black"
             >
               {software.name}
             </Link>
-            <Link to={`/szoftverek/${transliterate(software.company.name)}`}>
+            <Link to={`/szoftverek/${category}/${transliterate(software.company.name)}`}>
             <p className="text-gray-600 text-xl mb-2 mt-2">{software.company.name}</p>
             </Link>
             <div className="flex items-center">
