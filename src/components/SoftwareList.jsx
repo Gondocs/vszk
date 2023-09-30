@@ -48,32 +48,36 @@ const SoftwareList = () => {
   // determine if the category is a main category, DONE
   const isMainCategory = uniqueCategories.includes(transliteratedCategory);
 
-  // filter the software list based on the selected category, DONE
   let filteredSoftwareData;
   if (category) {
     if (isMainCategory) {
-      // filter by main category (including all subcategories), DONE
+      // Filter by main category (including all subcategories)
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
-          transliterate(software.category.categoryGroup.name) === transliteratedCategory
+          transliterate(software.category.categoryGroup.name) === transliteratedCategory &&
+          software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
       );
     } else {
-      // filter by subcategory, DONE
+      // Filter by subcategory
       filteredSoftwareData = SoftwareData.filter(
-        (software) => transliterate(software.category.name) === transliteratedCategory
+        (software) =>
+          transliterate(software.category.name) === transliteratedCategory &&
+          software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
       );
     }
   } else {
-    // if the category is empty, display all software items, DONE
-    filteredSoftwareData = SoftwareData;
+    // If the category is empty, display all software items
+    filteredSoftwareData = SoftwareData.filter((software) =>
+      software.name.toLowerCase().includes(searchTerm.toLowerCase()) // filter by software name
+    );
   }
 
-  
+  const noResultsMessage = filteredSoftwareData.length === 0 ? (
+    <div className="bg-white rounded-40 flex justify-center items-center" style={{height: "10%", width: "50%", margin: "auto", marginTop: "7%"}}>
+  <div className="text-gray-600 text-4xl text-center">A keresett szoftver nem található.</div>
+</div>
 
-  useEffect(() => {
-    console.log(SoftwareData);
-  }
-  );
+  ) : null;
 
   return (
     <div className="flex min-h-screen bg-gray-100 py-8 px-16 FadeInSmall">
@@ -128,6 +132,9 @@ const SoftwareList = () => {
     </li>
   ))}
 </ul>
+      {noResultsMessage}
+
+
       </div>
     </div>
   );
