@@ -19,6 +19,12 @@
   animation: FastFadeIn 0.7s ease-in-out;
 }
 
+/* Add this CSS class to your stylesheet */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease; /* Adjust the transition duration as needed */
+}
+
 .sub-menu {
   white-space: nowrap; /* Prevent text from wrapping */
   max-width: auto; /* Ensure it doesn't exceed the parent's width */

@@ -73,7 +73,8 @@ const SoftwareList = () => {
   }
 
   const noResultsMessage = filteredSoftwareData.length === 0 ? (
-    <div className="bg-white rounded-40 flex justify-center items-center" style={{height: "10%", width: "50%", margin: "auto", marginTop: "7%"}}>
+    
+    <div className="bg-white rounded-40 flex justify-center items-center fadeIn" style={{height: "10%", width: "50%", margin: "auto", marginTop: "7%"}}>
   <div className="text-gray-600 text-4xl text-center">A keresett szoftver nem található.</div>
 </div>
 
@@ -97,7 +98,7 @@ const SoftwareList = () => {
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
   {filteredSoftwareData.map((software) => (
-    <li key={software.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element">
+    <li key={software.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
 
