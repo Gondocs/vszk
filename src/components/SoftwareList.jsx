@@ -27,6 +27,8 @@ const SoftwareList = () => {
       });
   }, []);
 
+  
+
   useEffect(() => {
     console.log(SoftwareData);
   }
