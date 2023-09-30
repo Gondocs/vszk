@@ -30,6 +30,7 @@ root.render(
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
             <Route path="/szoftverek/:category" element= { <> <SoftwareList/> <Footer/> </> } />
             <Route path="/szoftverek/:category/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
+
             <Route path='/test' element= { <Apitest/> }></Route>
 
         </Routes>
