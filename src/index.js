@@ -28,8 +28,8 @@ root.render(
             <Route path='/regisztracio' element={ <> <Register/> <Footer/> </> }>  </Route>
             <Route path='*' element={ <> <PageNotFound/> <Footer/> </> }> </Route>
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
-            <Route path='/szoftverek/*' element= {<> <SoftwareDetail/> <Footer/> </>}></Route>
             <Route path="/szoftverek/:category" element= { <> <SoftwareList/> <Footer/> </> } />
+            <Route path="/szoftverek/:category/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
             <Route path='/test' element= { <Apitest/> }></Route>
 
         </Routes>

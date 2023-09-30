@@ -1,49 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NotFound from './PageNotFound';
-
-export const softwareData = [
-  { id: 1, name: 'Elso  A', company: 'Helloszia', rating: 4.5, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 2, name: 'Masodik B', company: 'Majkroszaft', rating: 3.8, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 3, name: 'Harmadik C', company: 'KisC Kft.', rating: 4.2, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-  { id: 4, name: 'Negyedik D', company: 'Hihihe Bt.', rating: 4.0, description: 'Valami szöveg ide meg ide meg ide is aha értem persze nagyon sok kedvem van egy jó szép hosszú szöveget írni, képzelheted, de hát a jó katona vérben is harcol, ahogy szokták mondani, drága zoltán, nagyon remélem, hogy ma valami rendesebb küldetéseket kapunk faszmoban mert már volt egy hete, hogy teljesíthető cuccokat kaptunk, ami után nem kezdtük el kihúzni a hajunkat majd levetni magunkat a tizedik emeletről.' },
-];
+import { get } from './api/api';
+import { showToast } from './toasts/toast';
 
 function SoftwareDetail() {
-
-
-
   const { name } = useParams();
+  const [SoftwareData, setSoftwareData] = useState([]);
 
-  
-  const selectedSoftware = softwareData.find(
-    (software) =>
-      software.name.replace(/\s+/g, '-').toLowerCase() === name
-  );
+  useEffect(() => {
+    get.SoftwareAll()
+      .then((data) => {
+        const software = data.find(
+          (software) => software.name.replace(/\s+/g, '-').toLowerCase() === name
+        );
+        setSoftwareData(software);
+        console.log(software)
+      })
+      .catch((error) => {
+        console.error('Error fetching software data:', error);
+        showToast('Hiba történt az adatok lekérése közben', 'error')
+      });
+  }, [name]);
 
-  if (!selectedSoftware) {
-    return <div><NotFound/></div>;
+  if (!SoftwareData) {
+    return <NotFound />;
   }
 
-  return (
-    <div className='px-16 py-16 bg-slate-100'>
 
-    <div className="px-16 py-16 bg-white text-black p-8 rounded-lg shadow-lg mt-1">
-      <h2 className="text-3xl font-semibold">{selectedSoftware.name}</h2>
-      <div className="flex items-center mt-4">
-        <p className="text-lg font-semibold">
-          Rating: {selectedSoftware.rating}
-        </p>
+  return (
+    <div className="p-16 mt-8">
+      <div className="bg-gray-200 p-16 rounded-lg shadow-lg flex items-center">
+        <img
+          src={SoftwareData.logo_link}
+          alt="Software Logo"
+          className=" w-96 h-64 rounded-40 mr-6"
+          draggable="false"
+        />
+        <div>
+          <h2 className="text-3xl font-semibold">{SoftwareData.name}</h2>
+          <p className="text-lg font-semibold">Rating: {SoftwareData.rating}</p>
+          <p className="text-lg mt-4">{SoftwareData.description}</p>
+          <div className="mt-6">
+            <a
+              href={SoftwareData.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
+            >
+              Tovább a szoftver oldalára
+            </a>
+          </div>
+        </div>
       </div>
-      <p className="mt-4 text-lg">{selectedSoftware.description}</p>
-      <div className="mt-6 flex justify-end">
-        <button className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300">
-          Tovább a szoftver oldalára
-        </button>
-      </div>
-    </div>
     </div>
   );
+  
+  
+  
 }
 
 export default SoftwareDetail;
