@@ -8,13 +8,16 @@ import { showToast } from './toasts/toast';
 
 
 
+
 const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { category } = useParams();
 
   console.log("hello: " + category)
 
+
   const [SoftwareData, setSoftwareData] = useState([]);
+  const [MainCategoryData, setMainCategoryData] = useState([]);
 
   useEffect(() => {
     get.SoftwareAll()
@@ -22,10 +25,48 @@ const SoftwareList = () => {
         setSoftwareData(data);
       })
       .catch((error) => {
-        showToast('Hiba történt az adatok lekérése közben', 'error')          
-        
+        showToast('Hiba történt az adatok lekérése közben', 'error');
+      });
+
+    get.Category()
+      .then((data) => {
+        setMainCategoryData(data);
+      })
+      .catch((error) => {
+        showToast('Hiba történt az adatok lekérése közben', 'error');
       });
   }, []);
+
+  // transliterate the URL category parameter if it exists, DONE
+  const transliteratedCategory = category ? transliterate(category) : '';
+
+  // calculate unique categories based on the data from the API, DONE
+  const uniqueCategories = Array.from(
+    new Set(MainCategoryData.map((category) => transliterate(category.categoryGroup.name)))
+  );
+
+  // determine if the category is a main category, DONE
+  const isMainCategory = uniqueCategories.includes(transliteratedCategory);
+
+  // filter the software list based on the selected category, DONE
+  let filteredSoftwareData;
+  if (category) {
+    if (isMainCategory) {
+      // filter by main category (including all subcategories), DONE
+      filteredSoftwareData = SoftwareData.filter(
+        (software) =>
+          transliterate(software.category.categoryGroup.name) === transliteratedCategory
+      );
+    } else {
+      // filter by subcategory, DONE
+      filteredSoftwareData = SoftwareData.filter(
+        (software) => transliterate(software.category.name) === transliteratedCategory
+      );
+    }
+  } else {
+    // if the category is empty, display all software items, DONE
+    filteredSoftwareData = SoftwareData;
+  }
 
   
 
@@ -51,7 +92,7 @@ const SoftwareList = () => {
       <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
-  {SoftwareData.map((software) => (
+  {filteredSoftwareData.map((software) => (
     <li key={software.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element">
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
