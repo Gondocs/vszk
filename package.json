@@ -30,9 +30,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-all": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
+    "start-laptop": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
+    "start-pc": "concurrently \"npm run start-frontend\" \"npm run start-backendMainPC\"",
     "start-frontend": "npm start",
-    "start-backend": "cd C:/Users/gondo/OneDrive/Dokumentumok/Programozás/vszk && dotnet watch run"
+    "start-backend": "cd C:/Users/gondo/OneDrive/Dokumentumok/Programozás/vszk && dotnet watch run",
+    "start-backendMainPC": "cd D:/Programozas/projektmunka/vszk && dotnet watch run"
   },
   "eslintConfig": {
     "extends": [
