@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/softwareList.css';
 import StarIcon from '@mui/icons-material/Star';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { transliterate } from './api/transliteration';
 import { get } from './api/api';
 import { showToast } from './toasts/toast';
@@ -10,6 +10,9 @@ import { showToast } from './toasts/toast';
 
 const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { category } = useParams();
+
+  console.log("hello: " + category)
 
   const [SoftwareData, setSoftwareData] = useState([]);
 
