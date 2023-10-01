@@ -52,7 +52,7 @@ const DropdownMenu = () => {
               {MainCategoryData
                 .filter((category) => category.categoryGroup.name === categoryName)
                 .map((subcategory) => (
-                  <Link to={`/szoftverek/${transliterate(subcategory.name)}`} key={subcategory.name}>
+                  <Link to={`/szoftverek/${transliterate(categoryName)}/${transliterate(subcategory.name)}`} key={subcategory.name}>
                     <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600 hover:opacity-100">
                       {subcategory.name}
                     </button>

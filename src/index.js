@@ -29,8 +29,9 @@ root.render(
             <Route path='/regisztracio' element={ <> <Register/> <Footer/> </> }>  </Route>
             <Route path='*' element={ <> <PageNotFound/> <Footer/> </> }> </Route>
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
-            <Route path="/szoftverek/:category" element= { <> <SoftwareList/> <Footer/> </> } />
-            <Route path="/szoftverek/:category/:softwareID/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
+            <Route path="/szoftverek/:Maincategory" element= { <> <SoftwareList/> <Footer/> </> } />
+            <Route path="/szoftverek/:Maincategory/:Subcategory" element= { <> <SoftwareList/> <Footer/> </> } />
+            <Route path="/szoftverek/:Maincategory/:SubCategory/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
             <Route path="/cegek/:company" element= { <> <CompanyDetails/> <Footer/> </> } />
 
 

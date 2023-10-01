@@ -11,9 +11,9 @@ import { showToast } from './toasts/toast';
 
 const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { category } = useParams();
+  const { Maincategory, Subcategory } = useParams();
 
-  console.log("hello: " + category)
+  console.log("hello: " + Maincategory + " " + Subcategory)
 
 
   const [SoftwareData, setSoftwareData] = useState([]);
@@ -38,7 +38,7 @@ const SoftwareList = () => {
   }, []);
 
   // transliterate the URL category parameter if it exists, DONE
-  const transliteratedCategory = category ? transliterate(category) : '';
+  const transliteratedCategory = Maincategory ? transliterate(Maincategory) : '';
 
   // calculate unique categories based on the data from the API, DONE
   const uniqueCategories = Array.from(
@@ -49,8 +49,17 @@ const SoftwareList = () => {
   const isMainCategory = uniqueCategories.includes(transliteratedCategory);
 
   let filteredSoftwareData;
-  if (category) {
-    if (isMainCategory) {
+
+  if (Maincategory) {
+    if (Subcategory) {
+      // Filter by both main category and subcategory
+      filteredSoftwareData = SoftwareData.filter(
+        (software) =>
+          transliterate(software.category.categoryGroup.name) === transliteratedCategory &&
+          transliterate(software.category.name) === transliterate(Subcategory) &&
+          software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
+      );
+    } else if (isMainCategory) {
       // Filter by main category (including all subcategories)
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
