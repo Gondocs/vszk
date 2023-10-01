@@ -46,14 +46,14 @@ export const CompanyList = () => {
       <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
-  {CompanyData.map((software) => (
-    <li key={software.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
+  {CompanyData.map((company) => (
+    <li key={company.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
 
-          <Link to={`/szoftverek/${transliterate(software.category.categoryGroup.name)}/${transliterate(software.category.name)}/${transliterate(software.name)}`}>
+          <Link to={`/szoftverek/${transliterate(company.name)}`}>
             <img
-              src={software.logo_link}
+              src={company.logo_link}
               alt="Software Placeholder"
               className="w-56 h-28 mr-4 rounded-40"
               draggable="false"
@@ -61,13 +61,13 @@ export const CompanyList = () => {
           </Link>
           <div>
             <Link
-              to={`/szoftverek/${transliterate(software.category.categoryGroup.name)}/${transliterate(software.category.name)}/${transliterate(software.name)}`}
+              to={`/szoftverek/${transliterate(company.name)}`}
               className="text-3xl font-semibold text-black"
             >
-              {software.name}
+              {company.name}
             </Link>
-            <Link to={`/cegek/${transliterate(software.company.name)}`}>
-            <p className="text-gray-600 text-xl mb-2 mt-2">{software.company.name}</p>
+            <Link to={`/szoftverek/${transliterate(company.name)}`}>
+            <p className="text-gray-600 text-xl mb-2 mt-2">{company.name}</p>
             </Link>
             <div className="flex items-center">
               <span className="text-black text-lg mr-2">
@@ -77,7 +77,7 @@ export const CompanyList = () => {
             </div>
           </div>
         </div>
-        <p className="text-gray-700 m-4">{software.description}</p>
+        <p className="text-gray-700 m-4">{company.description}</p>
       </div>
     </li>
   ))}
