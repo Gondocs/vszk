@@ -101,19 +101,20 @@ const SoftwareList = () => {
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
   {filteredSoftwareData.map((software) => (
-    <li key={software.softwareID} className="mb-6 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
-      <div className="bg-white rounded-40 p-4">
-        <div className="flex mb-2 pl-4 pt-4">
+    <li key={software.softwareID} className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
+      <div className="bg-white rounded-40 p-16">
+        <div className="flex">
 
-          <Link to={`/szoftverek/${transliterate(software.category.categoryGroup.name)}/${transliterate(software.category.name)}/${transliterate(software.name)}`}>
+        <Link to={`/szoftverek/${transliterate(software.category.categoryGroup.name)}/${transliterate(software.category.name)}/${transliterate(software.name)}`}
+        className="flex items-center">
             <img
               src={software.logo_link}
               alt="Software Placeholder"
-              className="w-56 h-28 mr-4 rounded-40"
+              className="w-64 h-32 ml-4 mr-20"
               draggable="false"
             />
-          </Link>
-          <div>
+        </Link>
+          <div className='w-2/3'>
             <Link
               to={`/szoftverek/${transliterate(software.category.categoryGroup.name)}/${transliterate(software.category.name)}/${transliterate(software.name)}`}
               className="text-3xl font-semibold text-black"
@@ -129,9 +130,9 @@ const SoftwareList = () => {
                 <StarIcon fontSize="medium" className='starmargin' style={{ color: 'rgb(255, 210, 48)' }}/>
               </span>
             </div>
+            <p className="text-gray-700">{software.description}</p>
           </div>
         </div>
-        <p className="text-gray-700 m-4">{software.description}</p>
       </div>
     </li>
   ))}
