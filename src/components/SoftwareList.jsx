@@ -17,7 +17,6 @@ const SoftwareList = () => {
 
 
   const [SoftwareData, setSoftwareData] = useState([]);
-  const [MainCategoryData, setMainCategoryData] = useState([]);
 
   useEffect(() => {
     get.SoftwareAll()
@@ -28,21 +27,16 @@ const SoftwareList = () => {
         showToast('Hiba történt az adatok lekérése közben', 'error');
       });
 
-    get.Category()
-      .then((data) => {
-        setMainCategoryData(data);
-      })
-      .catch((error) => {
-        showToast('Hiba történt az adatok lekérése közben', 'error');
-      });
   }, []);
+
+  useEffect(() => { console.log(SoftwareData);}, [SoftwareData]);
 
   // transliterate the URL category parameter if it exists, DONE
   const transliteratedCategory = Maincategory ? transliterate(Maincategory) : '';
 
   // calculate unique categories based on the data from the API, DONE
   const uniqueCategories = Array.from(
-    new Set(MainCategoryData.map((category) => transliterate(category.categoryGroup.name)))
+    new Set(SoftwareData.map((category) => transliterate(category.category.categoryGroup.name)))
   );
 
   // determine if the category is a main category, DONE
