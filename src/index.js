@@ -13,6 +13,7 @@ import SoftwareList from './components/SoftwareList';
 import SoftwareDetail from './components/SoftwareDetail';
 import { Apitest } from './components/api/apitest';
 import { Toaster } from 'react-hot-toast';
+import { CompanyDetails } from './components/CompanyDetail';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -30,6 +31,8 @@ root.render(
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
             <Route path="/szoftverek/:category" element= { <> <SoftwareList/> <Footer/> </> } />
             <Route path="/szoftverek/:category/:softwareID/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
+            <Route path="/cegek/:company" element= { <> <CompanyDetails/> <Footer/> </> } />
+
 
             <Route path='/test' element= { <Apitest/> }></Route>
 
