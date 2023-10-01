@@ -29,7 +29,7 @@ root.render(
             <Route path='*' element={ <> <PageNotFound/> <Footer/> </> }> </Route>
             <Route path='/szoftverek' element={ <> <SoftwareList/> <Footer/> </> } > </Route>
             <Route path="/szoftverek/:category" element= { <> <SoftwareList/> <Footer/> </> } />
-            <Route path="/szoftverek/:category/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
+            <Route path="/szoftverek/:category/:softwareID/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
 
             <Route path='/test' element= { <Apitest/> }></Route>
 

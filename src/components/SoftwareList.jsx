@@ -102,7 +102,7 @@ const SoftwareList = () => {
       <div className="bg-white rounded-40 p-4">
         <div className="flex mb-2 pl-4 pt-4">
 
-          <Link to={`/szoftverek/${category}/${transliterate(software.name)}`}>
+          <Link to={`/szoftverek/${category}/${software.softwareID}/${transliterate(software.name)}`}>
             <img
               src={software.logo_link}
               alt="Software Placeholder"
