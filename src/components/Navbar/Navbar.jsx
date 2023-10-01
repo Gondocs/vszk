@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
-import DropdownMenu from './dropDown';
-import '../../css/Navbar.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import DropdownMenu from "./dropDown";
+import "../../css/Navbar.css";
 
 export const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -18,8 +17,10 @@ export const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4 rounded-lg flex-grow">
       <div className="flex items-center">
-    
-        <Link to="/" className="text-white hover:text-gray-400 block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover">
+        <Link
+          to="/"
+          className="text-white hover:text-gray-400 block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover"
+        >
           Főoldal
         </Link>
 
@@ -30,19 +31,29 @@ export const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <Link to={'/szoftverek'}>
-          <button className={`text-white ${isDropdownVisible ? 'text-gray-400' : 'hover:text-gray-400'} block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}>
-          Szoftverek
-        </button>
+          <Link to={"/szoftverek"}>
+            <button
+              className={`text-white ${
+                isDropdownVisible ? "text-gray-400" : "hover:text-gray-400"
+              } block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}
+            >
+              Szoftverek
+            </button>
           </Link>
           {isDropdownVisible && <DropdownMenu />}
         </div>
 
-        <Link to="/cegek" className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]">
+        <Link
+          to="/cegek"
+          className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]"
+        >
           Cégek
         </Link>
         {/* Left Side - Összehasonlítás */}
-        <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]">
+        <Link
+          to="/osszehasonlitas"
+          className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]"
+        >
           Összehasonlítás
         </Link>
 
@@ -58,15 +69,20 @@ export const Navbar = () => {
         </div>
 
         {/* Right Side - Login and Register */}
-        <Link to="/belepes" className="text-white hover:text-gray-400 ml-12 hover-scale hover-scale:hover text-[1rem]" >
+        <Link
+          to="/belepes"
+          className="text-white hover:text-gray-400 ml-12 hover-scale hover-scale:hover text-[1rem]"
+        >
           Belépés
         </Link>
-        <h5 className='text-white px-1'>/</h5>
-        <Link to="/regisztracio" className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]">
+        <h5 className="text-white px-1">/</h5>
+        <Link
+          to="/regisztracio"
+          className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]"
+        >
           Regisztráció
         </Link>
       </div>
     </nav>
   );
 };
-

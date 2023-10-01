@@ -16,7 +16,6 @@
   margin-left: 5rem;
 }
 
-
 .image-container {
   position: relative;
   display: inline-block;
@@ -60,13 +59,13 @@
 }
 
 @media (max-width: 768px) {
-  .image-container .image-hover-text{
+  .image-container .image-hover-text {
     font-size: 2rem;
   }
 }
 
 @media (max-width: 1440px) {
-  .image-container .image-hover-text{
+  .image-container .image-hover-text {
     font-size: 2.2rem;
   }
 }

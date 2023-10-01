@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../../css/loginAndRegister.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "../../css/loginAndRegister.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    country: '',
-    city: '',
-    password: '',
-    confirmPassword: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    country: "",
+    city: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -23,21 +23,23 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // registration logic 
-    console.log('Form Data:', formData);
+    // registration logic
+    console.log("Form Data:", formData);
   };
 
   return (
     <div className="min-h-screen bg-slate-100	 flex flex-col items-center justify-center">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister FadeInSmall" >
-        <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">Regisztráció</h2>
-
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg marginRegister FadeInSmall">
+        <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">
+          Regisztráció
+        </h2>
 
         <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
-
-
           <div>
-            <label htmlFor="lastName" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="lastName"
+              className="block text-lg font-medium text-gray-700"
+            >
               Vezetéknév
             </label>
             <input
@@ -54,7 +56,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="firstName"
+              className="block text-lg font-medium text-gray-700"
+            >
               Keresztnév
             </label>
             <input
@@ -71,7 +76,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-lg font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -88,7 +96,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="country" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="country"
+              className="block text-lg font-medium text-gray-700"
+            >
               Ország
             </label>
             <input
@@ -104,7 +115,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="city" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="city"
+              className="block text-lg font-medium text-gray-700"
+            >
               Város
             </label>
             <input
@@ -121,7 +135,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-lg font-medium text-gray-700"
+            >
               Jelszó
             </label>
             <input
@@ -138,7 +155,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-lg font-medium text-gray-700"
+            >
               Jelszó újra
             </label>
             <input
@@ -163,11 +183,14 @@ const Register = () => {
             </button>
           </div>
           <p className="text-lg text-center mt-2">
-          Már van fiókja?{' '}
-          <Link to="/belepes" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Bejelentkezés
-          </Link>
-        </p>
+            Már van fiókja?{" "}
+            <Link
+              to="/belepes"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Bejelentkezés
+            </Link>
+          </p>
         </form>
       </div>
     </div>

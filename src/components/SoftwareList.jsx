@@ -1,42 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import '../css/softwareList.css';
-import StarIcon from '@mui/icons-material/Star';
-import { Link, useParams } from 'react-router-dom';
-import { transliterate } from './api/transliteration';
-import { get } from './api/api';
-import { showToast } from './toasts/toast';
-
-
-
+import React, { useState, useEffect } from "react";
+import "../css/softwareList.css";
+import StarIcon from "@mui/icons-material/Star";
+import { Link, useParams } from "react-router-dom";
+import { transliterate } from "./api/transliteration";
+import { get } from "./api/api";
+import { showToast } from "./toasts/toast";
 
 const SoftwareList = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const { Maincategory, Subcategory } = useParams();
 
-  console.log("hello: " + Maincategory + " " + Subcategory)
-
+  console.log("hello: " + Maincategory + " " + Subcategory);
 
   const [SoftwareData, setSoftwareData] = useState([]);
 
   useEffect(() => {
-    get.SoftwareAll()
+    get
+      .SoftwareAll()
       .then((data) => {
         setSoftwareData(data);
       })
       .catch((error) => {
-        showToast('Hiba történt az adatok lekérése közben', 'error');
+        showToast("Hiba történt az adatok lekérése közben", "error");
       });
-
   }, []);
 
-  useEffect(() => { console.log(SoftwareData);}, [SoftwareData]);
+  useEffect(() => {
+    console.log(SoftwareData);
+  }, [SoftwareData]);
 
   // transliterate the URL category parameter if it exists, DONE
-  const transliteratedCategory = Maincategory ? transliterate(Maincategory) : '';
+  const transliteratedCategory = Maincategory
+    ? transliterate(Maincategory)
+    : "";
 
   // calculate unique categories based on the data from the API, DONE
   const uniqueCategories = Array.from(
-    new Set(SoftwareData.map((category) => transliterate(category.category.categoryGroup.name)))
+    new Set(
+      SoftwareData.map((category) =>
+        transliterate(category.category.categoryGroup.name)
+      )
+    )
   );
 
   // determine if the category is a main category, DONE
@@ -49,15 +53,18 @@ const SoftwareList = () => {
       // Filter by both main category and subcategory
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
-          transliterate(software.category.categoryGroup.name) === transliteratedCategory &&
-          transliterate(software.category.name) === transliterate(Subcategory) &&
+          transliterate(software.category.categoryGroup.name) ===
+            transliteratedCategory &&
+          transliterate(software.category.name) ===
+            transliterate(Subcategory) &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
       );
     } else if (isMainCategory) {
       // Filter by main category (including all subcategories)
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
-          transliterate(software.category.categoryGroup.name) === transliteratedCategory &&
+          transliterate(software.category.categoryGroup.name) ===
+            transliteratedCategory &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
       );
     } else {
@@ -70,18 +77,23 @@ const SoftwareList = () => {
     }
   } else {
     // If the category is empty, display all software items
-    filteredSoftwareData = SoftwareData.filter((software) =>
-      software.name.toLowerCase().includes(searchTerm.toLowerCase()) // filter by software name
+    filteredSoftwareData = SoftwareData.filter(
+      (software) =>
+        software.name.toLowerCase().includes(searchTerm.toLowerCase()) // filter by software name
     );
   }
 
-  const noResultsMessage = filteredSoftwareData.length === 0 ? (
-    
-    <div className="bg-white rounded-40 flex justify-center items-center fadeIn" style={{height: "10%", width: "50%", margin: "auto", marginTop: "7%"}}>
-  <div className="text-black text-4xl text-center">A keresett szoftver nem található.</div>
-</div>
-
-  ) : null;
+  const noResultsMessage =
+    filteredSoftwareData.length === 0 ? (
+      <div
+        className="bg-white rounded-40 flex justify-center items-center fadeIn"
+        style={{ height: "10%", width: "50%", margin: "auto", marginTop: "7%" }}
+      >
+        <div className="text-black text-4xl text-center">
+          A keresett szoftver nem található.
+        </div>
+      </div>
+    ) : null;
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
@@ -124,7 +136,7 @@ const SoftwareList = () => {
                       alt="Software Placeholder"
                       className="pl-10 pr-10"
                       draggable="false"
-                      style={{ width: 'auto', height: 'auto' }}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </Link>
                 </div>
@@ -152,7 +164,7 @@ const SoftwareList = () => {
                       <StarIcon
                         fontSize="medium"
                         className="starmargin"
-                        style={{ color: 'rgb(255, 210, 48)' }}
+                        style={{ color: "rgb(255, 210, 48)" }}
                       />
                     </span>
                   </div>

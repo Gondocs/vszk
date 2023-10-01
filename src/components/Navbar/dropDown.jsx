@@ -1,24 +1,22 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import '../../css/dropDown.css';
-import { get } from '../api/api';
-import { transliterate } from '../api/transliteration';
-import { showToast } from '../toasts/toast';
-
-
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../../css/dropDown.css";
+import { get } from "../api/api";
+import { transliterate } from "../api/transliteration";
+import { showToast } from "../toasts/toast";
 
 const DropdownMenu = () => {
   const [MainCategoryData, setMainCategoryData] = useState([]);
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
   useEffect(() => {
-    get.Category()
+    get
+      .Category()
       .then((data) => {
         setMainCategoryData(data);
       })
       .catch((error) => {
-        showToast('Hiba történt az adatok lekérése közben', 'error')          
-        
+        showToast("Hiba történt az adatok lekérése közben", "error");
       });
   }, []);
 
@@ -39,25 +37,32 @@ const DropdownMenu = () => {
             onMouseLeave={() => setHoveredCategory(null)}
           >
             <Link to={`/szoftverek/${transliterate(categoryName)}`}>
-            <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600">
-              {categoryName}
-            </button>
+              <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600">
+                {categoryName}
+              </button>
             </Link>
 
             <ul
               className={`py-2 sub-menu absolute top-0 left-full bg-gray-800 ${
-                hoveredCategory === categoryName ? 'FadeInSmall' : 'invisible opacity-0'
+                hoveredCategory === categoryName
+                  ? "FadeInSmall"
+                  : "invisible opacity-0"
               }`}
             >
-              {MainCategoryData
-                .filter((category) => category.categoryGroup.name === categoryName)
-                .map((subcategory) => (
-                  <Link to={`/szoftverek/${transliterate(categoryName)}/${transliterate(subcategory.name)}`} key={subcategory.name}>
-                    <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600 hover:opacity-100">
-                      {subcategory.name}
-                    </button>
-                  </Link>
-                ))}
+              {MainCategoryData.filter(
+                (category) => category.categoryGroup.name === categoryName
+              ).map((subcategory) => (
+                <Link
+                  to={`/szoftverek/${transliterate(
+                    categoryName
+                  )}/${transliterate(subcategory.name)}`}
+                  key={subcategory.name}
+                >
+                  <button className="w-full block text-left pl-6 pr-6 py-4 text-white hover:bg-gray-600 hover:opacity-100">
+                    {subcategory.name}
+                  </button>
+                </Link>
+              ))}
             </ul>
           </li>
         ))}
