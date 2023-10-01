@@ -78,15 +78,15 @@ const SoftwareList = () => {
   const noResultsMessage = filteredSoftwareData.length === 0 ? (
     
     <div className="bg-white rounded-40 flex justify-center items-center fadeIn" style={{height: "10%", width: "50%", margin: "auto", marginTop: "7%"}}>
-  <div className="text-gray-600 text-4xl text-center">A keresett szoftver nem található.</div>
+  <div className="text-black text-4xl text-center">A keresett szoftver nem található.</div>
 </div>
 
   ) : null;
 
   return (
-    <div className="flex min-h-screen bg-gray-100 py-8 px-16 FadeInSmall">
+    <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
 
-      <div className="w-1/5 bg-gray-200 p-8 rounded-40 mr-16">
+      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16">
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">Szoftverkeresés</h2>
         <input
           type="text"
@@ -98,11 +98,11 @@ const SoftwareList = () => {
       </div>
 
       <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
-        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
+        <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
         <ul>
   {filteredSoftwareData.map((software) => (
-    <li key={software.softwareID} className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
-      <div className="bg-white rounded-40 p-16">
+    <li key={software.softwareID} className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall ">
+      <div className="bg-white rounded-25 p-16 border border-gray-400">
         <div className="flex">
 
         <Link to={`/szoftverek/${transliterate(software.category.categoryGroup.name)}/${transliterate(software.category.name)}/${transliterate(software.name)}`}

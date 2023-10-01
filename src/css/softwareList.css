@@ -10,6 +10,10 @@
   border-radius: 40px;
 }
 
+.rounded-25 {
+  border-radius: 25px;
+}
+
 .starmargin {
   margin-bottom: 0.27rem;
   margin-left: 0.1rem;

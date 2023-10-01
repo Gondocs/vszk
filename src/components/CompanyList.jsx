@@ -27,13 +27,15 @@ export const CompanyList = () => {
 
   useEffect(() => { console.log(CompanyData);}, [CompanyData]);
 
-  
+  const filteredCompanies = CompanyData.filter((company) =>
+  company.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
-    <div className="flex min-h-screen bg-gray-100 py-8 px-16 FadeInSmall">
+    <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
 
-      <div className="w-1/5 bg-gray-200 p-8 rounded-40 mr-16">
-        <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">Szoftverkeresés</h2>
+      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16">
+        <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">Cégkeresés</h2>
         <input
           type="text"
           placeholder="Szoftver neve..."
@@ -44,11 +46,11 @@ export const CompanyList = () => {
       </div>
 
       <div className="w-3/4 p-4 bg-gray-200 rounded-40 ">
-        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Szoftverlista</h1>
+        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">Céglista</h1>
         <ul>
-  {CompanyData.map((company) => (
+  {filteredCompanies.map((company) => (
     <li key={company.softwareID} className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall">
-      <div className="bg-white rounded-40 p-16">
+      <div className="bg-white rounded-25 p-16 border border-gray-400">
         <div className="flex">
 
           <Link to={`/szoftverek/${transliterate(company.name)}`}
