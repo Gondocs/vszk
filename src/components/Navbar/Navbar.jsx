@@ -38,6 +38,9 @@ export const Navbar = () => {
           {isDropdownVisible && <DropdownMenu />}
         </div>
 
+        <Link to="/cegek" className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]">
+          Cégek
+        </Link>
         {/* Left Side - Összehasonlítás */}
         <Link to="/osszehasonlitas" className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]">
           Összehasonlítás

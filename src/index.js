@@ -13,7 +13,7 @@ import SoftwareList from './components/SoftwareList';
 import SoftwareDetail from './components/SoftwareDetail';
 import { Apitest } from './components/api/apitest';
 import { Toaster } from 'react-hot-toast';
-import { CompanyDetails } from './components/CompanyDetail';
+import { CompanyList } from './components/CompanyList';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,7 +32,7 @@ root.render(
             <Route path="/szoftverek/:Maincategory" element= { <> <SoftwareList/> <Footer/> </> } />
             <Route path="/szoftverek/:Maincategory/:Subcategory" element= { <> <SoftwareList/> <Footer/> </> } />
             <Route path="/szoftverek/:Maincategory/:SubCategory/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
-            <Route path="/cegek/:company" element= { <> <CompanyDetails/> <Footer/> </> } />
+            <Route path="/cegek/" element= { <> <CompanyList/> <Footer/> </> } />
 
 
             <Route path='/test' element= { <Apitest/> }></Route>
