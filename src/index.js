@@ -14,6 +14,7 @@ import SoftwareDetail from './components/SoftwareDetail';
 import { Apitest } from './components/api/apitest';
 import { Toaster } from 'react-hot-toast';
 import { CompanyList } from './components/CompanyList';
+import CompanyDetail from './components/CompanyDetail';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,6 +33,8 @@ root.render(
             <Route path="/szoftverek/:Maincategory" element= { <> <SoftwareList/> <Footer/> </> } />
             <Route path="/szoftverek/:Maincategory/:Subcategory" element= { <> <SoftwareList/> <Footer/> </> } />
             <Route path="/szoftverek/:Maincategory/:SubCategory/:name" element= { <> <SoftwareDetail/> <Footer/> </> } />
+            <Route path="/cegek/:name" element= { <> <CompanyDetail/> <Footer/> </> } />
+
             <Route path="/cegek/" element= { <> <CompanyList/> <Footer/> </> } />
 
 
