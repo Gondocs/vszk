@@ -155,7 +155,7 @@ const SoftwareList = () => {
                     </div>
 
                     {/* Container for the data (2/3 of the width) */}
-                    <div className="w-2/3">
+                    <div className="w-2/3 flex flex-col justify-center">
                       <Link
                         to={`/szoftverek/${transliterate(
                           software.category.categoryGroup.name
