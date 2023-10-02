@@ -7,7 +7,6 @@ import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { HashLoader } from "react-spinners";
 
 const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState("");
