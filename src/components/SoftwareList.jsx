@@ -7,7 +7,6 @@ import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import "../css/pagination.css";
 
 const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -82,6 +81,11 @@ const SoftwareList = () => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+  
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);

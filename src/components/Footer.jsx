@@ -28,7 +28,7 @@ export function Footer() {
           ref={footerRef}
         >
           <div className="container mx-auto text-center">
-            <h2 className="text-4xl font-semibold mb-6 hover-scale-small:hover hover-scale-small">
+            <h2 className="text-4xl font-semibold mb-6">
               Maradjon naprakész
             </h2>
             <p className="text-lg mb-8">
