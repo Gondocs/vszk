@@ -4,10 +4,14 @@ import NotFound from "./PageNotFound";
 import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 function SoftwareDetail() {
   const { name } = useParams();
   const [SoftwareData, setSoftwareData] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
 
   useEffect(() => {
     get
@@ -18,11 +22,13 @@ function SoftwareDetail() {
             software.name.replace(/\s+/g, "-").toLowerCase() === name
         );
         setSoftwareData(software);
+        setLoading(false); // Set loading to false once the data is fetched
         console.log(software);
       })
       .catch((error) => {
         console.error("Error fetching software data:", error);
-        showToast("Hiba történt az adatok lekérése közben", "error");
+        showToast(error, "error");
+        setLoading(false); // Set loading to false in case of an error
       });
   }, [name]);
 
@@ -33,6 +39,13 @@ function SoftwareDetail() {
   return (
     <div className="p-16">
       <div className="bg-gray-200 p-12 rounded-lg shadow-lg flex items-center">
+
+      {loading ? ( // Render loading spinner if loading is true  // NEED TO FURTHER ENHANCE IT, maybe add text, color, different animations, size
+      <div className="flex justify-center items-center mx-auto">
+            <ClipLoader color={"#B5B4B4"} loading={loading} size={250} /> 
+          </div>
+        ) : (
+          <>
         <img
           src={SoftwareData.logo_link}
           alt="Software Logo"
@@ -59,7 +72,9 @@ function SoftwareDetail() {
             Tovább a szoftver oldalára
           </button>
         </div>
-      </div>
+        </>
+        )}
+      </div>   
     </div>
   );
 }
