@@ -133,7 +133,7 @@ const SoftwareList = () => {
                   key={software.softwareID}
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
                 >
-                  <div className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex shadow-xl">
+                  <div className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex shadow-xl" style={{height: '300px'}}>
                     {/* Container for the image (1/3 of the width) */}
                     <div className="w-1/3 flex justify-center items-center">
                       <Link
