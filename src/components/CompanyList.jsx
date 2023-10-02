@@ -24,6 +24,7 @@ export const CompanyList = () => {
       })
       .catch((error) => {
         showToast("Hiba történt az adatok lekérése közben", "error");
+        console.log(error)
         setLoading(false); // Set loading to false in case of an error
 
       });
@@ -73,7 +74,7 @@ export const CompanyList = () => {
                 {/* Container for the image (1/3 of the width) */}
                 <div className="w-1/3 flex justify-center items-center">
                   <Link
-                    to={`/szoftverek/${transliterate(company.name)}`}
+                    to={`/cegek/${transliterate(company.name)}`}
                     className="flex items-center"
                   >
                     <img
@@ -89,12 +90,12 @@ export const CompanyList = () => {
                 {/* Container for the data (2/3 of the width) */}
                 <div className="w-2/3">
                   <Link
-                    to={`/szoftverek/${transliterate(company.name)}`}
+                    to={`/cegek/${transliterate(company.name)}`}
                     className="text-3xl font-semibold text-black"
                   >
                     {company.name}
                   </Link>
-                  <Link to={`/szoftverek/${transliterate(company.name)}`}>
+                  <Link to={`/cegek/${transliterate(company.name)}`}>
                     <p className="text-gray-600 text-xl mb-2 mt-2">
                       {company.name}
                     </p>

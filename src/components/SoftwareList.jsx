@@ -27,6 +27,7 @@ const SoftwareList = () => {
       })
       .catch((error) => {
         showToast("Hiba történt az adatok lekérése közben", "error");
+        console.log(error)
         setLoading(false); // Set loading to false in case of an error
       });
   }, []);
