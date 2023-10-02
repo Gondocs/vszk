@@ -92,6 +92,17 @@ const post = {
       }
     */
   },
+
+  RatingData: (data) => {
+    return api.post("/Rating", data).then((response) => response.data);
+
+    /*
+      {
+        "email": "string",
+        "password": "string"
+      }
+    */
+  },
 };
 
 export { get, post };
