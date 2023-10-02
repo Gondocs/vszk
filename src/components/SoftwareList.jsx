@@ -7,40 +7,33 @@ import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import "../css/pagination.css";
 
 const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { Maincategory, Subcategory } = useParams();
 
-  console.log("hello: " + Maincategory + " " + Subcategory);
-
   const [SoftwareData, setSoftwareData] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   useEffect(() => {
     get
       .SoftwareAll()
       .then((data) => {
         setSoftwareData(data);
-        setLoading(false); // Set loading to false once the data is fetched
+        setLoading(false);
       })
       .catch((error) => {
         showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error)
-        setLoading(false); // Set loading to false in case of an error
+        console.log(error);
+        setLoading(false);
       });
   }, []);
 
-  useEffect(() => {
-    console.log(SoftwareData);
-  }, [SoftwareData]);
+  const transliteratedCategory = Maincategory ? transliterate(Maincategory) : "";
 
-  // transliterate the URL category parameter if it exists, DONE
-  const transliteratedCategory = Maincategory
-    ? transliterate(Maincategory)
-    : "";
-
-  // calculate unique categories based on the data from the API, DONE
   const uniqueCategories = Array.from(
     new Set(
       SoftwareData.map((category) =>
@@ -49,48 +42,75 @@ const SoftwareList = () => {
     )
   );
 
-  // determine if the category is a main category, DONE
   const isMainCategory = uniqueCategories.includes(transliteratedCategory);
 
   let filteredSoftwareData;
 
   if (Maincategory) {
     if (Subcategory) {
-      // Filter by both main category and subcategory
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
           transliterate(software.category.categoryGroup.name) ===
             transliteratedCategory &&
           transliterate(software.category.name) ===
             transliterate(Subcategory) &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
+          software.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     } else if (isMainCategory) {
-      // Filter by main category (including all subcategories)
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
           transliterate(software.category.categoryGroup.name) ===
             transliteratedCategory &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
+          software.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     } else {
-      // Filter by subcategory
       filteredSoftwareData = SoftwareData.filter(
         (software) =>
           transliterate(software.category.name) === transliteratedCategory &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by software name
+          software.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
   } else {
-    // If the category is empty, display all software items
     filteredSoftwareData = SoftwareData.filter(
-      (software) =>
-        software.name.toLowerCase().includes(searchTerm.toLowerCase()) // filter by software name
+      (software) => software.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedSoftwareData = filteredSoftwareData.slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);
+
+  const paginationControls = (
+    <div className="flex justify-center items-center mt-4">
+      <ul className="flex space-x-2">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <li key={index}>
+            <button
+              className={`px-4 py-2 rounded-md ${
+                currentPage === index + 1
+                  ? "bg-gray-700 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-500 hover:text-white"
+              }`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+  
+  
+
   const noResultsMessage =
-    filteredSoftwareData.length === 0 ? (
+    paginatedSoftwareData.length === 0 ? (
       <div
         className="bg-white rounded-40 flex justify-center items-center fadeIn"
         style={{ height: "10%", width: "50%", margin: "auto", marginTop: "7%" }}
@@ -103,7 +123,10 @@ const SoftwareList = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
-      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400" style={{height: '100%', marginTop: '7%'}}>
+      <div
+        className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400"
+        style={{ height: "100%", marginTop: "7%" }}
+      >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftverkeresés
         </h2>
@@ -121,19 +144,22 @@ const SoftwareList = () => {
           Szoftverlista
         </h1>
 
-        {loading ? ( // Render loading spinner if loading is true  // NEED TO FURTHER ENHANCE IT, maybe add text, color, different animations, size
+        {loading ? (
           <div className="flex justify-center items-center mt-40">
-            <ClipLoader color={"#B5B4B4"} loading={loading} size={250} /> 
+            <ClipLoader color={"#B5B4B4"} loading={loading} size={250} />
           </div>
         ) : (
           <>
             <ul>
-              {filteredSoftwareData.map((software) => (
+              {paginatedSoftwareData.map((software) => (
                 <li
                   key={software.softwareID}
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
                 >
-                  <div className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex shadow-xl" style={{height: '300px'}}>
+                  <div
+                    className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex shadow-xl"
+                    style={{ height: "300px" }}
+                  >
                     {/* Container for the image (1/3 of the width) */}
                     <div className="w-1/3 flex justify-center items-center">
                       <Link
@@ -188,6 +214,7 @@ const SoftwareList = () => {
               ))}
             </ul>
             {noResultsMessage}
+            {totalPages > 1 && paginationControls}
           </>
         )}
       </div>
