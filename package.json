@@ -23,6 +23,7 @@
     "react-remove-scroll-bar": "^2.3.4",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -33,7 +34,7 @@
     "start-laptop": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
     "start-pc": "concurrently \"npm run start-frontend\" \"npm run start-backendMainPC\"",
     "start-frontend": "npm start",
-    "start-backend": "cd C:/Users/gondo/OneDrive/Dokumentumok/Programozás/vszk && dotnet watch run",
+    "start-backend": "cd C:/Users/gondo/OneDrive/Dokumentumok/Programozás/vszk/vszk && dotnet watch run",
     "start-backendMainPC": "cd D:/Programozas/projektmunka/vszk && dotnet watch run"
   },
   "eslintConfig": {
