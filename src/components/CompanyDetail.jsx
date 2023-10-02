@@ -32,7 +32,9 @@ function CompanyDetail() {
       });
   }, [name]);
 
-
+  if (!CompanyData) {
+    return <NotFound />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
@@ -60,7 +62,7 @@ function CompanyDetail() {
             {CompanyData.name}
           </h2>
           <p className="text-xl font-semibold pt-4 pb-4 pl-4 pr-0">
-            <a href={`https://www.google.com/maps/search/${CompanyData.location}`} target="_blank" className="hover:underline text-xl">
+            <a href={`https://www.google.com/maps/search/${CompanyData.location}`} target="_blank" rel="noreferrer nofollow" className="hover:underline text-xl">
               {CompanyData.location}
             </a>              
           </p>
