@@ -88,17 +88,12 @@ export const CompanyList = () => {
                 </div>
 
                 {/* Container for the data (2/3 of the width) */}
-                <div className="w-2/3">
+                <div className="w-2/3 flex flex-col justify-center">
                   <Link
                     to={`/cegek/${transliterate(company.name)}`}
-                    className="text-3xl font-semibold text-black"
+                    className="text-3xl font-semibold text-black pb-4"
                   >
                     {company.name}
-                  </Link>
-                  <Link to={`/cegek/${transliterate(company.name)}`}>
-                    <p className="text-gray-600 text-xl mb-2 mt-2">
-                      {company.name}
-                    </p>
                   </Link>
                   <div className="flex items-center">
                     <span className="text-black text-lg mr-2">
