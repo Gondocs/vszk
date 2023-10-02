@@ -35,12 +35,13 @@ function CompanyDetail() {
 
 
   return (
+    <div className="min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
     <div className="p-16">
-      <div className="bg-gray-200 p-12 rounded-lg shadow-lg flex items-center">
+    <div className="bg-white p-12 rounded-lg shadow-xl flex items-center">
 
       {loading ? ( // Render loading spinner if loading is true  // NEED TO FURTHER ENHANCE IT, maybe add text, color, different animations, size
       <div className="flex justify-center items-center mx-auto">
-            <ClipLoader color={"#B5B4B4"} loading={loading} size={250} /> 
+      <ClipLoader color={"#B5B4B4"} loading={loading} size={250} /> 
           </div>
         ) : (
           <>
@@ -78,6 +79,7 @@ function CompanyDetail() {
         </>
         )}
       </div>   
+    </div>
     </div>
   );
 }
