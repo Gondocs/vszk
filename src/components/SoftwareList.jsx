@@ -104,7 +104,7 @@ const SoftwareList = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
-      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16">
+      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16" style={{height: '100%', marginTop: '7%'}}>
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftverkeresés
         </h2>
@@ -117,7 +117,7 @@ const SoftwareList = () => {
         />
       </div>
 
-      <div className="w-3/4 p-4 bg-gray-200 rounded-40">
+      <div className="w-4/5 p-4 bg-gray-200 rounded-40">
         <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
           Szoftverlista
         </h1>

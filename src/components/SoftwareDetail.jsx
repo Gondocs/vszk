@@ -47,12 +47,16 @@ function SoftwareDetail() {
           </div>
         ) : (
           <>
+        <div className="w-1/3 flex justify-center items-center">
+
         <img
           src={SoftwareData.logo_link}
           alt="Software Logo"
           className=" rounded-40 mr-6"
           draggable="false"
         />
+        </div>
+        <div className="w-2/3">
         <div className="p-4">
           <h2 className="text-3xl font-semibold p-4">
             Név: {SoftwareData.name}
@@ -72,6 +76,7 @@ function SoftwareDetail() {
           >
             Tovább a szoftver oldalára
           </button>
+        </div>
         </div>
         </>
         )}
