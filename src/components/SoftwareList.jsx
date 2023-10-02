@@ -103,7 +103,7 @@ const SoftwareList = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
-      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16" style={{height: '100%', marginTop: '7%'}}>
+      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400" style={{height: '100%', marginTop: '7%'}}>
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftverkeresés
         </h2>
@@ -133,7 +133,7 @@ const SoftwareList = () => {
                   key={software.softwareID}
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
                 >
-                  <div className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex">
+                  <div className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex shadow-xl">
                     {/* Container for the image (1/3 of the width) */}
                     <div className="w-1/3 flex justify-center items-center">
                       <Link
