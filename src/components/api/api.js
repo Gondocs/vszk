@@ -98,8 +98,19 @@ const post = {
 
     /*
       {
-        "email": "string",
-        "password": "string"
+        "userID": 0,
+        "softwareID": 0,
+        "all_star": 0,
+        "simplicity": 0,
+        "service": 0,
+        "characteristic": 0,
+        "price_value": 0,
+        "recommendation": 0,
+        "all_text": "string",
+        "positive": "string",
+        "negative": "string",
+        "reason_of_use": "string",
+        "duration_of_use": "string"
       }
     */
   },
