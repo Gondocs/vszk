@@ -5,19 +5,27 @@ import { Link } from "react-router-dom";
 import { transliterate } from "./api/transliteration";
 import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
 
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [CompanyData, setCompanyData] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
 
   useEffect(() => {
     get
       .Company()
       .then((data) => {
         setCompanyData(data);
+        setLoading(false); // Set loading to false once the data is fetched
       })
       .catch((error) => {
         showToast("Hiba történt az adatok lekérése közben", "error");
+        setLoading(false); // Set loading to false in case of an error
+
       });
   }, []);
 
@@ -48,6 +56,13 @@ export const CompanyList = () => {
         <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
           Céglista
         </h1>
+
+                {loading ? ( // Render loading spinner if loading is true  // NEED TO FURTHER ENHANCE IT, maybe add text, color, different animations, size
+          <div className="flex justify-center items-center mt-40">
+            <ClipLoader color={"#B5B4B4"} loading={loading} size={250} /> 
+          </div>
+        ) : (
+          <>
         <ul>
           {filteredCompanies.map((company) => (
             <li
@@ -100,6 +115,8 @@ export const CompanyList = () => {
             </li>
           ))}
         </ul>
+        </>
+        )}
       </div>
     </div>
   );
