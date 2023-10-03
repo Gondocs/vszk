@@ -54,29 +54,29 @@ function SoftwareDetail() {
                       <img
                         src={SoftwareData.logo_link}
                         alt="Software Logo"
-                        className="rounded-40 mr-6"
+                        className="mx-auto ml-12"
                         draggable="false"
                       />
                     </div>
 
                     <div className="w-2/3">
-                      <div className="p-4">
-                        <h2 className="text-6xl font-semibold p-4">
+                      <div className="pt-8 pb-8 pr-12 pl-16">
+                        <h2 className="text-6xl font-semibold pt-4">
                           {SoftwareData.name}
                         </h2>
-                        <p className="text-lg font-semibold pt-4 pb-4 pl-4 pr-0">
-                         {SoftwareData.rating}
+                        <p className="text-lg font-semibold pt-4 pb-4  pr-0">
+                          {SoftwareData.rating}
                           <StarIcon
                             fontSize="medium"
                             className="starmargin"
                             style={{ color: "rgb(255, 210, 48)" }}
                           />
                         </p>
-                        <p className="text-lg mt-4 p-4">
+                        <p className="text-lg">
                           {SoftwareData.description}
                         </p>
                         <button
-                          className="ml-4 mt-6 mb-8 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
+                          className=" mt-12 mb-8 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
                           onClick={() =>
                             window.open(SoftwareData.company.website)
                           }
@@ -88,40 +88,41 @@ function SoftwareDetail() {
                   </div>
 
                   <div className="p-20 mt-12 border-gray-200 border-2">
-                    <div className="grid grid-cols-3 gap-4 p-4 bg-red-300">
-                      <div>
+                    <div className="grid grid-cols-3 gap-12 p-4 mb-12">
+
+                      <div className="shadow-custom p-4 rounded-25">
                         <h3 className="text-2xl font-semibold">Nyelvek:</h3>
                         <p className="text-lg mt-2">
                           {SoftwareData.languages.join(", ")}
                         </p>
                       </div>
 
-                      <div>
+                      <div className="shadow-custom p-4 rounded-25">
                         <h3 className="text-2xl font-semibold">
                           Támogatott nyelvek:
                         </h3>
-                        <p className="text-lg mt-2">
+                        <p className="text-lg mt-2 rounded-25">
                           {SoftwareData.supports.join(", ")}
                         </p>
                       </div>
 
-                      <div>
+                      <div className="shadow-custom p-4 rounded-25">
                         <h3 className="text-2xl font-semibold">
                           Operációs rendszerek:
                         </h3>
-                        <p className="text-lg mt-2">
+                        <p className="text-lg mt-2 rounded-25">
                           {SoftwareData.oSs.join(", ")}
                         </p>
                       </div>
 
-                      <div>
+                      <div className="shadow-custom p-4 rounded-25">
                         <h3 className="text-2xl font-semibold">Eszközök:</h3>
                         <p className="text-lg mt-2">
                           {SoftwareData.devices.join(", ")}
                         </p>
                       </div>
 
-                      <div>
+                      <div className="shadow-custom p-4 rounded-25">
                         <h3 className="text-2xl font-semibold">Modulok:</h3>
                         <p className="text-lg mt-2">
                           {SoftwareData.moduls.join(", ")}
@@ -129,57 +130,42 @@ function SoftwareDetail() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-8 bg-blue-200 px-40 pb-12">
-                      <div className="mt-28 ">
-                        <h3 className="text-2xl font-semibold">Funkciók:</h3>
-                        <div className="mt-4">
-                          {SoftwareData.functions.map((func) => (
-                            <div
-                              key={func.softwareFunctionID}
-                              className="flex items-center mb-2"
-                            >
-                              <input
-                                type="checkbox"
-                                checked={func.sfunction}
-                                readOnly
-                                className="mr-2 w-4 h-4 text-indigo-600"
-                              />
-                              <span className="text-lg">
-                                {func.functionality}
-                              </span>
-                            </div>
-                          ))}
+                    <div className="bg-blue-200 px-10 py-8 rounded-25 shadow-custom mb-8">
+                      <h3 className="text-2xl font-semibold mb-4">Funkciók:</h3>
+                      <ul className="list-disc pl-6">
+                        {SoftwareData.functions.map((func) => (
+                          <li
+                            key={func.softwareFunctionID}
+                            className="text-lg mb-2"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={func.sfunction}
+                              readOnly
+                              className="mr-2 w-4 h-4 text-indigo-600"
+                            />
+                            <span>{func.functionality}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4">
+                      {SoftwareData.remunerations.map((remuneration) => (
+                        <div
+                          key={remuneration.remunerationID}
+                          className="bg-white rounded-25 shadow-custom p-4 flex-grow"
+                        >
+                          <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded" >
+                            {(remuneration.level).toUpperCase()}
+                          </h3>
+                          <p className="text-center text-lg">
+                            {remuneration.type === "ajánlatkérés"
+                              ? "Ajánlatkérés"
+                              : `${remuneration.price} Ft / ${remuneration.type === "éves" ? "év" : "hó"}`}
+                          </p>
                         </div>
-                      </div>
-                      <div className="text-center m-auto border-2 border-gray-200">
-                        <h3 className="text-2xl font-semibold">Árak:</h3>
-                        <table className="table-auto mt-4">
-                          <thead>
-                            <tr>
-                              <th className="px-4 py-2 border-2 border-gray-200">
-                                Szint
-                              </th>
-                              <th className="px-4 py-2 border-2 border-gray-200">
-                                Díj
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {SoftwareData.remunerations.map((remuneration) => (
-                              <tr key={remuneration.remunerationID}>
-                                <td className="border px-4 py-2">
-                                  {remuneration.level}
-                                </td>
-                                <td className="border px-4 py-2">
-                                  {remuneration.type === "ajánlatkérés"
-                                    ? "Ajánlatkérés"
-                                    : `${remuneration.price} Ft/${remuneration.type}`}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
