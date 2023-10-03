@@ -74,7 +74,7 @@ function CompanyDetail() {
             className="ml-4 mt-6 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
             onClick={() => window.open(CompanyData.website)}
           >
-            Tovább a szoftver oldalára
+            Tovább a cég oldalára
           </button>
         </div>
         </div>

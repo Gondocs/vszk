@@ -40,7 +40,7 @@ const filterSoftwareData = () => {
 
   useEffect(() => {
     get
-      .SoftwareAll()
+      .GettAllInfos()
       .then((data) => {
         setSoftwareData(data);
         filterSoftwareData();
@@ -113,8 +113,8 @@ const filterSoftwareData = () => {
                 <Link
                   key={software.softwareID}
                   to={`/szoftverek/${transliterate(
-                    software.category.categoryGroup.name
-                  )}/${transliterate(software.category.name)}/${transliterate(
+                    software.category_group
+                  )}/${transliterate(software.category)}/${transliterate(
                     software.name
                   )}`}
                   className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
