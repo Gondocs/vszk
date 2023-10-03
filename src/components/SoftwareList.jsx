@@ -31,6 +31,8 @@ const SoftwareList = () => {
       });
   }, []);
 
+  useEffect(() => {console.log(SoftwareData)}, [SoftwareData]);
+
   const transliteratedCategory = Maincategory ? transliterate(Maincategory) : "";
 
   const uniqueCategories = Array.from(
@@ -203,7 +205,7 @@ const SoftwareList = () => {
                       </Link>
                       <div className="flex items-center">
                         <span className="text-black text-lg mr-2">
-                          Vélemények:
+                          Vélemények: {software.average_stars}
                           <StarIcon
                             fontSize="medium"
                             className="starmargin"

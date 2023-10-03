@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DropdownMenu from "./dropDown";
-import "../../css/Navbar.css";
+import { get } from "../api/api";
+import { showToast } from "../toasts/toast";
+import { transliterate } from "../api/transliteration";
 
 export const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [SoftwareData, setSoftwareData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
+  
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -14,8 +20,43 @@ export const Navbar = () => {
     setDropdownVisible(false);
   };
 
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleLinkClick = () => {
+    setSearchQuery(""); // Clear the search query on link click
+  };
+
+const filterSoftwareData = () => {
+  const filteredData = SoftwareData.filter((software) =>
+    software.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Limit to the top 5 results
+  const top5Results = filteredData.slice(0, 5);
+  setFilteredSoftwareData(top5Results);
+};
+
+  useEffect(() => {
+    get
+      .SoftwareAll()
+      .then((data) => {
+        setSoftwareData(data);
+        filterSoftwareData(); // Call the filter function when data is fetched
+      })
+      .catch((error) => {
+        showToast("Hiba történt az adatok lekérése közben", "error");
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    filterSoftwareData(); // Call the filter function whenever the search query changes
+  }, [searchQuery]);
+
   return (
-    <nav className="bg-gray-800 p-4 rounded-lg flex-grow">
+    <nav className="bg-gray-800 p-4 rounded-b-lg flex-grow relative">
       <div className="flex items-center">
         <Link
           to="/"
@@ -23,8 +64,6 @@ export const Navbar = () => {
         >
           Főoldal
         </Link>
-
-        {/* Left Side - Szoftverek Dropdown */}
 
         <div
           className="relative group block mr-8 ml-2"
@@ -49,7 +88,7 @@ export const Navbar = () => {
         >
           Cégek
         </Link>
-        {/* Left Side - Összehasonlítás */}
+
         <Link
           to="/osszehasonlitas"
           className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]"
@@ -57,18 +96,37 @@ export const Navbar = () => {
           Összehasonlítás
         </Link>
 
-        {/* Center - Search Bar */}
-        <div className="flex-grow px-8">
+        <div className="flex-grow px-8 relative">
           <div className="relative">
             <input
               type="text"
               placeholder="Keresés"
               className="pl-8 pr-10 py-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full hover-scale-small hover-scale-small:hover"
+              value={searchQuery}
+              onChange={handleInputChange}
             />
           </div>
+
+          {searchQuery && (
+            <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full">
+              {filteredSoftwareData.map((software) => (
+                <Link
+                  key={software.id}
+                  to={`/szoftverek/${transliterate(
+                    software.category.categoryGroup.name
+                  )}/${transliterate(software.category.name)}/${transliterate(
+                    software.name
+                  )}`}
+                  className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                  onClick={handleLinkClick}
+                >
+                  {software.name}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Right Side - Login and Register */}
         <Link
           to="/belepes"
           className="text-white hover:text-gray-400 ml-12 hover-scale hover-scale:hover text-[1rem]"

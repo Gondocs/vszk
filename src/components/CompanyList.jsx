@@ -77,7 +77,7 @@ export const CompanyList = () => {
             <ul>
               {paginatedCompanies.map((company) => (
                 <li
-                  key={company.softwareID}
+                  key={company.companyID}
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
                 >
                   <div className="bg-white rounded-25 pr-12 pb-12 pt-12 border border-gray-400 flex shadow-xl" style={{ height: '300px' }}>
