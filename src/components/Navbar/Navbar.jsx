@@ -111,7 +111,7 @@ const filterSoftwareData = () => {
             <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full">
               {filteredSoftwareData.map((software) => (
                 <Link
-                  key={software.id}
+                  key={software.softwareID}
                   to={`/szoftverek/${transliterate(
                     software.category.categoryGroup.name
                   )}/${transliterate(software.category.name)}/${transliterate(

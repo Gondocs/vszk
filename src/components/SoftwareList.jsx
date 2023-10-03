@@ -15,7 +15,7 @@ const SoftwareList = () => {
   const [SoftwareData, setSoftwareData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     get
