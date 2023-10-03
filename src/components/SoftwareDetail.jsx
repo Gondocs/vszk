@@ -72,11 +72,9 @@ function SoftwareDetail() {
                             style={{ color: "rgb(255, 210, 48)" }}
                           />
                         </p>
-                        <p className="text-lg">
-                          {SoftwareData.description}
-                        </p>
+                        <p className="text-lg">{SoftwareData.description}</p>
                         <button
-                          className=" mt-12 mb-8 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
+                          className=" mt-12 mb-8 px-4 py-2 bg-yellow-300 hover:bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
                           onClick={() =>
                             window.open(SoftwareData.company.website)
                           }
@@ -88,85 +86,95 @@ function SoftwareDetail() {
                   </div>
 
                   <div className="p-20 mt-12 border-gray-200 border-2">
-                    <div className="grid grid-cols-3 gap-12 p-4 mb-12">
-
-                      <div className="shadow-custom p-4 rounded-25">
-                        <h3 className="text-2xl font-semibold">Nyelvek:</h3>
-                        <p className="text-lg mt-2">
-                          {SoftwareData.languages.join(", ")}
-                        </p>
-                      </div>
-
-                      <div className="shadow-custom p-4 rounded-25">
-                        <h3 className="text-2xl font-semibold">
-                          Támogatott nyelvek:
-                        </h3>
-                        <p className="text-lg mt-2 rounded-25">
-                          {SoftwareData.supports.join(", ")}
-                        </p>
-                      </div>
-
-                      <div className="shadow-custom p-4 rounded-25">
-                        <h3 className="text-2xl font-semibold">
-                          Operációs rendszerek:
-                        </h3>
-                        <p className="text-lg mt-2 rounded-25">
-                          {SoftwareData.oSs.join(", ")}
-                        </p>
-                      </div>
-
-                      <div className="shadow-custom p-4 rounded-25">
-                        <h3 className="text-2xl font-semibold">Eszközök:</h3>
-                        <p className="text-lg mt-2">
-                          {SoftwareData.devices.join(", ")}
-                        </p>
-                      </div>
-
-                      <div className="shadow-custom p-4 rounded-25">
-                        <h3 className="text-2xl font-semibold">Modulok:</h3>
-                        <p className="text-lg mt-2">
-                          {SoftwareData.moduls.join(", ")}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-blue-200 px-10 py-8 rounded-25 shadow-custom mb-8">
-                      <h3 className="text-2xl font-semibold mb-4">Funkciók:</h3>
-                      <ul className="list-disc pl-6">
-                        {SoftwareData.functions.map((func) => (
-                          <li
-                            key={func.softwareFunctionID}
-                            className="text-lg mb-2"
-                          >
-                            <input
-                              type="checkbox"
-                              checked={func.sfunction}
-                              readOnly
-                              className="mr-2 w-4 h-4 text-indigo-600"
-                            />
-                            <span>{func.functionality}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex flex-wrap gap-4">
-                      {SoftwareData.remunerations.map((remuneration) => (
-                        <div
-                          key={remuneration.remunerationID}
-                          className="bg-white rounded-25 shadow-custom p-4 flex-grow"
-                        >
-                          <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded" >
-                            {(remuneration.level).toUpperCase()}
-                          </h3>
-                          <p className="text-center text-lg">
-                            {remuneration.type === "ajánlatkérés"
-                              ? "Ajánlatkérés"
-                              : `${remuneration.price} Ft / ${remuneration.type === "éves" ? "év" : "hó"}`}
+                    <div className="grid grid-cols-3 gap-12 p-4 mb-36">
+                      {SoftwareData.languages.length > 0 && (
+                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                          <h3 className="text-2xl font-semibold">Nyelvek</h3>
+                          <p className="text-lg mt-2">
+                            {SoftwareData.languages.join(", ")}
                           </p>
                         </div>
-                      ))}
+                      )}
+
+                      {SoftwareData.supports.length > 0 && (
+                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                          <h3 className="text-2xl font-semibold">
+                            Támogatott nyelvek
+                          </h3>
+                          <p className="text-lg mt-2 rounded-25">
+                            {SoftwareData.supports.join(", ")}
+                          </p>
+                        </div>
+                      )}
+
+                      {SoftwareData.oSs.length > 0 && (
+                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                          <h3 className="text-2xl font-semibold">
+                            Operációs rendszerek
+                          </h3>
+                          <p className="text-lg mt-2 rounded-25">
+                            {SoftwareData.oSs.join(", ")}
+                          </p>
+                        </div>
+                      )}
+
+                      {SoftwareData.devices.length > 0 && (
+                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                          <h3 className="text-2xl font-semibold">Eszközök</h3>
+                          <p className="text-lg mt-2">
+                            {SoftwareData.devices.join(", ")}
+                          </p>
+                        </div>
+                      )}
+
+                      {SoftwareData.moduls.length > 0 && (
+                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                          <h3 className="text-2xl font-semibold">Modulok</h3>
+                          <p className="text-lg mt-2">
+                            {SoftwareData.moduls.join(", ")}
+                          </p>
+                        </div>
+                      )}
                     </div>
+
+                    {SoftwareData.functions.length > 0 && (
+                      <div className="flex flex-wrap gap-8">
+                        {SoftwareData.functions
+                          .filter((func) => func.sfunction === true)
+                          .map((func) => (
+                            <div
+                              key={func.softwareFunctionID}
+                              className="bg-white rounded-25 shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small"
+                            >
+                              <h3 className="text-lg font-semibold m-2 text-center">
+                                {func.functionality}
+                              </h3>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+
+                    {SoftwareData.remunerations.length > 0 && (
+                      <div className="flex flex-wrap gap-8 mt-36">
+                        {SoftwareData.remunerations.map((remuneration) => (
+                          <div
+                            key={remuneration.remunerationID}
+                            className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
+                          >
+                            <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
+                              {remuneration.level.toUpperCase()}
+                            </h3>
+                            <p className="text-center text-lg">
+                              {remuneration.type === "ajánlatkérés"
+                                ? "Ajánlatkérés"
+                                : `${remuneration.price} Ft / ${
+                                    remuneration.type === "éves" ? "év" : "hó"
+                                  }`}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </>
