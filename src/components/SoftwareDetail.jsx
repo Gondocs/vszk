@@ -47,7 +47,7 @@ function SoftwareDetail() {
             ) : (
               <>
                 {/* Big white container */}
-                <div className="w-full">
+                <div className="w-full p-4">
                   {/* 1/3 and 2/3 container */}
                   <div className="flex border-gray-200 border-2">
                     <div className="w-1/3 flex justify-center items-center">
