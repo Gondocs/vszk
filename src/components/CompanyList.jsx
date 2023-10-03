@@ -7,7 +7,6 @@ import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/react";
 
-
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [CompanyData, setCompanyData] = useState([]);
@@ -43,7 +42,7 @@ export const CompanyList = () => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-  
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -52,7 +51,10 @@ export const CompanyList = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
-      <div className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400" style={{ height: "100%", marginTop: "7%" }}>
+      <div
+        className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400"
+        style={{ height: "100%", marginTop: "7%" }}
+      >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Cégkeresés
         </h2>
@@ -82,25 +84,38 @@ export const CompanyList = () => {
                   key={company.companyID}
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
                 >
-                  <div className="bg-white rounded-25 pr-12 pb-12 pt-12 border border-gray-400 flex shadow-xl" style={{ height: '300px' }}>
-                    <div className="w-1/3 flex justify-center items-center">
-                      <Link
-                        to={`/cegek/${transliterate(company.name)}`}
-                        className="flex items-center"
-                      >
-                        <img
-                          src={company.logo_link}
-                          alt="Software Placeholder"
-                          className="pl-10 pr-10"
-                          draggable="false"
-                          style={{ width: "auto", height: "auto" }}
-                        />
-                      </Link>
-                    </div>
-                    <div className="w-2/3 flex flex-col justify-center">
+                  <div
+                    className="bg-white rounded-25 pr-12 pb-12 pt-12 pl-6 border border-gray-400 flex shadow-xl"
+                    style={{ height: "300px" }}
+                  >
+                    <Link
+                      to={`/cegek/${transliterate(company.name)}`}
+                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25" 
+                      onClick={() => {
+                        window.scrollTo({
+                          top: 0,
+                          behavior: "smooth",
+                        });
+                      }}
+                    >
+                      <img
+                        src={company.logo_link}
+                        alt="Software Placeholder"
+                        className="pl-4 pr-4"
+                        draggable="false"
+                        style={{ width: "auto", height: "auto" }}
+                      />
+                    </Link>
+                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
                       <Link
                         to={`/cegek/${transliterate(company.name)}`}
                         className="text-3xl font-semibold text-black pb-4"
+                        onClick={() => {
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
                       >
                         {company.name}
                       </Link>
@@ -114,7 +129,9 @@ export const CompanyList = () => {
                           />
                         </span>
                       </div>
-                      <p className="text-black">Leírás: {company.description}</p>
+                      <p className="text-black">
+                        Leírás: {company.description}
+                      </p>
                     </div>
                   </div>
                 </li>

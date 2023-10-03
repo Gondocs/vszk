@@ -31,9 +31,13 @@ const SoftwareList = () => {
       });
   }, []);
 
-  useEffect(() => {console.log(SoftwareData)}, [SoftwareData]);
+  useEffect(() => {
+    console.log(SoftwareData);
+  }, [SoftwareData]);
 
-  const transliteratedCategory = Maincategory ? transliterate(Maincategory) : "";
+  const transliteratedCategory = Maincategory
+    ? transliterate(Maincategory)
+    : "";
 
   const uniqueCategories = Array.from(
     new Set(
@@ -72,18 +76,21 @@ const SoftwareList = () => {
       );
     }
   } else {
-    filteredSoftwareData = SoftwareData.filter(
-      (software) => software.name.toLowerCase().includes(searchTerm.toLowerCase())
+    filteredSoftwareData = SoftwareData.filter((software) =>
+      software.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedSoftwareData = filteredSoftwareData.slice(startIndex, endIndex);
+  const paginatedSoftwareData = filteredSoftwareData.slice(
+    startIndex,
+    endIndex
+  );
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-  
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -112,14 +119,18 @@ const SoftwareList = () => {
       </ul>
     </div>
   );
-  
-  
 
   const noResultsMessage =
     paginatedSoftwareData.length === 0 ? (
       <div
         className="bg-white rounded-40 flex justify-center items-center fadeIn"
-        style={{ height: "10%", width: "50%", margin: "auto", marginTop: "7%" }}
+        style={{
+          height: "auto",
+          width: "65%",
+          margin: "auto",
+          marginTop: "7%",
+          padding: "2%",
+        }}
       >
         <div className="text-black text-4xl text-center">
           A keresett szoftver nem található.
@@ -163,43 +174,63 @@ const SoftwareList = () => {
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
                 >
                   <div
-                    className="bg-white rounded-25 pt-12 pb-12 pr-12 border border-gray-400 flex shadow-xl"
+                    className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
                     style={{ height: "300px" }}
                   >
                     {/* Container for the image (1/3 of the width) */}
-                    <div className="w-1/3 flex justify-center items-center">
-                      <Link
-                        to={`/szoftverek/${transliterate(
-                          software.category.categoryGroup.name
-                        )}/${transliterate(software.category.name)}/${transliterate(
-                          software.name
-                        )}`}
-                        className="flex items-center"
-                      >
+                    <Link
+                      to={`/szoftverek/${transliterate(
+                        software.category.categoryGroup.name
+                      )}/${transliterate(
+                        software.category.name
+                      )}/${transliterate(software.name)}`}
+                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25" 
+                      onClick={() => {
+                        window.scrollTo({
+                          top: 0,
+                          behavior: "smooth",
+                        });
+                      }}
+                    >
+                      <div className="flex items-center">
                         <img
                           src={software.company.logo_link}
                           alt="Software Placeholder"
-                          className="pl-10 pr-10"
+                          className="pl-4 pr-4"
                           draggable="false"
                           style={{ width: "auto", height: "auto" }}
                         />
-                      </Link>
-                    </div>
+                      </div>
+                    </Link>
 
                     {/* Container for the data (2/3 of the width) */}
-                    <div className="w-2/3 flex flex-col justify-center">
+                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
                       <Link
                         to={`/szoftverek/${transliterate(
                           software.category.categoryGroup.name
-                        )}/${transliterate(software.category.name)}/${transliterate(
-                          software.name
-                        )}`}
+                        )}/${transliterate(
+                          software.category.name
+                        )}/${transliterate(software.name)}`}
                         className="text-3xl font-semibold text-black"
+                        onClick={() => {
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
                       >
                         {software.name}
                       </Link>
-                      <Link to={`/cegek/${transliterate(software.company.name)}`}>
-                        <p className="text-gray-600 text-xl mb-2 mt-2">
+                      <Link
+                        to={`/cegek/${transliterate(software.company.name)}`}
+                        onClick={() => {
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        <p className="text-gray-600 text-xl mb-2">
                           {software.company.name}
                         </p>
                       </Link>

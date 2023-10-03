@@ -49,12 +49,12 @@ function SoftwareDetail() {
                 {/* Big white container */}
                 <div className="w-full p-4">
                   {/* 1/3 and 2/3 container */}
-                  <div className="flex border-gray-200 border-2 rounded-25">
-                    <div className="w-1/3 flex justify-center items-center">
+                  <div className="flex border-gray-200 rounded-25">
+                    <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25">
                       <img
                         src={SoftwareData.logo_link}
                         alt="Software Logo"
-                        className="mx-auto ml-12"
+                        className="mx-auto p-4"
                         draggable="false"
                       />
                     </div>
@@ -85,7 +85,7 @@ function SoftwareDetail() {
                     </div>
                   </div>
 
-                  <div className="p-20 mt-12 border-gray-200 border-2 rounded-25">
+                  <div className="p-20 mt-12 rounded-25">
                     <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25">
                       {SoftwareData.languages.length > 0 && (
                         <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
