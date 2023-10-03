@@ -38,7 +38,7 @@ function SoftwareDetail() {
   return (
     <div className="min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
       <div className="p-16">
-        <div className="bg-white p-12 rounded-lg shadow-xl">
+        <div className="bg-white p-12 rounded-25 shadow-xl">
           <div className="flex items-center">
             {loading ? (
               <div className="flex justify-center items-center mx-auto">
@@ -49,7 +49,7 @@ function SoftwareDetail() {
                 {/* Big white container */}
                 <div className="w-full p-4">
                   {/* 1/3 and 2/3 container */}
-                  <div className="flex border-gray-200 border-2">
+                  <div className="flex border-gray-200 border-2 rounded-25">
                     <div className="w-1/3 flex justify-center items-center">
                       <img
                         src={SoftwareData.logo_link}
@@ -59,7 +59,7 @@ function SoftwareDetail() {
                       />
                     </div>
 
-                    <div className="w-2/3">
+                    <div className="w-2/3 rounded-25">
                       <div className="pt-8 pb-8 pr-12 pl-16">
                         <h2 className="text-6xl font-semibold pt-4">
                           {SoftwareData.name}
@@ -85,8 +85,8 @@ function SoftwareDetail() {
                     </div>
                   </div>
 
-                  <div className="p-20 mt-12 border-gray-200 border-2">
-                    <div className="grid grid-cols-3 gap-12 p-4 mb-36">
+                  <div className="p-20 mt-12 border-gray-200 border-2 rounded-25">
+                    <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25">
                       {SoftwareData.languages.length > 0 && (
                         <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                           <h3 className="text-2xl font-semibold">Nyelvek</h3>
@@ -138,7 +138,7 @@ function SoftwareDetail() {
                     </div>
 
                     {SoftwareData.functions.length > 0 && (
-                      <div className="flex flex-wrap gap-8">
+                      <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-25">
                         {SoftwareData.functions
                           .filter((func) => func.sfunction === true)
                           .map((func) => (
@@ -155,7 +155,7 @@ function SoftwareDetail() {
                     )}
 
                     {SoftwareData.remunerations.length > 0 && (
-                      <div className="flex flex-wrap gap-8 mt-36">
+                      <div className="flex flex-wrap gap-8 mt-32 shadow-custom p-16 rounded-25">
                         {SoftwareData.remunerations.map((remuneration) => (
                           <div
                             key={remuneration.remunerationID}
