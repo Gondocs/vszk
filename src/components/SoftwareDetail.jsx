@@ -49,7 +49,7 @@ function SoftwareDetail() {
                 {/* Big white container */}
                 <div className="w-full">
                   {/* 1/3 and 2/3 container */}
-                  <div className="flex">
+                  <div className="flex border-gray-200 border-2">
                     <div className="w-1/3 flex justify-center items-center">
                       <img
                         src={SoftwareData.logo_link}
@@ -76,7 +76,7 @@ function SoftwareDetail() {
                           {SoftwareData.description}
                         </p>
                         <button
-                          className="ml-4 mt-6 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
+                          className="ml-4 mt-6 mb-8 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
                           onClick={() =>
                             window.open(SoftwareData.company.website)
                           }
