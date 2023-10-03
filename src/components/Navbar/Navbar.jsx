@@ -4,16 +4,13 @@ import DropdownMenu from "./dropDown";
 import { get } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { transliterate } from "../api/transliteration";
-import { ClipLoader } from "react-spinners";
-import { css } from "@emotion/react";
 
 export const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [SoftwareData, setSoftwareData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -47,12 +44,10 @@ const filterSoftwareData = () => {
       .then((data) => {
         setSoftwareData(data);
         filterSoftwareData();
-        setLoading(false);
       })
       .catch((error) => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
-        setLoading(false);
       });
   }, []);
 
@@ -69,7 +64,7 @@ const filterSoftwareData = () => {
         >
           Főoldal
         </Link>
-        
+
         <div
           className="relative group block mr-8 ml-2"
           onMouseEnter={handleMouseEnter}
@@ -101,12 +96,6 @@ const filterSoftwareData = () => {
           Összehasonlítás
         </Link>
 
-        {loading ? (
-          <div className="flex justify-center items-center mt-40">
-            <ClipLoader color={"#B5B4B4"} loading={loading} size={250} />
-          </div>
-        ) : (
-          <>
         <div className="flex-grow px-8 relative">
           <div className="relative">
             <input
@@ -137,8 +126,6 @@ const filterSoftwareData = () => {
             </div>
           )}
         </div>
-        </>
-        )}  
 
         <Link
           to="/belepes"
