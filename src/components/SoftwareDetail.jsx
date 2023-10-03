@@ -61,11 +61,11 @@ function SoftwareDetail() {
 
                     <div className="w-2/3">
                       <div className="p-4">
-                        <h2 className="text-3xl font-semibold p-4">
-                          Név: {SoftwareData.name}
+                        <h2 className="text-6xl font-semibold p-4">
+                          {SoftwareData.name}
                         </h2>
                         <p className="text-lg font-semibold pt-4 pb-4 pl-4 pr-0">
-                          Értékelés: 4,6 ideiglenes{SoftwareData.rating}
+                         {SoftwareData.rating}
                           <StarIcon
                             fontSize="medium"
                             className="starmargin"
@@ -73,7 +73,7 @@ function SoftwareDetail() {
                           />
                         </p>
                         <p className="text-lg mt-4 p-4">
-                          Leírás: {SoftwareData.description}
+                          {SoftwareData.description}
                         </p>
                         <button
                           className="ml-4 mt-6 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md text-gray-900 font-semibold transition duration-300 inline-block"
@@ -88,7 +88,7 @@ function SoftwareDetail() {
                   </div>
 
                   <div className="p-20 mt-12 border-gray-200 border-2">
-                    <div className="grid grid-cols-2 gap-4 p-4">
+                    <div className="grid grid-cols-3 gap-4 p-4 bg-red-300">
                       <div>
                         <h3 className="text-2xl font-semibold">Nyelvek:</h3>
                         <p className="text-lg mt-2">
@@ -127,34 +127,10 @@ function SoftwareDetail() {
                           {SoftwareData.moduls.join(", ")}
                         </p>
                       </div>
+                    </div>
 
-                      <div>
-                        <h3 className="text-2xl font-semibold">Árak:</h3>
-                        <table className="table-auto">
-                          <thead>
-                            <tr>
-                              <th className="px-4 py-2">Szint</th>
-                              <th className="px-4 py-2">Díj</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {SoftwareData.remunerations.map((remuneration) => (
-                              <tr key={remuneration.remunerationID}>
-                                <td className="border px-4 py-2">
-                                  {remuneration.level}
-                                </td>
-                                <td className="border px-4 py-2">
-                                  {remuneration.type === "ajánlatkérés"
-                                    ? "Ajánlatkérés"
-                                    : `${remuneration.price} Ft/${remuneration.type}`}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-
-                      <div className="col-span-2">
+                    <div className="grid grid-cols-2 gap-8 bg-blue-200 px-40 pb-12">
+                      <div className="mt-28 ">
                         <h3 className="text-2xl font-semibold">Funkciók:</h3>
                         <div className="mt-4">
                           {SoftwareData.functions.map((func) => (
@@ -174,6 +150,35 @@ function SoftwareDetail() {
                             </div>
                           ))}
                         </div>
+                      </div>
+                      <div className="text-center m-auto border-2 border-gray-200">
+                        <h3 className="text-2xl font-semibold">Árak:</h3>
+                        <table className="table-auto mt-4">
+                          <thead>
+                            <tr>
+                              <th className="px-4 py-2 border-2 border-gray-200">
+                                Szint
+                              </th>
+                              <th className="px-4 py-2 border-2 border-gray-200">
+                                Díj
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {SoftwareData.remunerations.map((remuneration) => (
+                              <tr key={remuneration.remunerationID}>
+                                <td className="border px-4 py-2">
+                                  {remuneration.level}
+                                </td>
+                                <td className="border px-4 py-2">
+                                  {remuneration.type === "ajánlatkérés"
+                                    ? "Ajánlatkérés"
+                                    : `${remuneration.price} Ft/${remuneration.type}`}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
