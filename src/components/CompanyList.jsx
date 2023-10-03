@@ -5,6 +5,8 @@ import { transliterate } from "./api/transliteration";
 import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
 
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
