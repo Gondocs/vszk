@@ -165,6 +165,42 @@ const SoftwareList = () => {
     console.log(selectedFunctions);
   });
 
+  const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
+  const [currentSubCategoryName, setCurrentSubCategoryName] = useState("");
+
+  useEffect(() => {
+    if (!Maincategory) {
+      // If Maincategory is empty, set both CurrentMainCategoryName and CurrentSubCategoryName to empty
+      setCurrentMainCategoryName("");
+      setCurrentSubCategoryName("");
+    } else {
+      // Find the matching main category in SoftwareData
+      const mainCategoryMatch = SoftwareData.find(
+        (software) =>
+          transliterate(software.category.categoryGroup.name) ===
+          transliterate(Maincategory)
+      );
+
+      if (mainCategoryMatch) {
+        setCurrentMainCategoryName(
+          mainCategoryMatch.category.categoryGroup.name
+        );
+      }
+
+      if (Subcategory) {
+        // Find the matching main category in SoftwareData
+        const subCategoryMatch = SoftwareData.find(
+          (software) =>
+            transliterate(software.category.name) === transliterate(Subcategory)
+        );
+
+        if (subCategoryMatch) {
+          setCurrentSubCategoryName(subCategoryMatch.category.name);
+        }
+      }
+    }
+  }, [Maincategory, Subcategory, SoftwareData]);
+
   const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);
 
   const paginationControls = (
@@ -262,9 +298,28 @@ const SoftwareList = () => {
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
-        <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
-          Szoftverlista
-        </h1>
+        {!currentMainCategoryName && !currentSubCategoryName ? (
+          <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
+            Szoftverlista
+          </h1>
+        ) : (
+          <h1 className="text-3xl text-black font-semibold mb-8 mt-2 ml-12">
+              {Maincategory && (
+                <Link to={`/szoftverek/${transliterate(Maincategory)}`}>
+                  {currentMainCategoryName}
+                </Link>
+              )}
+              {currentSubCategoryName && Subcategory && (
+                <>
+                  &nbsp;&raquo;&nbsp;
+                  <Link to={`/szoftverek/${transliterate(Subcategory)}`}>
+                    {currentSubCategoryName}
+                  </Link>
+
+                </>
+              )}
+          </h1>
+        )}
 
         {loading ? (
           <div className="flex justify-center items-center mt-40">
