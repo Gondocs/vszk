@@ -67,30 +67,39 @@ const SoftwareList = () => {
   if (Maincategory) {
     if (Subcategory) {
       filteredSoftwareData = SoftwareData.filter(
+
         (software) =>
-          transliterate(software.category.categoryGroup.name) ===
-            transliteratedCategory &&
-          transliterate(software.category.name) ===
-            transliterate(Subcategory) &&
+          transliterate(software.category.categoryGroup.name) === transliteratedCategory 
+          &&
+          transliterate(software.category.name) === transliterate(Subcategory) 
+          &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+          );
+
     } else if (isMainCategory) {
       filteredSoftwareData = SoftwareData.filter(
+
         (software) =>
-          transliterate(software.category.categoryGroup.name) ===
-            transliteratedCategory &&
+          transliterate(software.category.categoryGroup.name) === transliteratedCategory
+          &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase())
+
       );
     } else {
       filteredSoftwareData = SoftwareData.filter(
+
         (software) =>
-          transliterate(software.category.name) === transliteratedCategory &&
+          transliterate(software.category.name) === transliteratedCategory 
+          &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase())
+
       );
     }
   } else {
     filteredSoftwareData = SoftwareData.filter((software) =>
+
       software.name.toLowerCase().includes(searchTerm.toLowerCase())
+      
     );
   }
 

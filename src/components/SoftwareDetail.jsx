@@ -99,7 +99,7 @@ function SoftwareDetail() {
                       {SoftwareData.supports.length > 0 && (
                         <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                           <h3 className="text-2xl font-semibold">
-                            Támogatott nyelvek
+                            Támogatás nyelve
                           </h3>
                           <p className="text-lg mt-2 rounded-25">
                             {SoftwareData.supports.join(", ")}
@@ -156,6 +156,15 @@ function SoftwareDetail() {
 
                     {SoftwareData.remunerations.length > 0 && (
                       <div className="flex flex-wrap gap-8 mt-32 shadow-custom p-16 rounded-25">
+                        <div className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
+                          <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
+                            BEVEZETÉSI ÁR
+                          </h3>
+                          <p className="text-center text-lg">
+                            {SoftwareData.introduction_fee ? `${SoftwareData.introduction_fee} Ft` : "Nincsen"}
+                          </p>
+                        </div>
+
                         {SoftwareData.remunerations.map((remuneration) => (
                           <div
                             key={remuneration.remunerationID}
