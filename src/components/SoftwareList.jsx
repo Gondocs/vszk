@@ -17,6 +17,7 @@ const SoftwareList = () => {
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
 
+
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -48,9 +49,7 @@ const SoftwareList = () => {
         );
         console.log(error);
       });
-
-    setSelectedFunctions([]);
-  }, [Maincategory, Subcategory]);
+  }, []);
 
   useEffect(() => {
     console.log(SoftwareData);
@@ -130,7 +129,15 @@ const SoftwareList = () => {
     }
   };
 
-  const selectedFunctionsList = (
+  useEffect(() => {
+    setSelectedFunctions([]); // Reset selectedFunctions when URL changes
+  }, [Maincategory, Subcategory]);
+  
+  useEffect(() => {
+    console.log(selectedFunctions);
+  }, );
+
+    const selectedFunctionsList = (
     <div className="mt-4">
       <h3 className="text-lg font-semibold mb-2">Selected Functions:</h3>
       <ul>
@@ -202,41 +209,40 @@ const SoftwareList = () => {
         />
 
         <ul>
-          {FunctionsData.map((category) => {
-            const mainCategory = transliterate(category.category_group);
-            const subCategory = transliterate(category.name);
-            const isMainCategoryMatch = mainCategory === Maincategory;
-            const isSubCategoryMatch = subCategory === Subcategory;
+        {FunctionsData.map((category) => {
+  const mainCategory = transliterate(category.category_group);
+  const subCategory = transliterate(category.name);
+  const isMainCategoryMatch = mainCategory === Maincategory;
+  const isSubCategoryMatch = subCategory === Subcategory;
 
-            return (
-              <li key={category.categoryID}>
-                {category.func_list.length > 0 && (
-                  <h3 className="text-lg font-semibold my-4">
-                    {category.name}
-                  </h3>
-                )}
-                <ul>
-                  {category.func_list.map((func, index) => (
-                    <li
-                      key={index}
-                      className={`ml-4 ${
-                        selectedFunctions.includes(func)
-                          ? "text-blue-500 cursor-pointer"
-                          : "text-black cursor-pointer hover:underline"
-                      }`}
-                      onClick={() => handleFunctionClick(func)} // Step 2: Add click handler
-                    >
-                      {func}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            );
-          })}
+  if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
+    return (
+      <li key={category.categoryID}>
+        {category.func_list.length > 0 && (
+          <h3 className="text-lg font-semibold my-4">{category.name}</h3>
+        )}
+        <ul>
+          {category.func_list.map((func, index) => (
+            <li
+              key={index}
+              className={`ml-4 cursor-pointer ${
+                selectedFunctions.includes(func)
+                  ? "text-blue-500 font-semibold"
+                  : "text-black"
+              }`}
+              onClick={() => handleFunctionClick(func)}
+            >
+              {func}
+            </li>
+          ))}
         </ul>
+      </li>
+    );
+  }
 
-        {/* Step 4: Display selected functions list */}
-        {selectedFunctionsList}
+  return null;
+})}
+        </ul>
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
