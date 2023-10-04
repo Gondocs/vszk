@@ -31,17 +31,20 @@ const SoftwareList = () => {
         setLoading(false);
       });
 
-        get.GetAllWithFunctions()
-    .then((functionsData) => {
-      // Handle the response from the second API call
-      setFunctionsData(functionsData);
-    })
-    .catch((error) => {
-      // Handle errors from the second API call
-      showToast("Hiba történt az adatok lekérése közben (AllFunctions)", "error");
-      console.log(error);
-    });
-      
+    get
+      .GetAllWithFunctions()
+      .then((functionsData) => {
+        // Handle the response from the second API call
+        setFunctionsData(functionsData);
+      })
+      .catch((error) => {
+        // Handle errors from the second API call
+        showToast(
+          "Hiba történt az adatok lekérése közben (AllFunctions)",
+          "error"
+        );
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -67,39 +70,30 @@ const SoftwareList = () => {
   if (Maincategory) {
     if (Subcategory) {
       filteredSoftwareData = SoftwareData.filter(
-
         (software) =>
-          transliterate(software.category.categoryGroup.name) === transliteratedCategory 
-          &&
-          transliterate(software.category.name) === transliterate(Subcategory) 
-          &&
+          transliterate(software.category.categoryGroup.name) ===
+            transliteratedCategory &&
+          transliterate(software.category.name) ===
+            transliterate(Subcategory) &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase())
-          );
-
+      );
     } else if (isMainCategory) {
       filteredSoftwareData = SoftwareData.filter(
-
         (software) =>
-          transliterate(software.category.categoryGroup.name) === transliteratedCategory
-          &&
+          transliterate(software.category.categoryGroup.name) ===
+            transliteratedCategory &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase())
-
       );
     } else {
       filteredSoftwareData = SoftwareData.filter(
-
         (software) =>
-          transliterate(software.category.name) === transliteratedCategory 
-          &&
+          transliterate(software.category.name) === transliteratedCategory &&
           software.name.toLowerCase().includes(searchTerm.toLowerCase())
-
       );
     }
   } else {
     filteredSoftwareData = SoftwareData.filter((software) =>
-
       software.name.toLowerCase().includes(searchTerm.toLowerCase())
-      
     );
   }
 
@@ -176,6 +170,34 @@ const SoftwareList = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+
+        <ul>
+          {FunctionsData.map((category) => {
+            const mainCategory = transliterate(category.category_group);
+            const subCategory = transliterate(category.name);
+            const isMainCategoryMatch = mainCategory === Maincategory;
+            const isSubCategoryMatch = subCategory === Subcategory;
+
+            if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) { // change it to this if I want to only see it in the subcategories //  if (isSubCategoryMatch)
+              return (
+                <li key={category.categoryID}>
+                  {category.func_list.length > 0 && (
+                    <h3 className="text-lg font-semibold my-4">{category.name}</h3>
+                  )}
+                  <ul>
+                    {category.func_list.map((func, index) => (
+                      <li key={index} className="ml-4">
+                        {func}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            }
+
+            return null;
+          })}
+        </ul>
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
@@ -206,7 +228,7 @@ const SoftwareList = () => {
                       )}/${transliterate(
                         software.category.name
                       )}/${transliterate(software.name)}`}
-                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25" 
+                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
                       onClick={() => {
                         window.scrollTo({
                           top: 0,
@@ -220,7 +242,11 @@ const SoftwareList = () => {
                           alt="Software Placeholder"
                           className="pl-4 pr-4"
                           draggable="false"
-                          style={{ width: "auto", height: "auto", maxHeight: "150px"}}
+                          style={{
+                            width: "auto",
+                            height: "auto",
+                            maxHeight: "150px",
+                          }}
                         />
                       </div>
                     </Link>
