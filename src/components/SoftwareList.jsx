@@ -207,10 +207,10 @@ const SoftwareList = () => {
     ) : null;
 
   return (
-    <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
+    <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400"
-        style={{ height: "100%", marginTop: "7%" }}
+        className="w-1/4 bg-white p-10 rounded-40 mr-2 ml-6 shadow-lg border border-gray-400"
+        style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftverkeresés
@@ -223,42 +223,42 @@ const SoftwareList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <ul>
-          {FunctionsData.map((category) => {
-            const mainCategory = transliterate(category.category_group);
-            const subCategory = transliterate(category.name);
-            const isMainCategoryMatch = mainCategory === Maincategory;
-            const isSubCategoryMatch = subCategory === Subcategory;
-            if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
-              return (
-                <li key={category.categoryID}>
-                  {category.func_list.length > 0 && (
-                    <h3 className="text-lg font-semibold my-4">
-                      {category.name}
-                    </h3>
-                  )}
-                  <ul>
-                    {category.func_list.map((func, index) => (
-                      <li key={index} className="ml-4">
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            checked={selectedFunctions.includes(func)}
-                            onChange={() => handleFunctionClick(func)}
-                            className="mr-2 cursor-pointer"
-                          />
-                          {func}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              );
-            }
+          <ul>
+            {FunctionsData.map((category) => {
+              const mainCategory = transliterate(category.category_group);
+              const subCategory = transliterate(category.name);
+              const isMainCategoryMatch = mainCategory === Maincategory;
+              const isSubCategoryMatch = subCategory === Subcategory;
+              if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
+                return (
+                  <li key={category.categoryID}>
+                    {category.func_list.length > 0 && (
+                      <h3 className="text-lg font-semibold my-4">
+                        {category.name}
+                      </h3>
+                    )}
+                    <ul>
+                      {category.func_list.map((func, index) => (
+                        <li key={index} className="">
+                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small">
+                            <input
+                              type="checkbox"
+                              checked={selectedFunctions.includes(func)}
+                              onChange={() => handleFunctionClick(func)}
+                              className="mr-2 cursor-pointer w-5 h-5"
+                            />
+                            {func}
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              }
 
-            return null;
-          })}
-        </ul>
+              return null;
+            })}
+          </ul>
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
