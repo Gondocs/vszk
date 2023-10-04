@@ -13,6 +13,7 @@ const SoftwareList = () => {
   const { Maincategory, Subcategory } = useParams();
 
   const [SoftwareData, setSoftwareData] = useState([]);
+  const [FunctionsData, setFunctionsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -29,6 +30,18 @@ const SoftwareList = () => {
         console.log(error);
         setLoading(false);
       });
+
+        get.GetAllWithFunctions()
+    .then((functionsData) => {
+      // Handle the response from the second API call
+      setFunctionsData(functionsData);
+    })
+    .catch((error) => {
+      // Handle errors from the second API call
+      showToast("Hiba történt az adatok lekérése közben (AllFunctions)", "error");
+      console.log(error);
+    });
+      
   }, []);
 
   useEffect(() => {
