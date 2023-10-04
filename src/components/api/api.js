@@ -19,6 +19,10 @@ const get = {
     return api.get("/Software/GetAllInfos/").then((response) => response.data);
   },
 
+  GetAllWithFunctions: () => {
+    return api.get("/Category/GetAllWithFunctions").then((response) => response.data);
+  },
+
   CatFuncConnect: () => {
     return api.get("/CatFuncConnect/GetAll").then((response) => response.data);
   },
