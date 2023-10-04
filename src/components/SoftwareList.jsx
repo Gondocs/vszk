@@ -211,7 +211,7 @@ const SoftwareList = () => {
                           alt="Software Placeholder"
                           className="pl-4 pr-4"
                           draggable="false"
-                          style={{ width: "auto", height: "auto" }}
+                          style={{ width: "auto", height: "auto", maxHeight: "150px"}}
                         />
                       </div>
                     </Link>
