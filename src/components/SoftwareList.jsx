@@ -14,6 +14,9 @@ const SoftwareList = () => {
 
   const [SoftwareData, setSoftwareData] = useState([]);
   const [FunctionsData, setFunctionsData] = useState([]);
+
+  const [selectedFunctions, setSelectedFunctions] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -45,7 +48,9 @@ const SoftwareList = () => {
         );
         console.log(error);
       });
-  }, []);
+
+    setSelectedFunctions([]);
+  }, [Maincategory, Subcategory]);
 
   useEffect(() => {
     console.log(SoftwareData);
@@ -113,6 +118,31 @@ const SoftwareList = () => {
     });
   };
 
+  const handleFunctionClick = (func) => {
+    if (selectedFunctions.includes(func)) {
+      // Function is already selected, remove it
+      setSelectedFunctions((prevSelected) =>
+        prevSelected.filter((selected) => selected !== func)
+      );
+    } else {
+      // Function is not selected, add it
+      setSelectedFunctions((prevSelected) => [...prevSelected, func]);
+    }
+  };
+
+  const selectedFunctionsList = (
+    <div className="mt-4">
+      <h3 className="text-lg font-semibold mb-2">Selected Functions:</h3>
+      <ul>
+        {selectedFunctions.map((func, index) => (
+          <li key={index} className="text-blue-500">
+            {func}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);
 
   const paginationControls = (
@@ -178,26 +208,35 @@ const SoftwareList = () => {
             const isMainCategoryMatch = mainCategory === Maincategory;
             const isSubCategoryMatch = subCategory === Subcategory;
 
-            if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) { // change it to this if I want to only see it in the subcategories //  if (isSubCategoryMatch)
-              return (
-                <li key={category.categoryID}>
-                  {category.func_list.length > 0 && (
-                    <h3 className="text-lg font-semibold my-4">{category.name}</h3>
-                  )}
-                  <ul>
-                    {category.func_list.map((func, index) => (
-                      <li key={index} className="ml-4">
-                        {func}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              );
-            }
-
-            return null;
+            return (
+              <li key={category.categoryID}>
+                {category.func_list.length > 0 && (
+                  <h3 className="text-lg font-semibold my-4">
+                    {category.name}
+                  </h3>
+                )}
+                <ul>
+                  {category.func_list.map((func, index) => (
+                    <li
+                      key={index}
+                      className={`ml-4 ${
+                        selectedFunctions.includes(func)
+                          ? "text-blue-500 cursor-pointer"
+                          : "text-black cursor-pointer hover:underline"
+                      }`}
+                      onClick={() => handleFunctionClick(func)} // Step 2: Add click handler
+                    >
+                      {func}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
           })}
         </ul>
+
+        {/* Step 4: Display selected functions list */}
+        {selectedFunctionsList}
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
