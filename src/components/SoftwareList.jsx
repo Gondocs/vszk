@@ -73,33 +73,63 @@ const SoftwareList = () => {
 
   if (Maincategory) {
     if (Subcategory) {
-      filteredSoftwareData = SoftwareData.filter(
-        (software) =>
+      filteredSoftwareData = SoftwareData.filter((software) => {
+        return (
           transliterate(software.category.categoryGroup.name) ===
             transliteratedCategory &&
           transliterate(software.category.name) ===
             transliterate(Subcategory) &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+          software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          selectedFunctions.every((selectedFunc) =>
+            software.functions
+              .filter((func) => func.sfunction)
+              .map((func) => func.functionality)
+              .includes(selectedFunc)
+          )
+        );
+      });
     } else if (isMainCategory) {
-      filteredSoftwareData = SoftwareData.filter(
-        (software) =>
+      filteredSoftwareData = SoftwareData.filter((software) => {
+        return (
           transliterate(software.category.categoryGroup.name) ===
             transliteratedCategory &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+          software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          selectedFunctions.every((selectedFunc) =>
+            software.functions
+              .filter((func) => func.sfunction)
+              .map((func) => func.functionality)
+              .includes(selectedFunc)
+          )
+        );
+      });
     } else {
-      filteredSoftwareData = SoftwareData.filter(
-        (software) =>
+      filteredSoftwareData = SoftwareData.filter((software) => {
+        return (
           transliterate(software.category.name) === transliteratedCategory &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+          software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          selectedFunctions.every((selectedFunc) =>
+            software.functions
+              .filter((func) => func.sfunction)
+              .map((func) => func.functionality)
+              .includes(selectedFunc)
+          )
+        );
+      });
     }
   } else {
-    filteredSoftwareData = SoftwareData.filter((software) =>
-      software.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    filteredSoftwareData = SoftwareData.filter((software) => {
+      return (
+        software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        selectedFunctions.every((selectedFunc) =>
+          software.functions
+            .filter((func) => func.sfunction)
+            .map((func) => func.functionality)
+            .includes(selectedFunc)
+        )
+      );
+    });
   }
+  
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -136,19 +166,6 @@ const SoftwareList = () => {
   useEffect(() => {
     console.log(selectedFunctions);
   }, );
-
-    const selectedFunctionsList = (
-    <div className="mt-4">
-      <h3 className="text-lg font-semibold mb-2">Selected Functions:</h3>
-      <ul>
-        {selectedFunctions.map((func, index) => (
-          <li key={index} className="text-blue-500">
-            {func}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
 
   const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);
 
