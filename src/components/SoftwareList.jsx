@@ -231,7 +231,6 @@ const SoftwareList = () => {
   const subCategory = transliterate(category.name);
   const isMainCategoryMatch = mainCategory === Maincategory;
   const isSubCategoryMatch = subCategory === Subcategory;
-
   if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
     return (
       <li key={category.categoryID}>
@@ -240,22 +239,23 @@ const SoftwareList = () => {
         )}
         <ul>
           {category.func_list.map((func, index) => (
-            <li
-              key={index}
-              className={`ml-4 cursor-pointer ${
-                selectedFunctions.includes(func)
-                  ? "text-blue-500 font-semibold"
-                  : "text-black"
-              }`}
-              onClick={() => handleFunctionClick(func)}
-            >
-              {func}
+            <li key={index} className="ml-4">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={selectedFunctions.includes(func)}
+                  onChange={() => handleFunctionClick(func)}
+                  className="mr-2 cursor-pointer"
+                />
+                {func}
+              </label>
             </li>
           ))}
         </ul>
       </li>
     );
   }
+  
 
   return null;
 })}
