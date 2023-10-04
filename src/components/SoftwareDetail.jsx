@@ -161,7 +161,9 @@ function SoftwareDetail() {
                             BEVEZETÉSI ÁR
                           </h3>
                           <p className="text-center text-lg">
-                            {SoftwareData.introduction_fee ? `${SoftwareData.introduction_fee} Ft` : "Nincsen"}
+                            {SoftwareData.introduction_fee
+                              ? `${SoftwareData.introduction_fee} Ft`
+                              : "Nincsen"}
                           </p>
                         </div>
 

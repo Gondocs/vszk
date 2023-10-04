@@ -28,9 +28,7 @@ export function Footer() {
           ref={footerRef}
         >
           <div className="container mx-auto text-center">
-            <h2 className="text-4xl font-semibold mb-6">
-              Maradjon naprakész
-            </h2>
+            <h2 className="text-4xl font-semibold mb-6">Maradjon naprakész</h2>
             <p className="text-lg mb-8">
               Iratkozzon fel hírlevelünkre a legújabb frissítésekért és a
               legújabb hozzáadott szoftverekért.

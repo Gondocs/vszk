@@ -17,7 +17,6 @@ const SoftwareList = () => {
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
 
-
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -129,7 +128,6 @@ const SoftwareList = () => {
       );
     });
   }
-  
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -162,10 +160,10 @@ const SoftwareList = () => {
   useEffect(() => {
     setSelectedFunctions([]); // Reset selectedFunctions when URL changes
   }, [Maincategory, Subcategory]);
-  
+
   useEffect(() => {
     console.log(selectedFunctions);
-  }, );
+  });
 
   const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);
 
@@ -226,39 +224,40 @@ const SoftwareList = () => {
         />
 
         <ul>
-        {FunctionsData.map((category) => {
-  const mainCategory = transliterate(category.category_group);
-  const subCategory = transliterate(category.name);
-  const isMainCategoryMatch = mainCategory === Maincategory;
-  const isSubCategoryMatch = subCategory === Subcategory;
-  if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
-    return (
-      <li key={category.categoryID}>
-        {category.func_list.length > 0 && (
-          <h3 className="text-lg font-semibold my-4">{category.name}</h3>
-        )}
-        <ul>
-          {category.func_list.map((func, index) => (
-            <li key={index} className="ml-4">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={selectedFunctions.includes(func)}
-                  onChange={() => handleFunctionClick(func)}
-                  className="mr-2 cursor-pointer"
-                />
-                {func}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </li>
-    );
-  }
-  
+          {FunctionsData.map((category) => {
+            const mainCategory = transliterate(category.category_group);
+            const subCategory = transliterate(category.name);
+            const isMainCategoryMatch = mainCategory === Maincategory;
+            const isSubCategoryMatch = subCategory === Subcategory;
+            if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
+              return (
+                <li key={category.categoryID}>
+                  {category.func_list.length > 0 && (
+                    <h3 className="text-lg font-semibold my-4">
+                      {category.name}
+                    </h3>
+                  )}
+                  <ul>
+                    {category.func_list.map((func, index) => (
+                      <li key={index} className="ml-4">
+                        <label className="flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={selectedFunctions.includes(func)}
+                            onChange={() => handleFunctionClick(func)}
+                            className="mr-2 cursor-pointer"
+                          />
+                          {func}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            }
 
-  return null;
-})}
+            return null;
+          })}
         </ul>
       </div>
 

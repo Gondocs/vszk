@@ -20,7 +20,9 @@ const get = {
   },
 
   GetAllWithFunctions: () => {
-    return api.get("/Category/GetAllWithFunctions").then((response) => response.data);
+    return api
+      .get("/Category/GetAllWithFunctions")
+      .then((response) => response.data);
   },
 
   CatFuncConnect: () => {

@@ -10,7 +10,6 @@ export const Navbar = () => {
   const [SoftwareData, setSoftwareData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
-  
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -28,15 +27,15 @@ export const Navbar = () => {
     setSearchQuery(""); // Clear the search query on link click
   };
 
-const filterSoftwareData = () => {
-  const filteredData = SoftwareData.filter((software) =>
-    software.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filterSoftwareData = () => {
+    const filteredData = SoftwareData.filter((software) =>
+      software.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-  // Limit to the top 5 results
-  const top5Results = filteredData.slice(0, 5);
-  setFilteredSoftwareData(top5Results);
-};
+    // Limit to the top 5 results
+    const top5Results = filteredData.slice(0, 5);
+    setFilteredSoftwareData(top5Results);
+  };
 
   useEffect(() => {
     get
@@ -52,7 +51,7 @@ const filterSoftwareData = () => {
   }, []);
 
   useEffect(() => {
-    filterSoftwareData(); 
+    filterSoftwareData();
   }, [searchQuery]);
 
   return (

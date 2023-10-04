@@ -90,7 +90,7 @@ export const CompanyList = () => {
                   >
                     <Link
                       to={`/cegek/${transliterate(company.name)}`}
-                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25" 
+                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
                       onClick={() => {
                         window.scrollTo({
                           top: 0,

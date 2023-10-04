@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import '../../css/loginAndRegister.css';
+import React, { useState } from "react";
+import "../../css/loginAndRegister.css";
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,18 +16,22 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-
+    console.log("Email:", email);
+    console.log("Password:", password);
   };
 
   return (
-    <div className="min-h-screen bg-slate-100	flex flex-col justify-start " >
-      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin FadeInSmall" >
-        <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">Jelentkezz be a fiókodba</h2>
+    <div className="min-h-screen bg-slate-100	flex flex-col justify-start ">
+      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin FadeInSmall">
+        <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">
+          Jelentkezz be a fiókodba
+        </h2>
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-lg font-medium text-gray-700"
+            >
               Email
             </label>
             <div className="mt-2">
@@ -45,7 +49,10 @@ function LoginPage() {
             </div>
           </div>
           <div>
-            <label htmlFor="password" className="block text-lg font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-lg font-medium text-gray-700"
+            >
               Jelszó
             </label>
             <div className="mt-2">
@@ -70,12 +77,18 @@ function LoginPage() {
                 type="checkbox"
                 className="h-5 w-5 text-indigo-500 focus:ring-indigo-500 border-gray-300 rounded hover-scale hover-scale:hove"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-lg text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-lg text-gray-900"
+              >
                 Emlékezz rám
               </label>
             </div>
             <div className="text-lg ml-4">
-              <a href="/#" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <a
+                href="/#"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
                 Elfelejtetted a jelszódat?
               </a>
             </div>
@@ -90,8 +103,11 @@ function LoginPage() {
           </div>
         </form>
         <div className="text-lg text-center mt-4">
-          Nincs még fiókod?{' '}
-          <a href="/regisztracio" className="font-medium text-indigo-600 hover:text-indigo-500">
+          Nincs még fiókod?{" "}
+          <a
+            href="/regisztracio"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
             Regisztrálj itt
           </a>
         </div>
