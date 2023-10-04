@@ -223,42 +223,42 @@ const SoftwareList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-          <ul>
-            {FunctionsData.map((category) => {
-              const mainCategory = transliterate(category.category_group);
-              const subCategory = transliterate(category.name);
-              const isMainCategoryMatch = mainCategory === Maincategory;
-              const isSubCategoryMatch = subCategory === Subcategory;
-              if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
-                return (
-                  <li key={category.categoryID}>
-                    {category.func_list.length > 0 && (
-                      <h3 className="text-lg font-semibold my-4">
-                        {category.name}
-                      </h3>
-                    )}
-                    <ul>
-                      {category.func_list.map((func, index) => (
-                        <li key={index} className="">
-                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small">
-                            <input
-                              type="checkbox"
-                              checked={selectedFunctions.includes(func)}
-                              onChange={() => handleFunctionClick(func)}
-                              className="mr-2 cursor-pointer w-5 h-5"
-                            />
-                            {func}
-                          </label>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                );
-              }
+        <ul>
+          {FunctionsData.map((category) => {
+            const mainCategory = transliterate(category.category_group);
+            const subCategory = transliterate(category.name);
+            const isMainCategoryMatch = mainCategory === Maincategory;
+            const isSubCategoryMatch = subCategory === Subcategory;
+            if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
+              return (
+                <li key={category.categoryID}>
+                  {category.func_list.length > 0 && (
+                    <h3 className="text-lg font-semibold my-4">
+                      {category.name}
+                    </h3>
+                  )}
+                  <ul>
+                    {category.func_list.map((func, index) => (
+                      <li key={index} className="">
+                        <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small">
+                          <input
+                            type="checkbox"
+                            checked={selectedFunctions.includes(func)}
+                            onChange={() => handleFunctionClick(func)}
+                            className="mr-2 cursor-pointer w-5 h-5"
+                          />
+                          {func}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            }
 
-              return null;
-            })}
-          </ul>
+            return null;
+          })}
+        </ul>
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
