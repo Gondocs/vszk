@@ -5,6 +5,7 @@ import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
+// eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 import { transliterate } from "./api/transliteration";
 
