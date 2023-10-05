@@ -281,8 +281,13 @@ const SoftwareList = () => {
                             type="checkbox"
                             checked={selectedFunctions.includes(func)}
                             onChange={() => handleFunctionClick(func)}
-                            className="mr-2 cursor-pointer w-5 h-5"
-                            style={{ backgroundColor: "rgb(255, 210, 48)" }}
+                            className="mr-2 cursor-pointer w-6 h-6"
+                            style={{
+                              minWidth: "25px",
+                              maxwidth: "25px",
+                              minHeight: "25px",
+                              maxHeight: "25px",
+                            }}
                           />
                           {func}
                         </label>
@@ -305,20 +310,19 @@ const SoftwareList = () => {
           </h1>
         ) : (
           <h1 className="text-3xl text-black font-semibold mb-8 mt-2 ml-12">
-              {Maincategory && (
-                <Link to={`/szoftverek/${transliterate(Maincategory)}`}>
-                  {currentMainCategoryName}
+            {Maincategory && (
+              <Link to={`/szoftverek/${transliterate(Maincategory)}`}>
+                {currentMainCategoryName}
+              </Link>
+            )}
+            {currentSubCategoryName && Subcategory && (
+              <>
+                &nbsp;&raquo;&nbsp;
+                <Link to={`/szoftverek/${transliterate(Subcategory)}`}>
+                  {currentSubCategoryName}
                 </Link>
-              )}
-              {currentSubCategoryName && Subcategory && (
-                <>
-                  &nbsp;&raquo;&nbsp;
-                  <Link to={`/szoftverek/${transliterate(Subcategory)}`}>
-                    {currentSubCategoryName}
-                  </Link>
-
-                </>
-              )}
+              </>
+            )}
           </h1>
         )}
 
@@ -369,7 +373,7 @@ const SoftwareList = () => {
                     </Link>
 
                     {/* Container for the data (2/3 of the width) */}
-                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 " >
+                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 ">
                       <Link
                         to={`/szoftverek/${transliterate(
                           software.category.categoryGroup.name
