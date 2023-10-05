@@ -84,6 +84,16 @@ const SoftwareList = () => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
+
+    get
+      .Support()
+      .then((SupportData) => {
+        setSupportData(SupportData);
+      })
+      .catch((error) => {
+        showToast("Hiba történt az adatok lekérése közben", "error");
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -127,7 +137,10 @@ const SoftwareList = () => {
           selectedLanguage.every((selectedLang) =>
             software.languages.includes(selectedLang)
           ) &&
-          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
+          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
+          selectedSupport.every((selectedSupport) =>
+            software.supports.includes(selectedSupport)
+          )
         );
       });
     } else if (isMainCategory) {
@@ -148,7 +161,10 @@ const SoftwareList = () => {
           selectedLanguage.every((selectedLang) =>
             software.languages.includes(selectedLang)
           ) &&
-          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
+          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
+          selectedSupport.every((selectedSupport) =>
+            software.supports.includes(selectedSupport)
+          )
         );
       });
     } else {
@@ -168,7 +184,10 @@ const SoftwareList = () => {
           selectedLanguage.every((selectedLang) =>
             software.languages.includes(selectedLang)
           ) &&
-          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
+          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
+          selectedSupport.every((selectedSupport) =>
+            software.supports.includes(selectedSupport)
+          )
         );
       });
     }
@@ -188,7 +207,10 @@ const SoftwareList = () => {
         selectedLanguage.every((selectedLang) =>
           software.languages.includes(selectedLang)
         ) &&
-        selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
+        selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
+        selectedSupport.every((selectedSupport) =>
+          software.supports.includes(selectedSupport)
+        )
       );
     });
   }
@@ -258,11 +280,23 @@ const SoftwareList = () => {
     }
   };
 
+  const handleSupportClick = (Support) => {
+    if (selectedSupport.includes(Support)) {
+      setSelectedSupport((prevSelected) =>
+        prevSelected.filter((selected) => selected !== Support)
+      );
+    } else {
+      // Compatibility is not selected, add it
+      setSelectedSupport((prevSelected) => [...prevSelected, Support]);
+    }
+  };
+
   const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
   const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
     useState(false);
   const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
   const [isOSCollapsed, setIsOSCollapsed] = useState(false);
+  const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
 
   const toggleFuncCollapse = () => {
     setIsFuncCollapsed(!isFuncCollapsed);
@@ -280,11 +314,16 @@ const SoftwareList = () => {
     setIsOSCollapsed(!isOSCollapsed);
   };
 
+  const toggleSupportCollapse = () => {
+    setIsSupportCollapsed(!isSupportCollapsed);
+  };
+
   useEffect(() => {
     setSelectedFunctions([]); // Reset when URL changes
     setSelectedCompatibility([]); // Reset when URL changes
     setSelectedLanguage([]); // Reset when URL changes
     setSelectedOs([]); // Reset when URL changes
+    setSelectedSupport([]); // Reset when URL changes
   }, [Maincategory, Subcategory]);
 
   useEffect(() => {
@@ -483,7 +522,7 @@ const SoftwareList = () => {
             }`}
             onClick={toggleLanguageCollapse}
           >
-            Nyelv
+            Szoftver Nyelve
           </h1>
           {!isLanguageCollapsed ? null : (
             <ul>
@@ -519,7 +558,7 @@ const SoftwareList = () => {
             }`}
             onClick={toggleOSeCollapse}
           >
-            Operációs rendszerek
+            Operációs Rendszerek
           </h1>
           {!isOSCollapsed ? null : (
             <ul>
@@ -539,6 +578,42 @@ const SoftwareList = () => {
                       }}
                     />
                     {OS}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          )}
+        </ul>
+
+        <ul>
+          <h1
+            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+              isSupportCollapsed
+                ? " bg-gray-100 transition-class"
+                : "bg-gray-200 transition-class"
+            }`}
+            onClick={toggleSupportCollapse}
+          >
+            Támogatás Nyelve
+          </h1>
+          {!isSupportCollapsed ? null : (
+            <ul>
+              {SupportData.map((Support, index) => (
+                <li key={index}>
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                    <input
+                      type="checkbox"
+                      checked={selectedSupport.includes(Support)}
+                      onChange={() => handleSupportClick(Support)}
+                      className="mr-2 cursor-pointer w-6 h-6"
+                      style={{
+                        minWidth: "25px",
+                        maxWidth: "25px",
+                        minHeight: "25px",
+                        maxHeight: "25px",
+                      }}
+                    />
+                    {Support}
                   </label>
                 </li>
               ))}

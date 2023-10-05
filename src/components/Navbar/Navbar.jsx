@@ -48,10 +48,12 @@ export const Navbar = () => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     filterSoftwareData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   return (
