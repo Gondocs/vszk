@@ -14,8 +14,16 @@ const SoftwareList = () => {
 
   const [SoftwareData, setSoftwareData] = useState([]);
   const [FunctionsData, setFunctionsData] = useState([]);
+  const [CompatibilityData, setCompatibilityData] = useState([]);
+  const [LanguageData, setLanguageData] = useState([]);
+  const [OsData, setOsData] = useState([]);
+  const [SupportData, setSupportData] = useState([]);
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
+  const [selectedCompatibility, setSelectedCompatibility] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState([]);
+  const [selectedOs, setSelectedOs] = useState([]);
+  const [selectedSupport, setSelectedSupport] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,17 +45,29 @@ const SoftwareList = () => {
     get
       .GetAllWithFunctions()
       .then((functionsData) => {
-        // Handle the response from the second API call
         setFunctionsData(functionsData);
       })
       .catch((error) => {
-        // Handle errors from the second API call
         showToast(
           "Hiba történt az adatok lekérése közben (AllFunctions)",
           "error"
         );
         console.log(error);
       });
+
+      get
+      .SoftwareCompConnect()
+      .then((compatibiliyData) => {
+        setCompatibilityData(compatibiliyData);
+      })
+      .catch((error) => {
+        showToast(
+          "Hiba történt az adatok lekérése közben (AllFunctions)",
+          "error"
+        );
+        console.log(error);
+      });
+
   }, []);
 
   useEffect(() => {
@@ -85,6 +105,11 @@ const SoftwareList = () => {
               .map((func) => func.functionality)
               .includes(selectedFunc)
           )
+          &&
+          selectedCompatibility.every((selectedComp) =>
+          software.devices.includes(selectedComp)
+        )
+
         );
       });
     } else if (isMainCategory) {
@@ -99,6 +124,10 @@ const SoftwareList = () => {
               .map((func) => func.functionality)
               .includes(selectedFunc)
           )
+          &&
+          selectedCompatibility.every((selectedComp) =>
+          software.devices.includes(selectedComp)
+        )
         );
       });
     } else {
@@ -112,6 +141,10 @@ const SoftwareList = () => {
               .map((func) => func.functionality)
               .includes(selectedFunc)
           )
+          &&
+          selectedCompatibility.every((selectedComp) =>
+          software.devices.includes(selectedComp)
+        )
         );
       });
     }
@@ -125,6 +158,10 @@ const SoftwareList = () => {
             .map((func) => func.functionality)
             .includes(selectedFunc)
         )
+        &&
+        selectedCompatibility.every((selectedComp) =>
+        software.devices.includes(selectedComp)
+      )
       );
     });
   }
@@ -157,6 +194,19 @@ const SoftwareList = () => {
     }
   };
 
+  const handleCompatibilityClick = (compatibility) => {
+    if (selectedCompatibility.includes(compatibility)) {
+      // Compatibility is already selected, remove it
+      setSelectedCompatibility((prevSelected) =>
+        prevSelected.filter((selected) => selected !== compatibility)
+      );
+    } else {
+      // Compatibility is not selected, add it
+      setSelectedCompatibility((prevSelected) => [...prevSelected, compatibility]);
+    }
+  };
+  
+
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
@@ -169,6 +219,7 @@ const SoftwareList = () => {
 
   useEffect(() => {
     console.log(selectedFunctions);
+    console.log(selectedCompatibility);
   });
 
   const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
@@ -314,6 +365,31 @@ const SoftwareList = () => {
             return null;
           })}
         </ul>
+
+        <ul>
+  <h1>Kompatibilítás:</h1>
+  {CompatibilityData.map((compatibility, index) => (
+    <li key={index}>
+      <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+        <input
+          type="checkbox"
+          checked={selectedCompatibility.includes(compatibility)}
+          onChange={() => handleCompatibilityClick(compatibility)}
+          className="mr-2 cursor-pointer w-6 h-6"
+          style={{
+            minWidth: "25px",
+            maxWidth: "25px",
+            minHeight: "25px",
+            maxHeight: "25px",
+          }}
+        />
+        {compatibility}
+      </label>
+    </li>
+  ))}
+</ul>
+
+
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
