@@ -55,19 +55,25 @@ const SoftwareList = () => {
         console.log(error);
       });
 
-      get
+    get
       .SoftwareCompConnect()
       .then((compatibiliyData) => {
         setCompatibilityData(compatibiliyData);
       })
       .catch((error) => {
-        showToast(
-          "Hiba történt az adatok lekérése közben (AllFunctions)",
-          "error"
-        );
+        showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
 
+    get
+      .SoftwareLangConnect()
+      .then((LanguageData) => {
+        setLanguageData(LanguageData);
+      })
+      .catch((error) => {
+        showToast("Hiba történt az adatok lekérése közben", "error");
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -104,12 +110,13 @@ const SoftwareList = () => {
               .filter((func) => func.sfunction)
               .map((func) => func.functionality)
               .includes(selectedFunc)
-          )
-          &&
+          ) &&
           selectedCompatibility.every((selectedComp) =>
-          software.devices.includes(selectedComp)
-        )
-
+            software.devices.includes(selectedComp)
+          ) &&
+          selectedLanguage.every((selectedLang) =>
+            software.languages.includes(selectedLang)
+          )
         );
       });
     } else if (isMainCategory) {
@@ -123,11 +130,13 @@ const SoftwareList = () => {
               .filter((func) => func.sfunction)
               .map((func) => func.functionality)
               .includes(selectedFunc)
-          )
-          &&
+          ) &&
           selectedCompatibility.every((selectedComp) =>
-          software.devices.includes(selectedComp)
-        )
+            software.devices.includes(selectedComp)
+          ) &&
+          selectedLanguage.every((selectedLang) =>
+            software.languages.includes(selectedLang)
+          )
         );
       });
     } else {
@@ -140,11 +149,13 @@ const SoftwareList = () => {
               .filter((func) => func.sfunction)
               .map((func) => func.functionality)
               .includes(selectedFunc)
-          )
-          &&
+          ) &&
           selectedCompatibility.every((selectedComp) =>
-          software.devices.includes(selectedComp)
-        )
+            software.devices.includes(selectedComp)
+          ) &&
+          selectedLanguage.every((selectedLang) =>
+            software.languages.includes(selectedLang)
+          )
         );
       });
     }
@@ -157,11 +168,13 @@ const SoftwareList = () => {
             .filter((func) => func.sfunction)
             .map((func) => func.functionality)
             .includes(selectedFunc)
-        )
-        &&
+        ) &&
         selectedCompatibility.every((selectedComp) =>
-        software.devices.includes(selectedComp)
-      )
+          software.devices.includes(selectedComp)
+        ) &&
+        selectedLanguage.every((selectedLang) =>
+          software.languages.includes(selectedLang)
+        )
       );
     });
   }
@@ -202,24 +215,51 @@ const SoftwareList = () => {
       );
     } else {
       // Compatibility is not selected, add it
-      setSelectedCompatibility((prevSelected) => [...prevSelected, compatibility]);
+      setSelectedCompatibility((prevSelected) => [
+        ...prevSelected,
+        compatibility,
+      ]);
     }
   };
-  
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const handleLanguageClick = (language) => {
+    if (selectedLanguage.includes(language)) {
+      setSelectedLanguage((prevSelected) =>
+        prevSelected.filter((selected) => selected !== language)
+      );
+    } else {
+      // Compatibility is not selected, add it
+      setSelectedLanguage((prevSelected) => [...prevSelected, language]);
+    }
+  };
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
+  const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
+  const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
+    useState(false);
+  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
+
+  const toggleFuncCollapse = () => {
+    setIsFuncCollapsed(!isFuncCollapsed);
+  };
+
+  const toggleCompatibilityCollapse = () => {
+    setIsCompatibilityCollapsed(!isCompatibilityCollapsed);
+  };
+
+  const toggleLanguageCollapse = () => {
+    setIsLanguageCollapsed(!isLanguageCollapsed);
   };
 
   useEffect(() => {
-    setSelectedFunctions([]); // Reset selectedFunctions when URL changes
+    setSelectedFunctions([]); // Reset when URL changes
+    setSelectedCompatibility([]); // Reset when URL changes
+    setSelectedLanguage([]); // Reset when URL changes
   }, [Maincategory, Subcategory]);
 
   useEffect(() => {
     console.log(selectedFunctions);
     console.log(selectedCompatibility);
+    console.log(selectedLanguage);
   });
 
   const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
@@ -327,15 +367,15 @@ const SoftwareList = () => {
                 <li key={category.categoryID}>
                   <h3
                     className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
-                      isCollapsed
+                      isFuncCollapsed
                         ? "bg-gray-100 transition-class"
                         : "bg-white transition-class"
                     }`}
-                    onClick={toggleCollapse}
+                    onClick={toggleFuncCollapse}
                   >
                     {category.name}
                   </h3>
-                  {isCollapsed ? null : (
+                  {isFuncCollapsed ? null : (
                     <ul>
                       {category.func_list.map((func, index) => (
                         <li key={index} className="">
@@ -367,29 +407,76 @@ const SoftwareList = () => {
         </ul>
 
         <ul>
-  <h1>Kompatibilítás:</h1>
-  {CompatibilityData.map((compatibility, index) => (
-    <li key={index}>
-      <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
-        <input
-          type="checkbox"
-          checked={selectedCompatibility.includes(compatibility)}
-          onChange={() => handleCompatibilityClick(compatibility)}
-          className="mr-2 cursor-pointer w-6 h-6"
-          style={{
-            minWidth: "25px",
-            maxWidth: "25px",
-            minHeight: "25px",
-            maxHeight: "25px",
-          }}
-        />
-        {compatibility}
-      </label>
-    </li>
-  ))}
-</ul>
+          <h1
+            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
+              isCompatibilityCollapsed
+                ? "bg-gray-100 transition-class"
+                : "bg-white transition-class"
+            }`}
+            onClick={toggleCompatibilityCollapse}
+          >
+            Kompatibilítás
+          </h1>
+          {isCompatibilityCollapsed ? null : (
+            <ul>
+              {CompatibilityData.map((compatibility, index) => (
+                <li key={index}>
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+                    <input
+                      type="checkbox"
+                      checked={selectedCompatibility.includes(compatibility)}
+                      onChange={() => handleCompatibilityClick(compatibility)}
+                      className="mr-2 cursor-pointer w-6 h-6"
+                      style={{
+                        minWidth: "25px",
+                        maxWidth: "25px",
+                        minHeight: "25px",
+                        maxHeight: "25px",
+                      }}
+                    />
+                    {compatibility}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          )}
+        </ul>
 
-
+        <ul>
+          <h1
+            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
+              isLanguageCollapsed
+                ? "bg-gray-100 transition-class"
+                : "bg-white transition-class"
+            }`}
+            onClick={toggleLanguageCollapse}
+          >
+            Nyelv
+          </h1>
+          {isLanguageCollapsed ? null : (
+            <ul>
+              {LanguageData.map((language, index) => (
+                <li key={index}>
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+                    <input
+                      type="checkbox"
+                      checked={selectedLanguage.includes(language)}
+                      onChange={() => handleLanguageClick(language)}
+                      className="mr-2 cursor-pointer w-6 h-6"
+                      style={{
+                        minWidth: "25px",
+                        maxWidth: "25px",
+                        minHeight: "25px",
+                        maxHeight: "25px",
+                      }}
+                    />
+                    {language}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          )}
+        </ul>
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
@@ -407,7 +494,11 @@ const SoftwareList = () => {
             {currentSubCategoryName && Subcategory && (
               <>
                 &nbsp;&raquo;&nbsp;
-                <Link to={`/szoftverek/${transliterate(Maincategory)}/${transliterate(Subcategory)}`}>
+                <Link
+                  to={`/szoftverek/${transliterate(
+                    Maincategory
+                  )}/${transliterate(Subcategory)}`}
+                >
                   {currentSubCategoryName}
                 </Link>
               </>
