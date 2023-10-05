@@ -26,3 +26,7 @@
 .hover-scale-element:hover {
   transform: scale(1.02);
 }
+
+.transition-class {
+  transition: background-color 0.7s ease;
+}

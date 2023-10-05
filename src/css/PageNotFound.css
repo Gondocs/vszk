@@ -11,6 +11,10 @@
   animation: FadeIn 1s ease-in-out;
 }
 
+.fadeInFast {
+  animation: FadeIn 0.5s ease-in-out;
+}
+
 .hover-scale {
   transition: transform 0.5s ease;
 }

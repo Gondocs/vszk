@@ -157,6 +157,12 @@ const SoftwareList = () => {
     }
   };
 
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   useEffect(() => {
     setSelectedFunctions([]); // Reset selectedFunctions when URL changes
   }, [Maincategory, Subcategory]);
@@ -268,32 +274,39 @@ const SoftwareList = () => {
             if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
               return (
                 <li key={category.categoryID}>
-                  {category.func_list.length > 0 && (
-                    <h3 className="text-lg font-semibold my-4">
-                      {category.name}
-                    </h3>
+                  <h3
+                    className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
+                      isCollapsed
+                        ? "bg-gray-100 transition-class"
+                        : "bg-white transition-class"
+                    }`}
+                    onClick={toggleCollapse}
+                  >
+                    {category.name}
+                  </h3>
+                  {isCollapsed ? null : (
+                    <ul>
+                      {category.func_list.map((func, index) => (
+                        <li key={index} className="">
+                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+                            <input
+                              type="checkbox"
+                              checked={selectedFunctions.includes(func)}
+                              onChange={() => handleFunctionClick(func)}
+                              className="mr-2 cursor-pointer w-6 h-6"
+                              style={{
+                                minWidth: "25px",
+                                maxWidth: "25px",
+                                minHeight: "25px",
+                                maxHeight: "25px",
+                              }}
+                            />
+                            {func}
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
                   )}
-                  <ul>
-                    {category.func_list.map((func, index) => (
-                      <li key={index} className="">
-                        <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100">
-                          <input
-                            type="checkbox"
-                            checked={selectedFunctions.includes(func)}
-                            onChange={() => handleFunctionClick(func)}
-                            className="mr-2 cursor-pointer w-6 h-6"
-                            style={{
-                              minWidth: "25px",
-                              maxwidth: "25px",
-                              minHeight: "25px",
-                              maxHeight: "25px",
-                            }}
-                          />
-                          {func}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
                 </li>
               );
             }
