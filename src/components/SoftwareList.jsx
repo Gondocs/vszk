@@ -276,12 +276,13 @@ const SoftwareList = () => {
                   <ul>
                     {category.func_list.map((func, index) => (
                       <li key={index} className="">
-                        <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small">
+                        <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100">
                           <input
                             type="checkbox"
                             checked={selectedFunctions.includes(func)}
                             onChange={() => handleFunctionClick(func)}
                             className="mr-2 cursor-pointer w-5 h-5"
+                            style={{ backgroundColor: "rgb(255, 210, 48)" }}
                           />
                           {func}
                         </label>
@@ -368,7 +369,7 @@ const SoftwareList = () => {
                     </Link>
 
                     {/* Container for the data (2/3 of the width) */}
-                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
+                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 " >
                       <Link
                         to={`/szoftverek/${transliterate(
                           software.category.categoryGroup.name
@@ -398,7 +399,7 @@ const SoftwareList = () => {
                           {software.company.name}
                         </p>
                       </Link>
-                      <div className="flex items-center">
+                      <div className="flex items-center ">
                         <span className="text-black text-lg mr-2">
                           Vélemények: {software.average_stars}
                           <StarIcon

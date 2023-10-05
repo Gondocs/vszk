@@ -72,7 +72,7 @@ function SoftwareDetail() {
                             style={{ color: "rgb(255, 210, 48)" }}
                           />
                         </p>
-                        <p className="text-lg">{SoftwareData.description}</p>
+                        <p className="text-lg text-justify">{SoftwareData.description}</p>
                         <button
                           className=" mt-12 mb-8 px-4 py-2 bg-yellow-300 hover:bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
                           onClick={() =>
