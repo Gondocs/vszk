@@ -74,6 +74,16 @@ const SoftwareList = () => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
+
+    get
+      .SoftwareOSConnect()
+      .then((OsData) => {
+        setOsData(OsData);
+      })
+      .catch((error) => {
+        showToast("Hiba történt az adatok lekérése közben", "error");
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -116,7 +126,8 @@ const SoftwareList = () => {
           ) &&
           selectedLanguage.every((selectedLang) =>
             software.languages.includes(selectedLang)
-          )
+          ) &&
+          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
         );
       });
     } else if (isMainCategory) {
@@ -136,7 +147,8 @@ const SoftwareList = () => {
           ) &&
           selectedLanguage.every((selectedLang) =>
             software.languages.includes(selectedLang)
-          )
+          ) &&
+          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
         );
       });
     } else {
@@ -155,7 +167,8 @@ const SoftwareList = () => {
           ) &&
           selectedLanguage.every((selectedLang) =>
             software.languages.includes(selectedLang)
-          )
+          ) &&
+          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
         );
       });
     }
@@ -174,7 +187,8 @@ const SoftwareList = () => {
         ) &&
         selectedLanguage.every((selectedLang) =>
           software.languages.includes(selectedLang)
-        )
+        ) &&
+        selectedOs.every((selectedOS) => software.oSs.includes(selectedOS))
       );
     });
   }
@@ -233,10 +247,22 @@ const SoftwareList = () => {
     }
   };
 
+  const handleOSClick = (OS) => {
+    if (selectedOs.includes(OS)) {
+      setSelectedOs((prevSelected) =>
+        prevSelected.filter((selected) => selected !== OS)
+      );
+    } else {
+      // Compatibility is not selected, add it
+      setSelectedOs((prevSelected) => [...prevSelected, OS]);
+    }
+  };
+
   const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
   const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
     useState(false);
   const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
+  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
 
   const toggleFuncCollapse = () => {
     setIsFuncCollapsed(!isFuncCollapsed);
@@ -250,16 +276,22 @@ const SoftwareList = () => {
     setIsLanguageCollapsed(!isLanguageCollapsed);
   };
 
+  const toggleOSeCollapse = () => {
+    setIsOSCollapsed(!isOSCollapsed);
+  };
+
   useEffect(() => {
     setSelectedFunctions([]); // Reset when URL changes
     setSelectedCompatibility([]); // Reset when URL changes
     setSelectedLanguage([]); // Reset when URL changes
+    setSelectedOs([]); // Reset when URL changes
   }, [Maincategory, Subcategory]);
 
   useEffect(() => {
     console.log(selectedFunctions);
     console.log(selectedCompatibility);
     console.log(selectedLanguage);
+    console.log(selectedOs);
   });
 
   const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
@@ -366,20 +398,20 @@ const SoftwareList = () => {
               return (
                 <li key={category.categoryID}>
                   <h3
-                    className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
+                    className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
                       isFuncCollapsed
-                        ? "bg-gray-100 transition-class"
-                        : "bg-white transition-class"
+                        ? " bg-gray-100 transition-class"
+                        : "bg-gray-200 transition-class"
                     }`}
                     onClick={toggleFuncCollapse}
                   >
                     {category.name}
                   </h3>
-                  {isFuncCollapsed ? null : (
+                  {!isFuncCollapsed ? null : (
                     <ul>
                       {category.func_list.map((func, index) => (
                         <li key={index} className="">
-                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                             <input
                               type="checkbox"
                               checked={selectedFunctions.includes(func)}
@@ -408,20 +440,20 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
+            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isCompatibilityCollapsed
-                ? "bg-gray-100 transition-class"
-                : "bg-white transition-class"
+                ? " bg-gray-100 transition-class"
+                : "bg-gray-200 transition-class"
             }`}
             onClick={toggleCompatibilityCollapse}
           >
             Kompatibilítás
           </h1>
-          {isCompatibilityCollapsed ? null : (
+          {!isCompatibilityCollapsed ? null : (
             <ul>
               {CompatibilityData.map((compatibility, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                     <input
                       type="checkbox"
                       checked={selectedCompatibility.includes(compatibility)}
@@ -444,20 +476,20 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-small:hover hover-scale-small ${
+            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isLanguageCollapsed
-                ? "bg-gray-100 transition-class"
-                : "bg-white transition-class"
+                ? " bg-gray-100 transition-class"
+                : "bg-gray-200 transition-class"
             }`}
             onClick={toggleLanguageCollapse}
           >
             Nyelv
           </h1>
-          {isLanguageCollapsed ? null : (
+          {!isLanguageCollapsed ? null : (
             <ul>
               {LanguageData.map((language, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-small:hover hover-scale-small hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                     <input
                       type="checkbox"
                       checked={selectedLanguage.includes(language)}
@@ -471,6 +503,42 @@ const SoftwareList = () => {
                       }}
                     />
                     {language}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          )}
+        </ul>
+
+        <ul>
+          <h1
+            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+              isOSCollapsed
+                ? " bg-gray-100 transition-class"
+                : "bg-gray-200 transition-class"
+            }`}
+            onClick={toggleOSeCollapse}
+          >
+            Operációs rendszerek
+          </h1>
+          {!isOSCollapsed ? null : (
+            <ul>
+              {OsData.map((OS, index) => (
+                <li key={index}>
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                    <input
+                      type="checkbox"
+                      checked={selectedOs.includes(OS)}
+                      onChange={() => handleOSClick(OS)}
+                      className="mr-2 cursor-pointer w-6 h-6"
+                      style={{
+                        minWidth: "25px",
+                        maxWidth: "25px",
+                        minHeight: "25px",
+                        maxHeight: "25px",
+                      }}
+                    />
+                    {OS}
                   </label>
                 </li>
               ))}
