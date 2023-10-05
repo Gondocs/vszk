@@ -331,7 +331,7 @@ const SoftwareList = () => {
             {currentSubCategoryName && Subcategory && (
               <>
                 &nbsp;&raquo;&nbsp;
-                <Link to={`/szoftverek/${transliterate(Subcategory)}`}>
+                <Link to={`/szoftverek/${transliterate(Maincategory)}/${transliterate(Subcategory)}`}>
                   {currentSubCategoryName}
                 </Link>
               </>
