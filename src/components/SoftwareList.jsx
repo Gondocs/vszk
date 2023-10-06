@@ -6,6 +6,8 @@ import { transliterate } from "./api/transliteration";
 import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
+import Pagination from "./pagination";
+// eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 
 const SoftwareList = () => {
@@ -372,24 +374,11 @@ const SoftwareList = () => {
   const totalPages = Math.ceil(filteredSoftwareData.length / itemsPerPage);
 
   const paginationControls = (
-    <div className="flex justify-center items-center mt-4">
-      <ul className="flex space-x-2">
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <li key={index}>
-            <button
-              className={`px-4 py-2 rounded-md ${
-                currentPage === index + 1
-                  ? "bg-gray-700 text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-500 hover:text-white"
-              }`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
+    />
   );
 
   const noResultsMessage =
