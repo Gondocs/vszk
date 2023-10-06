@@ -14,6 +14,9 @@ const SoftwareList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { Maincategory, Subcategory } = useParams();
 
+  const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
+  const [currentSubCategoryName, setCurrentSubCategoryName] = useState("");
+
   const [SoftwareData, setSoftwareData] = useState([]);
   const [FunctionsData, setFunctionsData] = useState([]);
   const [CompatibilityData, setCompatibilityData] = useState([]);
@@ -26,6 +29,13 @@ const SoftwareList = () => {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
+
+  const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
+  const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
+    useState(false);
+  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
+  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
+  const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -293,13 +303,6 @@ const SoftwareList = () => {
     }
   };
 
-  const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
-  const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
-    useState(false);
-  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
-  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
-  const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
-
   const toggleFuncCollapse = () => {
     setIsFuncCollapsed(!isFuncCollapsed);
   };
@@ -334,9 +337,6 @@ const SoftwareList = () => {
     console.log(selectedLanguage);
     console.log(selectedOs);
   });
-
-  const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
-  const [currentSubCategoryName, setCurrentSubCategoryName] = useState("");
 
   useEffect(() => {
     if (!Maincategory) {
