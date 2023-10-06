@@ -402,7 +402,7 @@ const SoftwareList = () => {
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/4 bg-white p-10 rounded-40 mr-2 ml-6 shadow-lg border border-gray-400"
+        className="w-1/4 bg-white p-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400"
         style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">

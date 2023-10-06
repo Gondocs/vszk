@@ -77,17 +77,17 @@ export const CompanyList = () => {
     ) : null;
 
   return (
-    <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
+    <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/5 bg-gray-100 p-8 rounded-40 mr-16 shadow-lg border border-gray-400"
-        style={{ height: "100%", marginTop: "7%" }}
+        className="w-1/4 bg-white p-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400"
+        style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
-          Cégkeresés
+          Szoftverkeresés
         </h2>
         <input
           type="text"
-          placeholder="Cég neve..."
+          placeholder="Szoftver neve..."
           className="border rounded-lg p-2 w-full hover-scale-element:hover hover-scale-element"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
