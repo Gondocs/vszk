@@ -5,12 +5,17 @@ import { transliterate } from "./api/transliteration";
 import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import { ClipLoader } from "react-spinners";
+import Pagination from "./pagination";
+// eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [CompanyData, setCompanyData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     get
@@ -30,15 +35,9 @@ export const CompanyList = () => {
     company.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedCompanies = filteredCompanies.slice(startIndex, endIndex);
-
-  const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -48,6 +47,34 @@ export const CompanyList = () => {
       behavior: "smooth",
     });
   };
+
+  const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage);
+
+  const paginationControls = (
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
+    />
+  );
+
+  const noResultsMessage =
+    paginatedCompanies.length === 0 ? (
+      <div
+        className="bg-white rounded-40 flex justify-center items-center fadeIn"
+        style={{
+          height: "auto",
+          width: "65%",
+          margin: "auto",
+          marginTop: "7%",
+          padding: "2%",
+        }}
+      >
+        <div className="text-black text-4xl text-center">
+          A keresett cég nem található.
+        </div>
+      </div>
+    ) : null;
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
@@ -103,7 +130,11 @@ export const CompanyList = () => {
                         alt="Software Placeholder"
                         className="pl-4 pr-4"
                         draggable="false"
-                        style={{ width: "auto", height: "auto" }}
+                        style={{
+                          width: "auto",
+                          height: "auto",
+                          maxHeight: "150px",
+                        }}
                       />
                     </Link>
                     <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
@@ -137,28 +168,8 @@ export const CompanyList = () => {
                 </li>
               ))}
             </ul>
-            {totalPages > 1 && (
-              <div className="flex justify-center mt-4">
-                <nav className="block">
-                  <ul className="flex space-x-2">
-                    {Array.from({ length: totalPages }).map((_, index) => (
-                      <li key={index}>
-                        <button
-                          className={`px-4 py-2 rounded-md ${
-                            currentPage === index + 1
-                              ? "bg-gray-700 text-white"
-                              : "bg-white text-gray-700 hover:bg-gray-500 hover:text-white"
-                          }`}
-                          onClick={() => handlePageChange(index + 1)}
-                        >
-                          {index + 1}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
-            )}
+            {noResultsMessage}
+            {totalPages > 1 && paginationControls}
           </>
         )}
       </div>
