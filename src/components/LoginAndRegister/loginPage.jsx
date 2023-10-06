@@ -24,7 +24,7 @@ function LoginPage() {
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center">
       {/* Left side with SVG */}
-      <div className="flex FadeInSmall" style={{ marginRight: "15%" }}>
+      <div className="flex FadeInSmall" style={{ marginRight: "" }}>
         <LoginSvg />
       </div>
 
