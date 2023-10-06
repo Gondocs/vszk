@@ -57,7 +57,7 @@ export const Navbar = () => {
   }, [searchQuery]);
 
   return (
-    <nav className="bg-gray-800 p-4 rounded-b-lg flex-grow relative">
+    <nav className="bg-gray-800 p-5 rounded-b-lg flex-grow relative">
       <div className="flex items-center">
         <Link
           to="/"
