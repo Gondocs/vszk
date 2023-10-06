@@ -130,11 +130,10 @@ export const Navbar = () => {
 
         <Link
           to="/belepes"
-          className="text-white hover:text-gray-400 ml-12 hover-scale hover-scale:hover text-[1rem]"
+          className="text-white hover:text-gray-400 ml-8 hover-scale hover-scale:hover text-[1rem] pr-3"
         >
           Belépés
         </Link>
-        <h5 className="text-white px-1">/</h5>
         <Link
           to="/regisztracio"
           className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]"

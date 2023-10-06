@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../css/loginAndRegister.css";
+import LoginSvg from "../assets/LoginSvg";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -21,8 +22,14 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100	flex flex-col justify-start ">
-      <div className="p-10 bg-white mx-auto max-w-xl rounded-lg shadow-md marginLogin FadeInSmall">
+    <div className="min-h-screen bg-slate-100 flex justify-center items-center">
+      {/* Left side with SVG */}
+      <div className="flex FadeInSmall" style={{ marginRight: "15%" }}>
+        <LoginSvg />
+      </div>
+
+      {/* Right side with login form */}
+      <div className="p-10 bg-white max-w-xl rounded-lg shadow-md marginLogin FadeInSmall">
         <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">
           Jelentkezz be a fiókodba
         </h2>
