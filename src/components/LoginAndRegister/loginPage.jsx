@@ -27,9 +27,11 @@ function LoginPage() {
     e.preventDefault();
 
     post.LoginData(formData)
-    .then(() => {
+    .then((token) => {
       showToastLong("Sikeres Bejelentkezés!", "success");
       navigate(-1);
+      console.log(token);
+      
     })
     .catch((error) => {
       showToastLong("Hiba történt a belépés közben: " + error.response.data, "error");

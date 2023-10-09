@@ -93,7 +93,12 @@ const post = {
   },
 
   LoginData: (data) => {
-    return api.post("/Auth/login", data).then((response) => response.data);
+    return api.post("/Auth/login", data).then((response) => {
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      return token;
+    });
+  },
 
     /*
       {
@@ -101,7 +106,6 @@ const post = {
         "password": "string"
       }
     */
-  },
 
   RatingData: (data) => {
     return api.post("/Rating", data).then((response) => response.data);
