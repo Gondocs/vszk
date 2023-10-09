@@ -40,12 +40,12 @@ function LoginPage() {
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center">
       {/* Left side with SVG */}
-      <div className="flex FadeInSmall" style={{ marginRight: "" }}>
+      <div className="flex FadeInSmall" style={{ marginLeft: "8%" }}>
         <LoginSvg />
       </div>
 
       {/* Right side with login form */}
-      <div className="p-10 bg-white max-w-xl rounded-lg shadow-md marginLogin FadeInSmall">
+      <div className="p-10 bg-white max-w-xl rounded-lg shadow-md marginLogin FadeInSmall" style={{marginRight: "8%" }}>
         <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">
           Jelentkezz be a fiókodba
         </h2>

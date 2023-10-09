@@ -4,10 +4,11 @@ function RegisterSvg() {
   return (
     <div className="flex-grow">
       <svg
+        style={{ height: "auto", width: "80%" }}
         transform="scale(-1,1)"
         data-name="Layer 1"
-        width="573.67004"
-        height="435.56279"
+        width="716.67004"
+        height="543.56279"
         viewBox="0 0 717.67004 544.56279"
       >
         {" "}
