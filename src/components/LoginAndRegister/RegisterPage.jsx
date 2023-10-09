@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../css/loginAndRegister.css";
 import RegisterSvg from "../assets/RegisterSvg";
+import { post } from "../api/api";
+import { showToast } from "../toasts/toast";
 
 const Register = () => {
+
+
+  const [passwordErrors, setPasswordErrors] = useState([]);
+
   const [formData, setFormData] = useState({
     lastname: "",
     firstname: "",
@@ -23,13 +29,44 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // registration logic
+
+    // Password validation
+    const passwordErrors = [];
+
+    if (formData.password.length < 6) {
+      passwordErrors.push("Jelszó túl rövid (legalább 6 karakter kell)");
+    }
+    if (!/\d/.test(formData.password)) {
+      passwordErrors.push("Nincsenek számok a jelszóban");
+    }
+    if (!/[A-Z]/.test(formData.password)) {
+      passwordErrors.push("Nincsenek nagybetűk a jelszóban");
+    }
+    if (formData.password !== formData.confirmPassword) {
+      passwordErrors.push("A jelszavak nem egyeznek");
+    }
+
+    setPasswordErrors(passwordErrors);
+
+    // Check if any validation failed
+    if (passwordErrors.length > 0) {
+      showToast(
+        "Hiba a jelszó mezők validálása során. Kérjük, ellenőrizze a hibákat.",
+        "error"
+      );
+      return; // Prevent form submission
+    }
+
     console.log("Form Data:", formData);
+
+    post.RegisterData(formData).catch((error) => {
+      showToast("Hiba történt az adatok küldése közben", "error");
+      console.log(error);
+    });
   };
 
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center">
-
       <div
         className="w-1/3 p-8 bg-white rounded-lg shadow-lg marginRegister FadeInSmall"
         style={{ marginLeft: "8%" }}
@@ -167,6 +204,13 @@ const Register = () => {
               placeholder="Jelszó"
             />
           </div>
+          {passwordErrors.length > 0 && (
+            <div className="w-full text-red-500 mt-2">
+              {passwordErrors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
 
           <div className="w-full">
             <label
@@ -180,7 +224,7 @@ const Register = () => {
               name="confirmPassword"
               type="password"
               onChange={handleChange}
-              value={formData.password}
+              value={formData.confirmPassword}
               autoComplete="new-password"
               required
               className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
