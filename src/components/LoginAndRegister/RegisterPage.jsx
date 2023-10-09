@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../../css/loginAndRegister.css";
 import RegisterSvg from "../assets/RegisterSvg";
 import { post } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { showToastLong } from "../toasts/toastLong";
+import { useNavigate } from "react-router-dom";
+
 
 const Register = () => {
 
-
+  const navigate = useNavigate();
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
@@ -66,6 +68,7 @@ const Register = () => {
     post.RegisterData(formData)
       .then(() => {
         showToastLong("Sikeres regisztráció!", "success");
+        navigate(-1);
       })
       .catch((error) => {
         showToastLong("Hiba történt a regisztráció közben: " + error.response.data, "error");
