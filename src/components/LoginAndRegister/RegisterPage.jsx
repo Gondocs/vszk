@@ -4,11 +4,14 @@ import "../../css/loginAndRegister.css";
 import RegisterSvg from "../assets/RegisterSvg";
 import { post } from "../api/api";
 import { showToast } from "../toasts/toast";
+import { showToastLong } from "../toasts/toastLong";
 
 const Register = () => {
 
 
   const [passwordErrors, setPasswordErrors] = useState([]);
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
 
   const [formData, setFormData] = useState({
     lastname: "",
@@ -18,6 +21,7 @@ const Register = () => {
     country: "",
     settlement: "",
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,10 +33,10 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Password validation
+  
+    // password validation
     const passwordErrors = [];
-
+  
     if (formData.password.length < 6) {
       passwordErrors.push("Jelszó túl rövid (legalább 6 karakter kell)");
     }
@@ -42,28 +46,33 @@ const Register = () => {
     if (!/[A-Z]/.test(formData.password)) {
       passwordErrors.push("Nincsenek nagybetűk a jelszóban");
     }
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== passwordConfirmation) {
       passwordErrors.push("A jelszavak nem egyeznek");
     }
-
+  
     setPasswordErrors(passwordErrors);
-
-    // Check if any validation failed
+  
+    // check if any validation failed
     if (passwordErrors.length > 0) {
       showToast(
         "Hiba a jelszó mezők validálása során. Kérjük, ellenőrizze a hibákat.",
         "error"
       );
-      return; // Prevent form submission
+      return; // prevent form submission
     }
-
+  
     console.log("Form Data:", formData);
-
-    post.RegisterData(formData).catch((error) => {
-      showToast("Hiba történt az adatok küldése közben", "error");
-      console.log(error);
-    });
+  
+    post.RegisterData(formData)
+      .then(() => {
+        showToastLong("Sikeres regisztráció!", "success");
+      })
+      .catch((error) => {
+        showToastLong("Hiba történt a regisztráció közben: " + error.response.data, "error");
+        console.log(error);
+      });
   };
+  
 
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center">
@@ -157,7 +166,6 @@ const Register = () => {
                 type="country"
                 onChange={handleChange}
                 value={formData.country}
-                required
                 className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg  mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
                 placeholder="Magyarország"
               />
@@ -179,7 +187,6 @@ const Register = () => {
               onChange={handleChange}
               value={formData.settlement}
               autoComplete="city"
-              required
               className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="Budapest"
             />
@@ -204,13 +211,6 @@ const Register = () => {
               placeholder="Jelszó"
             />
           </div>
-          {passwordErrors.length > 0 && (
-            <div className="w-full text-red-500 mt-2">
-              {passwordErrors.map((error, index) => (
-                <p key={index}>{error}</p>
-              ))}
-            </div>
-          )}
 
           <div className="w-full">
             <label
@@ -223,14 +223,22 @@ const Register = () => {
               id="confirmPassword"
               name="confirmPassword"
               type="password"
-              onChange={handleChange}
-              value={formData.confirmPassword}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              value={passwordConfirmation}
               autoComplete="new-password"
               required
               className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
               placeholder="Jelszó"
             />
           </div>
+          {passwordErrors.length > 0 && (
+            <div className="w-full text-red-500 mt-3">
+              {passwordErrors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
+
 
           <div className="w-full">
             <button
