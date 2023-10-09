@@ -2,12 +2,12 @@ import React from "react";
 
 function RegisterSvg() {
   return (
-    <div>
+    <div className="flex-grow">
       <svg
         transform="scale(-1,1)"
         data-name="Layer 1"
-        width="717.67004"
-        height="544.56279"
+        width="573.67004"
+        height="435.56279"
         viewBox="0 0 717.67004 544.56279"
       >
         {" "}
