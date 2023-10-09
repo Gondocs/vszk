@@ -1,24 +1,40 @@
 import React, { useState } from "react";
 import "../../css/loginAndRegister.css";
 import LoginSvg from "../assets/LoginSvg";
+import { post } from "../api/api";
+import { useNavigate } from "react-router-dom";
+import { showToastLong } from "../toasts/toastLong";
+
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const navigate = useNavigate();
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    post.LoginData(formData)
+    .then(() => {
+      showToastLong("Sikeres Bejelentkezés!", "success");
+      navigate(-1);
+    })
+    .catch((error) => {
+      showToastLong("Hiba történt a belépés közben: " + error.response.data, "error");
+      console.log(error);
+    });
   };
 
   return (
@@ -48,8 +64,8 @@ function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                value={email}
-                onChange={handleEmailChange}
+                value={formData.email}
+                onChange={handleChange}
                 className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl hover-scale-loginandregister hover-scale-loginandregister:hover"
                 placeholder="minta@gmail.com"
               />
@@ -69,8 +85,8 @@ function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                value={password}
-                onChange={handlePasswordChange}
+                value={formData.password}
+                onChange={handleChange}
                 className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-xl hover-scale-loginandregister hover-scale-loginandregister:hover"
                 placeholder="Jelszó"
               />
