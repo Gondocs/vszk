@@ -6,6 +6,19 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
+api.interceptors.request.use(
+  (config) => {
+    const authToken = localStorage.getItem("token");
+    if (authToken) {
+      config.headers.Authorization = `Bearer ${authToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 const get = {
   Category: () => {
     return api.get("/Category/GetAll").then((response) => response.data);
@@ -93,6 +106,7 @@ const post = {
   },
 
   LoginData: (data) => {
+    // Login endpoint
     return api.post("/Auth/login", data).then((response) => {
       const token = response.data.token;
       localStorage.setItem("token", token);
@@ -100,7 +114,12 @@ const post = {
     });
   },
 
-    /*
+  Logout: () => {
+    // Clear the authentication token from local storage
+    localStorage.removeItem("token");
+  },
+
+  /*
       {
         "email": "string",
         "password": "string"

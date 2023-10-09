@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DropdownMenu from "./dropDown";
-import { get } from "../api/api";
+import { get, post } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { transliterate } from "../api/transliteration";
 
 export const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isProfileDropdownVisible, setIsProfileDropdownVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [SoftwareData, setSoftwareData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
+  const navigate = useNavigate();
+
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -17,6 +21,14 @@ export const Navbar = () => {
 
   const handleMouseLeave = () => {
     setDropdownVisible(false);
+  };
+
+  const handleMouseEnterProfile = () => {
+    setIsProfileDropdownVisible(true);
+  };
+
+  const handleMouseLeaveProfile = () => {
+    setIsProfileDropdownVisible(false);
   };
 
   const handleInputChange = (e) => {
@@ -55,6 +67,25 @@ export const Navbar = () => {
     filterSoftwareData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
+
+  useEffect(() => {
+    // Check the authentication status here (e.g., from a token or session)
+    // Update the isLoggedIn state accordingly
+    const authToken = localStorage.getItem("token");
+    if (authToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Call the logout function to clear the token
+    post.Logout();
+
+    // Redirect to the login page or another appropriate page
+    navigate("/");
+  };
 
   return (
     <nav className="bg-gray-800 p-5 rounded-b-lg flex-grow relative">
@@ -128,18 +159,50 @@ export const Navbar = () => {
           )}
         </div>
 
-        <Link
-          to="/belepes"
-          className="text-white hover:text-gray-400 ml-8 hover-scale hover-scale:hover text-[1rem] pr-3"
-        >
-          Belépés
-        </Link>
-        <Link
-          to="/regisztracio"
-          className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]"
-        >
-          Regisztráció
-        </Link>
+        {isLoggedIn ? (
+          // Render profile menu if logged in
+          <div className="text-white ml-8 relative group">
+            <button
+              className="hover:text-gray-400 text-[1rem]"
+              onMouseEnter={handleMouseEnterProfile}
+            >
+              Profil
+            </button>
+            {isProfileDropdownVisible && (
+              <div className="absolute z-10 bg-white rounded-lg shadow-md">
+                {/* Add profile menu items */}
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                >
+                  Profil
+                </Link>
+                <button
+                  className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          // Render login and registration links if not logged in
+          <>
+            <Link
+              to="/belepes"
+              className="text-white hover:text-gray-400 ml-8 hover-scale hover-scale:hover text-[1rem] pr-3"
+            >
+              Belépés
+            </Link>
+            <Link
+              to="/regisztracio"
+              className="text-white hover:text-gray-400 mr-4 hover-scale hover-scale:hover text-[1rem]"
+            >
+              Regisztráció
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
