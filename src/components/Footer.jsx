@@ -2,30 +2,13 @@ import React, { useRef, useEffect } from "react";
 import "../css/Mainpage.css";
 
 export function Footer() {
-  const footerRef = useRef(null);
 
-  useEffect(() => {
-    const footerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          footerRef.current.classList.add("fadeInFromRight");
-        }
-      });
-    });
-
-    footerObserver.observe(footerRef.current);
-
-    return () => {
-      footerObserver.disconnect();
-    };
-  }, []);
 
   return (
     <>
       <div className="bg-slate-100">
         <section
           className="bg-gray-800 py-8 text-white border-t-4 border-white rounded-lg"
-          ref={footerRef}
         >
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-semibold mb-6">Maradjon naprakész</h2>
