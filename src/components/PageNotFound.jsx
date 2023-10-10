@@ -5,14 +5,14 @@ import NotFoundSvg from "./assets/NotFoundSvg";
 
 const NotFound = () => {
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
-      <div className="bg-white py-8 px-20 rounded-40 shadow-lg mb-24 FadeInSmall">
+    <div className="h-screen flex flex-col items-center justify-center bg-gray-100" >
+      <div className="bg-white py-8 px-20 rounded-40 shadow-lg mb-12 FadeInSmall mt-12">
         <NotFoundSvg />
         <h1 className="text-4xl font-semibold text-gray-800 mb-4 mt-4 text-center">
           404 - Az oldal nem található
         </h1>
         <p className="text-gray-600 mt-2 mb-4 text-xl text-center">
-          Az általad keresett oldal nem létezik.
+          A keresett oldal nem létezik.
         </p>
         <div className="items-center justify-center flex-col flex">
           <Link

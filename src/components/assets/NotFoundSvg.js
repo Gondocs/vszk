@@ -4,6 +4,7 @@ function NotFoundSvg() {
   return (
     <div>
       <svg
+        style={{ height: 'auto', width: '65%', margin: 'auto', marginBottom: '30px'}}
         width="524.67001"
         height="418.27099"
         viewBox="0 0 524.67001 418.27099"
