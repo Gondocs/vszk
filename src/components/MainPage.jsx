@@ -40,6 +40,13 @@ export function HomePage() {
   const [prevPercentage, setPrevPercentage] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     const headerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -183,7 +190,7 @@ export function HomePage() {
               ref={sectionRef}
               className=" container first-letter:animated-element text-left"
             >
-              <Link to={"/osszehasonlitas"}>
+              <Link to={"/osszehasonlitas"} onClick={scrollTop}>
                 <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
                   Próbálja ki az összehasonlítást
                 </h2>
@@ -194,7 +201,7 @@ export function HomePage() {
               </p>
             </div>
             <div ref={pictureRef} className="">
-              <Link to="/osszehasonlitas">
+              <Link to="/osszehasonlitas" onClick={scrollTop}>
                 <img
                   src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
                   alt="Összehasonlítás"
@@ -228,6 +235,7 @@ export function HomePage() {
                 <Link
                   to="/szoftverek"
                   className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"
+                  onClick={scrollTop}
                 >
                   Minden szoftver
                 </Link>
@@ -244,6 +252,7 @@ export function HomePage() {
                 <Link
                   to="/osszehasonlitas"
                   className="text-blue-600 hover:underline mt-4 inline-block hover-scale hover-scale:hover"
+                  onClick={scrollTop}
                 >
                   Összehasonlítás
                 </Link>
