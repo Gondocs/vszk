@@ -9,6 +9,7 @@ import { showToastLong } from "../toasts/toastLong";
 function LoginPage() {
 
   const navigate = useNavigate();
+  const navigateback = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -29,6 +30,7 @@ function LoginPage() {
     post.LoginData(formData)
     .then((token) => {
       showToastLong("Sikeres Bejelentkezés!", "success");
+      navigateback('/');
       navigate(0);
       console.log(token);
       

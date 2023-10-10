@@ -15,6 +15,7 @@ export const Navbar = () => {
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const navigateback = useNavigate();
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -82,7 +83,9 @@ export const Navbar = () => {
     post.Logout();
 
     // Redirect to the login page or another appropriate page
+    navigateback('/');
     navigate(0);
+
   };
 
   return (
@@ -163,7 +166,7 @@ export const Navbar = () => {
         </div>
 
             {isLoggedIn ? (
-              // Render profile menu if logged in
+              // render profile menu if logged in
               <div className="text-white mr-10 relative group">
                 <button
                   className="hover:text-gray-400 text-[1.2rem]"
@@ -173,7 +176,7 @@ export const Navbar = () => {
                 </button>
                 {isProfileDropdownVisible && (
                   <div className="absolute z-10 bg-white rounded-lg right-0 shadow-md mt-2">
-                    {/* Add profile menu items */}
+                    {/* profile menu items */}
                     <Link
                       to="/profile"
                       className="block px-8 py-4 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
