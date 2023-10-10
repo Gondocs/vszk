@@ -31,7 +31,7 @@ function LoginPage() {
     .then((token) => {
       showToastLong("Sikeres Bejelentkezés!", "success");
       navigateback('/');
-      navigate(0);
+      navigate(-1);
       console.log(token);
       
     })
