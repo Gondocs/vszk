@@ -30,8 +30,8 @@ function LoginPage() {
     post.LoginData(formData)
     .then((token) => {
       showToastLong("Sikeres Bejelentkezés!", "success");
-      navigateback('/');
-      navigate(-1);
+      navigate(0);
+      navigateback(-1);
       console.log(token);
       
     })

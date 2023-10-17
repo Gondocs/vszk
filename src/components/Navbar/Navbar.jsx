@@ -72,18 +72,21 @@ export const Navbar = () => {
     const authToken = localStorage.getItem("token");
     if (authToken) {
       setIsLoggedIn(true);
-    } else {
+      console.log("LoggedIn")
+    } 
+    else {
       setIsLoggedIn(false);
+      console.log("LoggedOut")
     }
     setIsLoading(false);
-  }, []);
+  }, [localStorage.getItem("token")]);
 
   const handleLogout = () => {
     // Call the logout function to clear the token
     post.Logout();
 
     // Redirect to the login page or another appropriate page
-    navigateback('/');
+    navigateback('/'); // navigate back to the previous page
     navigate(0);
 
   };
@@ -172,17 +175,17 @@ export const Navbar = () => {
                   className="hover:text-gray-400 text-[1.2rem]"
                   onClick={handleProfileClick}
                 >
-                  Profil
+                  Üdvözlünk, {localStorage.getItem("username")}!
                 </button>
                 {isProfileDropdownVisible && (
                   <div className="absolute z-10 bg-white rounded-lg right-0 shadow-md mt-2">
                     {/* profile menu items */}
-                    <Link
+                    {/*<Link
                       to="/profile"
                       className="block px-8 py-4 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
                     >
                       Profil
-                    </Link>
+                </Link>*/}
                     <button
                       className="block px-8 py-4 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
                       onClick={handleLogout}

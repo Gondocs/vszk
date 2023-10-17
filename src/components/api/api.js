@@ -109,8 +109,10 @@ const post = {
     // Login endpoint
     return api.post("/Auth/login", data).then((response) => {
       const token = response.data.token;
+      const user = response.data;
       localStorage.setItem("token", token);
-      return token;
+      localStorage.setItem("username", (user.lastName + " " + user.firstName));
+      return token, user;
     });
   },
 
