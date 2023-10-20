@@ -72,29 +72,25 @@ export const Navbar = () => {
     const authToken = localStorage.getItem("token");
     if (authToken) {
       setIsLoggedIn(true);
-      console.log("LoggedIn")
-    } 
-    else {
+      console.log("LoggedIn");
+    } else {
       setIsLoggedIn(false);
-      console.log("LoggedOut")
+      console.log("LoggedOut");
     }
     setIsLoading(false);
-  }, [localStorage.getItem("token")]);
+  }, []);
 
   const handleLogout = () => {
     // Call the logout function to clear the token
     post.Logout();
 
     // Redirect to the login page or another appropriate page
-    navigateback('/'); // navigate back to the previous page
+    navigateback("/"); // navigate back to the previous page
     navigate(0);
-
   };
 
   return (
-
     <nav className="bg-gray-800 px-4 py-5 rounded-b-lg flex-grow relative">
-
       <div className="flex items-center">
         <Link
           to="/"
@@ -136,37 +132,36 @@ export const Navbar = () => {
 
         {!isLoading && (
           <>
+            <div className="flex-grow px-8 relative">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Keresés"
+                  className="pl-5 pr-10 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-4/5 hover-scale-small hover-scale-small:hover"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-        <div className="flex-grow px-8 relative">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Keresés"
-              className="pl-5 pr-10 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-4/5 hover-scale-small hover-scale-small:hover"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          {searchQuery && (
-            <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full">
-              {filteredSoftwareData.map((software) => (
-                <Link
-                  key={software.softwareID}
-                  to={`/szoftverek/${transliterate(
-                    software.category_group
-                  )}/${transliterate(software.category)}/${transliterate(
-                    software.name
-                  )}`}
-                  className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                  onClick={handleLinkClick}
-                >
-                  {software.name}
-                </Link>
-              ))}
+              {searchQuery && (
+                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full">
+                  {filteredSoftwareData.map((software) => (
+                    <Link
+                      key={software.softwareID}
+                      to={`/szoftverek/${transliterate(
+                        software.category_group
+                      )}/${transliterate(software.category)}/${transliterate(
+                        software.name
+                      )}`}
+                      className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                      onClick={handleLinkClick}
+                    >
+                      {software.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
             {isLoggedIn ? (
               // render profile menu if logged in
