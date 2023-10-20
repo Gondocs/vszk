@@ -85,32 +85,32 @@ function SoftwareDetail() {
                   </div>
 
                   <div className="p-8 rounded-25">
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-6 text-white text-2xl">
                       <button
-                        className={`mx-2 p-2 ${
+                        className={`mx-2 p-2 w-1/3 rounded-xl ${
                           activeButton === "Properties"
-                            ? "bg-blue-500"
-                            : "bg-gray-300"
+                            ? "bg-gray-600"
+                            : "bg-gray-700"
                         }`}
                         onClick={() => setActiveButton("Properties")}
                       >
                         Tulajdonságok
                       </button>
                       <button
-                        className={`mx-2 p-2 ${
+                        className={`mx-2 p-2 w-1/3 rounded-xl ${
                           activeButton === "functionalities"
-                            ? "bg-blue-500"
-                            : "bg-gray-300"
+                            ? "bg-gray-600"
+                            : "bg-gray-700"
                         }`}
                         onClick={() => setActiveButton("functionalities")}
                       >
                         Funkciók
                       </button>
                       <button
-                        className={`mx-2 p-2 ${
+                        className={`mx-2 p-2 w-1/3 rounded-xl ${
                           activeButton === "remunerations"
-                            ? "bg-blue-500"
-                            : "bg-gray-300"
+                            ? "bg-gray-600"
+                            : "bg-gray-700"
                         }`}
                         onClick={() => setActiveButton("remunerations")}
                       >

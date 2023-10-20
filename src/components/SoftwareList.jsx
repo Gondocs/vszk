@@ -402,7 +402,7 @@ const SoftwareList = () => {
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/4 bg-white p-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400"
+        className="w-1/4 bg-white p-10 rounded-25 mr-4 ml-4 shadow-lg border border-gray-400"
         style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
@@ -411,7 +411,7 @@ const SoftwareList = () => {
         <input
           type="text"
           placeholder="Szoftver neve..."
-          className="border rounded-lg p-2 w-full hover-scale-element:hover hover-scale-element"
+          className="border rounded-xl p-2 w-full hover-scale-element:hover hover-scale-element"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -426,7 +426,7 @@ const SoftwareList = () => {
               return (
                 <li key={category.categoryID}>
                   <h3
-                    className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+                    className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
                       isFuncCollapsed
                         ? " bg-gray-700 transition-class"
                         : "bg-gray-800 transition-class"
@@ -439,7 +439,7 @@ const SoftwareList = () => {
                     <ul>
                       {category.func_list.map((func, index) => (
                         <li key={index} className="">
-                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                             <input
                               type="checkbox"
                               checked={selectedFunctions.includes(func)}
@@ -468,7 +468,7 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isCompatibilityCollapsed
                 ? "bg-gray-600 transition-class"
                 : "bg-gray-700 transition-class"
@@ -481,7 +481,7 @@ const SoftwareList = () => {
             <ul>
               {CompatibilityData.map((compatibility, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                     <input
                       type="checkbox"
                       checked={selectedCompatibility.includes(compatibility)}
@@ -504,7 +504,7 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isLanguageCollapsed
                 ? "bg-gray-600 transition-class"
                 : "bg-gray-700 transition-class"
@@ -517,7 +517,7 @@ const SoftwareList = () => {
             <ul>
               {LanguageData.map((language, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                     <input
                       type="checkbox"
                       checked={selectedLanguage.includes(language)}
@@ -540,7 +540,7 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isOSCollapsed
                 ? "bg-gray-600 transition-class"
                 : "bg-gray-700 transition-class"
@@ -553,7 +553,7 @@ const SoftwareList = () => {
             <ul>
               {OsData.map((OS, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                     <input
                       type="checkbox"
                       checked={selectedOs.includes(OS)}
@@ -576,7 +576,7 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isSupportCollapsed
                 ? "bg-gray-600 transition-class"
                 : "bg-gray-700 transition-class"
@@ -589,7 +589,7 @@ const SoftwareList = () => {
             <ul>
               {SupportData.map((Support, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-25 pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
                     <input
                       type="checkbox"
                       checked={selectedSupport.includes(Support)}
