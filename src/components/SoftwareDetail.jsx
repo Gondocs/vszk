@@ -11,7 +11,7 @@ function SoftwareDetail() {
   const { name } = useParams();
   const [SoftwareData, setSoftwareData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeButton, setActiveButton] = useState("languages"); // Default active button is "languages"
+  const [activeButton, setActiveButton] = useState("Properties"); // Default active button is "Tulajdonságok"
 
   useEffect(() => {
     get
@@ -84,153 +84,158 @@ function SoftwareDetail() {
                     </div>
                   </div>
 
-                  <div className="p-20 mt-12 rounded-25">
-                      {activeButton === "languages" &&
-                        SoftwareData.languages.length > 0 && (
-                          <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25">
-                            {SoftwareData.languages.length > 0 && (
-                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                                <h3 className="text-2xl font-semibold">
-                                  Nyelvek
-                                </h3>
-                                <p className="text-lg mt-2">
-                                  {SoftwareData.languages.join(", ")}
-                                </p>
-                              </div>
-                            )}
+                  <div className="p-8 rounded-25">
+                    <div className="flex justify-center mt-6">
+                      <button
+                        className={`mx-2 p-2 ${
+                          activeButton === "Properties"
+                            ? "bg-blue-500"
+                            : "bg-gray-300"
+                        }`}
+                        onClick={() => setActiveButton("Properties")}
+                      >
+                        Tulajdonságok
+                      </button>
+                      <button
+                        className={`mx-2 p-2 ${
+                          activeButton === "functionalities"
+                            ? "bg-blue-500"
+                            : "bg-gray-300"
+                        }`}
+                        onClick={() => setActiveButton("functionalities")}
+                      >
+                        Funkciók
+                      </button>
+                      <button
+                        className={`mx-2 p-2 ${
+                          activeButton === "remunerations"
+                            ? "bg-blue-500"
+                            : "bg-gray-300"
+                        }`}
+                        onClick={() => setActiveButton("remunerations")}
+                      >
+                        Árazás
+                      </button>
+                    </div>
 
-                            {SoftwareData.supports.length > 0 && (
-                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                                <h3 className="text-2xl font-semibold">
-                                  Támogatás nyelve
-                                </h3>
-                                <p className="text-lg mt-2 rounded-25">
-                                  {SoftwareData.supports.join(", ")}
-                                </p>
-                              </div>
-                            )}
-
-                            {SoftwareData.oSs.length > 0 && (
-                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                                <h3 className="text-2xl font-semibold">
-                                  Operációs rendszerek
-                                </h3>
-                                <p className="text-lg mt-2 rounded-25">
-                                  {SoftwareData.oSs.join(", ")}
-                                </p>
-                              </div>
-                            )}
-
-                            {SoftwareData.devices.length > 0 && (
-                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                                <h3 className="text-2xl font-semibold">
-                                  Eszközök
-                                </h3>
-                                <p className="text-lg mt-2">
-                                  {SoftwareData.devices.join(", ")}
-                                </p>
-                              </div>
-                            )}
-
-                            {SoftwareData.moduls.length > 0 && (
-                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                                <h3 className="text-2xl font-semibold">
-                                  Modulok
-                                </h3>
-                                <p className="text-lg mt-2">
-                                  {SoftwareData.moduls.join(", ")}
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                      {activeButton === "functionalities" &&
-                        SoftwareData.functions.length > 0 && (
-                          <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-25">
-                            {SoftwareData.functions
-                              .filter((func) => func.sfunction === true)
-                              .map((func) => (
-                                <div
-                                  key={func.softwareFunctionID}
-                                  className="bg-white rounded-25 shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small"
-                                >
-                                  <h3 className="text-lg font-semibold m-2 text-center">
-                                    {func.functionality}
-                                  </h3>
-                                </div>
-                              ))}
-                          </div>
-                        )}
-
-                      {activeButton === "renumerations" &&
-                        SoftwareData.remunerations.length > 0 && (
-                          // Render the content for renumerations
-                          <div className="flex flex-wrap gap-8 mt-32 shadow-custom p-16 rounded-25">
-                            <div className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
-                              <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
-                                BEVEZETÉSI ÁR
+                    {activeButton === "Properties" &&
+                      SoftwareData.languages.length > 0 && (
+                        <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25 mt-20">
+                          {SoftwareData.languages.length > 0 && (
+                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                              <h3 className="text-2xl font-semibold">
+                                Nyelvek
                               </h3>
-                              <p className="text-center text-lg">
-                                {SoftwareData.introduction_fee
-                                  ? `${SoftwareData.introduction_fee} Ft`
-                                  : "Nincsen"}
+                              <p className="text-lg mt-2">
+                                {SoftwareData.languages.join(", ")}
                               </p>
                             </div>
+                          )}
 
-                            {SoftwareData.remunerations.map((remuneration) => (
+                          {SoftwareData.supports.length > 0 && (
+                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                              <h3 className="text-2xl font-semibold">
+                                Támogatás nyelve
+                              </h3>
+                              <p className="text-lg mt-2 rounded-25">
+                                {SoftwareData.supports.join(", ")}
+                              </p>
+                            </div>
+                          )}
+
+                          {SoftwareData.oSs.length > 0 && (
+                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                              <h3 className="text-2xl font-semibold">
+                                Operációs rendszerek
+                              </h3>
+                              <p className="text-lg mt-2 rounded-25">
+                                {SoftwareData.oSs.join(", ")}
+                              </p>
+                            </div>
+                          )}
+
+                          {SoftwareData.devices.length > 0 && (
+                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                              <h3 className="text-2xl font-semibold">
+                                Eszközök
+                              </h3>
+                              <p className="text-lg mt-2">
+                                {SoftwareData.devices.join(", ")}
+                              </p>
+                            </div>
+                          )}
+
+                          {SoftwareData.moduls.length > 0 && (
+                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                              <h3 className="text-2xl font-semibold">
+                                Modulok
+                              </h3>
+                              <p className="text-lg mt-2">
+                                {SoftwareData.moduls.join(", ")}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                    {activeButton === "functionalities" &&
+                      SoftwareData.functions.length > 0 && (
+                        <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-25 mt-20">
+                          {SoftwareData.functions
+                            .filter((func) => func.sfunction === true)
+                            .map((func) => (
                               <div
-                                key={remuneration.remunerationID}
-                                className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
+                                key={func.softwareFunctionID}
+                                className="bg-white rounded-25 shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small "
                               >
-                                <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
-                                  {remuneration.level.toUpperCase()}
+                                <h3 className="text-2xl m-2 text-center">
+                                  {func.functionality}
                                 </h3>
-                                <p className="text-center text-lg">
-                                  {remuneration.type === "ajánlatkérés"
-                                    ? "Ajánlatkérés"
-                                    : `${remuneration.price} Ft / ${
-                                        remuneration.type === "éves"
-                                          ? "év"
-                                          : "hó"
-                                      }`}
-                                </p>
                               </div>
                             ))}
+                        </div>
+                      )}
+
+                    {activeButton === "remunerations" &&
+                      SoftwareData.remunerations.length > 0 && (
+                        // Render the content for remunerations
+                        <div className="flex flex-wrap gap-8 mt-20 shadow-custom p-16 rounded-25">
+                          <div className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
+                            <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
+                              BEVEZETÉSI ÁR
+                            </h3>
+                            <p className="text-center text-lg">
+                              {SoftwareData.introduction_fee
+                                ? `${SoftwareData.introduction_fee} Ft`
+                                : "Nincsen"}
+                            </p>
                           </div>
-                        )}
+
+                          {SoftwareData.remunerations.map((remuneration) => (
+                            <div
+                              key={remuneration.remunerationID}
+                              className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
+                            >
+                              <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
+                                {remuneration.level.toUpperCase()}
+                              </h3>
+                              <p className="text-center text-lg">
+                                {remuneration.type === "ajánlatkérés"
+                                  ? "Ajánlatkérés"
+                                  : `${remuneration.price} Ft / ${
+                                      remuneration.type === "éves" ? "év" : "hó"
+                                    }`}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                   </div>
                 </div>
               </>
             )}
           </div>
         </div>
-      </div>
-      <div className="flex justify-center mt-4">
-        <button
-          className={`mx-2 p-2 ${
-            activeButton === "languages" ? "bg-blue-500" : "bg-gray-300"
-          }`}
-          onClick={() => setActiveButton("languages")}
-        >
-          Languages
-        </button>
-        <button
-          className={`mx-2 p-2 ${
-            activeButton === "functionalities" ? "bg-blue-500" : "bg-gray-300"
-          }`}
-          onClick={() => setActiveButton("functionalities")}
-        >
-          Functionalities
-        </button>
-        <button
-          className={`mx-2 p-2 ${
-            activeButton === "renumerations" ? "bg-blue-500" : "bg-gray-300"
-          }`}
-          onClick={() => setActiveButton("renumerations")}
-        >
-          Renumerations
-        </button>
       </div>
     </div>
   );
