@@ -5,14 +5,13 @@ import { get } from "./api/api";
 import { showToast } from "./toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
-// eslint-disable-next-line no-unused-vars
-import { css } from "@emotion/react";
 import { transliterate } from "./api/transliteration";
 
 function SoftwareDetail() {
   const { name } = useParams();
   const [SoftwareData, setSoftwareData] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const [activeButton, setActiveButton] = useState("languages"); // Default active button is "languages"
 
   useEffect(() => {
     get
@@ -22,13 +21,12 @@ function SoftwareDetail() {
           (software) => transliterate(software.name) === name
         );
         setSoftwareData(software);
-        setLoading(false); // Set loading to false once the data is fetched
-        console.log(software);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching software data:", error);
         showToast(error, "error");
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       });
   }, [name]);
 
@@ -47,9 +45,7 @@ function SoftwareDetail() {
               </div>
             ) : (
               <>
-                {/* Big white container */}
                 <div className="w-full p-4">
-                  {/* 1/3 and 2/3 container */}
                   <div className="flex border-gray-200 rounded-25">
                     <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25">
                       <img
@@ -73,9 +69,11 @@ function SoftwareDetail() {
                             style={{ color: "rgb(255, 210, 48)" }}
                           />
                         </p>
-                        <p className="text-lg text-justify">{SoftwareData.description}</p>
+                        <p className="text-lg text-justify">
+                          {SoftwareData.description}
+                        </p>
                         <button
-                          className=" mt-12 mb-8 px-4 py-2 bg-yellow-300 hover:bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
+                          className=" mt-12 mb-8 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
                           onClick={() =>
                             window.open(SoftwareData.company.website)
                           }
@@ -87,112 +85,152 @@ function SoftwareDetail() {
                   </div>
 
                   <div className="p-20 mt-12 rounded-25">
-                    <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25">
-                      {SoftwareData.languages.length > 0 && (
-                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                          <h3 className="text-2xl font-semibold">Nyelvek</h3>
-                          <p className="text-lg mt-2">
-                            {SoftwareData.languages.join(", ")}
-                          </p>
-                        </div>
-                      )}
+                      {activeButton === "languages" &&
+                        SoftwareData.languages.length > 0 && (
+                          <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25">
+                            {SoftwareData.languages.length > 0 && (
+                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                                <h3 className="text-2xl font-semibold">
+                                  Nyelvek
+                                </h3>
+                                <p className="text-lg mt-2">
+                                  {SoftwareData.languages.join(", ")}
+                                </p>
+                              </div>
+                            )}
 
-                      {SoftwareData.supports.length > 0 && (
-                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                          <h3 className="text-2xl font-semibold">
-                            Támogatás nyelve
-                          </h3>
-                          <p className="text-lg mt-2 rounded-25">
-                            {SoftwareData.supports.join(", ")}
-                          </p>
-                        </div>
-                      )}
+                            {SoftwareData.supports.length > 0 && (
+                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                                <h3 className="text-2xl font-semibold">
+                                  Támogatás nyelve
+                                </h3>
+                                <p className="text-lg mt-2 rounded-25">
+                                  {SoftwareData.supports.join(", ")}
+                                </p>
+                              </div>
+                            )}
 
-                      {SoftwareData.oSs.length > 0 && (
-                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                          <h3 className="text-2xl font-semibold">
-                            Operációs rendszerek
-                          </h3>
-                          <p className="text-lg mt-2 rounded-25">
-                            {SoftwareData.oSs.join(", ")}
-                          </p>
-                        </div>
-                      )}
+                            {SoftwareData.oSs.length > 0 && (
+                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                                <h3 className="text-2xl font-semibold">
+                                  Operációs rendszerek
+                                </h3>
+                                <p className="text-lg mt-2 rounded-25">
+                                  {SoftwareData.oSs.join(", ")}
+                                </p>
+                              </div>
+                            )}
 
-                      {SoftwareData.devices.length > 0 && (
-                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                          <h3 className="text-2xl font-semibold">Eszközök</h3>
-                          <p className="text-lg mt-2">
-                            {SoftwareData.devices.join(", ")}
-                          </p>
-                        </div>
-                      )}
+                            {SoftwareData.devices.length > 0 && (
+                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                                <h3 className="text-2xl font-semibold">
+                                  Eszközök
+                                </h3>
+                                <p className="text-lg mt-2">
+                                  {SoftwareData.devices.join(", ")}
+                                </p>
+                              </div>
+                            )}
 
-                      {SoftwareData.moduls.length > 0 && (
-                        <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
-                          <h3 className="text-2xl font-semibold">Modulok</h3>
-                          <p className="text-lg mt-2">
-                            {SoftwareData.moduls.join(", ")}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-
-                    {SoftwareData.functions.length > 0 && (
-                      <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-25">
-                        {SoftwareData.functions
-                          .filter((func) => func.sfunction === true)
-                          .map((func) => (
-                            <div
-                              key={func.softwareFunctionID}
-                              className="bg-white rounded-25 shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small"
-                            >
-                              <h3 className="text-lg font-semibold m-2 text-center">
-                                {func.functionality}
-                              </h3>
-                            </div>
-                          ))}
-                      </div>
-                    )}
-
-                    {SoftwareData.remunerations.length > 0 && (
-                      <div className="flex flex-wrap gap-8 mt-32 shadow-custom p-16 rounded-25">
-                        <div className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
-                          <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
-                            BEVEZETÉSI ÁR
-                          </h3>
-                          <p className="text-center text-lg">
-                            {SoftwareData.introduction_fee
-                              ? `${SoftwareData.introduction_fee} Ft`
-                              : "Nincsen"}
-                          </p>
-                        </div>
-
-                        {SoftwareData.remunerations.map((remuneration) => (
-                          <div
-                            key={remuneration.remunerationID}
-                            className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
-                          >
-                            <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
-                              {remuneration.level.toUpperCase()}
-                            </h3>
-                            <p className="text-center text-lg">
-                              {remuneration.type === "ajánlatkérés"
-                                ? "Ajánlatkérés"
-                                : `${remuneration.price} Ft / ${
-                                    remuneration.type === "éves" ? "év" : "hó"
-                                  }`}
-                            </p>
+                            {SoftwareData.moduls.length > 0 && (
+                              <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                                <h3 className="text-2xl font-semibold">
+                                  Modulok
+                                </h3>
+                                <p className="text-lg mt-2">
+                                  {SoftwareData.moduls.join(", ")}
+                                </p>
+                              </div>
+                            )}
                           </div>
-                        ))}
-                      </div>
-                    )}
+                        )}
+
+                      {activeButton === "functionalities" &&
+                        SoftwareData.functions.length > 0 && (
+                          <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-25">
+                            {SoftwareData.functions
+                              .filter((func) => func.sfunction === true)
+                              .map((func) => (
+                                <div
+                                  key={func.softwareFunctionID}
+                                  className="bg-white rounded-25 shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small"
+                                >
+                                  <h3 className="text-lg font-semibold m-2 text-center">
+                                    {func.functionality}
+                                  </h3>
+                                </div>
+                              ))}
+                          </div>
+                        )}
+
+                      {activeButton === "renumerations" &&
+                        SoftwareData.remunerations.length > 0 && (
+                          // Render the content for renumerations
+                          <div className="flex flex-wrap gap-8 mt-32 shadow-custom p-16 rounded-25">
+                            <div className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
+                              <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
+                                BEVEZETÉSI ÁR
+                              </h3>
+                              <p className="text-center text-lg">
+                                {SoftwareData.introduction_fee
+                                  ? `${SoftwareData.introduction_fee} Ft`
+                                  : "Nincsen"}
+                              </p>
+                            </div>
+
+                            {SoftwareData.remunerations.map((remuneration) => (
+                              <div
+                                key={remuneration.remunerationID}
+                                className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
+                              >
+                                <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
+                                  {remuneration.level.toUpperCase()}
+                                </h3>
+                                <p className="text-center text-lg">
+                                  {remuneration.type === "ajánlatkérés"
+                                    ? "Ajánlatkérés"
+                                    : `${remuneration.price} Ft / ${
+                                        remuneration.type === "éves"
+                                          ? "év"
+                                          : "hó"
+                                      }`}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                   </div>
                 </div>
               </>
             )}
           </div>
         </div>
+      </div>
+      <div className="flex justify-center mt-4">
+        <button
+          className={`mx-2 p-2 ${
+            activeButton === "languages" ? "bg-blue-500" : "bg-gray-300"
+          }`}
+          onClick={() => setActiveButton("languages")}
+        >
+          Languages
+        </button>
+        <button
+          className={`mx-2 p-2 ${
+            activeButton === "functionalities" ? "bg-blue-500" : "bg-gray-300"
+          }`}
+          onClick={() => setActiveButton("functionalities")}
+        >
+          Functionalities
+        </button>
+        <button
+          className={`mx-2 p-2 ${
+            activeButton === "renumerations" ? "bg-blue-500" : "bg-gray-300"
+          }`}
+          onClick={() => setActiveButton("renumerations")}
+        >
+          Renumerations
+        </button>
       </div>
     </div>
   );
