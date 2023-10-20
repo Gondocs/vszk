@@ -470,8 +470,8 @@ const SoftwareList = () => {
           <h1
             className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isCompatibilityCollapsed
-              ? " bg-gray-700 transition-class"
-              : "bg-gray-800 transition-class"
+                ? "bg-gray-600 transition-class"
+                : "bg-gray-700 transition-class"
             }`}
             onClick={toggleCompatibilityCollapse}
           >
@@ -506,8 +506,8 @@ const SoftwareList = () => {
           <h1
             className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isLanguageCollapsed
-              ? " bg-gray-700 transition-class"
-              : "bg-gray-800 transition-class"
+                ? "bg-gray-600 transition-class"
+                : "bg-gray-700 transition-class"
             }`}
             onClick={toggleLanguageCollapse}
           >
@@ -542,8 +542,8 @@ const SoftwareList = () => {
           <h1
             className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isOSCollapsed
-              ? " bg-gray-700 transition-class"
-              : "bg-gray-800 transition-class"
+                ? "bg-gray-600 transition-class"
+                : "bg-gray-700 transition-class"
             }`}
             onClick={toggleOSeCollapse}
           >
@@ -578,8 +578,8 @@ const SoftwareList = () => {
           <h1
             className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isSupportCollapsed
-              ? " bg-gray-700 transition-class"
-              : "bg-gray-800 transition-class"
+                ? "bg-gray-600 transition-class"
+                : "bg-gray-700 transition-class"
             }`}
             onClick={toggleSupportCollapse}
           >
