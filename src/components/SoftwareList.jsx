@@ -426,10 +426,10 @@ const SoftwareList = () => {
               return (
                 <li key={category.categoryID}>
                   <h3
-                    className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+                    className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
                       isFuncCollapsed
-                        ? " bg-gray-100 transition-class"
-                        : "bg-gray-200 transition-class"
+                        ? " bg-gray-700 transition-class"
+                        : "bg-gray-800 transition-class"
                     }`}
                     onClick={toggleFuncCollapse}
                   >
@@ -468,10 +468,10 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isCompatibilityCollapsed
-                ? " bg-gray-100 transition-class"
-                : "bg-gray-200 transition-class"
+              ? " bg-gray-700 transition-class"
+              : "bg-gray-800 transition-class"
             }`}
             onClick={toggleCompatibilityCollapse}
           >
@@ -504,10 +504,10 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isLanguageCollapsed
-                ? " bg-gray-100 transition-class"
-                : "bg-gray-200 transition-class"
+              ? " bg-gray-700 transition-class"
+              : "bg-gray-800 transition-class"
             }`}
             onClick={toggleLanguageCollapse}
           >
@@ -540,10 +540,10 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isOSCollapsed
-                ? " bg-gray-100 transition-class"
-                : "bg-gray-200 transition-class"
+              ? " bg-gray-700 transition-class"
+              : "bg-gray-800 transition-class"
             }`}
             onClick={toggleOSeCollapse}
           >
@@ -576,10 +576,10 @@ const SoftwareList = () => {
 
         <ul>
           <h1
-            className={`text-lg font-semibold my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
+            className={`text-lg text-white my-4 p-2 rounded-25 text-center hover-scale-element:hover hover-scale-element ${
               isSupportCollapsed
-                ? " bg-gray-100 transition-class"
-                : "bg-gray-200 transition-class"
+              ? " bg-gray-700 transition-class"
+              : "bg-gray-800 transition-class"
             }`}
             onClick={toggleSupportCollapse}
           >
