@@ -42,9 +42,7 @@ export const Navbar = () => {
       software.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Limit to the top 5 results
-    const top5Results = filteredData.slice(0, 5);
-    setFilteredSoftwareData(top5Results);
+    setFilteredSoftwareData(filteredData);
   };
 
   useEffect(() => {
@@ -144,7 +142,7 @@ export const Navbar = () => {
               </div>
 
               {searchQuery && (
-                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full">
+                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-100 overflow-y-auto">
                   {filteredSoftwareData.map((software) => (
                     <Link
                       key={software.softwareID}
