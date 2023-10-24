@@ -38,9 +38,9 @@ export const Navbar = () => {
   };
 
   const filterSoftwareData = () => {
-    const filteredData = SoftwareData.filter((software) =>
-      software.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredData = SoftwareData.filter((software) => {
+      return software.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
     setFilteredSoftwareData(filteredData);
   };
@@ -51,6 +51,7 @@ export const Navbar = () => {
       .then((data) => {
         setSoftwareData(data);
         filterSoftwareData();
+        console.log(data);
       })
       .catch((error) => {
         showToast("Hiba történt az adatok lekérése közben", "error");
@@ -61,7 +62,6 @@ export const Navbar = () => {
 
   useEffect(() => {
     filterSoftwareData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
@@ -142,7 +142,7 @@ export const Navbar = () => {
               </div>
 
               {searchQuery && (
-                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-100 overflow-y-auto">
+                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-96 overflow-y-auto p-4 FadeInSmall">
                   {filteredSoftwareData.map((software) => (
                     <Link
                       key={software.softwareID}
@@ -151,10 +151,29 @@ export const Navbar = () => {
                       )}/${transliterate(software.category)}/${transliterate(
                         software.name
                       )}`}
-                      className="block px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                      className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
                       onClick={handleLinkClick}
+                      style={{ height: "100px" }}
                     >
-                      {software.name}
+                      <div className="w-1/3">
+                        <div className="flex items-center justify-center">
+                          <img
+                            src={software.logo_link}
+                            alt={software.name}
+                            className=""
+                            style={{
+                              width: "auto",
+                              height: "auto",
+                              maxHeight: "80px",
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="w-2/3 pl-12 text-xl font-semibold">
+                        {software.name}
+                        <br />
+                        <div className="text-sm mt-1">{software.category}</div>
+                      </div>
                     </Link>
                   ))}
                 </div>
