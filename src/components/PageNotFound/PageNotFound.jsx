@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../css/PageNotFound.css";
-import NotFoundSvg from "./assets/NotFoundSvg";
+import "../../css/PageNotFound.css";
+import NotFoundSvg from "../assets/NotFoundSvg";
 
 const NotFound = () => {
   return (

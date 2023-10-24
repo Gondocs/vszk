@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import NotFound from "./PageNotFound";
-import { get } from "./api/api";
-import { showToast } from "./toasts/toast";
+import NotFound from "../PageNotFound/PageNotFound";
+import { get } from "../api/api";
+import { showToast } from "../toasts/toast";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { transliterate } from "./api/transliteration";
+import { transliterate } from "../api/transliteration";
 
 function CompanyDetail() {
   const { name } = useParams();

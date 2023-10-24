@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import NotFound from "./PageNotFound";
-import { get } from "./api/api";
-import { showToast } from "./toasts/toast";
+import NotFound from "../PageNotFound/PageNotFound";
+import { get } from "../api/api";
+import { showToast } from "../toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
-import { transliterate } from "./api/transliteration";
+import { transliterate } from "../api/transliteration";
 
 function SoftwareDetail() {
   const { name } = useParams();

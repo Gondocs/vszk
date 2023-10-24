@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../css/images.css";
-import "../css/Mainpage.css";
+import "../../css/images.css";
+import "../../css/Mainpage.css";
 import { Link } from "react-router-dom";
 
 const imagesWithCaptions = [

@@ -6,15 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "./components/LoginAndRegister/loginPage";
 import Register from "./components/LoginAndRegister/RegisterPage";
-import PageNotFound from "./components/PageNotFound";
-import { HomePage } from "./components/MainPage";
-import { Footer } from "./components/Footer";
-import SoftwareList from "./components/SoftwareList";
-import SoftwareDetail from "./components/SoftwareDetail";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
+import { HomePage } from "./components/MainPage/MainPage";
+import { Footer } from "./components/MainPage/Footer";
+import SoftwareList from "./components/Softwares/SoftwareList";
+import SoftwareDetail from "./components/Softwares/SoftwareDetail";
 import { Apitest } from "./components/api/apitest";
 import { Toaster } from "react-hot-toast";
-import { CompanyList } from "./components/CompanyList";
-import CompanyDetail from "./components/CompanyDetail";
+import { CompanyList } from "./components/Companies/CompanyList";
+import CompanyDetail from "./components/Companies/CompanyDetail";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

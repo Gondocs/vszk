@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { Link } from "react-router-dom";
-import { transliterate } from "./api/transliteration";
-import { get } from "./api/api";
-import { showToast } from "./toasts/toast";
+import { transliterate } from "../api/transliteration";
+import { get } from "../api/api";
+import { showToast } from "../toasts/toast";
 import { ClipLoader } from "react-spinners";
-import Pagination from "./pagination";
+import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 

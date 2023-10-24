@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import "../css/Mainpage.css";
-
+import "../../css/Mainpage.css";
 export function Footer() {
 
 
