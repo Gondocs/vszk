@@ -253,6 +253,7 @@ const SoftwareList = () => {
       // Function is not selected, add it
       setSelectedFunctions((prevSelected) => [...prevSelected, func]);
     }
+    setCurrentPage(1);
   };
 
   const handleCompatibilityClick = (compatibility) => {
@@ -268,6 +269,7 @@ const SoftwareList = () => {
         compatibility,
       ]);
     }
+    setCurrentPage(1);
   };
 
   const handleLanguageClick = (language) => {
@@ -279,6 +281,7 @@ const SoftwareList = () => {
       // Compatibility is not selected, add it
       setSelectedLanguage((prevSelected) => [...prevSelected, language]);
     }
+    setCurrentPage(1);
   };
 
   const handleOSClick = (OS) => {
@@ -290,6 +293,7 @@ const SoftwareList = () => {
       // Compatibility is not selected, add it
       setSelectedOs((prevSelected) => [...prevSelected, OS]);
     }
+    setCurrentPage(1);
   };
 
   const handleSupportClick = (Support) => {
@@ -301,6 +305,7 @@ const SoftwareList = () => {
       // Compatibility is not selected, add it
       setSelectedSupport((prevSelected) => [...prevSelected, Support]);
     }
+    setCurrentPage(1);
   };
 
   const toggleFuncCollapse = () => {
