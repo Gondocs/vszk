@@ -17,6 +17,7 @@ export const Navbar = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const navigate = useNavigate();
   const navigateback = useNavigate();
+  const searchnavigate = useNavigate();
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -43,7 +44,16 @@ export const Navbar = () => {
   };
 
   const handleSearchBlur = () => {
-    setIsSearchFocused(false);
+    setTimeout(() => {
+      setIsSearchFocused(false);
+    }, 250); // Delay for 250 milliseconds (0.25 seconds) NEEDS IN ORDER TO CLICK ON THE LINKS
+  };
+
+  const handleSearchEnter = (e) => {
+    if (e.key === "Enter") {
+      // Redirect to the SoftwareList component with the search query
+      searchnavigate(`/szoftverek?search=${searchQuery}`);
+    }
   };
 
   const filterSoftwareData = () => {
@@ -139,57 +149,58 @@ export const Navbar = () => {
 
         {!isLoading && (
           <>
-    <div className="flex-grow px-8 relative">
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Keresés"
-          className="pl-5 pr-10 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-4/5 hover-scale-small hover-scale-small:hover"
-          value={searchQuery}
-          onChange={handleInputChange}
-          onFocus={handleSearchFocus}
-          onBlur={handleSearchBlur}
-        />
-      </div>
+            <div className="flex-grow px-8 relative">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Keresés"
+                  className="pl-5 pr-10 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-4/5 hover-scale-small hover-scale-small:hover"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                  onFocus={handleSearchFocus}
+                  onBlur={handleSearchBlur}
+                  onKeyDown={handleSearchEnter} // Handle Enter key press
+                />
+              </div>
 
               {isSearchFocused && searchQuery && (
-        <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-96 overflow-y-auto p-4 FadeInSmall">
-          {filteredSoftwareData.map((software) => (
-            <Link
-              key={software.softwareID}
-              to={`/szoftverek/${transliterate(
-                software.category_group
-              )}/${transliterate(software.category)}/${transliterate(
-                software.name
-              )}`}
-              className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-              onClick={handleLinkClick}
-              style={{ height: "100px" }}
-            >
-              <div className="w-1/3">
-                <div className="flex items-center justify-center">
-                  <img
-                    src={software.logo_link}
-                    alt={software.name}
-                    className=""
-                    style={{
-                      width: "auto",
-                      height: "auto",
-                      maxHeight: "80px",
-                    }}
-                  />
+                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-96 overflow-y-auto p-4 FadeInSmall">
+                  {filteredSoftwareData.map((software) => (
+                    <Link
+                      key={software.softwareID}
+                      to={`/szoftverek/${transliterate(
+                        software.category_group
+                      )}/${transliterate(software.category)}/${transliterate(
+                        software.name
+                      )}`}
+                      className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                      onClick={handleLinkClick}
+                      style={{ height: "100px" }}
+                    >
+                      <div className="w-1/3">
+                        <div className="flex items-center justify-center">
+                          <img
+                            src={software.logo_link}
+                            alt={software.name}
+                            className=""
+                            style={{
+                              width: "auto",
+                              height: "auto",
+                              maxHeight: "80px",
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="w-2/3 pl-12 text-xl font-semibold">
+                        {software.name}
+                        <br />
+                        <div className="text-sm mt-1">{software.category}</div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              </div>
-              <div className="w-2/3 pl-12 text-xl font-semibold">
-                {software.name}
-                <br />
-                <div className="text-sm mt-1">{software.category}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
+              )}
+            </div>
 
             {isLoggedIn ? (
               // render profile menu if logged in
