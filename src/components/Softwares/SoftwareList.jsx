@@ -9,6 +9,7 @@ import { ClipLoader } from "react-spinners";
 import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
+import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 
 const SoftwareList = () => {
   const location = useLocation();
@@ -404,6 +405,7 @@ const SoftwareList = () => {
 <div className="flex justify-center">
   <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
     A keresett szoftver nem található.
+    <NoSoftwareSvg />
   </div>
 </div>
 
@@ -438,8 +440,8 @@ const SoftwareList = () => {
                   <h3
                     className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
                       isFuncCollapsed
-                        ? " bg-gray-700 transition-class"
-                        : "bg-gray-800 transition-class"
+                      ? "bg-gray-600 transition-class"
+                      : "bg-gray-700 transition-class"
                     }`}
                     onClick={toggleFuncCollapse}
                   >
