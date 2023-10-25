@@ -11,7 +11,6 @@ import Pagination from "../Pagination/pagination";
 import { css } from "@emotion/react";
 
 const SoftwareList = () => {
-
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
 
@@ -118,7 +117,7 @@ const SoftwareList = () => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
-      console.log(searchQuery)
+    console.log(searchQuery);
   }, []);
 
   useEffect(() => {
@@ -401,20 +400,13 @@ const SoftwareList = () => {
 
   const noResultsMessage =
     paginatedSoftwareData.length === 0 ? (
-      <div
-        className="bg-white rounded-40 flex justify-center items-center fadeIn"
-        style={{
-          height: "auto",
-          width: "65%",
-          margin: "auto",
-          marginTop: "7%",
-          padding: "2%",
-        }}
-      >
-        <div className="text-black text-4xl text-center">
-          A keresett szoftver nem található.
-        </div>
-      </div>
+     
+<div className="flex justify-center">
+  <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
+    A keresett szoftver nem található.
+  </div>
+</div>
+
     ) : null;
 
   return (
