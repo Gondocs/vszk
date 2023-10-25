@@ -1,12 +1,7 @@
 import axios from "axios";
+import apiConfig from "./apiConfig";
 
-const API_BASE_URL = "http://localhost:5011/api";
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-});
-
-api.interceptors.request.use(
+apiConfig.interceptors.request.use(
   (config) => {
     const authToken = localStorage.getItem("token");
     if (authToken) {
@@ -21,77 +16,77 @@ api.interceptors.request.use(
 
 const get = {
   Category: () => {
-    return api.get("/Category/GetAll").then((response) => response.data);
+    return apiConfig.get("/Category/GetAll").then((response) => response.data);
   },
 
   softwareID: (id) => {
-    return api.get(`/software/${id}`).then((response) => response.data);
+    return apiConfig.get(`/software/${id}`).then((response) => response.data);
   },
 
   GettAllInfos: () => {
-    return api.get("/Software/GetAllInfos/").then((response) => response.data);
+    return apiConfig.get("/Software/GetAllInfos/").then((response) => response.data);
   },
 
   GetAllWithFunctions: () => {
-    return api
+    return apiConfig
       .get("/Category/GetAllWithFunctions")
       .then((response) => response.data);
   },
 
   CatFuncConnect: () => {
-    return api.get("/CatFuncConnect/GetAll").then((response) => response.data);
+    return apiConfig.get("/CatFuncConnect/GetAll").then((response) => response.data);
   },
 
   Company: () => {
-    return api.get("/Company/GetAll").then((response) => response.data);
+    return apiConfig.get("/Company/GetAll").then((response) => response.data);
   },
 
   Remuneration: () => {
-    return api.get("/Remuneration/GetAll").then((response) => response.data);
+    return apiConfig.get("/Remuneration/GetAll").then((response) => response.data);
   },
 
   SoftwareAll: () => {
-    return api.get("Software/GetAll").then((response) => response.data);
+    return apiConfig.get("Software/GetAll").then((response) => response.data);
   },
 
   SoftwareCompConnect: () => {
-    return api
+    return apiConfig
       .get("/SoftwareCompConnect/GetAll")
       .then((response) => response.data);
   },
 
   SoftwareFunctions: () => {
-    return api
+    return apiConfig
       .get("/SoftwareFunctions/GetAll")
       .then((response) => response.data);
   },
 
   SoftwareLangConnect: () => {
-    return api
+    return apiConfig
       .get("SoftwareLangConnect/GetAll")
       .then((response) => response.data);
   },
 
   SoftwareModulConnect: () => {
-    return api
+    return apiConfig
       .get("SoftwareModulConnect/GetAll")
       .then((response) => response.data);
   },
 
   SoftwareOSConnect: () => {
-    return api
+    return apiConfig
       .get("/SoftwareOSConnect/GetAll")
       .then((response) => response.data);
   },
 
   Support: () => {
-    return api.get("/Support/GetAll").then((response) => response.data);
+    return apiConfig.get("/Support/GetAll").then((response) => response.data);
   },
 };
 
 const post = {
   RegisterData: (data) => {
-    return api.post("/Auth/register", data).then((response) => response.data);
+    return apiConfig.post("/Auth/register", data).then((response) => response.data);
 
     /* 
       {
@@ -107,7 +102,7 @@ const post = {
 
   LoginData: (data) => {
     // Login endpoint
-    return api.post("/Auth/login", data).then((response) => {
+    return apiConfig.post("/Auth/login", data).then((response) => {
       const token = response.data.token;
       const user = response.data;
       localStorage.setItem("token", token);
@@ -129,7 +124,7 @@ const post = {
     */
 
   RatingData: (data) => {
-    return api.post("/Rating", data).then((response) => response.data);
+    return apiConfig.post("/Rating", data).then((response) => response.data);
 
     /*
       {
