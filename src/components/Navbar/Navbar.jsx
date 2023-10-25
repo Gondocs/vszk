@@ -33,6 +33,9 @@ export const Navbar = () => {
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
+    if (!isSearchFocused) {
+      setIsSearchFocused(true);
+    }
   };
 
   const handleLinkClick = () => {
@@ -53,6 +56,7 @@ export const Navbar = () => {
     if (e.key === "Enter") {
       // Redirect to the SoftwareList component with the search query
       searchnavigate(`/szoftverek?search=${searchQuery}`);
+      setIsSearchFocused(false);
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../css/softwareList.css";
 import StarIcon from "@mui/icons-material/Star";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
 import { get } from "../api/api";
 import { showToast } from "../toasts/toast";
@@ -11,7 +11,11 @@ import Pagination from "../Pagination/pagination";
 import { css } from "@emotion/react";
 
 const SoftwareList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get("search");
+
+  const [searchTerm, setSearchTerm] = useState(searchQuery || "");
   const { Maincategory, Subcategory } = useParams();
 
   const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
@@ -40,6 +44,14 @@ const SoftwareList = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  const searchnavigate = useNavigate();
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    query.set("search", searchTerm);
+    searchnavigate({ search: query.toString() });
+  }, [searchTerm, location.search]);
 
   useEffect(() => {
     get
@@ -106,6 +118,7 @@ const SoftwareList = () => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
+      console.log(searchQuery)
   }, []);
 
   useEffect(() => {
