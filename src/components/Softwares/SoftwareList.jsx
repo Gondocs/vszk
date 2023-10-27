@@ -10,8 +10,10 @@ import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const SoftwareList = () => {
+  const [parent] = useAutoAnimate(/* optional config */);
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
 
@@ -401,14 +403,12 @@ const SoftwareList = () => {
 
   const noResultsMessage =
     paginatedSoftwareData.length === 0 ? (
-     
-<div className="flex justify-center">
-  <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
-    A keresett szoftver nem található.
-    <NoSoftwareSvg />
-  </div>
-</div>
-
+      <div className="flex justify-center">
+        <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
+          A keresett szoftver nem található.
+          <NoSoftwareSvg />
+        </div>
+      </div>
     ) : null;
 
   return (
@@ -436,12 +436,12 @@ const SoftwareList = () => {
             const isSubCategoryMatch = subCategory === Subcategory;
             if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
               return (
-                <li key={category.categoryID}>
+                <li key={category.categoryID} ref={parent}>
                   <h3
                     className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
                       isFuncCollapsed
-                      ? "bg-gray-600 transition-class"
-                      : "bg-gray-700 transition-class"
+                        ? "bg-gray-600 transition-class"
+                        : "bg-gray-700 transition-class"
                     }`}
                     onClick={toggleFuncCollapse}
                   >
@@ -478,7 +478,7 @@ const SoftwareList = () => {
           })}
         </ul>
 
-        <ul>
+        <ul ref={parent}>
           <h1
             className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isCompatibilityCollapsed
@@ -514,7 +514,7 @@ const SoftwareList = () => {
           )}
         </ul>
 
-        <ul>
+        <ul ref={parent}>
           <h1
             className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isLanguageCollapsed
@@ -550,7 +550,7 @@ const SoftwareList = () => {
           )}
         </ul>
 
-        <ul>
+        <ul ref={parent}>
           <h1
             className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isOSCollapsed
@@ -586,7 +586,7 @@ const SoftwareList = () => {
           )}
         </ul>
 
-        <ul>
+        <ul ref={parent}>
           <h1
             className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
               isSupportCollapsed
@@ -656,11 +656,11 @@ const SoftwareList = () => {
           </div>
         ) : (
           <>
-            <ul>
+            <ul ref={parent}>
               {paginatedSoftwareData.map((software) => (
                 <li
                   key={software.softwareID}
-                  className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
+                  className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
                 >
                   <div
                     className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
