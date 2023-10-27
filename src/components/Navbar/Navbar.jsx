@@ -4,8 +4,12 @@ import DropdownMenu from "./dropDown";
 import { get, post } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { transliterate } from "../api/transliteration";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import NotFoundSvg from "../assets/NotFoundSvg";
 
 export const Navbar = () => {
+  const [parent] = useAutoAnimate(/* optional config */);
+
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
     useState(false);
@@ -18,6 +22,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const navigateback = useNavigate();
   const searchnavigate = useNavigate();
+  const hasSearchResults = filteredSoftwareData.length > 0;
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -61,6 +66,11 @@ export const Navbar = () => {
   };
 
   const filterSoftwareData = () => {
+    if (searchQuery.trim().length === 0) {
+      setFilteredSoftwareData(SoftwareData);
+      return;
+    }
+
     const filteredData = SoftwareData.filter((software) => {
       return software.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
@@ -101,7 +111,6 @@ export const Navbar = () => {
     }
     setIsLoading(false);
   }, []);
-
 
   const handleLogout = () => {
     // Call the logout function to clear the token
@@ -169,41 +178,54 @@ export const Navbar = () => {
                 />
               </div>
 
-              {isSearchFocused && searchQuery && (
-                <div className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-96 overflow-y-auto p-4 FadeInSmall">
-                  {filteredSoftwareData.map((software) => (
-                    <Link
-                      key={software.softwareID}
-                      to={`/szoftverek/${transliterate(
-                        software.category_group
-                      )}/${transliterate(software.category)}/${transliterate(
-                        software.name
-                      )}`}
-                      className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                      onClick={handleLinkClick}
-                      style={{ height: "100px" }}
-                    >
-                      <div className="w-1/3">
-                        <div className="flex items-center justify-center">
-                          <img
-                            src={software.logo_link}
-                            alt={software.name}
-                            className=""
-                            style={{
-                              width: "auto",
-                              height: "auto",
-                              maxHeight: "80px",
-                            }}
-                          />
+              {isSearchFocused && (
+                <div
+                  className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-96 overflow-y-auto p-4 fadeIn"
+                  ref={parent}
+                >
+                  {hasSearchResults ? (
+                    filteredSoftwareData.map((software) => (
+                      <Link
+                        key={software.softwareID}
+                        to={`/szoftverek/${transliterate(
+                          software.category_group
+                        )}/${transliterate(software.category)}/${transliterate(
+                          software.name
+                        )}`}
+                        className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                        onClick={handleLinkClick}
+                        style={{ height: "100px" }}
+                      >
+                        <div className="w-1/3">
+                          <div className="flex items-center justify-center">
+                            <img
+                              src={software.logo_link}
+                              alt={software.name}
+                              className=""
+                              style={{
+                                width: "auto",
+                                height: "auto",
+                                maxHeight: "80px",
+                              }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="w-2/3 pl-12 text-xl font-semibold">
-                        {software.name}
-                        <br />
-                        <div className="text-sm mt-1">{software.category}</div>
-                      </div>
-                    </Link>
-                  ))}
+                        <div className="w-2/3 pl-12 text-xl font-semibold">
+                          {software.name}
+                          <br />
+                          <div className="text-sm mt-1">
+                            {software.category}
+                          </div>
+                        </div>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="text-black text-center text-2xl">Nem található szoftver.
+                    <div className="mt-6 items-center" style={{width: '70%', marginLeft: 'auto', marginRight: 'auto'}}>
+                    <NotFoundSvg />
+                    </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
