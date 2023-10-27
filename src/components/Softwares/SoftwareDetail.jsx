@@ -6,12 +6,15 @@ import { showToast } from "../toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
 import { transliterate } from "../api/transliteration";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function SoftwareDetail() {
   const { name } = useParams();
   const [SoftwareData, setSoftwareData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeButton, setActiveButton] = useState("Properties"); // Default active button is "Tulajdonságok"
+  const [parent] = useAutoAnimate(/* optional config */);
+
 
   useEffect(() => {
     get
@@ -84,7 +87,7 @@ function SoftwareDetail() {
                     </div>
                   </div>
 
-                  <div className="p-8 rounded-25">
+                  <ul className="p-8 rounded-25" ref={parent}>
                     <div className="flex justify-center mt-6 text-white text-2xl">
                       <button
                         className={`mx-2 p-2 w-1/3 rounded-xl py-4 ${
@@ -230,7 +233,7 @@ function SoftwareDetail() {
                           ))}
                         </div>
                       )}
-                  </div>
+                  </ul>
                 </div>
               </>
             )}
