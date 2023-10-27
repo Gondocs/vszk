@@ -9,6 +9,7 @@ import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 
 
 export const CompanyList = () => {
@@ -64,19 +65,11 @@ export const CompanyList = () => {
   );
 
   const noResultsMessage =
-    paginatedCompanies.length === 0 ? (
-      <div
-        className="bg-white rounded-40 flex justify-center items-center"
-        style={{
-          height: "auto",
-          width: "65%",
-          margin: "auto",
-          marginTop: "7%",
-          padding: "2%",
-        }}
-      >
-        <div className="text-black text-4xl text-center">
+  paginatedCompanies.length === 0 ? (
+      <div className="flex justify-center">
+        <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
           A keresett cég nem található.
+          <NoSoftwareSvg />
         </div>
       </div>
     ) : null;
