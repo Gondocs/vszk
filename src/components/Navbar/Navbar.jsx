@@ -94,12 +94,14 @@ export const Navbar = () => {
     if (authToken) {
       setIsLoggedIn(true);
       console.log("LoggedIn");
+      navigateback(-1);
     } else {
       setIsLoggedIn(false);
       console.log("LoggedOut");
     }
     setIsLoading(false);
   }, []);
+
 
   const handleLogout = () => {
     // Call the logout function to clear the token

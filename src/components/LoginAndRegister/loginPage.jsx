@@ -5,9 +5,7 @@ import { post } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { showToastLong } from "../toasts/toastLong";
 
-
 function LoginPage() {
-
   const navigate = useNavigate();
   const navigateback = useNavigate();
 
@@ -27,18 +25,21 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post.LoginData(formData)
-    .then((token) => {
-      showToastLong("Sikeres Bejelentkezés!", "success");
-      navigate(0);
-      navigateback(-1);
-      console.log(token);
-      
-    })
-    .catch((error) => {
-      showToastLong("Hiba történt a belépés közben: " + error.response.data, "error");
-      console.log(error);
-    });
+    post
+      .LoginData(formData)
+      .then((token) => {
+        navigate(0);
+        showToastLong("Sikeres Bejelentkezés!", "success");
+
+        console.log(token);
+      })
+      .catch((error) => {
+        showToastLong(
+          "Hiba történt a belépés közben: " + error.response.data,
+          "error"
+        );
+        console.log(error);
+      });
   };
 
   return (
@@ -49,7 +50,10 @@ function LoginPage() {
       </div>
 
       {/* Right side with login form */}
-      <div className="p-10 bg-white max-w-xl rounded-lg shadow-md marginLogin FadeInSmall" style={{marginRight: "8%" }}>
+      <div
+        className="p-10 bg-white max-w-xl rounded-lg shadow-md marginLogin FadeInSmall"
+        style={{ marginRight: "8%" }}
+      >
         <h2 className="text-3xl font-semibold text-center hover-scale-loginandregister hover-scale-loginandregister:hover">
           Jelentkezz be a fiókodba
         </h2>

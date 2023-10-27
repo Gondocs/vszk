@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./css/index.css";
 import { Navbar } from "./components/Navbar/Navbar";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "./components/LoginAndRegister/loginPage";
 import Register from "./components/LoginAndRegister/RegisterPage";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
@@ -15,6 +15,8 @@ import { Apitest } from "./components/api/apitest";
 import { Toaster } from "react-hot-toast";
 import { CompanyList } from "./components/Companies/CompanyList";
 import CompanyDetail from "./components/Companies/CompanyDetail";
+
+const isAuthenticated = !!localStorage.getItem("token"); // Check if the user is authenticated
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -36,12 +38,7 @@ root.render(
         </Route>
         <Route
           path="/belepes"
-          element={
-            <>
-              {" "}
-              <LoginPage />{" "}
-            </>
-          }
+          element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
         >
           {" "}
         </Route>
