@@ -44,12 +44,7 @@ root.render(
         </Route>
         <Route
           path="/regisztracio"
-          element={
-            <>
-              {" "}
-              <Register />{" "}
-            </>
-          }
+          element={isAuthenticated ? <Navigate to="/" /> : <Register />}
         >
           {" "}
         </Route>
