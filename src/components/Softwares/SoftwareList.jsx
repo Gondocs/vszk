@@ -451,7 +451,7 @@ const SoftwareList = () => {
                     <ul>
                       {category.func_list.map((func, index) => (
                         <li key={index} className="">
-                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100">
                             <input
                               type="checkbox"
                               checked={selectedFunctions.includes(func)}
@@ -493,7 +493,7 @@ const SoftwareList = () => {
             <ul>
               {CompatibilityData.map((compatibility, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100">
                     <input
                       type="checkbox"
                       checked={selectedCompatibility.includes(compatibility)}

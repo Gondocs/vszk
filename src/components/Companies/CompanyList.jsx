@@ -8,11 +8,16 @@ import { ClipLoader } from "react-spinners";
 import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [CompanyData, setCompanyData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [parent] = useAutoAnimate(/* optional config */);
+
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -61,7 +66,7 @@ export const CompanyList = () => {
   const noResultsMessage =
     paginatedCompanies.length === 0 ? (
       <div
-        className="bg-white rounded-40 flex justify-center items-center fadeIn"
+        className="bg-white rounded-40 flex justify-center items-center"
         style={{
           height: "auto",
           width: "65%",
@@ -105,11 +110,11 @@ export const CompanyList = () => {
           </div>
         ) : (
           <>
-            <ul>
+            <ul ref={parent}>
               {paginatedCompanies.map((company) => (
                 <li
                   key={company.companyID}
-                  className="pb-8 px-4 hover-scale-element:hover hover-scale-element FadeInSmall"
+                  className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
                 >
                   <div
                     className="bg-white rounded-25 pr-12 pb-12 pt-12 pl-6 border border-gray-400 flex shadow-xl"
