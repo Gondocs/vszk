@@ -2,27 +2,27 @@
 **Software Comparison and SoftwareList Website
 This is a React.js website for software comparison and software listing. This README file provides an overview of the project and its dependencies.**
 
-**Project Name: GUI**
+# **Project Name: GUI**
 Version: 1.2
 This project is private, but currently set to public to give insight for the responsible professors.
 
-**Project Description**
+## **Project Description**
 The GUI project is a software comparison and listing website built using React.js. It allows users to compare different software products and provides a list of software items. The website is designed to be user-friendly and interactive, providing a seamless experience for users.
 
-**Installation**
+## **Installation**
 Before running the project, make sure you have Node.js and npm installed on your system.
 
-**Clone this repository to your local machine:**
+## **Clone this repository to your local machine:**
 git clone <repository-url>
 
 **Change to the project directory:**
 cd gui
 
 
-**Install project dependencies:**
+## **Install project dependencies:**
 npm install
 
-**Available Scripts**
+## **Available Scripts**
 In the project directory, you can run the following scripts:
 
 npm start: Runs the app in development mode.
@@ -31,7 +31,7 @@ npm test: Launches the test runner.
 npm run eject: Ejects the app from Create React App.
 
 
-**Additionally, there are custom scripts available:**
+## **Additionally, there are custom scripts available:**
 
 npm run start-laptop: Starts the frontend and a backend server concurrently.
 npm run start-pc: Starts the frontend and a main PC backend server concurrently.
@@ -40,7 +40,7 @@ npm run start-backend: Starts the backend.
 npm run start-backendMainPC: Starts the main PC backend.
 
 
-**Dependencies**
+### **Dependencies**
 The project uses the following packages and dependencies:
 
 @emotion/react: ^11.11.1
@@ -72,5 +72,5 @@ Browser Support
 Production: >0.2%, not dead, not op_mini all
 Development: last 1 chrome version, last 1 firefox version, last 1 safari version
 
-**Author
+# **Author
 Robert Gondocs**
