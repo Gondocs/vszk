@@ -15,7 +15,6 @@ function SoftwareDetail() {
   const [activeButton, setActiveButton] = useState("Properties"); // Default active button is "Tulajdonságok"
   const [parent] = useAutoAnimate(/* optional config */);
 
-
   useEffect(() => {
     get
       .SoftwareAll()
@@ -96,6 +95,9 @@ function SoftwareDetail() {
                             : "bg-gray-700"
                         }`}
                         onClick={() => setActiveButton("Properties")}
+                        style={{
+                          transition: "background-color 1s ease-in-out",
+                        }}
                       >
                         Tulajdonságok
                       </button>
@@ -106,6 +108,9 @@ function SoftwareDetail() {
                             : "bg-gray-700"
                         }`}
                         onClick={() => setActiveButton("functionalities")}
+                        style={{
+                          transition: "background-color 1s ease-in-out",
+                        }}
                       >
                         Funkciók
                       </button>
@@ -116,6 +121,9 @@ function SoftwareDetail() {
                             : "bg-gray-700"
                         }`}
                         onClick={() => setActiveButton("remunerations")}
+                        style={{
+                          transition: "background-color 1s ease-in-out",
+                        }}
                       >
                         Árazás
                       </button>
