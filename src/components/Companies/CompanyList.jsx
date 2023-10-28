@@ -11,14 +11,11 @@ import { css } from "@emotion/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 
-
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [CompanyData, setCompanyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [parent] = useAutoAnimate(/* optional config */);
-
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -65,7 +62,7 @@ export const CompanyList = () => {
   );
 
   const noResultsMessage =
-  paginatedCompanies.length === 0 ? (
+    paginatedCompanies.length === 0 ? (
       <div className="flex justify-center">
         <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
           A keresett cég nem található.
@@ -105,40 +102,27 @@ export const CompanyList = () => {
           <>
             <ul ref={parent}>
               {paginatedCompanies.map((company) => (
-                <li
-                  key={company.companyID}
-                  className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
+                <Link
+                  to={`/cegek/${transliterate(company.name)}`}
+                  className="text-3xl font-semibold text-black pb-4"
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                  }}
                 >
-                  <div
-                    className="bg-white rounded-25 pr-12 pb-12 pt-12 pl-6 border border-gray-400 flex shadow-xl"
-                    style={{ height: "300px" }}
+                  <li
+                    key={company.companyID}
+                    className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
                   >
-                    <Link
-                      to={`/cegek/${transliterate(company.name)}`}
-                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
-                      onClick={() => {
-                        window.scrollTo({
-                          top: 0,
-                          behavior: "smooth",
-                        });
-                      }}
+                    <div
+                      className="bg-white rounded-25 pr-12 pb-12 pt-12 pl-6 border border-gray-400 flex shadow-xl"
+                      style={{ height: "300px" }}
                     >
-                      <img
-                        src={company.logo_link}
-                        alt="Software Placeholder"
-                        className="pl-4 pr-4"
-                        draggable="false"
-                        style={{
-                          width: "auto",
-                          height: "auto",
-                          maxHeight: "150px",
-                        }}
-                      />
-                    </Link>
-                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
                       <Link
                         to={`/cegek/${transliterate(company.name)}`}
-                        className="text-3xl font-semibold text-black pb-4"
+                        className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
                         onClick={() => {
                           window.scrollTo({
                             top: 0,
@@ -146,24 +130,48 @@ export const CompanyList = () => {
                           });
                         }}
                       >
-                        {company.name}
+                        <img
+                          src={company.logo_link}
+                          alt="Software Placeholder"
+                          className="pl-4 pr-4"
+                          draggable="false"
+                          style={{
+                            width: "auto",
+                            height: "auto",
+                            maxHeight: "150px",
+                          }}
+                        />
                       </Link>
-                      <div className="flex items-center">
-                        <span className="text-black text-lg mr-2">
-                          Vélemények:
-                          <StarIcon
-                            fontSize="medium"
-                            className="starmargin"
-                            style={{ color: "rgb(255, 210, 48)" }}
-                          />
-                        </span>
+                      <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
+                        <Link
+                          to={`/cegek/${transliterate(company.name)}`}
+                          className="text-3xl font-semibold text-black pb-4"
+                          onClick={() => {
+                            window.scrollTo({
+                              top: 0,
+                              behavior: "smooth",
+                            });
+                          }}
+                        >
+                          {company.name}
+                        </Link>
+                        <div className="flex items-center">
+                          <span className="text-black text-lg mr-2">
+                            Vélemények:
+                            <StarIcon
+                              fontSize="medium"
+                              className="starmargin"
+                              style={{ color: "rgb(255, 210, 48)" }}
+                            />
+                          </span>
+                        </div>
+                        <p className="text-black">
+                          Leírás: {company.description}
+                        </p>
                       </div>
-                      <p className="text-black">
-                        Leírás: {company.description}
-                      </p>
                     </div>
-                  </div>
-                </li>
+                  </li>
+                </Link>
               ))}
             </ul>
             {noResultsMessage}
