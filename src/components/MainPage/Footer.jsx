@@ -1,14 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import "../../css/Mainpage.css";
 export function Footer() {
-
-
   return (
     <>
       <div className="bg-slate-100">
-        <section
-          className="bg-gray-800 py-8 text-white border-t-4 border-white rounded-lg"
-        >
+        <section className="bg-gray-800 py-8 text-white border-t-4 border-white rounded-lg">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-semibold mb-6">Maradjon naprakész</h2>
             <p className="text-lg mb-8">

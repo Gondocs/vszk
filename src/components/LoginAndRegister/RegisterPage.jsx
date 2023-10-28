@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../css/loginAndRegister.css";
 import RegisterSvg from "../assets/RegisterSvg";
 import { post } from "../api/api";
@@ -7,13 +7,10 @@ import { showToast } from "../toasts/toast";
 import { showToastLong } from "../toasts/toastLong";
 import { useNavigate } from "react-router-dom";
 
-
 const Register = () => {
-
   const navigate = useNavigate();
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-
 
   const [formData, setFormData] = useState({
     lastname: "",
@@ -23,7 +20,6 @@ const Register = () => {
     country: "",
     settlement: "",
   });
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,10 +31,10 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     // password validation
     const passwordErrors = [];
-  
+
     if (formData.password.length < 6) {
       passwordErrors.push("Jelszó túl rövid (legalább 6 karakter kell)");
     }
@@ -51,9 +47,9 @@ const Register = () => {
     if (formData.password !== passwordConfirmation) {
       passwordErrors.push("A jelszavak nem egyeznek");
     }
-  
+
     setPasswordErrors(passwordErrors);
-  
+
     // check if any validation failed
     if (passwordErrors.length > 0) {
       showToast(
@@ -62,20 +58,23 @@ const Register = () => {
       );
       return; // prevent form submission
     }
-  
+
     console.log("Form Data:", formData);
-  
-    post.RegisterData(formData)
+
+    post
+      .RegisterData(formData)
       .then(() => {
         showToastLong("Sikeres regisztráció!", "success");
         navigate(-1);
       })
       .catch((error) => {
-        showToastLong("Hiba történt a regisztráció közben: " + error.response.data, "error");
+        showToastLong(
+          "Hiba történt a regisztráció közben: " + error.response.data,
+          "error"
+        );
         console.log(error);
       });
   };
-  
 
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center">
@@ -241,7 +240,6 @@ const Register = () => {
               ))}
             </div>
           )}
-
 
           <div className="w-full">
             <button

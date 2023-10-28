@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DropdownMenu from "./dropDown";
@@ -220,10 +221,18 @@ export const Navbar = () => {
                       </Link>
                     ))
                   ) : (
-                    <div className="text-black text-center text-2xl">Nem található szoftver.
-                    <div className="mt-6 items-center" style={{width: '70%', marginLeft: 'auto', marginRight: 'auto'}}>
-                    <NotFoundSvg />
-                    </div>
+                    <div className="text-black text-center text-2xl">
+                      Nem található szoftver.
+                      <div
+                        className="mt-6 items-center"
+                        style={{
+                          width: "70%",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                        }}
+                      >
+                        <NotFoundSvg />
+                      </div>
                     </div>
                   )}
                 </div>

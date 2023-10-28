@@ -1,4 +1,3 @@
-import axios from "axios";
 import apiConfig from "./apiConfig";
 
 apiConfig.interceptors.request.use(
@@ -24,7 +23,9 @@ const get = {
   },
 
   GettAllInfos: () => {
-    return apiConfig.get("/Software/GetAllInfos/").then((response) => response.data);
+    return apiConfig
+      .get("/Software/GetAllInfos/")
+      .then((response) => response.data);
   },
 
   GetAllWithFunctions: () => {
@@ -34,7 +35,9 @@ const get = {
   },
 
   CatFuncConnect: () => {
-    return apiConfig.get("/CatFuncConnect/GetAll").then((response) => response.data);
+    return apiConfig
+      .get("/CatFuncConnect/GetAll")
+      .then((response) => response.data);
   },
 
   Company: () => {
@@ -42,7 +45,9 @@ const get = {
   },
 
   Remuneration: () => {
-    return apiConfig.get("/Remuneration/GetAll").then((response) => response.data);
+    return apiConfig
+      .get("/Remuneration/GetAll")
+      .then((response) => response.data);
   },
 
   SoftwareAll: () => {
@@ -86,7 +91,9 @@ const get = {
 
 const post = {
   RegisterData: (data) => {
-    return apiConfig.post("/Auth/register", data).then((response) => response.data);
+    return apiConfig
+      .post("/Auth/register", data)
+      .then((response) => response.data);
 
     /* 
       {
@@ -106,8 +113,8 @@ const post = {
       const token = response.data.token;
       const user = response.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("username", (user.lastName + " " + user.firstName));
-      return token, user;
+      localStorage.setItem("username", user.lastName + " " + user.firstName);
+      return [token, user];
     });
   },
 
