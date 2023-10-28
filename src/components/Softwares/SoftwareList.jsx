@@ -745,13 +745,15 @@ const SoftwareList = () => {
                         </Link>
                         <div className="flex items-center ">
                           <div
-                            className="mb-2"
                             style={{ display: "flex", alignItems: "center" }}
                           >
-                            <span className="text-black text-lg mr-1">
+                            <span className="text-black text-lg mr-1 mb-2">
                               Vélemények:
                             </span>
-                            <div style={{ maxWidth: 120, width: "100%" }}>
+                            <div
+                              style={{ maxWidth: 120, width: "100%" }}
+                              className=""
+                            >
                               <Rating readOnly value={software.average_stars} />
                             </div>
                           </div>
