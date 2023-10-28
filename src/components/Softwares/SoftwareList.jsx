@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import "../../css/softwareList.css";
-import StarIcon from "@mui/icons-material/Star";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
 import { get } from "../api/api";
@@ -719,7 +720,7 @@ const SoftwareList = () => {
                           )}/${transliterate(
                             software.category.name
                           )}/${transliterate(software.name)}`}
-                          className="text-3xl font-semibold text-black"
+                          className="text-3xl font-semibold text-black mb-2"
                           onClick={() => {
                             window.scrollTo({
                               top: 0,
@@ -743,14 +744,17 @@ const SoftwareList = () => {
                           </p>
                         </Link>
                         <div className="flex items-center ">
-                          <span className="text-black text-lg mr-2">
-                            Vélemények: {software.average_stars}
-                            <StarIcon
-                              fontSize="medium"
-                              className="starmargin"
-                              style={{ color: "rgb(255, 210, 48)" }}
-                            />
-                          </span>
+                          <div
+                            className="mb-2"
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <span className="text-black text-lg mr-1">
+                              Vélemények:
+                            </span>
+                            <div style={{ maxWidth: 120, width: "100%" }}>
+                              <Rating readOnly value={software.average_stars} />
+                            </div>
+                          </div>
                         </div>
                         <p className="text-gray-700">{software.description}</p>
                       </div>
