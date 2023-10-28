@@ -66,6 +66,12 @@ export const Navbar = () => {
     }
   };
 
+  const handleSearchButtonClick = () => {
+    // Perform the search action here, similar to what happens on pressing 'Enter' key
+    searchnavigate(`/szoftverek?search=${searchQuery}`);
+    setIsSearchFocused(false);
+  };
+
   const filterSoftwareData = () => {
     if (searchQuery.trim().length === 0) {
       setFilteredSoftwareData(SoftwareData);
@@ -165,23 +171,39 @@ export const Navbar = () => {
 
         {!isLoading && (
           <>
-            <div className="flex-grow px-8 relative">
+            <div className="flex-grow relative px-20">
               <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Keresés"
-                  className="pl-5 pr-10 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-4/5 hover-scale-small hover-scale-small:hover"
-                  value={searchQuery}
-                  onChange={handleInputChange}
-                  onFocus={handleSearchFocus}
-                  onBlur={handleSearchBlur}
-                  onKeyDown={handleSearchEnter} // Handle Enter key press
-                />
+                {/* Search input with integrated search button */}
+                <div style={{ position: "relative" }}>
+                  <div style={{ position: "relative" }}>
+                    <input
+                      type="text"
+                      placeholder="Keresés"
+                      className="pl-5 pr-16 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full"
+                      value={searchQuery}
+                      onChange={handleInputChange}
+                      onFocus={handleSearchFocus}
+                      onBlur={handleSearchBlur}
+                      onKeyDown={handleSearchEnter}
+                    />
+                    <button
+                      onClick={handleSearchButtonClick}
+                      className="absolute top-0 right-0 h-full bg-gray-700 text-white rounded-r-lg px-6 hover:bg-gray-600 focus:outline-none border-l-2 border-gray-800"
+                      style={{ top: 0 }}
+                    >
+                      Keresés
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {isSearchFocused && (
                 <div
-                  className="absolute left-0 mt-2 z-10 bg-white rounded-lg shadow-md w-full max-h-96 overflow-y-auto p-4 fadeIn"
+                  className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4 fadeIn"
+                  style={{
+                    width: "85%",
+                    maxHeight: "32rem",
+                  }}
                   ref={parent}
                 >
                   {hasSearchResults ? (
@@ -195,7 +217,7 @@ export const Navbar = () => {
                         )}`}
                         className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
                         onClick={handleLinkClick}
-                        style={{ height: "100px" }}
+                        style={{ height: "130px" }}
                       >
                         <div className="w-1/3">
                           <div className="flex items-center justify-center">
@@ -207,14 +229,18 @@ export const Navbar = () => {
                                 width: "auto",
                                 height: "auto",
                                 maxHeight: "80px",
+                                paddingLeft: "30%",
                               }}
                             />
                           </div>
                         </div>
-                        <div className="w-2/3 pl-12 text-xl font-semibold">
+                        <div
+                          className="w-2/3 text-2xl font-semibold"
+                          style={{ paddingLeft: "20%" }}
+                        >
                           {software.name}
                           <br />
-                          <div className="text-sm mt-1">
+                          <div className="text-base mt-1">
                             {software.category}
                           </div>
                         </div>
