@@ -12,8 +12,8 @@ import Pagination from "../Pagination/pagination";
 import { css } from "@emotion/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import LanguageFilter from "./LanguageFilter";
-import CompatibilityFilter from "./CompatibilityFilter";
+import LanguageFilter from "./Filters/LanguageFilter";
+import CompatibilityFilter from "./Filters/CompatibilityFilter";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
