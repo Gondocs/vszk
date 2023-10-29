@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { transliterate } from "../api/transliteration";
+import { transliterate } from "../../api/transliteration";
 
 export const CategoryNames = (
   Maincategory,

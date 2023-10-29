@@ -1,5 +1,5 @@
-import { get } from "../api/api";
-import { showToast } from "../toasts/toast";
+import { get } from "../../api/api";
+import { showToast } from "../../toasts/toast";
 
 export function fetchData(
   setSoftwareData,

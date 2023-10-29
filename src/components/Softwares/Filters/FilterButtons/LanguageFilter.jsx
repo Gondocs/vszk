@@ -1,37 +1,41 @@
 import React, { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import "../../../css/FilterButton.css";
+import "../../../../css/FilterButton.css";
 
-function OsFilter({ OsData, selectedOs, handleOSClick }) {
+function LanguageFilter({
+  LanguageData,
+  selectedLanguage,
+  handleLanguageClick,
+}) {
   const [parent] = useAutoAnimate(/* optional config */);
 
-  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
+  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
 
-  const toggleOSeCollapse = () => {
-    setIsOSCollapsed(!isOSCollapsed);
+  const toggleLanguageCollapse = () => {
+    setIsLanguageCollapsed(!isLanguageCollapsed);
   };
 
   return (
     <ul ref={parent}>
       <h1
         className={`text-lg text-white my-4 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-600 ${
-          isOSCollapsed
+          isLanguageCollapsed
             ? "bg-gray-600 transition-class"
             : "bg-gray-700 transition-class"
         }`}
-        onClick={toggleOSeCollapse}
+        onClick={toggleLanguageCollapse}
       >
-        Operációs Rendszerek
+        Szoftver Nyelve
       </h1>
-      {!isOSCollapsed ? null : (
+      {!isLanguageCollapsed ? null : (
         <ul>
-          {OsData.map((OS, index) => (
+          {LanguageData.map((language, index) => (
             <li key={index}>
-              <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover:bg-gray-200 ">
+              <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover:bg-gray-200">
                 <input
                   type="checkbox"
-                  checked={selectedOs.includes(OS)}
-                  onChange={() => handleOSClick(OS)}
+                  checked={selectedLanguage.includes(language)}
+                  onChange={() => handleLanguageClick(language)}
                   className="mr-2 cursor-pointer w-6 h-6"
                   style={{
                     minWidth: "25px",
@@ -40,7 +44,7 @@ function OsFilter({ OsData, selectedOs, handleOSClick }) {
                     maxHeight: "25px",
                   }}
                 />
-                {OS}
+                {language}
               </label>
             </li>
           ))}
@@ -50,4 +54,4 @@ function OsFilter({ OsData, selectedOs, handleOSClick }) {
   );
 }
 
-export default OsFilter;
+export default LanguageFilter;

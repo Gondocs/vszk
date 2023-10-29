@@ -1,4 +1,4 @@
-import { transliterate } from "../api/transliteration";
+import { transliterate } from "../../api/transliteration";
 
 export function filterSoftwareData(
   SoftwareData,

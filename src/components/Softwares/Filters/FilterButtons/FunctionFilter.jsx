@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { transliterate } from "../../api/transliteration.js";
+import { transliterate } from "../../../api/transliteration.js";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import "../../../css/FilterButton.css";
+import "../../../../css/FilterButton.css";
 
 function FunctionFilter(props) {
   const {

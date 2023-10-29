@@ -9,16 +9,16 @@ import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import LanguageFilter from "./Filters/LanguageFilter";
-import CompatibilityFilter from "./Filters/CompatibilityFilter";
-import OsFilter from "./Filters/OsFilter";
-import SupportFilter from "./Filters/SupportFilter";
-import Functionfilter from "./Filters/FunctionFilter";
+import LanguageFilter from "./Filters/FilterButtons/LanguageFilter";
+import CompatibilityFilter from "./Filters/FilterButtons/CompatibilityFilter";
+import OsFilter from "./Filters/FilterButtons/OsFilter";
+import SupportFilter from "./Filters/FilterButtons/SupportFilter";
+import Functionfilter from "./Filters/FilterButtons/FunctionFilter";
 import {} from "./SoftwareList";
 import { SoftwareNotFound } from "../PageNotFound/SoftwareNotFound";
-import { filterSoftwareData } from "./FilteredSoftwareData";
-import { fetchData } from "./SoftwareListGetData";
-import { CategoryNames } from "./CategoryNames";
+import { filterSoftwareData } from "./Filters/FilteredSoftwareData";
+import { fetchData } from "./GetData/SoftwareListGetData";
+import { CategoryNames } from "./Filters/CategoryNames";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);

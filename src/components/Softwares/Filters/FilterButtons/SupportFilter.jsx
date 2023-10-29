@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import "../../../css/FilterButton.css";
+import "../../../../css/FilterButton.css";
 
 function SupportFilter({ SupportData, selectedSupport, handleSupportClick }) {
   const [parent] = useAutoAnimate(/* optional config */);
