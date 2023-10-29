@@ -4,8 +4,6 @@ import "../../css/softwareList.css";
 import StarIcon from "@mui/icons-material/Star";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
-import { get } from "../api/api";
-import { showToast } from "../toasts/toast";
 import { ClipLoader } from "react-spinners";
 import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
@@ -19,6 +17,7 @@ import Functionfilter from "./Filters/FunctionFilter";
 import {} from "./SoftwareList";
 import { SoftwareNotFound } from "../PageNotFound/SoftwareNotFound";
 import { filterSoftwareData } from "./DisplayedSoftware";
+import { fetchData } from "./SoftwareListGetData";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -58,71 +57,17 @@ const SoftwareList = () => {
     console.log("url changed");
   }, [searchTerm, location.search, searchnavigate]);
 
+  // Call the fetchData function inside the useEffect hook
   useEffect(() => {
-    get
-      .SoftwareAll()
-      .then((data) => {
-        setSoftwareData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-        setLoading(false);
-      });
-
-    get
-      .GetAllWithFunctions()
-      .then((functionsData) => {
-        setFunctionsData(functionsData);
-      })
-      .catch((error) => {
-        showToast(
-          "Hiba történt az adatok lekérése közben (AllFunctions)",
-          "error"
-        );
-        console.log(error);
-      });
-
-    get
-      .SoftwareCompConnect()
-      .then((compatibiliyData) => {
-        setCompatibilityData(compatibiliyData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
-
-    get
-      .SoftwareLangConnect()
-      .then((LanguageData) => {
-        setLanguageData(LanguageData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
-
-    get
-      .SoftwareOSConnect()
-      .then((OsData) => {
-        setOsData(OsData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
-
-    get
-      .Support()
-      .then((SupportData) => {
-        setSupportData(SupportData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
+    fetchData(
+      setSoftwareData,
+      setLoading,
+      setFunctionsData,
+      setCompatibilityData,
+      setLanguageData,
+      setOsData,
+      setSupportData
+    );
     console.log(searchQuery);
   }, []);
 
@@ -130,7 +75,6 @@ const SoftwareList = () => {
     console.log(SoftwareData);
   }, [SoftwareData]);
 
-  // Use the filterSoftwareData function to filter the software data
   const filteredSoftwareData = filterSoftwareData(
     SoftwareData,
     Maincategory,
