@@ -1,30 +1,16 @@
 import React, { useState } from "react";
 
-function CompatibilityFilter({ CompatibilityData, setCurrentPage }) {
-  const [selectedCompatibility, setSelectedCompatibility] = useState([]);
+function CompatibilityFilter({
+  CompatibilityData,
+  handleCompatibilityClick,
+  selectedCompatibility,
+}) {
   const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
     useState(false);
 
   // Define toggleCompatibilityCollapse function
   const toggleCompatibilityCollapse = () => {
     setIsCompatibilityCollapsed(!isCompatibilityCollapsed);
-  };
-
-  // Define handleCompatibilityClick function
-  const handleCompatibilityClick = (compatibility) => {
-    if (selectedCompatibility.includes(compatibility)) {
-      // Compatibility is already selected, remove it
-      setSelectedCompatibility((prevSelected) =>
-        prevSelected.filter((selected) => selected !== compatibility)
-      );
-    } else {
-      // Compatibility is not selected, add it
-      setSelectedCompatibility((prevSelected) => [
-        ...prevSelected,
-        compatibility,
-      ]);
-    }
-    setCurrentPage(1);
   };
 
   return (

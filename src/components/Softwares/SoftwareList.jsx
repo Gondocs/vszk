@@ -263,6 +263,23 @@ const SoftwareList = () => {
     });
   };
 
+  // Define handleCompatibilityClick function
+  const handleCompatibilityClick = (compatibility) => {
+    if (selectedCompatibility.includes(compatibility)) {
+      // Compatibility is already selected, remove it
+      setSelectedCompatibility((prevSelected) =>
+        prevSelected.filter((selected) => selected !== compatibility)
+      );
+    } else {
+      // Compatibility is not selected, add it
+      setSelectedCompatibility((prevSelected) => [
+        ...prevSelected,
+        compatibility,
+      ]);
+    }
+    setCurrentPage(1);
+  };
+
   const handleFunctionClick = (func) => {
     if (selectedFunctions.includes(func)) {
       // Function is already selected, remove it
@@ -282,7 +299,6 @@ const SoftwareList = () => {
         prevSelected.filter((selected) => selected !== language)
       );
     } else {
-      // Compatibility is not selected, add it
       setSelectedLanguage((prevSelected) => [...prevSelected, language]);
     }
     setCurrentPage(1);
@@ -294,7 +310,6 @@ const SoftwareList = () => {
         prevSelected.filter((selected) => selected !== OS)
       );
     } else {
-      // Compatibility is not selected, add it
       setSelectedOs((prevSelected) => [...prevSelected, OS]);
     }
     setCurrentPage(1);
@@ -306,7 +321,6 @@ const SoftwareList = () => {
         prevSelected.filter((selected) => selected !== Support)
       );
     } else {
-      // Compatibility is not selected, add it
       setSelectedSupport((prevSelected) => [...prevSelected, Support]);
     }
     setCurrentPage(1);
@@ -412,7 +426,8 @@ const SoftwareList = () => {
         <div>
           <CompatibilityFilter
             CompatibilityData={CompatibilityData}
-            setCurrentPage={setCurrentPage}
+            handleCompatibilityClick={handleCompatibilityClick}
+            selectedCompatibility={selectedCompatibility}
           />
         </div>
 
