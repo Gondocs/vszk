@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function SupportFilter({ SupportData, selectedSupport, handleSupportClick }) {
+  const [parent] = useAutoAnimate(/* optional config */);
+
   const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
 
   const toggleSupportCollapse = () => {
@@ -8,9 +11,9 @@ function SupportFilter({ SupportData, selectedSupport, handleSupportClick }) {
   };
 
   return (
-    <ul>
+    <ul ref={parent}>
       <h1
-        className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
+        className={`text-lg text-white my-4 p-2 rounded-xl text-center hover:bg-gray-600 ${
           isSupportCollapsed
             ? "bg-gray-600 transition-class"
             : "bg-gray-700 transition-class"
@@ -23,7 +26,7 @@ function SupportFilter({ SupportData, selectedSupport, handleSupportClick }) {
         <ul>
           {SupportData.map((Support, index) => (
             <li key={index}>
-              <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 ">
+              <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover:bg-gray-100 ">
                 <input
                   type="checkbox"
                   checked={selectedSupport.includes(Support)}

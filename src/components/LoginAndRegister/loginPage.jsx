@@ -7,7 +7,6 @@ import { showToastLong } from "../toasts/toastLong";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const navigateback = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
