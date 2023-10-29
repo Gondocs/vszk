@@ -16,6 +16,7 @@ import LanguageFilter from "./Filters/LanguageFilter";
 import CompatibilityFilter from "./Filters/CompatibilityFilter";
 import OsFilter from "./Filters/OsFilter";
 import SupportFilter from "./Filters/SupportFilter";
+import FunctionFilter from "./Filters/FunctionFilter";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -42,7 +43,6 @@ const SoftwareList = () => {
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
 
-  const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
   const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
     useState(false);
   const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
@@ -330,10 +330,6 @@ const SoftwareList = () => {
     setCurrentPage(1);
   };
 
-  const toggleFuncCollapse = () => {
-    setIsFuncCollapsed(!isFuncCollapsed);
-  };
-
   const toggleCompatibilityCollapse = () => {
     setIsCompatibilityCollapsed(!isCompatibilityCollapsed);
   };
@@ -435,55 +431,15 @@ const SoftwareList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <ul>
-          {FunctionsData.map((category) => {
-            const mainCategory = transliterate(category.category_group);
-            const subCategory = transliterate(category.name);
-            const isMainCategoryMatch = mainCategory === Maincategory;
-            const isSubCategoryMatch = subCategory === Subcategory;
-            if (isMainCategoryMatch && (isSubCategoryMatch || !Subcategory)) {
-              return (
-                <li key={category.categoryID} ref={parent}>
-                  <h3
-                    className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
-                      isFuncCollapsed
-                        ? "bg-gray-600 transition-class"
-                        : "bg-gray-700 transition-class"
-                    }`}
-                    onClick={toggleFuncCollapse}
-                  >
-                    {category.name}
-                  </h3>
-                  {!isFuncCollapsed ? null : (
-                    <ul>
-                      {category.func_list.map((func, index) => (
-                        <li key={index} className="">
-                          <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100">
-                            <input
-                              type="checkbox"
-                              checked={selectedFunctions.includes(func)}
-                              onChange={() => handleFunctionClick(func)}
-                              className="mr-2 cursor-pointer w-6 h-6"
-                              style={{
-                                minWidth: "25px",
-                                maxWidth: "25px",
-                                minHeight: "25px",
-                                maxHeight: "25px",
-                              }}
-                            />
-                            {func}
-                          </label>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              );
-            }
-
-            return null;
-          })}
-        </ul>
+        <div>
+          <FunctionFilter
+            FunctionsData={FunctionsData}
+            Maincategory={Maincategory}
+            Subcategory={Subcategory}
+            selectedFunctions={selectedFunctions}
+            handleFunctionClick={handleFunctionClick}
+          />
+        </div>
 
         <div>
           <CompatibilityFilter
