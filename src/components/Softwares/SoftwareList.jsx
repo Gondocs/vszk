@@ -10,13 +10,14 @@ import { ClipLoader } from "react-spinners";
 import Pagination from "../Pagination/pagination";
 // eslint-disable-next-line no-unused-vars
 import { css } from "@emotion/react";
-import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import LanguageFilter from "./Filters/LanguageFilter";
 import CompatibilityFilter from "./Filters/CompatibilityFilter";
 import OsFilter from "./Filters/OsFilter";
 import SupportFilter from "./Filters/SupportFilter";
 import Functionfilter from "./Filters/FunctionFilter";
+import {} from "./SoftwareList";
+import { SoftwareNotFound } from "../PageNotFound/SoftwareNotFound";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -404,16 +405,6 @@ const SoftwareList = () => {
     />
   );
 
-  const noResultsMessage =
-    paginatedSoftwareData.length === 0 ? (
-      <div className="flex justify-center">
-        <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
-          A keresett szoftver nem található.
-          <NoSoftwareSvg />
-        </div>
-      </div>
-    ) : null;
-
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
@@ -602,7 +593,7 @@ const SoftwareList = () => {
                 </li>
               ))}
             </ul>
-            {noResultsMessage}
+            {<SoftwareNotFound filteredSoftwareData={filteredSoftwareData} />}
             {totalPages > 1 && paginationControls}
           </>
         )}
