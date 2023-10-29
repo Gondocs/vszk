@@ -43,9 +43,6 @@ const SoftwareList = () => {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
-
-  const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
-    useState(false);
   const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
   const [isOSCollapsed, setIsOSCollapsed] = useState(false);
   const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
@@ -279,22 +276,6 @@ const SoftwareList = () => {
     setCurrentPage(1);
   };
 
-  const handleCompatibilityClick = (compatibility) => {
-    if (selectedCompatibility.includes(compatibility)) {
-      // Compatibility is already selected, remove it
-      setSelectedCompatibility((prevSelected) =>
-        prevSelected.filter((selected) => selected !== compatibility)
-      );
-    } else {
-      // Compatibility is not selected, add it
-      setSelectedCompatibility((prevSelected) => [
-        ...prevSelected,
-        compatibility,
-      ]);
-    }
-    setCurrentPage(1);
-  };
-
   const handleLanguageClick = (language) => {
     if (selectedLanguage.includes(language)) {
       setSelectedLanguage((prevSelected) =>
@@ -329,10 +310,6 @@ const SoftwareList = () => {
       setSelectedSupport((prevSelected) => [...prevSelected, Support]);
     }
     setCurrentPage(1);
-  };
-
-  const toggleCompatibilityCollapse = () => {
-    setIsCompatibilityCollapsed(!isCompatibilityCollapsed);
   };
 
   const toggleLanguageCollapse = () => {
@@ -434,11 +411,8 @@ const SoftwareList = () => {
 
         <div>
           <CompatibilityFilter
-            isCompatibilityCollapsed={isCompatibilityCollapsed}
-            toggleCompatibilityCollapse={toggleCompatibilityCollapse}
             CompatibilityData={CompatibilityData}
-            selectedCompatibility={selectedCompatibility}
-            handleCompatibilityClick={handleCompatibilityClick}
+            setCurrentPage={setCurrentPage}
           />
         </div>
 
