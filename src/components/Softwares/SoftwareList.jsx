@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import "../../css/softwareList.css";
 import StarIcon from "@mui/icons-material/Star";
@@ -12,9 +13,11 @@ import { css } from "@emotion/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import LanguageFilter from "./LanguageFilter";
+import CompatibilityFilter from "./CompatibilityFilter";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
+
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
 
@@ -54,7 +57,8 @@ const SoftwareList = () => {
     const query = new URLSearchParams(location.search);
     query.set("search", searchTerm);
     searchnavigate({ search: query.toString() });
-  }, [searchTerm, location.search]);
+    console.log("asd");
+  }, [searchTerm, location.search, searchnavigate]);
 
   useEffect(() => {
     get
@@ -479,48 +483,21 @@ const SoftwareList = () => {
           })}
         </ul>
 
-        <ul ref={parent}>
-          <h1
-            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
-              isCompatibilityCollapsed
-                ? "bg-gray-600 transition-class"
-                : "bg-gray-700 transition-class"
-            }`}
-            onClick={toggleCompatibilityCollapse}
-          >
-            Kompatibilítás
-          </h1>
-          {!isCompatibilityCollapsed ? null : (
-            <ul>
-              {CompatibilityData.map((compatibility, index) => (
-                <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100">
-                    <input
-                      type="checkbox"
-                      checked={selectedCompatibility.includes(compatibility)}
-                      onChange={() => handleCompatibilityClick(compatibility)}
-                      className="mr-2 cursor-pointer w-6 h-6"
-                      style={{
-                        minWidth: "25px",
-                        maxWidth: "25px",
-                        minHeight: "25px",
-                        maxHeight: "25px",
-                      }}
-                    />
-                    {compatibility}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          )}
-        </ul>
+        <div>
+          <CompatibilityFilter
+            isCompatibilityCollapsed={isCompatibilityCollapsed}
+            toggleCompatibilityCollapse={toggleCompatibilityCollapse}
+            CompatibilityData={CompatibilityData}
+            selectedCompatibility={selectedCompatibility}
+            handleCompatibilityClick={handleCompatibilityClick}
+          />
+        </div>
 
         <div>
           <LanguageFilter
-            parent={parent}
-            isCollapsed={isLanguageCollapsed}
-            toggleCollapse={toggleLanguageCollapse}
-            languageData={LanguageData}
+            isLanguageCollapsed={isLanguageCollapsed}
+            toggleLanguageCollapse={toggleLanguageCollapse}
+            LanguageData={LanguageData}
             selectedLanguage={selectedLanguage}
             handleLanguageClick={handleLanguageClick}
           />
