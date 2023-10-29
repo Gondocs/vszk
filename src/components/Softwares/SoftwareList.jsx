@@ -16,7 +16,7 @@ import LanguageFilter from "./Filters/LanguageFilter";
 import CompatibilityFilter from "./Filters/CompatibilityFilter";
 import OsFilter from "./Filters/OsFilter";
 import SupportFilter from "./Filters/SupportFilter";
-import FunctionFilter from "./Filters/FunctionFilter";
+import Functionfilter from "./Filters/FunctionFilter";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -432,7 +432,7 @@ const SoftwareList = () => {
         />
 
         <div>
-          <FunctionFilter
+          <Functionfilter
             FunctionsData={FunctionsData}
             Maincategory={Maincategory}
             Subcategory={Subcategory}
