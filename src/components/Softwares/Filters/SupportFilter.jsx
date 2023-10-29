@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-function SupportFilter({
-  isSupportCollapsed,
-  toggleSupportCollapse,
-  SupportData,
-  selectedSupport,
-  handleSupportClick,
-}) {
+function SupportFilter({ SupportData, selectedSupport, handleSupportClick }) {
+  const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
+
+  const toggleSupportCollapse = () => {
+    setIsSupportCollapsed(!isSupportCollapsed);
+  };
+
   return (
     <ul>
       <h1

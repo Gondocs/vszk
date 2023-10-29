@@ -43,9 +43,6 @@ const SoftwareList = () => {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
-  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
-  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
-  const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -326,18 +323,6 @@ const SoftwareList = () => {
     setCurrentPage(1);
   };
 
-  const toggleLanguageCollapse = () => {
-    setIsLanguageCollapsed(!isLanguageCollapsed);
-  };
-
-  const toggleOSeCollapse = () => {
-    setIsOSCollapsed(!isOSCollapsed);
-  };
-
-  const toggleSupportCollapse = () => {
-    setIsSupportCollapsed(!isSupportCollapsed);
-  };
-
   useEffect(() => {
     setSelectedFunctions([]); // Reset when URL changes
     setSelectedCompatibility([]); // Reset when URL changes
@@ -433,8 +418,6 @@ const SoftwareList = () => {
 
         <div>
           <LanguageFilter
-            isLanguageCollapsed={isLanguageCollapsed}
-            toggleLanguageCollapse={toggleLanguageCollapse}
             LanguageData={LanguageData}
             selectedLanguage={selectedLanguage}
             handleLanguageClick={handleLanguageClick}
@@ -443,8 +426,6 @@ const SoftwareList = () => {
 
         <div>
           <OsFilter
-            isOSCollapsed={isOSCollapsed}
-            toggleOSeCollapse={toggleOSeCollapse}
             OsData={OsData}
             selectedOs={selectedOs}
             handleOSClick={handleOSClick}
@@ -453,8 +434,6 @@ const SoftwareList = () => {
 
         <div>
           <SupportFilter
-            isSupportCollapsed={isSupportCollapsed}
-            toggleSupportCollapse={toggleSupportCollapse}
             SupportData={SupportData}
             selectedSupport={selectedSupport}
             handleSupportClick={handleSupportClick}

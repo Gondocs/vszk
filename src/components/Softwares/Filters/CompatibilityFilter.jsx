@@ -8,7 +8,6 @@ function CompatibilityFilter({
   const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
     useState(false);
 
-  // Define toggleCompatibilityCollapse function
   const toggleCompatibilityCollapse = () => {
     setIsCompatibilityCollapsed(!isCompatibilityCollapsed);
   };

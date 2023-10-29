@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-function OsFilter({
-  isOSCollapsed,
-  toggleOSeCollapse,
-  OsData,
-  selectedOs,
-  handleOSClick,
-}) {
+function OsFilter({ OsData, selectedOs, handleOSClick }) {
+  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
+
+  const toggleOSeCollapse = () => {
+    setIsOSCollapsed(!isOSCollapsed);
+  };
+
   return (
     <ul>
       <h1
