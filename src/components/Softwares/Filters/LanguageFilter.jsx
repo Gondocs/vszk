@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 function LanguageFilter({
-  isLanguageCollapsed,
-  toggleLanguageCollapse,
   LanguageData,
   selectedLanguage,
   handleLanguageClick,
 }) {
+  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
+
+  const toggleLanguageCollapse = () => {
+    setIsLanguageCollapsed(!isLanguageCollapsed);
+  };
+
   return (
     <ul>
       <h1
