@@ -15,6 +15,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import LanguageFilter from "./Filters/LanguageFilter";
 import CompatibilityFilter from "./Filters/CompatibilityFilter";
 import OsFilter from "./Filters/OsFilter";
+import SupportFilter from "./Filters/SupportFilter";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -514,41 +515,15 @@ const SoftwareList = () => {
           />
         </div>
 
-        <ul ref={parent}>
-          <h1
-            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
-              isSupportCollapsed
-                ? "bg-gray-600 transition-class"
-                : "bg-gray-700 transition-class"
-            }`}
-            onClick={toggleSupportCollapse}
-          >
-            Támogatás Nyelve
-          </h1>
-          {!isSupportCollapsed ? null : (
-            <ul>
-              {SupportData.map((Support, index) => (
-                <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 ">
-                    <input
-                      type="checkbox"
-                      checked={selectedSupport.includes(Support)}
-                      onChange={() => handleSupportClick(Support)}
-                      className="mr-2 cursor-pointer w-6 h-6"
-                      style={{
-                        minWidth: "25px",
-                        maxWidth: "25px",
-                        minHeight: "25px",
-                        maxHeight: "25px",
-                      }}
-                    />
-                    {Support}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          )}
-        </ul>
+        <div>
+          <SupportFilter
+            isSupportCollapsed={isSupportCollapsed}
+            toggleSupportCollapse={toggleSupportCollapse}
+            SupportData={SupportData}
+            selectedSupport={selectedSupport}
+            handleSupportClick={handleSupportClick}
+          />
+        </div>
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
