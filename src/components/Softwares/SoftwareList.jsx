@@ -1,8 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import "../../css/softwareList.css";
-import { Rating } from "@smastrom/react-rating";
-import "@smastrom/react-rating/style.css";
+import StarIcon from "@mui/icons-material/Star";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
 import { get } from "../api/api";
@@ -13,6 +11,7 @@ import Pagination from "../Pagination/pagination";
 import { css } from "@emotion/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import LanguageFilter from "./LanguageFilter";
 
 const SoftwareList = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -516,41 +515,16 @@ const SoftwareList = () => {
           )}
         </ul>
 
-        <ul ref={parent}>
-          <h1
-            className={`text-lg text-white my-4 p-2 rounded-xl text-center hover-scale-element:hover hover-scale-element ${
-              isLanguageCollapsed
-                ? "bg-gray-600 transition-class"
-                : "bg-gray-700 transition-class"
-            }`}
-            onClick={toggleLanguageCollapse}
-          >
-            Szoftver Nyelve
-          </h1>
-          {!isLanguageCollapsed ? null : (
-            <ul>
-              {LanguageData.map((language, index) => (
-                <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
-                    <input
-                      type="checkbox"
-                      checked={selectedLanguage.includes(language)}
-                      onChange={() => handleLanguageClick(language)}
-                      className="mr-2 cursor-pointer w-6 h-6"
-                      style={{
-                        minWidth: "25px",
-                        maxWidth: "25px",
-                        minHeight: "25px",
-                        maxHeight: "25px",
-                      }}
-                    />
-                    {language}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          )}
-        </ul>
+        <div>
+          <LanguageFilter
+            parent={parent}
+            isCollapsed={isLanguageCollapsed}
+            toggleCollapse={toggleLanguageCollapse}
+            languageData={LanguageData}
+            selectedLanguage={selectedLanguage}
+            handleLanguageClick={handleLanguageClick}
+          />
+        </div>
 
         <ul ref={parent}>
           <h1
@@ -567,7 +541,7 @@ const SoftwareList = () => {
             <ul>
               {OsData.map((OS, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 ">
                     <input
                       type="checkbox"
                       checked={selectedOs.includes(OS)}
@@ -603,7 +577,7 @@ const SoftwareList = () => {
             <ul>
               {SupportData.map((Support, index) => (
                 <li key={index}>
-                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 fadeInFast">
+                  <label className="flex items-center text-md bg-white p-2 shadow-md mt-5 mb-5 rounded-xl pl-4 hover-scale-element:hover hover-scale-element hover:bg-gray-100 ">
                     <input
                       type="checkbox"
                       checked={selectedSupport.includes(Support)}
@@ -660,36 +634,53 @@ const SoftwareList = () => {
           <>
             <ul ref={parent}>
               {paginatedSoftwareData.map((software) => (
-                <Link
-                  to={`/szoftverek/${transliterate(
-                    software.category.categoryGroup.name
-                  )}/${transliterate(software.category.name)}/${transliterate(
-                    software.name
-                  )}`}
-                  className=""
-                  onClick={() => {
-                    window.scrollTo({
-                      top: 0,
-                      behavior: "smooth",
-                    });
-                  }}
+                <li
+                  key={software.softwareID}
+                  className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
                 >
-                  <li
-                    key={software.softwareID}
-                    className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
+                  <div
+                    className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
+                    style={{ height: "300px" }}
                   >
-                    <div
-                      className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
-                      style={{ height: "300px" }}
+                    {/* Container for the image (1/3 of the width) */}
+                    <Link
+                      to={`/szoftverek/${transliterate(
+                        software.category.categoryGroup.name
+                      )}/${transliterate(
+                        software.category.name
+                      )}/${transliterate(software.name)}`}
+                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
+                      onClick={() => {
+                        window.scrollTo({
+                          top: 0,
+                          behavior: "smooth",
+                        });
+                      }}
                     >
-                      {/* Container for the image (1/3 of the width) */}
+                      <div className="flex items-center">
+                        <img
+                          src={software.company.logo_link}
+                          alt="Software Placeholder"
+                          className="pl-4 pr-4"
+                          draggable="false"
+                          style={{
+                            width: "auto",
+                            height: "auto",
+                            maxHeight: "150px",
+                          }}
+                        />
+                      </div>
+                    </Link>
+
+                    {/* Container for the data (2/3 of the width) */}
+                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 ">
                       <Link
                         to={`/szoftverek/${transliterate(
                           software.category.categoryGroup.name
                         )}/${transliterate(
                           software.category.name
                         )}/${transliterate(software.name)}`}
-                        className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
+                        className="text-3xl font-semibold text-black"
                         onClick={() => {
                           window.scrollTo({
                             top: 0,
@@ -697,72 +688,35 @@ const SoftwareList = () => {
                           });
                         }}
                       >
-                        <div className="flex items-center">
-                          <img
-                            src={software.company.logo_link}
-                            alt="Software Placeholder"
-                            className="pl-4 pr-4"
-                            draggable="false"
-                            style={{
-                              width: "auto",
-                              height: "auto",
-                              maxHeight: "150px",
-                            }}
-                          />
-                        </div>
+                        {software.name}
                       </Link>
-
-                      {/* Container for the data (2/3 of the width) */}
-                      <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 ">
-                        <Link
-                          to={`/szoftverek/${transliterate(
-                            software.category.categoryGroup.name
-                          )}/${transliterate(
-                            software.category.name
-                          )}/${transliterate(software.name)}`}
-                          className="text-3xl font-semibold text-black mb-2"
-                          onClick={() => {
-                            window.scrollTo({
-                              top: 0,
-                              behavior: "smooth",
-                            });
-                          }}
-                        >
-                          {software.name}
-                        </Link>
-                        <Link
-                          to={`/cegek/${transliterate(software.company.name)}`}
-                          onClick={() => {
-                            window.scrollTo({
-                              top: 0,
-                              behavior: "smooth",
-                            });
-                          }}
-                        >
-                          <p className="text-gray-600 text-xl mb-2">
-                            {software.company.name}
-                          </p>
-                        </Link>
-                        <div className="flex items-center ">
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            <span className="text-black text-lg mr-1 mb-2">
-                              Vélemények:
-                            </span>
-                            <div
-                              style={{ maxWidth: 120, width: "100%" }}
-                              className=""
-                            >
-                              <Rating readOnly value={software.average_stars} />
-                            </div>
-                          </div>
-                        </div>
-                        <p className="text-gray-700">{software.description}</p>
+                      <Link
+                        to={`/cegek/${transliterate(software.company.name)}`}
+                        onClick={() => {
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        <p className="text-gray-600 text-xl mb-2">
+                          {software.company.name}
+                        </p>
+                      </Link>
+                      <div className="flex items-center ">
+                        <span className="text-black text-lg mr-2">
+                          Vélemények: {software.average_stars}
+                          <StarIcon
+                            fontSize="medium"
+                            className="starmargin"
+                            style={{ color: "rgb(255, 210, 48)" }}
+                          />
+                        </span>
                       </div>
+                      <p className="text-gray-700">{software.description}</p>
                     </div>
-                  </li>
-                </Link>
+                  </div>
+                </li>
               ))}
             </ul>
             {noResultsMessage}
