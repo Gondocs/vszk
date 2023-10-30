@@ -1,12 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "../../../../css/FilterButton.css";
 
 function CompatibilityFilter({
   CompatibilityData,
-  handleCompatibilityClick,
-  selectedCompatibility,
+  onCompatibilityChange,
+  Maincategory,
+  Subcategory,
 }) {
+
+  const [selectedCompatibility, setSelectedCompatibility] = useState([]);
+
+  useEffect(() => {
+    setSelectedCompatibility([]);
+    onCompatibilityChange([]); // Call the callback function with the updated empty data
+  }, [Maincategory, Subcategory]);
+
+  const handleCompatibilityClick = async (compatibility) => {
+    let updatedCompatibility;
+
+    if (selectedCompatibility.includes(compatibility)) {
+      updatedCompatibility = selectedCompatibility.filter(
+        (selected) => selected !== compatibility
+      );
+    } else {
+      updatedCompatibility = [...selectedCompatibility, compatibility];
+    }
+
+    await setSelectedCompatibility(updatedCompatibility);
+
+    onCompatibilityChange(updatedCompatibility); // Call the callback function with the updated data
+  };
+
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =

@@ -39,8 +39,9 @@ const SoftwareList = () => {
   const [OsData, setOsData] = useState([]);
   const [SupportData, setSupportData] = useState([]);
 
+  const [ParentSelectedCompatibility, setParentSelectedCompatibility] = useState([]);
+
   const [selectedFunctions, setSelectedFunctions] = useState([]);
-  const [selectedCompatibility, setSelectedCompatibility] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
@@ -74,7 +75,18 @@ const SoftwareList = () => {
 
   useEffect(() => {
     console.log(SoftwareData);
+  
   }, [SoftwareData]);
+
+  const handleCompatibilityChange = (selectedCompatibility) => {
+    setParentSelectedCompatibility(selectedCompatibility);
+    setCurrentPage(1); // Set the current page to 1 when compatibility changes
+  };
+
+  useEffect(() => {
+    console.log(ParentSelectedCompatibility);
+  
+  }, [ParentSelectedCompatibility]);
 
   const filteredSoftwareData = filterSoftwareData(
     SoftwareData,
@@ -82,7 +94,7 @@ const SoftwareList = () => {
     Subcategory,
     searchTerm,
     selectedFunctions,
-    selectedCompatibility,
+    ParentSelectedCompatibility,
     selectedLanguage,
     selectedOs,
     selectedSupport
@@ -104,22 +116,7 @@ const SoftwareList = () => {
     });
   };
 
-  // Define handleCompatibilityClick function
-  const handleCompatibilityClick = (compatibility) => {
-    if (selectedCompatibility.includes(compatibility)) {
-      // Compatibility is already selected, remove it
-      setSelectedCompatibility((prevSelected) =>
-        prevSelected.filter((selected) => selected !== compatibility)
-      );
-    } else {
-      // Compatibility is not selected, add it
-      setSelectedCompatibility((prevSelected) => [
-        ...prevSelected,
-        compatibility,
-      ]);
-    }
-    setCurrentPage(1);
-  };
+
 
   const handleFunctionClick = (func) => {
     if (selectedFunctions.includes(func)) {
@@ -169,7 +166,6 @@ const SoftwareList = () => {
 
   useEffect(() => {
     setSelectedFunctions([]); // Reset when URL changes
-    setSelectedCompatibility([]); // Reset when URL changes
     setSelectedLanguage([]); // Reset when URL changes
     setSelectedOs([]); // Reset when URL changes
     setSelectedSupport([]); // Reset when URL changes
@@ -177,7 +173,7 @@ const SoftwareList = () => {
 
   useEffect(() => {
     console.log(selectedFunctions);
-    console.log(selectedCompatibility);
+    console.log(ParentSelectedCompatibility);
     console.log(selectedLanguage);
     console.log(selectedOs);
   });
@@ -230,8 +226,10 @@ const SoftwareList = () => {
         <div>
           <CompatibilityFilter
             CompatibilityData={CompatibilityData}
-            handleCompatibilityClick={handleCompatibilityClick}
-            selectedCompatibility={selectedCompatibility}
+            onCompatibilityChange={handleCompatibilityChange}
+            Maincategory={Maincategory}
+            Subcategory={Subcategory}
+            selectedCompatibility={ParentSelectedCompatibility}
           />
         </div>
 
