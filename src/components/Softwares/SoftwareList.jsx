@@ -39,7 +39,8 @@ const SoftwareList = () => {
   const [OsData, setOsData] = useState([]);
   const [SupportData, setSupportData] = useState([]);
 
-  const [ParentSelectedCompatibility, setParentSelectedCompatibility] = useState([]);
+  const [ParentSelectedCompatibility, setParentSelectedCompatibility] =
+    useState([]);
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
@@ -75,7 +76,6 @@ const SoftwareList = () => {
 
   useEffect(() => {
     console.log(SoftwareData);
-  
   }, [SoftwareData]);
 
   const handleCompatibilityChange = (selectedCompatibility) => {
@@ -85,7 +85,6 @@ const SoftwareList = () => {
 
   useEffect(() => {
     console.log(ParentSelectedCompatibility);
-  
   }, [ParentSelectedCompatibility]);
 
   const filteredSoftwareData = filterSoftwareData(
@@ -115,8 +114,6 @@ const SoftwareList = () => {
       behavior: "smooth",
     });
   };
-
-
 
   const handleFunctionClick = (func) => {
     if (selectedFunctions.includes(func)) {
@@ -297,84 +294,84 @@ const SoftwareList = () => {
                   key={software.softwareID}
                   className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
                 >
-                  <div
-                    className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
-                    style={{ height: "300px" }}
+                  <Link
+                    to={`/szoftverek/${transliterate(
+                      software.category.categoryGroup.name
+                    )}/${transliterate(software.category.name)}/${transliterate(
+                      software.name
+                    )}`}
+                    onClick={() => {
+                      window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                      });
+                    }}
                   >
-                    {/* Container for the image (1/3 of the width) */}
-                    <Link
-                      to={`/szoftverek/${transliterate(
-                        software.category.categoryGroup.name
-                      )}/${transliterate(
-                        software.category.name
-                      )}/${transliterate(software.name)}`}
-                      className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
-                      onClick={() => {
-                        window.scrollTo({
-                          top: 0,
-                          behavior: "smooth",
-                        });
-                      }}
+                    <div
+                      className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
+                      style={{ height: "300px" }}
                     >
-                      <div className="flex items-center">
-                        <img
-                          src={software.company.logo_link}
-                          alt="Software Placeholder"
-                          className="pl-4 pr-4"
-                          draggable="false"
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            maxHeight: "150px",
-                          }}
-                        />
-                      </div>
-                    </Link>
-
-                    {/* Container for the data (2/3 of the width) */}
-                    <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 ">
-                      <Link
-                        to={`/szoftverek/${transliterate(
-                          software.category.categoryGroup.name
-                        )}/${transliterate(
-                          software.category.name
-                        )}/${transliterate(software.name)}`}
-                        className="text-3xl font-semibold text-black"
-                        onClick={() => {
-                          window.scrollTo({
-                            top: 0,
-                            behavior: "smooth",
-                          });
-                        }}
-                      >
-                        {software.name}
-                      </Link>
-                      <Link
-                        to={`/cegek/${transliterate(software.company.name)}`}
-                        onClick={() => {
-                          window.scrollTo({
-                            top: 0,
-                            behavior: "smooth",
-                          });
-                        }}
-                      >
-                        <p className="text-gray-600 text-xl mb-2">
-                          {software.company.name}
-                        </p>
-                      </Link>
-                      <div className="flex items-center ">
-                        <span className="text-black text-lg mr-2">
-                          Vélemények: {software.average_stars}
-                          <StarIcon
-                            fontSize="medium"
-                            className="starmargin"
-                            style={{ color: "rgb(255, 210, 48)" }}
+                      {/* Container for the image (1/3 of the width) */}
+                      <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25">
+                        <div className="flex items-center">
+                          <img
+                            src={software.company.logo_link}
+                            alt="Software Placeholder"
+                            className="pl-4 pr-4"
+                            draggable="false"
+                            style={{
+                              width: "auto",
+                              height: "auto",
+                              maxHeight: "150px",
+                            }}
                           />
-                        </span>
+                        </div>
                       </div>
-                      <p className="text-gray-700">{software.description}</p>
+                      {/* Container for the data (2/3 of the width) */}
+                      <div className="w-2/3 flex flex-col justify-center pl-6 pr-4 ">
+                        <Link
+                          to={`/szoftverek/${transliterate(
+                            software.category.categoryGroup.name
+                          )}/${transliterate(
+                            software.category.name
+                          )}/${transliterate(software.name)}`}
+                          className="text-3xl font-semibold text-black"
+                          onClick={() => {
+                            window.scrollTo({
+                              top: 0,
+                              behavior: "smooth",
+                            });
+                          }}
+                        >
+                          {software.name}
+                        </Link>
+                        <Link
+                          to={`/cegek/${transliterate(software.company.name)}`}
+                          onClick={() => {
+                            window.scrollTo({
+                              top: 0,
+                              behavior: "smooth",
+                            });
+                          }}
+                        >
+                          <p className="text-gray-600 text-xl mb-2">
+                            {software.company.name}
+                          </p>
+                        </Link>
+                        <div className="flex items-center ">
+                          <span className="text-black text-lg mr-2">
+                            Vélemények: {software.average_stars}
+                            <StarIcon
+                              fontSize="medium"
+                              className="starmargin"
+                              style={{ color: "rgb(255, 210, 48)" }}
+                            />
+                          </span>
+                        </div>
+                        <p className="text-gray-700">{software.description}</p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </li>
               ))}
             </ul>
