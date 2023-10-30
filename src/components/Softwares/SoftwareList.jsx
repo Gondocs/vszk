@@ -335,7 +335,7 @@ const SoftwareList = () => {
                           )}/${transliterate(
                             software.category.name
                           )}/${transliterate(software.name)}`}
-                          className="text-3xl font-semibold text-black"
+                          className="text-3xl font-semibold text-black mb-3"
                           onClick={() => {
                             window.scrollTo({
                               top: 0,
@@ -344,6 +344,7 @@ const SoftwareList = () => {
                           }}
                         >
                           {software.name}
+
                         </Link>
                         <Link
                           to={`/cegek/${transliterate(software.company.name)}`}
@@ -354,7 +355,7 @@ const SoftwareList = () => {
                             });
                           }}
                         >
-                          <p className="text-gray-600 text-xl mb-2">
+                          <p className="text-gray-600 text-xl mb-1">
                             {software.company.name}
                           </p>
                         </Link>
