@@ -10,10 +10,10 @@ function CompatibilityFilter({
 }) {
 
   const [selectedCompatibility, setSelectedCompatibility] = useState([]);
-
   useEffect(() => {
     setSelectedCompatibility([]);
-    onCompatibilityChange([]); // Call the callback function with the updated empty data
+    onCompatibilityChange([]); 
+    // eslint-disable-next-line
   }, [Maincategory, Subcategory]);
 
   const handleCompatibilityClick = async (compatibility) => {
@@ -30,6 +30,8 @@ function CompatibilityFilter({
     await setSelectedCompatibility(updatedCompatibility);
 
     onCompatibilityChange(updatedCompatibility); // Call the callback function with the updated data
+    console.log(updatedCompatibility);
+    console.log(selectedCompatibility);
   };
 
   const [parent] = useAutoAnimate(/* optional config */);
