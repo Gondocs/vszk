@@ -98,6 +98,11 @@ const SoftwareList = () => {
     setCurrentPage(1);
   };
 
+  const handleFunctionChange = (selectedFunctions) => {
+    setSelectedFunctions(selectedFunctions);
+    setCurrentPage(1);
+  };
+
   const filteredSoftwareData = filterSoftwareData(
     SoftwareData,
     Maincategory,
@@ -123,19 +128,6 @@ const SoftwareList = () => {
       top: 0,
       behavior: "smooth",
     });
-  };
-
-  const handleFunctionClick = (func) => {
-    if (selectedFunctions.includes(func)) {
-      // Function is already selected, remove it
-      setSelectedFunctions((prevSelected) =>
-        prevSelected.filter((selected) => selected !== func)
-      );
-    } else {
-      // Function is not selected, add it
-      setSelectedFunctions((prevSelected) => [...prevSelected, func]);
-    }
-    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -190,10 +182,10 @@ const SoftwareList = () => {
         <div>
           <Functionfilter
             FunctionsData={FunctionsData}
+            onFunctionsChange={handleFunctionChange}
+            selectedCompatibility={SelectedCompatibility}
             Maincategory={Maincategory}
             Subcategory={Subcategory}
-            selectedFunctions={selectedFunctions}
-            handleFunctionClick={handleFunctionClick}
           />
         </div>
 

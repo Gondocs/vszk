@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { transliterate } from "../../../api/transliteration.js";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "../../../../css/FilterButton.css";
 
-function FunctionFilter(props) {
-  const {
+function FunctionFilter({
     FunctionsData,
+    onFunctionsChange,
     Maincategory,
     Subcategory,
-    selectedFunctions,
-    handleFunctionClick,
-  } = props;
+}) {
+
+  const [selectedFunctions, setSelectedFunctions] = useState([]);
+  useEffect(() => {
+    setSelectedFunctions([]);
+    onFunctionsChange([]); 
+    // eslint-disable-next-line
+  }, [Maincategory, Subcategory]);
+
+  const handleFunctionClick = async (compatibility) => {
+    let updatedFunctions;
+
+    if (selectedFunctions.includes(compatibility)) {
+      updatedFunctions = selectedFunctions.filter(
+        (selected) => selected !== compatibility
+      );
+    } else {
+      updatedFunctions = [...selectedFunctions, compatibility];
+    }
+
+    await setSelectedFunctions(updatedFunctions);
+
+    onFunctionsChange(updatedFunctions); // Call the callback function with the updated data
+    console.log(updatedFunctions);
+    console.log(selectedFunctions);
+  };
 
   const [parent] = useAutoAnimate(/* optional config */);
 
