@@ -197,9 +197,9 @@ export const Navbar = () => {
                 </div>
               </div>
 
-              {isSearchFocused && (
+              {isSearchFocused && searchQuery.length >= 1 && (
                 <div
-                  className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4 fadeIn"
+                  className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4"
                   style={{
                     width: "85%",
                     maxHeight: "32rem",
