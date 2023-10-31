@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "../../../../css/FilterButton.css";
 
-function SupportFilter({ SupportData, selectedSupport, handleSupportClick }) {
+function SupportFilter({ SupportData, onSupportChange, Maincategory, Subcategory  }) {
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
 
   const toggleSupportCollapse = () => {
     setIsSupportCollapsed(!isSupportCollapsed);
+  };
+
+  const [selectedSupport, setSelectedSupport] = useState([]);
+  useEffect(() => {
+    setSelectedSupport([]);
+    onSupportChange([]);
+    // eslint-disable-next-line
+  }, [Maincategory, Subcategory]);
+
+  const handleSupportClick = async (Os) => {
+    let updatedSupport;
+
+    if (selectedSupport.includes(Os)) {
+      updatedSupport = selectedSupport.filter(
+        (selected) => selected !== Os
+      );
+    } else {
+      updatedSupport = [...selectedSupport, Os];
+    }
+
+    await setSelectedSupport(updatedSupport);
+
+    onSupportChange(updatedSupport); // Call the callback function with the updated data
+    console.log(updatedSupport);
+    console.log(selectedSupport);
   };
 
   return (

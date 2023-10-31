@@ -93,6 +93,11 @@ const SoftwareList = () => {
     setCurrentPage(1);
   };
 
+  const handleSupportChange = (selectedSupport) => {
+    setSelectedSupport(selectedSupport);
+    setCurrentPage(1);
+  };
+
   const filteredSoftwareData = filterSoftwareData(
     SoftwareData,
     Maincategory,
@@ -129,28 +134,6 @@ const SoftwareList = () => {
     } else {
       // Function is not selected, add it
       setSelectedFunctions((prevSelected) => [...prevSelected, func]);
-    }
-    setCurrentPage(1);
-  };
-
-  const handleOSClick = (OS) => {
-    if (selectedOs.includes(OS)) {
-      setSelectedOs((prevSelected) =>
-        prevSelected.filter((selected) => selected !== OS)
-      );
-    } else {
-      setSelectedOs((prevSelected) => [...prevSelected, OS]);
-    }
-    setCurrentPage(1);
-  };
-
-  const handleSupportClick = (Support) => {
-    if (selectedSupport.includes(Support)) {
-      setSelectedSupport((prevSelected) =>
-        prevSelected.filter((selected) => selected !== Support)
-      );
-    } else {
-      setSelectedSupport((prevSelected) => [...prevSelected, Support]);
     }
     setCurrentPage(1);
   };
@@ -247,8 +230,10 @@ const SoftwareList = () => {
         <div>
           <SupportFilter
             SupportData={SupportData}
+            onSupportChange={handleSupportChange}
+            Maincategory={Maincategory}
+            Subcategory={Subcategory}
             selectedSupport={selectedSupport}
-            handleSupportClick={handleSupportClick}
           />
         </div>
       </div>

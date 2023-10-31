@@ -10,7 +10,9 @@ function OsFilter({ OsData, onOsChange, Maincategory, Subcategory }) {
   const toggleOSeCollapse = () => {
     setIsOSCollapsed(!isOSCollapsed);
   };
+
   const [selectedOs, setSelectedOs] = useState([]);
+
   useEffect(() => {
     setSelectedOs([]);
     onOsChange([]);
@@ -21,9 +23,7 @@ function OsFilter({ OsData, onOsChange, Maincategory, Subcategory }) {
     let updatedOs;
 
     if (selectedOs.includes(Os)) {
-      updatedOs = selectedOs.filter(
-        (selected) => selected !== Os
-      );
+      updatedOs = selectedOs.filter((selected) => selected !== Os);
     } else {
       updatedOs = [...selectedOs, Os];
     }
