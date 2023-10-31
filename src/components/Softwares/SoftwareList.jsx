@@ -39,7 +39,7 @@ const SoftwareList = () => {
   const [OsData, setOsData] = useState([]);
   const [SupportData, setSupportData] = useState([]);
 
-  const [ParentSelectedCompatibility, setParentSelectedCompatibility] =
+  const [SelectedCompatibility, setSelectedCompatibility] =
     useState([]);
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
@@ -79,21 +79,22 @@ const SoftwareList = () => {
   }, [SoftwareData]);
 
   const handleCompatibilityChange = (selectedCompatibility) => {
-    setParentSelectedCompatibility(selectedCompatibility);
-    setCurrentPage(1); // Set the current page to 1 when compatibility changes
+    setSelectedCompatibility(selectedCompatibility);
+    setCurrentPage(1);
   };
 
-  useEffect(() => {
-    console.log(ParentSelectedCompatibility);
-  }, [ParentSelectedCompatibility]);
-
+  const handleLanguageChange = (selectedLanguage) => {
+    setSelectedLanguage(selectedLanguage);
+    setCurrentPage(1);
+  };
+  
   const filteredSoftwareData = filterSoftwareData(
     SoftwareData,
     Maincategory,
     Subcategory,
     searchTerm,
     selectedFunctions,
-    ParentSelectedCompatibility,
+    SelectedCompatibility,
     selectedLanguage,
     selectedOs,
     selectedSupport
@@ -108,7 +109,6 @@ const SoftwareList = () => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -124,17 +124,6 @@ const SoftwareList = () => {
     } else {
       // Function is not selected, add it
       setSelectedFunctions((prevSelected) => [...prevSelected, func]);
-    }
-    setCurrentPage(1);
-  };
-
-  const handleLanguageClick = (language) => {
-    if (selectedLanguage.includes(language)) {
-      setSelectedLanguage((prevSelected) =>
-        prevSelected.filter((selected) => selected !== language)
-      );
-    } else {
-      setSelectedLanguage((prevSelected) => [...prevSelected, language]);
     }
     setCurrentPage(1);
   };
@@ -170,7 +159,7 @@ const SoftwareList = () => {
 
   useEffect(() => {
     console.log(selectedFunctions);
-    console.log(ParentSelectedCompatibility);
+    console.log(SelectedCompatibility);
     console.log(selectedLanguage);
     console.log(selectedOs);
   });
@@ -226,15 +215,17 @@ const SoftwareList = () => {
             onCompatibilityChange={handleCompatibilityChange}
             Maincategory={Maincategory}
             Subcategory={Subcategory}
-            selectedCompatibility={ParentSelectedCompatibility}
+            selectedCompatibility={SelectedCompatibility}
           />
         </div>
 
         <div>
           <LanguageFilter
             LanguageData={LanguageData}
+            onLanguageChange={handleLanguageChange}
+            Maincategory={Maincategory}
+            Subcategory={Subcategory}
             selectedLanguage={selectedLanguage}
-            handleLanguageClick={handleLanguageClick}
           />
         </div>
 

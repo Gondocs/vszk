@@ -1,12 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "../../../../css/FilterButton.css";
 
 function LanguageFilter({
   LanguageData,
-  selectedLanguage,
-  handleLanguageClick,
+  onLanguageChange,
+  Maincategory,
+  Subcategory,
 }) {
+
+  const [selectedLanguage, setSelectedLanguage] = useState([]);
+  useEffect(() => {
+    setSelectedLanguage([]);
+    onLanguageChange([]); 
+    // eslint-disable-next-line
+  }, [Maincategory, Subcategory]);
+
+  const handleLanguageClick = async (language) => {
+    let updatedLanguage;
+
+    if (selectedLanguage.includes(language)) {
+      updatedLanguage = selectedLanguage.filter(
+        (selected) => selected !== language
+      );
+    } else {
+      updatedLanguage = [...selectedLanguage, language];
+    }
+
+    await setSelectedLanguage(updatedLanguage);
+
+    onLanguageChange(updatedLanguage); // Call the callback function with the updated data
+    console.log(updatedLanguage);
+    console.log(selectedLanguage);
+  };
+
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
@@ -14,6 +41,8 @@ function LanguageFilter({
   const toggleLanguageCollapse = () => {
     setIsLanguageCollapsed(!isLanguageCollapsed);
   };
+
+
 
   return (
     <ul ref={parent}>
