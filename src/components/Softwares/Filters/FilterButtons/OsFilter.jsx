@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "../../../../css/FilterButton.css";
 
-function OsFilter({ OsData, selectedOs, handleOSClick }) {
+function OsFilter({ OsData, onOsChange, Maincategory, Subcategory }) {
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [isOSCollapsed, setIsOSCollapsed] = useState(false);
 
   const toggleOSeCollapse = () => {
     setIsOSCollapsed(!isOSCollapsed);
+  };
+  const [selectedOs, setSelectedOs] = useState([]);
+  useEffect(() => {
+    setSelectedOs([]);
+    onOsChange([]);
+    // eslint-disable-next-line
+  }, [Maincategory, Subcategory]);
+
+  const handleOSClick = async (Os) => {
+    let updatedOs;
+
+    if (selectedOs.includes(Os)) {
+      updatedOs = selectedOs.filter(
+        (selected) => selected !== Os
+      );
+    } else {
+      updatedOs = [...selectedOs, Os];
+    }
+
+    await setSelectedOs(updatedOs);
+
+    onOsChange(updatedOs); // Call the callback function with the updated data
+    console.log(updatedOs);
+    console.log(selectedOs);
   };
 
   return (

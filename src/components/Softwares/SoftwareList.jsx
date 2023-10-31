@@ -87,7 +87,12 @@ const SoftwareList = () => {
     setSelectedLanguage(selectedLanguage);
     setCurrentPage(1);
   };
-  
+
+  const handleOsChange = (selectedOs) => {
+    setSelectedOs(selectedOs);
+    setCurrentPage(1);
+  };
+
   const filteredSoftwareData = filterSoftwareData(
     SoftwareData,
     Maincategory,
@@ -232,8 +237,10 @@ const SoftwareList = () => {
         <div>
           <OsFilter
             OsData={OsData}
+            onOsChange={handleOsChange}
+            Maincategory={Maincategory}
+            Subcategory={Subcategory}
             selectedOs={selectedOs}
-            handleOSClick={handleOSClick}
           />
         </div>
 
