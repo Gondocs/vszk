@@ -133,7 +133,7 @@ export const Navbar = () => {
       <div className="flex items-center">
         <Link
           to="/"
-          className="text-white hover:text-gray-400 block mr-24 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover"
+          className="text-white hover:text-gray-400 block mr-12 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover"
         >
           Főoldal
         </Link>
@@ -147,7 +147,7 @@ export const Navbar = () => {
             <button
               className={`text-white ${
                 isDropdownVisible ? "text-gray-400" : "hover:text-gray-400"
-              } block mr-8 hover-scale hover-scale:hover text-[1.2rem]`}
+              } block mr-4 hover-scale hover-scale:hover text-[1.2rem]`}
             >
               Szoftverek
             </button>
@@ -164,14 +164,14 @@ export const Navbar = () => {
 
         <Link
           to="/osszehasonlitas"
-          className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]"
+          className="text-white hover:text-gray-400 block mr-2 hover-scale hover-scale:hover text-[1.2rem]"
         >
           Összehasonlítás
         </Link>
 
         {!isLoading && (
           <>
-            <div className="flex-grow relative px-20">
+            <div className="flex-grow relative px-8">
               <div className="relative">
                 {/* Search input with integrated search button */}
                 <div style={{ position: "relative" }}>

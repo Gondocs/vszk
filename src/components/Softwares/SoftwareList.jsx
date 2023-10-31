@@ -39,8 +39,7 @@ const SoftwareList = () => {
   const [OsData, setOsData] = useState([]);
   const [SupportData, setSupportData] = useState([]);
 
-  const [SelectedCompatibility, setSelectedCompatibility] =
-    useState([]);
+  const [SelectedCompatibility, setSelectedCompatibility] = useState([]);
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
@@ -60,7 +59,6 @@ const SoftwareList = () => {
     console.log("url changed");
   }, [searchTerm, location.search, searchnavigate]);
 
-  // Call the fetchData function inside the useEffect hook
   useEffect(() => {
     fetchData(
       setSoftwareData,
@@ -319,7 +317,6 @@ const SoftwareList = () => {
                           }}
                         >
                           {software.name}
-
                         </Link>
                         <Link
                           to={`/cegek/${transliterate(software.company.name)}`}
