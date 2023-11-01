@@ -15,6 +15,7 @@ import { Apitest } from "./components/api/apitest";
 import { Toaster } from "react-hot-toast";
 import { CompanyList } from "./components/CompanyList";
 import CompanyDetail from "./components/CompanyDetail";
+import  Compare  from "./components/Compare";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -51,6 +52,17 @@ root.render(
             <>
               {" "}
               <Register />{" "}
+            </>
+          }
+        >
+          {" "}
+        </Route>
+        <Route
+          path="/osszehasonlitas"
+          element={
+            <>
+              {" "}
+              <Compare /> <Footer />{" "}
             </>
           }
         >
