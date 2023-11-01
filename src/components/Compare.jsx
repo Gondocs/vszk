@@ -35,18 +35,7 @@ const Compare = () => {
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
 
-  const [isFuncCollapsed, setIsFuncCollapsed] = useState(false);
-  const [isCompatibilityCollapsed, setIsCompatibilityCollapsed] =
-    useState(false);
-  const [isLanguageCollapsed, setIsLanguageCollapsed] = useState(false);
-  const [isOSCollapsed, setIsOSCollapsed] = useState(false);
-  const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
-
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -197,33 +186,6 @@ const Compare = () => {
   useEffect(() => {
     console.log("softwaare", SoftwareData);
   }, [SoftwareData]);
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedSoftwareData = filteredSoftwareData.slice(
-    startIndex,
-    endIndex
-  );
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const handleLanguageClick = (language) => {
-    if (selectedLanguage.includes(language)) {
-      setSelectedLanguage((prevSelected) =>
-        prevSelected.filter((selected) => selected !== language)
-      );
-    } else {
-      // Compatibility is not selected, add it
-      setSelectedLanguage((prevSelected) => [...prevSelected, language]);
-    }
-  };
 
   const [MainCategoryData, setMainCategoryData] = useState([]);
   useEffect(() => {
