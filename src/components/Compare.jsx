@@ -273,10 +273,13 @@ const Compare = () => {
           ))}
         </ul>
       </div>
-      <div>
+      <div className="m-auto">
         {!currentMainCategoryName ? (
-          <div className="flex FadeInSmall" style={{ marginLeft: "8%" }}>
-            <CompareSvg />
+          <div className="flex flex-col align-center"  >
+            <div className="mb-10 text-center text-white bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover ">Hasonlítsa össze a különféle szoftvereinket és találja meg számára a legtökéletesebbet</div>
+            <div className="relative w-1/2">
+              <CompareSvg />
+            </div>
           </div>
         ) : (
           <div>
