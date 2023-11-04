@@ -93,8 +93,8 @@ const Compare = () => {
       software.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     // Limit to the top 5 results
-    const top5Results = filteredData.slice(0, 5);
-    setFilteredSoftwareData(top5Results);
+    // const top5Results = filteredData.slice(0, 5);
+    setFilteredSoftwareData(filteredData);
   };
 
   useEffect(() => {
@@ -273,27 +273,33 @@ const Compare = () => {
           ))}
         </ul>
       </div>
-      <div className="m-auto">
-        {!currentMainCategoryName ? (
-          <div className="flex flex-col align-center"  >
-            <div className="mb-10 text-center text-white bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover ">Hasonlítsa össze a különféle szoftvereinket és találja meg számára a legtökéletesebbet</div>
+
+      {!currentMainCategoryName ? (
+        <div className="m-auto">
+          <div className="flex flex-col align-center ">
+            <div className="mb-10 text-center text-white bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover ">
+              Hasonlítsa össze a különféle szoftvereinket és találja meg számára
+              a legtökéletesebbet
+            </div>
             <div className="relative w-1/2">
               <CompareSvg />
             </div>
           </div>
-        ) : (
-          <div>
+        </div>
+      ) : (
+        <div className="w-full">
+          <div className="">
             {!isCompareSoftwares ? (
-              <div className="w-4/5 p-4 bg-gray-200 rounded-40">
-                <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
+              <div className="p-4 bg-gray-200 rounded-40 flex-col">
+                <h1 className="text-2xl text-black  font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
                   {currentMainCategoryName}
                 </h1>
-                <div className="flex-grow px-8 relative">
+                <div className="w-3/5 px-8 relative float-left">
                   <div className="relative mb-3 ">
                     <input
                       type="text"
                       placeholder="Keresés"
-                      className="pl-5 pr-5 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-4/5 hover-scale-small hover-scale-small:hover"
+                      className="pl-5 pr-5 pt-2 pb-2 w-full rounded-lg bg-gray-700 text-white focus:outline-none hover-scale-small hover-scale-small:hover"
                       value={searchQuery}
                       onChange={handleInputChange}
                     />
@@ -319,25 +325,28 @@ const Compare = () => {
                     </div>
                   )}
                 </div>
-                {selectedSoftwares.map((id) => (
-                  <div
-                    onClick={() => removeSelectedSoftware(id)}
-                    className="shadow-custom px-3 py-2 my-1 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
-                  >
-                    <button className="text-lg rounded-25">
-                      {SoftwareData[id].name}{" "}
-                      <i class="bi bi-x-circle text-xl text-red-600"></i>
+                <div className="w-2/5 px-8 relative float-left">
+                  {selectedSoftwares.map((id) => (
+                    <div
+                      onClick={() => removeSelectedSoftware(id)}
+                      className="shadow-custom  w-full px-3 py-2 my-1 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
+                    >
+                      <button className="text-lg rounded-25">
+                        {SoftwareData[id].name}{" "}
+                        {/* <i class="bi bi-x-circle text-xl text-red-600"></i> */}
+                        <text className="text-right text-red-500 font-bold">X</text>
+                      </button>
+                    </div>
+                  ))}
+                  {selectedSoftwares.length >= 2 ? (
+                    <button
+                      onClick={handleClickOnCompare}
+                      className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
+                    >
+                      Összehasonlítás
                     </button>
-                  </div>
-                ))}
-                {selectedSoftwares.length >= 2 ? (
-                  <button
-                    onClick={handleClickOnCompare}
-                    className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
-                  >
-                    Összehasonlítás
-                  </button>
-                ) : null}
+                  ) : null}
+                </div>
               </div>
             ) : (
               <div>
@@ -352,8 +361,8 @@ const Compare = () => {
               </div>
             )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {isCompareSoftwares && !(selectedSoftwares === null) ? (
         <table class="container ">
