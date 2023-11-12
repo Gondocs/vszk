@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
 import { get } from "../api/api";
 import { showToast } from "../toasts/toast";
-import Pagination from "../Pagination/pagination";
+// import Pagination from "../Pagination/pagination";
 import CompareSvg from "../assets/CompareSvg";
 
 const Compare = () => {
@@ -250,7 +250,7 @@ const Compare = () => {
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/5 bg-white px-8 py-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400"
+        className="w-1/4 bg-white p-10 rounded-25 mr-4 ml-4 shadow-lg border border-gray-400"
         style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
@@ -261,9 +261,9 @@ const Compare = () => {
             <h1 key={index}>
               <button
                 onClick={() => setCurrentMainCategoryName(mainCategory.name)}
-                className={`w-full block text-left pl-6 pr-4 my-1 py-3 text-black hover:text-white rounded-25 hover:bg-gray-600 hover:opacity-100 ${
+                className={`text-lg text-white my-1 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-700 bg-gray-600 transition-class ${
                   currentMainCategoryName === mainCategory.name
-                    ? "bg-gray-600 opacity-100 text-white"
+                    ? "bg-gray-800 opacity-100 text-white"
                     : ""
                 }`}
               >
