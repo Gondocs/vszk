@@ -20,6 +20,7 @@ import { Apitest } from "./components/api/apitest";
 import { Toaster } from "react-hot-toast";
 import { CompanyList } from "./components/Companies/CompanyList";
 import CompanyDetail from "./components/Companies/CompanyDetail";
+import Compare from "./components/Compare/Compare";
 
 const isAuthenticated = !!localStorage.getItem("token"); // Check if the user is authenticated
 
@@ -64,6 +65,15 @@ root.render(
         >
           {" "}
         </Route>
+        <Route
+          path="/osszehasonlitas"
+          element={
+            <>
+              {" "}
+              <Compare /> <Footer />{" "}
+            </>
+          }
+        ></Route>
         <Route
           path="/szoftverek"
           element={
