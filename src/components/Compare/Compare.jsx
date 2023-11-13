@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../../css/softwareList.css";
 import "../../css/Navbar.css";
 import "../../css/dropDown.css";
@@ -16,6 +17,7 @@ const Compare = () => {
   const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
   const [currentSubCategoryName, setCurrentSubCategoryName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  // const [ClickedSearch, setClickedSearch] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
   const [selectedSoftwares, setselectedSoftwares] = useState([]);
@@ -36,6 +38,7 @@ const Compare = () => {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedOs, setSelectedOs] = useState([]);
   const [selectedSupport, setSelectedSupport] = useState([]);
+  const searchnavigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
 
@@ -58,6 +61,13 @@ const Compare = () => {
     setTimeout(() => {
       setIsSearchFocused(false);
     }, 250); // Delay for 250 milliseconds (0.25 seconds) NEEDS IN ORDER TO CLICK ON THE LINKS
+  };
+  const handleSearchEnter = (e) => {
+    if (e.key === "Enter") {
+      // Redirect to the SoftwareList component with the search query
+      searchnavigate(`/szoftverek?search=${searchQuery}`);
+      setIsSearchFocused(false);
+    }
   };
 
   const handleChooseSoftware = (id) => {
@@ -109,18 +119,21 @@ const Compare = () => {
   const handleClickOnCompareList = () => {
     if (isCompareSoftwares) {
       setIsCompareSoftwares(!isCompareSoftwares);
-    }    
+    }
   };
 
   const filterSoftwareData = () => {
-    const filteredData = SoftwareData.filter((software) =>
-      software.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    // Limit to the top 5 results
-    // const top5Results = filteredData.slice(0, 5);
+    if (searchQuery.trim().length === 0) {
+      setFilteredSoftwareData(SoftwareData);
+      return;
+    }
+
+    const filteredData = SoftwareData.filter((software) => {
+      return software.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
     setFilteredSoftwareData(filteredData);
   };
-
   useEffect(() => {
     get
       .GettAllInfos()
@@ -137,13 +150,13 @@ const Compare = () => {
 
   useEffect(() => {
     filterSoftwareData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
-  useEffect(() => {
-    filterSoftwareData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  // useEffect(() => {
+  //   filterSoftwareData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[]);
+
 
   useEffect(() => {
     get
@@ -289,7 +302,10 @@ const Compare = () => {
           {MainCategoryData.map((mainCategory, index) => (
             <h1 key={index}>
               <button
-                onClick={() => [setCurrentMainCategoryName(mainCategory.name), handleClickOnCompareList()]}
+                onClick={() => [
+                  setCurrentMainCategoryName(mainCategory.name),
+                  handleClickOnCompareList(),
+                ]}
                 className={`text-lg text-white my-1 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-700 bg-gray-600 transition-class ${
                   currentMainCategoryName === mainCategory.name
                     ? "bg-gray-800 opacity-100 text-white"
@@ -336,11 +352,13 @@ const Compare = () => {
                       className="pl-5 pr-16 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full"
                       value={searchQuery}
                       onChange={handleInputChange}
+                      onFocus={handleSearchFocus}
+                      onBlur={handleSearchBlur}
+                      onKeyDown={handleSearchEnter}
                       //   onFocus={handleSearchFocus}
-                      //   onClick={handleClickIn}
                     />
                   </div>
-                  {(searchQuery || !searchQuery) && (
+                  {isSearchFocused && searchQuery.length >= 0 && (
                     <div
                       className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4"
                       style={{
@@ -349,7 +367,7 @@ const Compare = () => {
                       }}
                       //   ref={parent}
                     >
-                      {filteredSoftwareData.length > 0 ? (
+                      {(
                         filteredSoftwareData
                           .filter(
                             (category) =>
@@ -391,20 +409,6 @@ const Compare = () => {
                               </div>
                             </button>
                           ))
-                      ) : (
-                        <div className="text-black text-center text-2xl">
-                          Nem található szoftver.
-                          <div
-                            className="mt-6 items-center"
-                            style={{
-                              width: "70%",
-                              marginLeft: "auto",
-                              marginRight: "auto",
-                            }}
-                          >
-                            <NotFoundSvg />
-                          </div>
-                        </div>
                       )}
                     </div>
                   )}
@@ -437,119 +441,122 @@ const Compare = () => {
               </div>
             ) : (
               <div>
-                {isCompareSoftwares ? (
-                  <button
-                    onClick={handleClickOnCompare}
-                    className="bg-yellow-400 text-black px-6 py-3 mr-5   rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
-                  >
-                    Vissza
-                  </button>
+                {isCompareSoftwares && !(selectedSoftwares === null) ? (
+                  <div>
+                    <button
+                      onClick={handleClickOnCompare}
+                      className="bg-yellow-400 text-black px-6 py-3 mr-5 mb-5  rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
+                    >
+                      Vissza
+                    </button>
+                    <table class="container">
+                      <thead className="mb-5" >
+                        {selectedSoftwares.map((id) => (
+                          <th className="text-3xl">{SoftwareData[id].name}</th>
+                        ))}
+                        <th></th>
+                      </thead>
+                      <b className="text-xl">Funkciók: </b>
+                      <tbody>
+                        {selectedSoftwares.map((id) => (
+                          <td className="p-3">
+                            {SoftwareData[id].functions.map((func) => (
+                              <tr
+                                className={`"shadow-custom p-2 my-1.5 w-full rounded-25 flex  flex-col items-center justify-center text-center ${
+                                  func.sfunction ? "bg-green-200" : "bg-red-400"
+                                }`}
+                                style={{ height: "80px" }}
+                              >
+                                {func.functionality}
+                              </tr>
+                            ))}
+                          </td>
+                        ))}
+                      </tbody>
+                      <b className="text-xl">Kompabilitás: </b>
+                      <tbody>
+                        {selectedSoftwares.map((id) => (
+                          <td className="p-3">
+                            {CompatibilityData.map((comp) => (
+                              <tr
+                                className={` "shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                  SoftwareData[id].devices.includes(comp)
+                                    ? "bg-green-200"
+                                    : "bg-red-400"
+                                }`}
+                                style={{ height: "80px" }}
+                              >
+                                {comp}
+                              </tr>
+                            ))}
+                          </td>
+                        ))}
+                      </tbody>
+                      <b className="text-xl">Szoftver nyelve: </b>
+                      <tbody>
+                        {selectedSoftwares.map((id) => (
+                          <td className="p-3">
+                            {LanguageData.map((lang) => (
+                              <tr
+                                className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                  SoftwareData[id].languages.includes(lang)
+                                    ? "bg-green-200"
+                                    : "bg-red-400"
+                                }`}
+                                style={{ height: "80px" }}
+                              >
+                                {lang}
+                              </tr>
+                            ))}
+                          </td>
+                        ))}
+                      </tbody>
+                      <b className="text-xl">Operációs rendszerek: </b>
+                      <tbody>
+                        {selectedSoftwares.map((id) => (
+                          <td className="p-3">
+                            {OsData.map((os) => (
+                              <tr
+                                className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                  SoftwareData[id].oSs.includes(os)
+                                    ? "bg-green-200"
+                                    : "bg-red-400"
+                                }`}
+                                style={{ height: "80px" }}
+                              >
+                                {os}
+                              </tr>
+                            ))}
+                          </td>
+                        ))}
+                      </tbody>
+                      <b className="text-xl">Támogatás nyelve: </b>
+                      <tbody>
+                        {selectedSoftwares.map((id) => (
+                          <td className="p-3">
+                            {SupportData.map((supp) => (
+                              <tr
+                                className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                  SoftwareData[id].supports.includes(supp)
+                                    ? "bg-green-200"
+                                    : "bg-red-400"
+                                }`}
+                                style={{ height: "80px" }}
+                              >
+                                {supp}
+                              </tr>
+                            ))}
+                          </td>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 ) : null}
               </div>
             )}
           </div>
         </div>
       )}
-
-      {isCompareSoftwares && !(selectedSoftwares === null) ? (
-        <table class="container">
-          <thead>
-            {selectedSoftwares.map((id) => (
-              <th className="text-xl">{SoftwareData[id].name}</th>
-            ))}
-            <th></th>
-          </thead>
-          <b className="text-xl">Funkciók: </b>
-          <tbody>
-            {selectedSoftwares.map((id) => (
-              <td className="p-3">
-                {SoftwareData[id].functions.map((func) => (
-                  <tr
-                    className={`"shadow-custom p-2 my-0.5 rounded-25 flex  flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
-                      func.sfunction ? "bg-green-200" : "bg-red-400"
-                    }`}
-                    style={{ height: "50px" }}
-                  >
-                    {func.functionality}
-                  </tr>
-                ))}
-              </td>
-            ))}
-          </tbody>
-          <b className="text-xl">Kompabilitás: </b>
-          <tbody>
-            {selectedSoftwares.map((id) => (
-              <td className="p-3">
-                {CompatibilityData.map((comp) => (
-                  <tr
-                    className={` "shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
-                      SoftwareData[id].devices.includes(comp)
-                        ? "bg-green-200"
-                        : "bg-red-400"
-                    }`}
-                  >
-                    {comp}
-                  </tr>
-                ))}
-              </td>
-            ))}
-          </tbody>
-          <b className="text-xl">Szoftver nyelve: </b>
-          <tbody>
-            {selectedSoftwares.map((id) => (
-              <td className="p-3">
-                {LanguageData.map((lang) => (
-                  <tr
-                    className={`"shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
-                      SoftwareData[id].languages.includes(lang)
-                        ? "bg-green-200"
-                        : "bg-red-400"
-                    }`}
-                  >
-                    {lang}
-                  </tr>
-                ))}
-              </td>
-            ))}
-          </tbody>
-          <b className="text-xl">Operációs rendszerek: </b>
-          <tbody>
-            {selectedSoftwares.map((id) => (
-              <td className="p-3">
-                {OsData.map((os) => (
-                  <tr
-                    className={`"shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
-                      SoftwareData[id].oSs.includes(os)
-                        ? "bg-green-200"
-                        : "bg-red-400"
-                    }`}
-                  >
-                    {os}
-                  </tr>
-                ))}
-              </td>
-            ))}
-          </tbody>
-          <b className="text-xl">Támogatás nyelve: </b>
-          <tbody>
-            {selectedSoftwares.map((id) => (
-              <td className="p-3">
-                {SupportData.map((supp) => (
-                  <tr
-                    className={`"shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
-                      SoftwareData[id].supports.includes(supp)
-                        ? "bg-green-200"
-                        : "bg-red-400"
-                    }`}
-                  >
-                    {supp}
-                  </tr>
-                ))}
-              </td>
-            ))}
-          </tbody>
-        </table>
-      ) : null}
     </div>
   );
 };
