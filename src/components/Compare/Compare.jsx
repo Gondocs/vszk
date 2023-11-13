@@ -320,17 +320,16 @@ const Compare = () => {
 
       {!currentMainCategoryName ? (
         <div className="m-auto">
-          <div className="flex flex-col align-center p-5">
-            <div className="mb-20 text-center text-white bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover">
-              <p className="p-2">
+          <div className="flex flex-col align-center p-5 pt-10 bg-white p-10 rounded-25 mr-4 ml-4 shadow-lg border border-gray-400">
+            <div className="mb-20 text-center text-white bg-gray-800 py-6 mt-0 rounded-25 hover-scale-small:hover">
+              <p className="p-2 text-2xl px-16">
                 Használja a szoftver összehasonlító modulunkat és találja meg
-                számára a legmegefelőbbet. Hasonlítsa össze a szoftvereinket
-                funkció, kompabilitás, nyelv, operációs rendszer és még sok más
-                szempont alapján.
+                számára a legmegefelőbbet.<br></br> <br></br> Hasonlítsa össze a
+                szoftvereinket funkció, kompabilitás, nyelv, operációs rendszer
+                és még sok más szempont alapján.
               </p>
             </div>
-            <div></div>
-            <div className="m-auto w-1/2">
+            <div className="m-auto w-auto">
               <CompareSvg />
             </div>
           </div>
@@ -348,7 +347,7 @@ const Compare = () => {
                     <input
                       type="text"
                       placeholder="Keresés"
-                      className="pl-5 pr-16 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full"
+                      className="pl-5 pr-16 py-5 rounded-lg text-lg bg-gray-700 text-white focus:outline-none w-full"
                       value={searchQuery}
                       onChange={handleInputChange}
                       onFocus={handleSearchFocus}
@@ -415,13 +414,13 @@ const Compare = () => {
                   {selectedSoftwares.map((id) => (
                     <div
                       onClick={() => removeSelectedSoftware(id)}
-                      className="shadow-custom  w-full px-3 py-2 my-2 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
+                      className="shadow-custom bg-white w-full px-3 py-2 my-5 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
                       style={{ height: "100px" }}
                     >
-                      <button className="text-lg rounded-25">
+                      <button className="text-2xl rounded-25">
                         {SoftwareData[id].name}{" "}
                         {/* <i class="bi bi-x-circle text-xl text-red-600"></i> */}
-                        <text className="text-right text-red-500 font-bold">
+                        <text className="text-right text-red-500 text-2xl font-bold">
                           X
                         </text>
                       </button>
@@ -430,7 +429,7 @@ const Compare = () => {
                   {selectedSoftwares.length >= 2 ? (
                     <button
                       onClick={handleClickOnCompare}
-                      className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
+                      className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-xl hover-scale-small:hover hover-scale-small"
                     >
                       Összehasonlítás
                     </button>
@@ -454,13 +453,13 @@ const Compare = () => {
                         ))}
                         <th></th>
                       </thead>
-                      <b className="text-xl">Funkciók: </b>
+                      <b className="text-2xl">Funkciók: </b>
                       <tbody className="">
                         {selectedSoftwares.map((id) => (
                           <td className="p-3 align-top">
                             {SoftwareData[id].functions.map((func) => (
                               <tr
-                                className={`"shadow-custom  p-2 my-1.5 w-full rounded-25 flex  flex-col items-center justify-center text-center ${
+                                className={`"shadow-custom  p-2 my-1.5 w-full rounded-25 flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
                                   func.sfunction ? "bg-green-200" : "bg-red-400"
                                 }`}
                                 style={{ height: "80px" }}
@@ -471,7 +470,7 @@ const Compare = () => {
                           </td>
                         ))}
                       </tbody>
-                      <b className="text-xl">Kompabilitás: </b>
+                      <b className="text-2xl">Kompabilitás: </b>
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
@@ -493,7 +492,7 @@ const Compare = () => {
                               return (
                                 (isCompatible || allInclude) && (
                                   <tr
-                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 text-xl text-black font-semibold flex flex-col items-center justify-center text-center hover-scale-small:hover ${
                                       SoftwareData[id].devices.includes(comp)
                                         ? "bg-green-200"
                                         : "bg-red-400"
@@ -508,7 +507,7 @@ const Compare = () => {
                           </td>
                         ))}
                       </tbody>
-                      <b className="text-xl">Szoftver nyelve: </b>
+                      <b className="text-2xl">Szoftver nyelve: </b>
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
@@ -531,7 +530,7 @@ const Compare = () => {
                               return (
                                 (isCompatible || allInclude) && (
                                   <tr
-                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex text-xl text-black font-semibold flex-col items-center justify-center text-center hover-scale-small:hover ${
                                       SoftwareData[id].languages.includes(lang)
                                         ? "bg-green-200"
                                         : "bg-red-400"
@@ -546,41 +545,41 @@ const Compare = () => {
                           </td>
                         ))}
                       </tbody>
-                      <b className="text-xl">Operációs rendszerek: </b>
+                      <b className="text-2xl">Operációs rendszerek: </b>
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
                             {OsData.map((os) => {
-        const isCompatible = selectedSoftwares.some(
-          (softwareId) =>
-            SoftwareData[softwareId].oSs.includes(os) !==
-            SoftwareData[id].oSs.includes(os)
-        );
+                              const isCompatible = selectedSoftwares.some(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].oSs.includes(os) !==
+                                  SoftwareData[id].oSs.includes(os)
+                              );
 
-        const allInclude = selectedSoftwares.every(
-          (softwareId) =>
-            SoftwareData[softwareId].oSs.includes(os)
-        );
+                              const allInclude = selectedSoftwares.every(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].oSs.includes(os)
+                              );
 
-        return (
-          (isCompatible || allInclude) && (
-            <tr
-              className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
-                SoftwareData[id].oSs.includes(os)
-                  ? "bg-green-200"
-                  : "bg-red-400"
-              }`}
-              style={{ height: "80px" }}
-            >
-              {os}
-            </tr>
-          )
-        );
-      })}
+                              return (
+                                (isCompatible || allInclude) && (
+                                  <tr
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex text-xl text-black font-semibold flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                      SoftwareData[id].oSs.includes(os)
+                                        ? "bg-green-200"
+                                        : "bg-red-400"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {os}
+                                  </tr>
+                                )
+                              );
+                            })}
                           </td>
                         ))}
                       </tbody>
-                      <b className="text-xl">Támogatás nyelve: </b>
+                      <b className="text-2xl">Támogatás nyelve: </b>
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
@@ -602,7 +601,7 @@ const Compare = () => {
                               return (
                                 (isCompatible || allInclude) && (
                                   <tr
-                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex text-xl text-black font-semibold flex-col items-center justify-center text-center hover-scale-small:hover ${
                                       SoftwareData[id].supports.includes(supp)
                                         ? "bg-green-200"
                                         : "bg-red-400"
