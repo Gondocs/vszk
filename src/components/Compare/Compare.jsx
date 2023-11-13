@@ -367,49 +367,47 @@ const Compare = () => {
                       }}
                       //   ref={parent}
                     >
-                      {(
-                        filteredSoftwareData
-                          .filter(
-                            (category) =>
-                              category.category.name === currentMainCategoryName
-                          )
-                          .map((software) => (
-                            <button
-                              key={software.softwareID}
-                              className="flex w-full items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                              onClick={() =>
-                                handleChooseSoftware(software.softwareID - 1)
-                              }
-                              style={{ height: "130px" }}
+                      {filteredSoftwareData
+                        .filter(
+                          (category) =>
+                            category.category.name === currentMainCategoryName
+                        )
+                        .map((software) => (
+                          <button
+                            key={software.softwareID}
+                            className="flex w-full items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                            onClick={() =>
+                              handleChooseSoftware(software.softwareID - 1)
+                            }
+                            style={{ height: "130px" }}
+                          >
+                            <div className="w-1/3">
+                              <div className="flex items-center justify-center">
+                                <img
+                                  src={software.logo_link}
+                                  alt={software.name}
+                                  className=""
+                                  style={{
+                                    width: "auto",
+                                    height: "auto",
+                                    maxHeight: "80px",
+                                    paddingLeft: "30%",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className="w-2/3 text-2xl font-semibold"
+                              style={{ paddingLeft: "20%" }}
                             >
-                              <div className="w-1/3">
-                                <div className="flex items-center justify-center">
-                                  <img
-                                    src={software.logo_link}
-                                    alt={software.name}
-                                    className=""
-                                    style={{
-                                      width: "auto",
-                                      height: "auto",
-                                      maxHeight: "80px",
-                                      paddingLeft: "30%",
-                                    }}
-                                  />
-                                </div>
+                              {software.name}
+                              <br />
+                              <div className="text-base mt-1">
+                                {software.category.name}
                               </div>
-                              <div
-                                className="w-2/3 text-2xl font-semibold"
-                                style={{ paddingLeft: "20%" }}
-                              >
-                                {software.name}
-                                <br />
-                                <div className="text-base mt-1">
-                                  {software.category.name}
-                                </div>
-                              </div>
-                            </button>
-                          ))
-                      )}
+                            </div>
+                          </button>
+                        ))}
                     </div>
                   )}
                 </div>
@@ -450,7 +448,7 @@ const Compare = () => {
                       Vissza
                     </button>
                     <table class="container">
-                      <thead className="mb-5" >
+                      <thead className="mb-5">
                         {selectedSoftwares.map((id) => (
                           <th className="text-3xl">{SoftwareData[id].name}</th>
                         ))}
@@ -477,18 +475,36 @@ const Compare = () => {
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
-                            {CompatibilityData.map((comp) => (
-                              <tr
-                                className={` "shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
-                                  SoftwareData[id].devices.includes(comp)
-                                    ? "bg-green-200"
-                                    : "bg-red-400"
-                                }`}
-                                style={{ height: "80px" }}
-                              >
-                                {comp}
-                              </tr>
-                            ))}
+                            {CompatibilityData.map((comp) => {
+                              const isCompatible = selectedSoftwares.some(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].devices.includes(
+                                    comp
+                                  ) !== SoftwareData[id].devices.includes(comp)
+                              );
+
+                              const allInclude = selectedSoftwares.every(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].devices.includes(
+                                    comp
+                                  )
+                              );
+
+                              return (
+                                (isCompatible || allInclude) && (
+                                  <tr
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                      SoftwareData[id].devices.includes(comp)
+                                        ? "bg-green-200"
+                                        : "bg-red-400"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {comp}
+                                  </tr>
+                                )
+                              );
+                            })}
                           </td>
                         ))}
                       </tbody>
@@ -496,18 +512,37 @@ const Compare = () => {
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
-                            {LanguageData.map((lang) => (
-                              <tr
-                                className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                            {LanguageData.map((lang) => {
+                              const isCompatible = selectedSoftwares.some(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].languages.includes(
+                                    lang
+                                  ) !==
                                   SoftwareData[id].languages.includes(lang)
-                                    ? "bg-green-200"
-                                    : "bg-red-400"
-                                }`}
-                                style={{ height: "80px" }}
-                              >
-                                {lang}
-                              </tr>
-                            ))}
+                              );
+
+                              const allInclude = selectedSoftwares.every(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].languages.includes(
+                                    lang
+                                  )
+                              );
+
+                              return (
+                                (isCompatible || allInclude) && (
+                                  <tr
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                      SoftwareData[id].languages.includes(lang)
+                                        ? "bg-green-200"
+                                        : "bg-red-400"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {lang}
+                                  </tr>
+                                )
+                              );
+                            })}
                           </td>
                         ))}
                       </tbody>
@@ -515,18 +550,33 @@ const Compare = () => {
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
-                            {OsData.map((os) => (
-                              <tr
-                                className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
-                                  SoftwareData[id].oSs.includes(os)
-                                    ? "bg-green-200"
-                                    : "bg-red-400"
-                                }`}
-                                style={{ height: "80px" }}
-                              >
-                                {os}
-                              </tr>
-                            ))}
+                            {OsData.map((os) => {
+        const isCompatible = selectedSoftwares.some(
+          (softwareId) =>
+            SoftwareData[softwareId].oSs.includes(os) !==
+            SoftwareData[id].oSs.includes(os)
+        );
+
+        const allInclude = selectedSoftwares.every(
+          (softwareId) =>
+            SoftwareData[softwareId].oSs.includes(os)
+        );
+
+        return (
+          (isCompatible || allInclude) && (
+            <tr
+              className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                SoftwareData[id].oSs.includes(os)
+                  ? "bg-green-200"
+                  : "bg-red-400"
+              }`}
+              style={{ height: "80px" }}
+            >
+              {os}
+            </tr>
+          )
+        );
+      })}
                           </td>
                         ))}
                       </tbody>
@@ -534,18 +584,36 @@ const Compare = () => {
                       <tbody>
                         {selectedSoftwares.map((id) => (
                           <td className="p-3">
-                            {SupportData.map((supp) => (
-                              <tr
-                                className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
-                                  SoftwareData[id].supports.includes(supp)
-                                    ? "bg-green-200"
-                                    : "bg-red-400"
-                                }`}
-                                style={{ height: "80px" }}
-                              >
-                                {supp}
-                              </tr>
-                            ))}
+                            {SupportData.map((supp) => {
+                              const isCompatible = selectedSoftwares.some(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].supports.includes(
+                                    supp
+                                  ) !== SoftwareData[id].supports.includes(supp)
+                              );
+
+                              const allInclude = selectedSoftwares.every(
+                                (softwareId) =>
+                                  SoftwareData[softwareId].supports.includes(
+                                    supp
+                                  )
+                              );
+
+                              return (
+                                (isCompatible || allInclude) && (
+                                  <tr
+                                    className={`"shadow-custom p-2 my-1.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                      SoftwareData[id].supports.includes(supp)
+                                        ? "bg-green-200"
+                                        : "bg-red-400"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {supp}
+                                  </tr>
+                                )
+                              );
+                            })}
                           </td>
                         ))}
                       </tbody>
