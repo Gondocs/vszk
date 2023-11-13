@@ -152,11 +152,10 @@ const Compare = () => {
     filterSoftwareData();
   }, [searchQuery]);
 
-  // useEffect(() => {
-  //   filterSoftwareData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[]);
-
+  const handleSearchClick = () => {
+    // Filter the software data when the search input is clicked
+    filterSoftwareData(searchQuery);
+  };
 
   useEffect(() => {
     get
@@ -355,6 +354,7 @@ const Compare = () => {
                       onFocus={handleSearchFocus}
                       onBlur={handleSearchBlur}
                       onKeyDown={handleSearchEnter}
+                      onClick={handleSearchClick}
                       //   onFocus={handleSearchFocus}
                     />
                   </div>
@@ -457,12 +457,12 @@ const Compare = () => {
                         <th></th>
                       </thead>
                       <b className="text-xl">Funkciók: </b>
-                      <tbody>
+                      <tbody className="">
                         {selectedSoftwares.map((id) => (
-                          <td className="p-3">
+                          <td className="p-3 align-top">
                             {SoftwareData[id].functions.map((func) => (
                               <tr
-                                className={`"shadow-custom p-2 my-1.5 w-full rounded-25 flex  flex-col items-center justify-center text-center ${
+                                className={`"shadow-custom  p-2 my-1.5 w-full rounded-25 flex  flex-col items-center justify-center text-center ${
                                   func.sfunction ? "bg-green-200" : "bg-red-400"
                                 }`}
                                 style={{ height: "80px" }}
