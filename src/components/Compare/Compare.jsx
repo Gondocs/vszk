@@ -8,6 +8,7 @@ import { get } from "../api/api";
 import { showToast } from "../toasts/toast";
 // import Pagination from "../Pagination/pagination";
 import CompareSvg from "../assets/CompareSvg";
+import NotFoundSvg from "../assets/NotFoundSvg";
 
 const Compare = () => {
   const { Maincategory, Subcategory } = useParams();
@@ -41,8 +42,14 @@ const Compare = () => {
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
     if (!isSearchFocused) {
-        setIsSearchFocused(true);
-      }
+      setIsSearchFocused(true);
+    }
+  };
+  const handleClickIn = (e) => {
+    setSearchQuery(e.target.value);
+    if (!isSearchFocused) {
+      setIsSearchFocused(true);
+    }
   };
   const handleSearchFocus = () => {
     setIsSearchFocused(true);
@@ -52,7 +59,6 @@ const Compare = () => {
       setIsSearchFocused(false);
     }, 250); // Delay for 250 milliseconds (0.25 seconds) NEEDS IN ORDER TO CLICK ON THE LINKS
   };
-
 
   const handleChooseSoftware = (id) => {
     const isContanin = selectedSoftwares.some((element) => {
@@ -100,6 +106,11 @@ const Compare = () => {
   const handleClickOnCompare = () => {
     setIsCompareSoftwares(!isCompareSoftwares);
   };
+  const handleClickOnCompareList = () => {
+    if (isCompareSoftwares) {
+      setIsCompareSoftwares(!isCompareSoftwares);
+    }    
+  };
 
   const filterSoftwareData = () => {
     const filteredData = SoftwareData.filter((software) =>
@@ -128,6 +139,11 @@ const Compare = () => {
     filterSoftwareData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
+
+  useEffect(() => {
+    filterSoftwareData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
 
   useEffect(() => {
     get
@@ -264,7 +280,7 @@ const Compare = () => {
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
         className="w-1/4 bg-white p-10 rounded-25 mr-4 ml-4 shadow-lg border border-gray-400"
-        style={{ height: "100%", marginTop: "6.3%" }}
+        style={{ height: "100%", marginTop: "6.3%", minWidth: "300px" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftver kategóriák
@@ -273,7 +289,7 @@ const Compare = () => {
           {MainCategoryData.map((mainCategory, index) => (
             <h1 key={index}>
               <button
-                onClick={() => setCurrentMainCategoryName(mainCategory.name)}
+                onClick={() => [setCurrentMainCategoryName(mainCategory.name), handleClickOnCompareList()]}
                 className={`text-lg text-white my-1 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-700 bg-gray-600 transition-class ${
                   currentMainCategoryName === mainCategory.name
                     ? "bg-gray-800 opacity-100 text-white"
@@ -289,12 +305,17 @@ const Compare = () => {
 
       {!currentMainCategoryName ? (
         <div className="m-auto">
-          <div className="flex flex-col align-center ">
-            <div className="mb-10 text-center text-white bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover ">
-              Hasonlítsa össze a különféle szoftvereinket és találja meg számára
-              a legtökéletesebbet
+          <div className="flex flex-col align-center p-5">
+            <div className="mb-20 text-center text-white bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover">
+              <p className="p-2">
+                Használja a szoftver összehasonlító modulunkat és találja meg
+                számára a legmegefelőbbet. Hasonlítsa össze a szoftvereinket
+                funkció, kompabilitás, nyelv, operációs rendszer és még sok más
+                szempont alapján.
+              </p>
             </div>
-            <div className="relative w-1/2">
+            <div></div>
+            <div className="m-auto w-1/2">
               <CompareSvg />
             </div>
           </div>
@@ -315,61 +336,76 @@ const Compare = () => {
                       className="pl-5 pr-16 pt-2 pb-2 rounded-lg bg-gray-700 text-white focus:outline-none w-full"
                       value={searchQuery}
                       onChange={handleInputChange}
-                      onFocus={handleSearchFocus}
+                      //   onFocus={handleSearchFocus}
+                      //   onClick={handleClickIn}
                     />
                   </div>
-                  {isSearchFocused && (!searchQuery || searchQuery) && (
+                  {(searchQuery || !searchQuery) && (
                     <div
-                      className="absolute left-0 mt-2 ml-12 z-10 bg-white rounded-lg shadow-md w-full"
+                      className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4"
                       style={{
                         width: "85%",
                         maxHeight: "32rem",
                       }}
                       //   ref={parent}
                     >
-                      {filteredSoftwareData
-                        .filter(
-                          (category) =>
-                            category.category.name === currentMainCategoryName
-                        )
-                        .map((software) => (
-                          <button
-                            key={software.softwareID}
-                            className="flex w-full items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                            onClick={() =>
-                              handleChooseSoftware(software.softwareID - 1)
-                              
-                            }
-                            
-                            style={{ height: "130px" }}
-                          >
-                            <div className="w-1/3">
-                              <div className="flex items-center justify-center">
-                                <img
-                                  src={software.logo_link}
-                                  alt={software.name}
-                                  className=""
-                                  style={{
-                                    width: "auto",
-                                    height: "auto",
-                                    maxHeight: "80px",
-                                    paddingLeft: "30%",
-                                  }}
-                                />
-                              </div>
-                            </div>
-                            <div
-                              className="w-2/3 text-2xl font-semibold"
-                              style={{ paddingLeft: "20%" }}
+                      {filteredSoftwareData.length > 0 ? (
+                        filteredSoftwareData
+                          .filter(
+                            (category) =>
+                              category.category.name === currentMainCategoryName
+                          )
+                          .map((software) => (
+                            <button
+                              key={software.softwareID}
+                              className="flex w-full items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                              onClick={() =>
+                                handleChooseSoftware(software.softwareID - 1)
+                              }
+                              style={{ height: "130px" }}
                             >
-                              {software.name}
-                              <br />
-                              <div className="text-base mt-1">
-                                {software.category.name}
+                              <div className="w-1/3">
+                                <div className="flex items-center justify-center">
+                                  <img
+                                    src={software.logo_link}
+                                    alt={software.name}
+                                    className=""
+                                    style={{
+                                      width: "auto",
+                                      height: "auto",
+                                      maxHeight: "80px",
+                                      paddingLeft: "30%",
+                                    }}
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          </button>
-                        ))}
+                              <div
+                                className="w-2/3 text-2xl font-semibold"
+                                style={{ paddingLeft: "20%" }}
+                              >
+                                {software.name}
+                                <br />
+                                <div className="text-base mt-1">
+                                  {software.category.name}
+                                </div>
+                              </div>
+                            </button>
+                          ))
+                      ) : (
+                        <div className="text-black text-center text-2xl">
+                          Nem található szoftver.
+                          <div
+                            className="mt-6 items-center"
+                            style={{
+                              width: "70%",
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                            }}
+                          >
+                            <NotFoundSvg />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -377,7 +413,7 @@ const Compare = () => {
                   {selectedSoftwares.map((id) => (
                     <div
                       onClick={() => removeSelectedSoftware(id)}
-                      className="shadow-custom  w-full px-3 py-2 my-1 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
+                      className="shadow-custom  w-full px-3 py-2 my-2 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
                       style={{ height: "100px" }}
                     >
                       <button className="text-lg rounded-25">
@@ -404,7 +440,7 @@ const Compare = () => {
                 {isCompareSoftwares ? (
                   <button
                     onClick={handleClickOnCompare}
-                    className="bg-yellow-400 text-black px-6 py-3 mr-5  rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
+                    className="bg-yellow-400 text-black px-6 py-3 mr-5   rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
                   >
                     Vissza
                   </button>
@@ -416,22 +452,23 @@ const Compare = () => {
       )}
 
       {isCompareSoftwares && !(selectedSoftwares === null) ? (
-        <table class="container ">
+        <table class="container">
           <thead>
             {selectedSoftwares.map((id) => (
               <th className="text-xl">{SoftwareData[id].name}</th>
             ))}
             <th></th>
           </thead>
-          <b>Funkciók: </b>
+          <b className="text-xl">Funkciók: </b>
           <tbody>
             {selectedSoftwares.map((id) => (
-              <td className="">
+              <td className="p-3">
                 {SoftwareData[id].functions.map((func) => (
                   <tr
                     className={`"shadow-custom p-2 my-0.5 rounded-25 flex  flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
                       func.sfunction ? "bg-green-200" : "bg-red-400"
                     }`}
+                    style={{ height: "50px" }}
                   >
                     {func.functionality}
                   </tr>
@@ -439,10 +476,10 @@ const Compare = () => {
               </td>
             ))}
           </tbody>
-          <b>Kompabilitás: </b>
+          <b className="text-xl">Kompabilitás: </b>
           <tbody>
             {selectedSoftwares.map((id) => (
-              <td>
+              <td className="p-3">
                 {CompatibilityData.map((comp) => (
                   <tr
                     className={` "shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
@@ -457,10 +494,10 @@ const Compare = () => {
               </td>
             ))}
           </tbody>
-          <b>Szoftver nyelve: </b>
+          <b className="text-xl">Szoftver nyelve: </b>
           <tbody>
             {selectedSoftwares.map((id) => (
-              <td>
+              <td className="p-3">
                 {LanguageData.map((lang) => (
                   <tr
                     className={`"shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
@@ -475,10 +512,10 @@ const Compare = () => {
               </td>
             ))}
           </tbody>
-          <b>Operációs rendszerek: </b>
+          <b className="text-xl">Operációs rendszerek: </b>
           <tbody>
             {selectedSoftwares.map((id) => (
-              <td>
+              <td className="p-3">
                 {OsData.map((os) => (
                   <tr
                     className={`"shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
@@ -493,10 +530,10 @@ const Compare = () => {
               </td>
             ))}
           </tbody>
-          <b>Támogatás nyelve: </b>
+          <b className="text-xl">Támogatás nyelve: </b>
           <tbody>
             {selectedSoftwares.map((id) => (
-              <td>
+              <td className="p-3">
                 {SupportData.map((supp) => (
                   <tr
                     className={`"shadow-custom p-2 my-0.5 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small ${
