@@ -294,7 +294,7 @@ const Compare = () => {
         className="w-1/4 bg-white p-10 rounded-25 mr-4 ml-4 shadow-lg border border-gray-400"
         style={{ height: "100%", marginTop: "6.3%", minWidth: "300px" }}
       >
-        <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
+        <h2 className="text-3xl font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftver kategóriák
         </h2>
         <ul>
@@ -305,7 +305,7 @@ const Compare = () => {
                   setCurrentMainCategoryName(mainCategory.name),
                   handleClickOnCompareList(),
                 ]}
-                className={`text-lg text-white my-1 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-700 bg-gray-600 transition-class ${
+                className={`text-xl text-white my-1 p-3 rounded-xl text-center effect effect-5 hover:bg-gray-700 bg-gray-600 transition-class ${
                   currentMainCategoryName === mainCategory.name
                     ? "bg-gray-800 opacity-100 text-white"
                     : ""
@@ -339,7 +339,7 @@ const Compare = () => {
           <div className="">
             {!isCompareSoftwares ? (
               <div className="p-4 bg-gray-200 rounded-40 flex-col">
-                <h1 className="text-2xl text-black  font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
+                <h1 className="text-4xl text-black  font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
                   {currentMainCategoryName}
                 </h1>
                 <div className="w-3/5 px-8 relative float-left">
@@ -347,7 +347,7 @@ const Compare = () => {
                     <input
                       type="text"
                       placeholder="Keresés"
-                      className="pl-5 pr-16 py-5 rounded-lg text-lg bg-gray-700 text-white focus:outline-none w-full"
+                      className="pl-5 pr-16 py-5 rounded-lg text-xl bg-gray-700 text-white focus:outline-none w-full"
                       value={searchQuery}
                       onChange={handleInputChange}
                       onFocus={handleSearchFocus}
@@ -429,7 +429,7 @@ const Compare = () => {
                   {selectedSoftwares.length >= 2 ? (
                     <button
                       onClick={handleClickOnCompare}
-                      className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-xl hover-scale-small:hover hover-scale-small"
+                      className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-2xl hover-scale-small:hover hover-scale-small"
                     >
                       Összehasonlítás
                     </button>
@@ -442,7 +442,7 @@ const Compare = () => {
                   <div>
                     <button
                       onClick={handleClickOnCompare}
-                      className="bg-yellow-400 text-black px-6 py-3 mr-5 mb-5  rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-lg hover-scale-small:hover hover-scale-small"
+                      className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-500 hover:text-black mt-8 text-2xl hover-scale-small:hover hover-scale-small"
                     >
                       Vissza
                     </button>
@@ -457,6 +457,30 @@ const Compare = () => {
                       <tbody className="">
                         {selectedSoftwares.map((id) => (
                           <td className="p-3 align-top">
+                            {/* {SoftwareData[id].functions.map((func, index) => (
+                              <tr
+                                key={index}
+                                className={`"shadow-custom  p-2 my-1.5 w-full rounded-25 flex text-xl text-black font-semibold flex-col items-center justify-center text-center hover-scale-small:hover ${
+                                  selectedSoftwares.every(
+                                    (sid) =>
+                                      SoftwareData[sid].functions[index]
+                                        .sfunction ===
+                                      SoftwareData[id].functions[index]
+                                        .sfunction
+                                  )
+                                    ? SoftwareData[id].functions[index]
+                                        .sfunction
+                                      ? "bg-green-200"
+                                      : "bg-red-400 hidden"
+                                    : func.sfunction 
+                                      ? "bg-green-200"
+                                      : "bg-red-400"
+                                }`}
+                                style={{ height: "80px" }}
+                              >
+                                {func.functionality}
+                              </tr>
+                            ))} */}
                             {SoftwareData[id].functions.map((func) => (
                               <tr
                                 className={`"shadow-custom  p-2 my-1.5 w-full rounded-25 flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
