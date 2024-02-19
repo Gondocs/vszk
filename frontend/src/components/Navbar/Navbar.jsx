@@ -133,7 +133,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 px-4 py-5 rounded-b-lg flex-grow relative">
+    <nav className="bg-gray-800 px-4 py-5 rounded-b-lg flex-grow sticky top-0 z-50">
       <div className="flex items-center">
         <Link
           to="/"
