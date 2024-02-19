@@ -74,15 +74,15 @@ export const CompanyList = () => {
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/4 bg-white p-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400"
+        className="w-1/4 bg-white p-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400 sticky sm:top-[20%]"
         style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
-          Szoftverkeresés
+          Cégkereső
         </h2>
         <input
           type="text"
-          placeholder="Szoftver neve..."
+          placeholder="Cég neve..."
           className="border rounded-lg p-2 w-full hover-scale-element:hover hover-scale-element"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
