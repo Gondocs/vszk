@@ -7,6 +7,7 @@ import { showToast } from "../toasts/toast";
 import { transliterate } from "../api/transliteration";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NotFoundSvg from "../assets/NotFoundSvg";
+import { ClipLoader } from "react-spinners";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -24,6 +25,7 @@ export const Navbar = () => {
   const navigateback = useNavigate();
   const searchnavigate = useNavigate();
   const hasSearchResults = filteredSoftwareData.length > 0;
+  const [loading, setLoading] = useState(true); // Add loading state
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -73,6 +75,7 @@ export const Navbar = () => {
   };
 
   const filterSoftwareData = () => {
+    setLoading(true);
     if (searchQuery.trim().length === 0) {
       setFilteredSoftwareData(SoftwareData);
       return;
@@ -83,6 +86,7 @@ export const Navbar = () => {
     });
 
     setFilteredSoftwareData(filteredData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -198,70 +202,82 @@ export const Navbar = () => {
               </div>
 
               {isSearchFocused && searchQuery.length >= 1 && (
-                <div
-                  className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4"
-                  style={{
-                    width: "85%",
-                    maxHeight: "32rem",
-                  }}
-                  ref={parent}
-                >
-                  {hasSearchResults ? (
-                    filteredSoftwareData.map((software) => (
-                      <Link
-                        key={software.softwareID}
-                        to={`/szoftverek/${transliterate(
-                          software.category_group
-                        )}/${transliterate(software.category)}/${transliterate(
-                          software.name
-                        )}`}
-                        className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                        onClick={handleLinkClick}
-                        style={{ height: "130px" }}
-                      >
-                        <div className="w-1/3">
-                          <div className="flex items-center justify-center">
-                            <img
-                              src={software.logo_link}
-                              alt={software.name}
-                              className=""
-                              style={{
-                                width: "auto",
-                                height: "auto",
-                                maxHeight: "80px",
-                                paddingLeft: "30%",
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div
-                          className="w-2/3 text-2xl font-semibold"
-                          style={{ paddingLeft: "20%" }}
-                        >
-                          {software.name}
-                          <br />
-                          <div className="text-base mt-1">
-                            {software.category}
-                          </div>
-                        </div>
-                      </Link>
-                    ))
+                <>
+                  {loading ? (
+                    <div className="flex justify-center items-center mx-auto">
+                      <ClipLoader
+                        color={"#B5B4B4"}
+                        loading={loading}
+                        size={250}
+                      />
+                    </div>
                   ) : (
-                    <div className="text-black text-center text-2xl">
-                      Nem található szoftver.
-                      <div
-                        className="mt-6 items-center"
-                        style={{
-                          width: "70%",
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                        }}
-                      >
-                        <NotFoundSvg />
-                      </div>
+                    <div
+                      className="absolute mt-2 z-10 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4"
+                      style={{
+                        width: "85%",
+                        maxHeight: "32rem",
+                      }}
+                      ref={parent}
+                    >
+                      {hasSearchResults ? (
+                        filteredSoftwareData.map((software) => (
+                          <Link
+                            key={software.softwareID}
+                            to={`/szoftverek/${transliterate(
+                              software.category_group
+                            )}/${transliterate(
+                              software.category
+                            )}/${transliterate(software.name)}`}
+                            className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
+                            onClick={handleLinkClick}
+                            style={{ height: "130px" }}
+                          >
+                            <div className="w-1/3">
+                              <div className="flex items-center justify-center">
+                                <img
+                                  src={software.logo_link}
+                                  alt={software.name}
+                                  className=""
+                                  style={{
+                                    width: "auto",
+                                    height: "auto",
+                                    maxHeight: "80px",
+                                    paddingLeft: "30%",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className="w-2/3 text-2xl font-semibold"
+                              style={{ paddingLeft: "20%" }}
+                            >
+                              {software.name}
+                              <br />
+                              <div className="text-base mt-1">
+                                {software.category}
+                              </div>
+                            </div>
+                          </Link>
+                        ))
+                      ) : (
+                        <div className="text-black text-center text-2xl">
+                          Nem található szoftver.
+                          <div
+                            className="mt-6 items-center"
+                            style={{
+                              width: "70%",
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                            }}
+                          >
+                            <NotFoundSvg />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
-                </div>
+                </>
               )}
             </div>
 
