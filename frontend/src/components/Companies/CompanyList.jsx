@@ -28,7 +28,7 @@ export const CompanyList = () => {
         setLoading(false);
       })
       .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
+        showToast("Hiba történt az adatok lekérése közben", 'error');
         console.log(error);
         setLoading(false);
       });
