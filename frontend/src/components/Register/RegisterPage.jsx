@@ -6,13 +6,8 @@ import { post } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { showToastLong } from "../toasts/toastLong";
 import { useNavigate } from "react-router-dom";
-import Select from 'react-select';
-
-const options = [
-  { value: 'Magyarország', label: 'Magyarország' },
-  { value: 'Szlovákia', label: 'Szlovákia' },
-  // ... more options ...
-];
+import Select from "react-select";
+import { options } from "./CountryConst";
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
 
@@ -42,24 +37,24 @@ const Register = () => {
     const passwordErrors = [];
     const passwordValidationRules = [
       {
-        test: password => password.length >= 6,
+        test: (password) => password.length >= 6,
         error: "Jelszó túl rövid (legalább 6 karakter szükséges)",
       },
       {
-        test: password => /\d/.test(password),
+        test: (password) => /\d/.test(password),
         error: "Nincsenek számok a jelszóban",
       },
       {
-        test: password => /[A-Z]/.test(password),
+        test: (password) => /[A-Z]/.test(password),
         error: "Nincsenek nagybetűk a jelszóban",
       },
       {
-        test: password => password === passwordConfirmation,
+        test: (password) => password === passwordConfirmation,
         error: "A jelszavak nem egyeznek",
       },
     ];
 
-    passwordValidationRules.forEach(rule => {
+    passwordValidationRules.forEach((rule) => {
       if (!rule.test(password)) {
         passwordErrors.push(rule.error);
       }
@@ -71,7 +66,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const passwordErrors = validatePassword(formData.password, passwordConfirmation);
+    const passwordErrors = validatePassword(
+      formData.password,
+      passwordConfirmation
+    );
     setPasswordErrors(passwordErrors);
 
     if (passwordErrors.length > 0) {
@@ -132,26 +130,6 @@ const Register = () => {
               />
             </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-lg font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                onChange={handleChange}
-                value={formData.email}
-                autoComplete="email"
-                required
-                className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
-                placeholder="mintajanos@gmail.com"
-              />
-            </div>
-
             {/* Add more form fields for the first column as needed */}
           </div>
 
@@ -175,28 +153,59 @@ const Register = () => {
                 placeholder="János"
               />
             </div>
-
-            <div>
-              <label
-                htmlFor="country"
-                className="block text-lg font-medium text-gray-700"
-              >
-                Ország
-              </label>
-              <Select
-                id="country"
-                name="country"
-                options={options}
-                className="mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
-                onChange={option => handleChange({ target: { name: 'country', value: option.value } })}
-                value={options.find(option => option.value === formData.country)}
-                placeholder='Ország'
-              />
-            </div>
             {/*  more form fields for the second column here */}
           </div>
 
           <div className="w-full">
+            <label
+              htmlFor="email"
+              className="block text-lg font-medium text-gray-700"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              onChange={handleChange}
+              value={formData.email}
+              autoComplete="email"
+              required
+              className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
+              placeholder="mintajanos@gmail.com"
+            />
+
+            <label
+              htmlFor="country"
+              className="block text-lg font-medium text-gray-700"
+            >
+              Ország
+            </label>
+            <Select
+              id="country"
+              name="country"
+              options={options}
+              className="mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover text-lg z-50"
+              onChange={(option) =>
+                handleChange({
+                  target: { name: "country", value: option.value },
+                })
+              }
+              value={options.find(
+                (option) => option.value === formData.country
+              )}
+              placeholder="Ország"
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  height: 53,
+                  minHeight: 53,
+                  paddingLeft: "6px",
+                }),
+              }}
+              noOptionsMessage={() => "Nincs találat"}
+            />
+
             <label
               htmlFor="city"
               className="block text-lg font-medium text-gray-700"
