@@ -9,8 +9,8 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import LoginPage from "./components/LoginAndRegister/loginPage";
-import Register from "./components/LoginAndRegister/RegisterPage";
+import LoginPage from "./components/Login/loginPage";
+import Register from "./components/Register/RegisterPage";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import { HomePage } from "./components/MainPage/MainPage";
 import { Footer } from "./components/MainPage/Footer";
