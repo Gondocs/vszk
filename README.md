@@ -4,14 +4,14 @@ Software Comparison and SoftwareList Website\
 <br>
 This is a React.js website for software comparison and software listing. This README file provides an overview of the project and its dependencies.
 
-# **Project Name: GUI**
+# **Project Name: VSZK**
 Version: 1.2\
 This project is private, but currently set to public to give insight for the responsible professors.
 <br>
 <br>
 
 ## **Project Description**
-The GUI project is a software comparison and listing website built using React.js.\It allows users to compare different software products and provides a list of software items. The website is designed to be user-friendly and interactive, providing a seamless experience for users.
+The VSZK project is a software comparison and listing website built using React.js.\It allows users to compare different software products and provides a list of software items. The website is designed to be user-friendly and interactive, providing a seamless experience for users.
 <br>
 <br>
 
@@ -26,7 +26,7 @@ git clone <repository-url>
 <br>
 
 **Change to the project directory:**
-cd gui
+cd vszk
 <br>
 <br>
 
