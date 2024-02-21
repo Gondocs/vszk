@@ -6,6 +6,15 @@ import { post } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { showToastLong } from "../toasts/toastLong";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select';
+
+const options = [
+  { value: 'Magyarország', label: 'Magyarország' },
+  { value: 'Szlovákia', label: 'Szlovákia' },
+  // ... more options ...
+];
+
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,51 +38,63 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const validatePassword = (password, passwordConfirmation) => {
+    const passwordErrors = [];
+    const passwordValidationRules = [
+      {
+        test: password => password.length >= 6,
+        error: "Jelszó túl rövid (legalább 6 karakter szükséges)",
+      },
+      {
+        test: password => /\d/.test(password),
+        error: "Nincsenek számok a jelszóban",
+      },
+      {
+        test: password => /[A-Z]/.test(password),
+        error: "Nincsenek nagybetűk a jelszóban",
+      },
+      {
+        test: password => password === passwordConfirmation,
+        error: "A jelszavak nem egyeznek",
+      },
+    ];
+
+    passwordValidationRules.forEach(rule => {
+      if (!rule.test(password)) {
+        passwordErrors.push(rule.error);
+      }
+    });
+
+    return passwordErrors;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // password validation
-    const passwordErrors = [];
-
-    if (formData.password.length < 6) {
-      passwordErrors.push("Jelszó túl rövid (legalább 6 karakter szükséges)");
-    }
-    if (!/\d/.test(formData.password)) {
-      passwordErrors.push("Nincsenek számok a jelszóban");
-    }
-    if (!/[A-Z]/.test(formData.password)) {
-      passwordErrors.push("Nincsenek nagybetűk a jelszóban");
-    }
-    if (formData.password !== passwordConfirmation) {
-      passwordErrors.push("A jelszavak nem egyeznek");
-    }
-
+    const passwordErrors = validatePassword(formData.password, passwordConfirmation);
     setPasswordErrors(passwordErrors);
 
-    // check if any validation failed
     if (passwordErrors.length > 0) {
       showToast(
         "Hiba a jelszó mezők validálása során. Kérjük, ellenőrizze a hibákat.",
         "error"
       );
-      return; // prevent form submission
+      return;
     }
 
     console.log("Form Data:", formData);
 
-    post
-      .RegisterData(formData)
-      .then(() => {
-        showToastLong("Sikeres regisztráció!", "success");
-        navigate(-1);
-      })
-      .catch((error) => {
-        showToastLong(
-          "Hiba történt a regisztráció közben: " + error.response.data,
-          "error"
-        );
-        console.log(error);
-      });
+    try {
+      await post.RegisterData(formData);
+      showToastLong("Sikeres regisztráció!", "success");
+      navigate(-1);
+    } catch (error) {
+      showToastLong(
+        "Hiba történt a regisztráció közben: " + error.response.data,
+        "error"
+      );
+      console.log(error);
+    }
   };
 
   return (
@@ -162,14 +183,14 @@ const Register = () => {
               >
                 Ország
               </label>
-              <input
+              <Select
                 id="country"
                 name="country"
-                type="country"
-                onChange={handleChange}
-                value={formData.country}
-                className="appearance-none block w-full px-4 py-3 border rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-lg  mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
-                placeholder="Magyarország"
+                options={options}
+                className="mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover"
+                onChange={option => handleChange({ target: { name: 'country', value: option.value } })}
+                value={options.find(option => option.value === formData.country)}
+                placeholder='Ország'
               />
             </div>
             {/*  more form fields for the second column here */}
