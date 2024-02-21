@@ -36,7 +36,7 @@ const Register = () => {
     const passwordErrors = [];
 
     if (formData.password.length < 6) {
-      passwordErrors.push("Jelszó túl rövid (legalább 6 karakter kell)");
+      passwordErrors.push("Jelszó túl rövid (legalább 6 karakter szükséges)");
     }
     if (!/\d/.test(formData.password)) {
       passwordErrors.push("Nincsenek számok a jelszóban");
