@@ -1,5 +1,35 @@
 import { transliterate } from "../../api/transliteration";
 
+const matchesFilters = (
+  software,
+  searchTerm,
+  selectedFunctions,
+  selectedCompatibility,
+  selectedLanguage,
+  selectedOs,
+  selectedSupport
+) => {
+  return (
+    software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    selectedFunctions.every((selectedFunc) =>
+      software.functions
+        .filter((func) => func.sfunction)
+        .map((func) => func.functionality)
+        .includes(selectedFunc)
+    ) &&
+    selectedCompatibility.every((selectedComp) =>
+      software.devices.includes(selectedComp)
+    ) &&
+    selectedLanguage.every((selectedLang) =>
+      software.languages.includes(selectedLang)
+    ) &&
+    selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
+    selectedSupport.every((selectedSupport) =>
+      software.supports.includes(selectedSupport)
+    )
+  );
+};
+
 export function filterSoftwareData(
   SoftwareData,
   Maincategory,
@@ -25,87 +55,48 @@ export function filterSoftwareData(
 
   const isMainCategory = uniqueCategories.includes(transliteratedCategory);
 
-  let filteredSoftwareData;
-
-  if (Maincategory) {
-    
+  let filteredSoftwareData = SoftwareData.filter((software) => {
     if (Subcategory) {
-      filteredSoftwareData = SoftwareData.filter((software) => {
-        return (
-          transliterate(software.category.categoryGroup.name) ===
-            transliteratedCategory &&
-          transliterate(software.category.name) ===
-            transliterate(Subcategory) &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          selectedFunctions.every((selectedFunc) =>
-            software.functions
-              .filter((func) => func.sfunction)
-              .map((func) => func.functionality)
-              .includes(selectedFunc)
-          ) &&
-          selectedCompatibility.every((selectedComp) =>
-            software.devices.includes(selectedComp)
-          ) &&
-          selectedLanguage.every((selectedLang) =>
-            software.languages.includes(selectedLang)
-          ) &&
-          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
-          selectedSupport.every((selectedSupport) =>
-            software.supports.includes(selectedSupport)
-          )
-        );
-      });
-    } 
-    
-    else if (isMainCategory) {
-      filteredSoftwareData = SoftwareData.filter((software) => {
-        return (
-          transliterate(software.category.categoryGroup.name) ===
-            transliteratedCategory &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          selectedFunctions.every((selectedFunc) =>
-            software.functions
-              .filter((func) => func.sfunction)
-              .map((func) => func.functionality)
-              .includes(selectedFunc)
-          ) &&
-          selectedCompatibility.every((selectedComp) =>
-            software.devices.includes(selectedComp)
-          ) &&
-          selectedLanguage.every((selectedLang) =>
-            software.languages.includes(selectedLang)
-          ) &&
-          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
-          selectedSupport.every((selectedSupport) =>
-            software.supports.includes(selectedSupport)
-          )
-        );
-      });
-    } 
-  } 
-  else {
-    filteredSoftwareData = SoftwareData.filter((software) => {
       return (
-        software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        selectedFunctions.every((selectedFunc) =>
-          software.functions
-            .filter((func) => func.sfunction)
-            .map((func) => func.functionality)
-            .includes(selectedFunc)
-        ) &&
-        selectedCompatibility.every((selectedComp) =>
-          software.devices.includes(selectedComp)
-        ) &&
-        selectedLanguage.every((selectedLang) =>
-          software.languages.includes(selectedLang)
-        ) &&
-        selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
-        selectedSupport.every((selectedSupport) =>
-          software.supports.includes(selectedSupport)
+        transliterate(software.category.categoryGroup.name) ===
+          transliteratedCategory &&
+        transliterate(software.category.name) === transliterate(Subcategory) &&
+        matchesFilters(
+          software,
+          searchTerm,
+          selectedFunctions,
+          selectedCompatibility,
+          selectedLanguage,
+          selectedOs,
+          selectedSupport
         )
       );
-    });
-  }
+    } else if (isMainCategory) {
+      return (
+        transliterate(software.category.categoryGroup.name) ===
+          transliteratedCategory &&
+        matchesFilters(
+          software,
+          searchTerm,
+          selectedFunctions,
+          selectedCompatibility,
+          selectedLanguage,
+          selectedOs,
+          selectedSupport
+        )
+      );
+    } else {
+      return matchesFilters(
+        software,
+        searchTerm,
+        selectedFunctions,
+        selectedCompatibility,
+        selectedLanguage,
+        selectedOs,
+        selectedSupport
+      );
+    }
+  });
 
   return filteredSoftwareData;
 }
