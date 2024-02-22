@@ -79,7 +79,7 @@ function App() {
             element={
               <>
                 {" "}
-                <SoftwareList /> <Footer />{" "}
+                <SoftwareList /> <Footer />{" "} {/* replace with different page */}
               </>
             }
           >

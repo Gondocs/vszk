@@ -28,6 +28,7 @@ export function filterSoftwareData(
   let filteredSoftwareData;
 
   if (Maincategory) {
+    
     if (Subcategory) {
       filteredSoftwareData = SoftwareData.filter((software) => {
         return (
@@ -54,7 +55,9 @@ export function filterSoftwareData(
           )
         );
       });
-    } else if (isMainCategory) {
+    } 
+    
+    else if (isMainCategory) {
       filteredSoftwareData = SoftwareData.filter((software) => {
         return (
           transliterate(software.category.categoryGroup.name) ===
@@ -78,31 +81,9 @@ export function filterSoftwareData(
           )
         );
       });
-    } else {
-      filteredSoftwareData = SoftwareData.filter((software) => {
-        return (
-          transliterate(software.category.name) === transliteratedCategory &&
-          software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          selectedFunctions.every((selectedFunc) =>
-            software.functions
-              .filter((func) => func.sfunction)
-              .map((func) => func.functionality)
-              .includes(selectedFunc)
-          ) &&
-          selectedCompatibility.every((selectedComp) =>
-            software.devices.includes(selectedComp)
-          ) &&
-          selectedLanguage.every((selectedLang) =>
-            software.languages.includes(selectedLang)
-          ) &&
-          selectedOs.every((selectedOS) => software.oSs.includes(selectedOS)) &&
-          selectedSupport.every((selectedSupport) =>
-            software.supports.includes(selectedSupport)
-          )
-        );
-      });
-    }
-  } else {
+    } 
+  } 
+  else {
     filteredSoftwareData = SoftwareData.filter((software) => {
       return (
         software.name.toLowerCase().includes(searchTerm.toLowerCase()) &&

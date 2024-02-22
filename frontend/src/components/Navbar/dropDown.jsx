@@ -16,7 +16,7 @@ const DropdownMenu = () => {
         setMainCategoryData(data);
       })
       .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
+        showToast("Hiba történt az adatok lekérése közben " + {error}, "error");
       });
   }, []);
 
