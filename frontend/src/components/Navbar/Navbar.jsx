@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import DropdownMenu from "./dropDown";
 import { get, post } from "../api/api";
 import { showToast } from "../toasts/toast";
 import { transliterate } from "../api/transliteration";
@@ -13,7 +12,6 @@ import NewMenu from "./NewDropdown";
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
 
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
     useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,14 +25,6 @@ export const Navbar = () => {
   const searchnavigate = useNavigate();
   const hasSearchResults = filteredSoftwareData.length > 0;
   const [loading, setLoading] = useState(true); // Add loading state
-
-  const handleMouseEnter = () => {
-    setDropdownVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setDropdownVisible(false);
-  };
 
   const handleProfileClick = () => {
     setIsProfileDropdownVisible(!isProfileDropdownVisible);
