@@ -39,9 +39,11 @@ const NewDropdownMenu = () => {
       <div
         ref={ref}
         {...anchorProps}
-        className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]"
+        className="text-white hover:text-gray-400 block mr-12 text-[1.2rem]"
       >
-        Szoftverek
+        <Link to="/szoftverek">
+          Szoftverek
+        </Link>
       </div>
       <ControlledMenu
         {...hoverProps}
@@ -54,7 +56,7 @@ const NewDropdownMenu = () => {
         {uniqueCategories.map((categoryName) => (
           <Link to={`/szoftverek/${transliterate(categoryName)}`}>
             <SubMenu key={categoryName} label={categoryName}>
-            <MenuHeader>Mellék kategóriák</MenuHeader>
+              <MenuHeader>Mellék kategóriák</MenuHeader>
 
               {mainCategoryData
                 .filter(
