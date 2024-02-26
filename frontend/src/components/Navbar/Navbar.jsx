@@ -8,6 +8,7 @@ import { transliterate } from "../api/transliteration";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NotFoundSvg from "../assets/NotFoundSvg";
 import { ClipLoader } from "react-spinners";
+import NewMenu from "./NewDropdown";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -142,22 +143,7 @@ export const Navbar = () => {
           Főoldal
         </Link>
 
-        <div
-          className="relative group block mr-8 ml-2"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Link to={"/szoftverek"}>
-            <button
-              className={`text-white ${
-                isDropdownVisible ? "text-gray-400" : "hover:text-gray-400"
-              } block mr-4 hover-scale hover-scale:hover text-[1.2rem]`}
-            >
-              Szoftverek
-            </button>
-          </Link>
-          {isDropdownVisible && <DropdownMenu />}
-        </div>
+        <NewMenu />
 
         <Link
           to="/cegek"
