@@ -6,6 +6,7 @@ import {
   useHover,
   useMenuState,
   SubMenu,
+  MenuHeader,
 } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
@@ -49,9 +50,12 @@ const NewDropdownMenu = () => {
         gap={2}
         onClose={() => toggle(false)}
       >
+        <MenuHeader>Fő kategóriák</MenuHeader>
         {uniqueCategories.map((categoryName) => (
           <Link to={`/szoftverek/${transliterate(categoryName)}`}>
             <SubMenu key={categoryName} label={categoryName}>
+            <MenuHeader>Mellék kategóriák</MenuHeader>
+
               {mainCategoryData
                 .filter(
                   (category) => category.categoryGroup.name === categoryName
