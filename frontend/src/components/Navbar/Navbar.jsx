@@ -9,13 +9,13 @@ import NotFoundSvg from "../assets/NotFoundSvg";
 import { ClipLoader } from "react-spinners";
 import NewMenu from "./NewDropdown";
 import { useAuth } from "../Auth/Auth";
+import Cookies from 'js-cookie';
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
     useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [SoftwareData, setSoftwareData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
@@ -26,7 +26,7 @@ export const Navbar = () => {
   const [loading, setLoading] = useState(true); // Add loading state
 
   const { setToken } = useAuth();
-  const { DeleteUserData } = useAuth();
+  const { deleteUserData } = useAuth();
   const navigate = useNavigate();
   const { token } = useAuth();
 
@@ -107,7 +107,7 @@ export const Navbar = () => {
   
     const handleLogout = () => {
       setToken();
-      DeleteUserData();
+      deleteUserData();
       navigate("/", { replace: true });
     };
   
@@ -251,7 +251,7 @@ export const Navbar = () => {
                   className="hover:text-gray-400 text-[1.2rem]"
                   onClick={handleProfileClick}
                 >
-                  Üdvözlünk, {localStorage.getItem("lastname") + localStorage.getItem("firstname")}!
+                  Üdvözlünk, {Cookies.get("lastname") + " " + Cookies.get("firstname")}!
                 </button>
                 {isProfileDropdownVisible && (
                   <div className="absolute z-10 bg-white rounded-lg right-0 shadow-md mt-2">

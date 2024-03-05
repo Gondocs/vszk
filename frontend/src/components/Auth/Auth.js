@@ -1,45 +1,46 @@
 // Auth.js
 import axios from 'axios';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import Cookies from 'js-cookie'; // Import the js-cookie library
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [token, setToken_] = useState(localStorage.getItem('token'));
+    const [token, setToken_] = useState(Cookies.get('token')); // Use Cookies.get
     const [userData, setUserData_] = useState({
-        userID: localStorage.getItem('userID'),
-        email: localStorage.getItem('email'),
-        firstname: localStorage.getItem('firstname'),
-        lastname: localStorage.getItem('lastname'),
+        userID: Cookies.get('userID'),
+        email: Cookies.get('email'),
+        firstname: Cookies.get('firstname'),
+        lastname: Cookies.get('lastname'),
     });
 
     const setToken = (newToken) => {
         setToken_(newToken);
-        localStorage.setItem('token', newToken);
+        Cookies.set('token', newToken); // Use Cookies.set
     };
 
     const setUserData = (newUserData) => {
         setUserData_(newUserData);
-        localStorage.setItem('userID', newUserData.userID);
-        localStorage.setItem('email', newUserData.email);
-        localStorage.setItem('firstname', newUserData.firstname);
-        localStorage.setItem('lastname', newUserData.lastname);
+        Cookies.set('userID', newUserData.userID);
+        Cookies.set('email', newUserData.email);
+        Cookies.set('firstname', newUserData.firstname);
+        Cookies.set('lastname', newUserData.lastname);
     };
 
-    const DeleteUserData = () => {
-      localStorage.removeItem('userID');
-      localStorage.removeItem('email');
-      localStorage.removeItem('firstname');
-      localStorage.removeItem('lastname');
-  };
+    const deleteUserData = () => {
+        Cookies.remove('userID'); // Use Cookies.remove
+        Cookies.remove('email');
+        Cookies.remove('firstname');
+        Cookies.remove('lastname');
+    };
 
     useEffect(() => {
         if (token) {
-            axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-            localStorage.setItem('token', token);
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            Cookies.set('token', token);
         } else {
             delete axios.defaults.headers.common['Authorization'];
-            localStorage.removeItem('token');
+            Cookies.remove('token');
         }
     }, [token]);
 
@@ -49,7 +50,7 @@ const AuthProvider = ({ children }) => {
             setToken,
             userData,
             setUserData,
-            DeleteUserData,
+            deleteUserData, // Use the corrected function name
         }),
         [token, userData],
     );
@@ -63,6 +64,6 @@ const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
     return useContext(AuthContext);
-}
+};
 
 export default AuthProvider;
