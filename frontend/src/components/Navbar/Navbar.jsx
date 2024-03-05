@@ -106,6 +106,10 @@ export const Navbar = () => {
   
     const handleLogout = () => {
       setToken();
+      localStorage.removeItem("userID");
+      localStorage.removeItem("email");
+      localStorage.removeItem("firstname");
+      localStorage.removeItem("lastname");
       navigate("/", { replace: true });
     };
   
