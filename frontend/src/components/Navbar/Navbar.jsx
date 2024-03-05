@@ -103,22 +103,6 @@ export const Navbar = () => {
   useEffect(() => {
     filterSoftwareData();
   }, [searchQuery]);
-
-  useEffect(() => {
-    // Check the authentication status here (e.g., from a token or session)
-    // Update the isLoggedIn state accordingly
-    const authToken = localStorage.getItem("token");
-    if (authToken) {
-      setIsLoggedIn(true);
-      console.log("LoggedIn");
-      //navigateback(-1);
-    } else {
-      setIsLoggedIn(false);
-      console.log("LoggedOut");
-    }
-    setIsLoading(false);
-  }, []);
-
   
     const handleLogout = () => {
       setToken();
@@ -152,7 +136,7 @@ export const Navbar = () => {
           Összehasonlítás
         </Link>
 
-        {!isLoading && (
+        {isLoading && (
           <>
             <div className="flex-grow relative px-8">
               <div className="relative">
