@@ -25,6 +25,7 @@
     "bootstrap": "^5.3.1",
     "concurrently": "^8.2.1",
     "font-awesome": "^4.7.0",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-burger-menu": "^3.0.9",
