@@ -4,9 +4,13 @@ import LoginSvg from "../assets/LoginSvg";
 import { post } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { showToastLong } from "../toasts/toastLong";
+import { useAuth } from "../Auth/Auth";
 
 function LoginPage() {
+  const { setToken } = useAuth();
   const navigate = useNavigate();
+
+  
 
   const [formData, setFormData] = useState({
     email: "",
@@ -23,14 +27,11 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    post
-      .LoginData(formData)
-      .then((token) => {
-        navigate(0);
+    post.LoginData(formData)
+      .then(({ token, user}) => {
+        setToken(token)
+        navigate("/", { replace: true });
         showToastLong("Sikeres Bejelentkezés!", "success");
-
-        console.log(token);
       })
       .catch((error) => {
         showToastLong(
@@ -40,6 +41,7 @@ function LoginPage() {
         console.log(error);
       });
   };
+  
 
   return (
     <div className="min-h-screen bg-slate-100 flex justify-center items-center">

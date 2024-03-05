@@ -8,6 +8,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NotFoundSvg from "../assets/NotFoundSvg";
 import { ClipLoader } from "react-spinners";
 import NewMenu from "./NewDropdown";
+import { useAuth } from "../Auth/Auth";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -20,11 +21,15 @@ export const Navbar = () => {
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const navigate = useNavigate();
-  const navigateback = useNavigate();
   const searchnavigate = useNavigate();
   const hasSearchResults = filteredSoftwareData.length > 0;
   const [loading, setLoading] = useState(true); // Add loading state
+
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+
 
   const handleProfileClick = () => {
     setIsProfileDropdownVisible(!isProfileDropdownVisible);
@@ -106,7 +111,7 @@ export const Navbar = () => {
     if (authToken) {
       setIsLoggedIn(true);
       console.log("LoggedIn");
-      navigateback(-1);
+      //navigateback(-1);
     } else {
       setIsLoggedIn(false);
       console.log("LoggedOut");
@@ -114,14 +119,12 @@ export const Navbar = () => {
     setIsLoading(false);
   }, []);
 
-  const handleLogout = () => {
-    // Call the logout function to clear the token
-    post.Logout();
-
-    // Redirect to the login page or another appropriate page
-    navigateback("/"); // navigate back to the previous page
-    navigate(0);
-  };
+  
+    const handleLogout = () => {
+      setToken();
+      navigate("/", { replace: true });
+    };
+  
 
   return (
     <nav className="bg-gray-800 px-4 py-5 rounded-b-lg flex-grow sticky top-0 z-50">
@@ -255,7 +258,7 @@ export const Navbar = () => {
               )}
             </div>
 
-            {isLoggedIn ? (
+            {token ? (
               // render profile menu if logged in
               <div className="text-white mr-10 relative group">
                 <button

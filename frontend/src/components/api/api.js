@@ -1,17 +1,5 @@
+import { useAuth } from "../Auth/Auth";
 import apiConfig from "./apiConfig";
-
-apiConfig.interceptors.request.use(
-  (config) => {
-    const authToken = localStorage.getItem("token");
-    if (authToken) {
-      config.headers.Authorization = `Bearer ${authToken}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 const get = {
   Category: () => {
@@ -89,7 +77,10 @@ const get = {
   },
 };
 
+
 const post = {
+
+
   RegisterData: (data) => {
     return apiConfig
       .post("/Auth/register", data)
@@ -108,20 +99,22 @@ const post = {
   },
 
   LoginData: (data) => {
-    // Login endpoint
-    return apiConfig.post("/Auth/login", data).then((response) => {
-      const token = response.data.token;
-      const user = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("username", user.lastName + " " + user.firstName);
-      return [token, user];
-    });
+    return apiConfig.post("/Auth/login", data)
+      .then((response) => {
+        const token = response.data.token;
+        const user = response.data;
+    
+        return { token, user };
+      });
   },
-
+  
   Logout: () => {
+    const { setToken } = useAuth();
     // Clear the authentication token from local storage
-    localStorage.removeItem("token");
+    setToken(null);
+    localStorage.clear();
   },
+  
 
   /*
       {
