@@ -8,6 +8,7 @@ import { useAuth } from "../Auth/Auth";
 
 function LoginPage() {
   const { setToken } = useAuth();
+  const { setUserData } = useAuth();
   const navigate = useNavigate();
 
   
@@ -25,27 +26,31 @@ function LoginPage() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    post.LoginData(formData)
-      .then(({ token, userID, email, firstname, lastname}) => {
-        setToken(token)
-        localStorage.setItem("userID", userID);
-        localStorage.setItem("email", email);
-        localStorage.setItem("firstname", firstname);
-        localStorage.setItem("lastname", lastname);
-        
-        navigate("/", { replace: true });
-        showToastLong("Sikeres Bejelentkezés!", "success");
+// LoginPage.jsx
+const handleSubmit = (e) => {
+  e.preventDefault();
+  post.LoginData(formData)
+      .then(({ token, userID, email, firstname, lastname }) => {
+          setToken(token);
+          setUserData({
+              userID,
+              email,
+              firstname,
+              lastname,
+          });
+
+          navigate("/", { replace: true });
+          showToastLong("Sikeres Bejelentkezés!", "success");
       })
       .catch((error) => {
-        showToastLong(
-          "Hiba történt a belépés közben: " + error.response.data,
-          "error"
-        );
-        console.log(error);
+          showToastLong(
+              "Hiba történt a belépés közben: " + error.response.data,
+              "error"
+          );
+          console.log(error);
       });
-  };
+};
+
   
 
   return (

@@ -106,8 +106,9 @@ const post = {
         const lastname = response.data.lastName;
         const email = response.data.email;
         const userID = response.data.userID;
+        const user = response.data;
     
-        return { token, userID, email, firstname, lastname};
+        return { token, userID, email, firstname, lastname, user};
       });
   },
   

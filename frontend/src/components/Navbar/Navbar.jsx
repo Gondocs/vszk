@@ -26,6 +26,7 @@ export const Navbar = () => {
   const [loading, setLoading] = useState(true); // Add loading state
 
   const { setToken } = useAuth();
+  const { DeleteUserData } = useAuth();
   const navigate = useNavigate();
   const { token } = useAuth();
 
@@ -106,10 +107,7 @@ export const Navbar = () => {
   
     const handleLogout = () => {
       setToken();
-      localStorage.removeItem("userID");
-      localStorage.removeItem("email");
-      localStorage.removeItem("firstname");
-      localStorage.removeItem("lastname");
+      DeleteUserData();
       navigate("/", { replace: true });
     };
   
