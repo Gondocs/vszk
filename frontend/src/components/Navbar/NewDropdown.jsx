@@ -54,8 +54,8 @@ const NewDropdownMenu = () => {
       >
         <MenuHeader>Fő kategóriák</MenuHeader>
         {uniqueCategories.map((categoryName) => (
-          <Link to={`/szoftverek/${transliterate(categoryName)}`}>
-            <SubMenu key={categoryName} label={categoryName}>
+          <Link key={categoryName} to={`/szoftverek/${transliterate(categoryName)}`}>
+            <SubMenu label={categoryName}>
               <MenuHeader>Mellék kategóriák</MenuHeader>
 
               {mainCategoryData
