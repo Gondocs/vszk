@@ -249,7 +249,7 @@ export const Navbar = () => {
                   className="hover:text-gray-400 text-[1.2rem]"
                   onClick={handleProfileClick}
                 >
-                  Üdvözlünk, {localStorage.getItem("username")}!
+                  Üdvözlünk, {localStorage.getItem("lastname") + localStorage.getItem("firstname")}!
                 </button>
                 {isProfileDropdownVisible && (
                   <div className="absolute z-10 bg-white rounded-lg right-0 shadow-md mt-2">

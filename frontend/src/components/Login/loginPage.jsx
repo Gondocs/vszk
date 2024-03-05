@@ -28,8 +28,13 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     post.LoginData(formData)
-      .then(({ token, user}) => {
+      .then(({ token, userID, email, firstname, lastname}) => {
         setToken(token)
+        localStorage.setItem("userID", userID);
+        localStorage.setItem("email", email);
+        localStorage.setItem("firstname", firstname);
+        localStorage.setItem("lastname", lastname);
+        
         navigate("/", { replace: true });
         showToastLong("Sikeres Bejelentkezés!", "success");
       })

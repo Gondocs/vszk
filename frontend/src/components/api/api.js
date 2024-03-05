@@ -102,9 +102,12 @@ const post = {
     return apiConfig.post("/Auth/login", data)
       .then((response) => {
         const token = response.data.token;
-        const user = response.data;
+        const firstname = response.data.firstName;
+        const lastname = response.data.lastName;
+        const email = response.data.email;
+        const userID = response.data.userID;
     
-        return { token, user };
+        return { token, userID, email, firstname, lastname};
       });
   },
   
