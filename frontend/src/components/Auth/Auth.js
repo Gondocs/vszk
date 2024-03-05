@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
     const setToken = (newToken) => {
         setToken_(newToken);
-        Cookies.set('token', newToken); // Use Cookies.set
+        Cookies.set('token', newToken, { httpOnly: true }); // Use Cookies.set
     };
 
     const setUserData = (newUserData) => {
@@ -37,10 +37,10 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (token) {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-            Cookies.set('token', token);
+            Cookies.set('token', token, { httpOnly: true });
         } else {
             delete axios.defaults.headers.common['Authorization'];
-            Cookies.remove('token');
+            Cookies.remove('token', { httpOnly: true });
         }
     }, [token]);
 
