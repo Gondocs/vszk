@@ -13,6 +13,7 @@ import CompanyDetail from "../Companies/CompanyDetail";
 import Compare from "../Compare/Compare";
 import LoginPage from "../Login/loginPage";
 import { Navbar } from "../Navbar/Navbar";
+import Cookies from "js-cookie";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -125,12 +126,12 @@ const Routes = () => {
       element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
         {
-          path: "/homepage",
+          path: "/profil",
           element: <div>User Home Page</div>,
         },
         {
           path: "/authtest",
-          element: <div>Auth test: {JSON.stringify(localStorage.getItem("username"))}</div>,
+          element: <div>Auth test: {Cookies.get("lastname") + " " + Cookies.get("firstname")}</div>,
         },
       ],
     },
