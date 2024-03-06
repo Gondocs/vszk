@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../../css/images.css";
 import "../../css/Mainpage.css";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 const imagesWithCaptions = [
   {
@@ -39,6 +40,10 @@ export function HomePage() {
   const [mouseDownAt, setMouseDownAt] = useState(0);
   const [prevPercentage, setPrevPercentage] = useState(0);
   const [percentage, setPercentage] = useState(0);
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
 
   const scrollTop = () => {
     window.scrollTo({
@@ -213,7 +218,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <div className="bg-slate-100 pb-16 pl-24 pr-24">
+      <div className={`bg-slate-100 pb-16 ${isDesktopOrLaptop ? 'pl-24 pr-24' : 'pl-2 pr-2'} gap-8 mb-4`}>
         <section
           className="bg-slate-200  py-6 rounded-40"
           ref={howtoRef}
@@ -223,7 +228,7 @@ export function HomePage() {
             <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
               Hogyan működik?
             </h2>
-            <div className="grid grid-cols-3 gap-8 mb-4">
+            <div className={`grid ${isDesktopOrLaptop ? 'grid-cols-3' : 'grid-cols-1'} gap-8 mb-4`}>
               <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
                 <h3 className="text-xl font-semibold mb-4">
                   Válasszon ki egy szimpatikus szoftvert
