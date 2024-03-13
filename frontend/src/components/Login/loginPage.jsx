@@ -5,10 +5,10 @@ import { post } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { showToastLong } from "../toasts/toastLong";
 import { useAuth } from "../Auth/Auth";
+import { jwtDecode } from "jwt-decode";
 
 function LoginPage() {
   const { setToken } = useAuth();
-  const { setUserData } = useAuth();
   const navigate = useNavigate();
 
   
@@ -30,21 +30,18 @@ function LoginPage() {
 const handleSubmit = (e) => {
   e.preventDefault();
   post.LoginData(formData)
-      .then(({ token, userID, email, firstname, lastname }) => {
+      .then(({ token }) => {
           setToken(token);
-          setUserData({
-              userID,
-              email,
-              firstname,
-              lastname,
-          });
+          const decoded = jwtDecode(token);
 
           navigate("/", { replace: true });
           showToastLong("Sikeres Bejelentkezés!", "success");
+          console.log(token)
+          console.log(decoded)
       })
       .catch((error) => {
           showToastLong(
-              "Hiba történt a belépés közben: " + error.response.data,
+              "Hiba történt a belépés közben: " + error.message,
               "error"
           );
           console.log(error);

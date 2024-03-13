@@ -10,6 +10,7 @@ import { ClipLoader } from "react-spinners";
 import NewMenu from "./NewDropdown";
 import { useAuth } from "../Auth/Auth";
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -107,7 +108,6 @@ export const Navbar = () => {
   
     const handleLogout = () => {
       setToken();
-      deleteUserData();
       navigate("/", { replace: true });
     };
   
@@ -251,7 +251,7 @@ export const Navbar = () => {
                   className="hover:text-gray-400 text-[1.2rem]"
                   onClick={handleProfileClick}
                 >
-                  Üdvözlünk, {Cookies.get("lastname") + " " + Cookies.get("firstname")}!
+                  Üdvözlünk, {jwtDecode(token).family_name} {jwtDecode(token).given_name}!
                 </button>
                 {isProfileDropdownVisible && (
                   <div className="absolute z-10 bg-white rounded-lg right-0 shadow-md mt-2">
