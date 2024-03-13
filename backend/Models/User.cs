@@ -27,5 +27,8 @@ namespace vszk.Models
         [Required]
         [StringLength(64)]
         public string PasswordHash { get; set; }
+
+        [StringLength(32)]
+        public string Role { get; set; }
     }
 }

@@ -31,6 +31,8 @@ namespace vszk.Controllers
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.GivenName, user.Firstname),
                     new Claim(ClaimTypes.Surname, user.Lastname),
+                    new Claim(ClaimTypes.Role, user.Role),
+
 
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
