@@ -7,31 +7,10 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [token, setToken_] = useState(Cookies.get('token')); // Use Cookies.get
-    const [userData, setUserData_] = useState({
-        userID: Cookies.get('userID'),
-        email: Cookies.get('email'),
-        firstname: Cookies.get('firstname'),
-        lastname: Cookies.get('lastname'),
-    });
 
     const setToken = (newToken) => {
         setToken_(newToken);
         Cookies.set('token', newToken); // Use Cookies.set
-    };
-
-    const setUserData = (newUserData) => {
-        setUserData_(newUserData);
-        Cookies.set('userID', newUserData.userID);
-        Cookies.set('email', newUserData.email);
-        Cookies.set('firstname', newUserData.firstname);
-        Cookies.set('lastname', newUserData.lastname);
-    };
-
-    const deleteUserData = () => {
-        Cookies.remove('userID'); // Use Cookies.remove
-        Cookies.remove('email');
-        Cookies.remove('firstname');
-        Cookies.remove('lastname');
     };
 
     useEffect(() => {
@@ -48,11 +27,8 @@ const AuthProvider = ({ children }) => {
         () => ({
             token,
             setToken,
-            userData,
-            setUserData,
-            deleteUserData, // Use the corrected function name
         }),
-        [token, userData],
+        [token],
     );
 
     return (
