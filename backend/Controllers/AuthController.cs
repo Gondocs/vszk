@@ -72,7 +72,9 @@ namespace vszk.Controllers
                     Lastname = model.Lastname,
                     Firstname = model.Firstname,
                     PasswordHash = hashedPassword,
-                    Email = model.Email
+                    Email = model.Email,
+                    Settlement = model.Settlement,
+                    Country = model.Country,
                 };
 
                 _context.User.Add(user);
