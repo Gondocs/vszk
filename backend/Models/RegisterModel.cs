@@ -19,5 +19,7 @@
         
         public string Settlement { get; set; }
 
+        public string Role { get; set; }
+
     }
 }

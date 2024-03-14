@@ -75,6 +75,7 @@ namespace vszk.Controllers
                     Email = model.Email,
                     Settlement = model.Settlement,
                     Country = model.Country,
+                    Role = "user",
                 };
 
                 _context.User.Add(user);
