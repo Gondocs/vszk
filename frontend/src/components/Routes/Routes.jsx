@@ -14,6 +14,7 @@ import Compare from "../Compare/Compare";
 import LoginPage from "../Login/loginPage";
 import { Navbar } from "../Navbar/Navbar";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -131,7 +132,18 @@ const Routes = () => {
         },
         {
           path: "/authtest",
-          element: <div>Auth test: {Cookies.get("lastname") + " " + Cookies.get("firstname")}</div>,
+          element: (
+            <div>
+              Auth test:{" "}
+                nameId: {token && jwtDecode(token).nameid} <br />
+                email: {token && jwtDecode(token).email} <br />
+                given_name: {token && jwtDecode(token).given_name} <br />
+                family_name: {token && jwtDecode(token).family_name} <br />
+                role: {token && jwtDecode(token).role} <br />
+                exp: {token && jwtDecode(token).exp} <br />
+                
+            </div>
+          ),
         },
       ],
     },
@@ -143,7 +155,7 @@ const Routes = () => {
       path: "/belepes",
       element: (
         <div>
-         <Navbar /> <LoginPage />
+          <Navbar /> <LoginPage />
         </div>
       ),
     },
@@ -151,7 +163,7 @@ const Routes = () => {
       path: "/regisztracio",
       element: (
         <div>
-         <Navbar /> <Register />
+          <Navbar /> <Register />
         </div>
       ),
     },
