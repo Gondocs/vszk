@@ -7,10 +7,11 @@ import { transliterate } from "../api/transliteration";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NotFoundSvg from "../assets/NotFoundSvg";
 import { ClipLoader } from "react-spinners";
-import NewMenu from "./NewDropdown";
+import NewMenu from "./SoftwareCategoriesDropdown";
 import { useAuth } from "../Auth/Auth";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import ProfileDropdown from "./ProfileDropdown";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -27,11 +28,8 @@ export const Navbar = () => {
   const [loading, setLoading] = useState(true); // Add loading state
 
   const { setToken } = useAuth();
-  const { deleteUserData } = useAuth();
   const navigate = useNavigate();
   const { token } = useAuth();
-
-
 
   const handleProfileClick = () => {
     setIsProfileDropdownVisible(!isProfileDropdownVisible);
@@ -105,12 +103,12 @@ export const Navbar = () => {
   useEffect(() => {
     filterSoftwareData();
   }, [searchQuery]);
-  
-    const handleLogout = () => {
-      setToken();
-      navigate("/", { replace: true });
-    };
-  
+
+  const handleLogout = () => {
+    setToken();
+    setIsProfileDropdownVisible(false);
+    navigate("/", { replace: true });
+  };
 
   return (
     <nav className="bg-gray-800 px-4 py-5 rounded-b-lg flex-grow sticky top-0 z-50">
@@ -142,7 +140,6 @@ export const Navbar = () => {
           <>
             <div className="flex-grow relative px-8">
               <div className="relative">
-                {/* Search input with integrated search button */}
                 <div style={{ position: "relative" }}>
                   <div style={{ position: "relative" }}>
                     <input
@@ -245,32 +242,7 @@ export const Navbar = () => {
             </div>
 
             {token ? (
-              // render profile menu if logged in
-              <div className="text-white mr-10 relative group">
-                <button
-                  className="hover:text-gray-400 text-[1.2rem]"
-                  onClick={handleProfileClick}
-                >
-                  Üdvözlünk, {jwtDecode(token).family_name} {jwtDecode(token).given_name}!
-                </button>
-                {isProfileDropdownVisible && (
-                  <div className="absolute z-10 bg-white rounded-lg right-0 shadow-md mt-2">
-                    {/* profile menu items */}
-                    {/*<Link
-                      to="/profile"
-                      className="block px-8 py-4 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                    >
-                      Profil
-                </Link>*/}
-                    <button
-                      className="block px-8 py-4 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                      onClick={handleLogout}
-                    >
-                      Kijelentkezés
-                    </button>
-                  </div>
-                )}
-              </div>
+              <ProfileDropdown />
             ) : (
               // Render login and registration links if not logged in
               <>
