@@ -2,16 +2,29 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import Cookies from 'js-cookie'; // Import the js-cookie library
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [token, setToken_] = useState(Cookies.get('token')); // Use Cookies.get
 
+    {/*}
     const setToken = (newToken) => {
         setToken_(newToken);
         Cookies.set('token', newToken); // Use Cookies.set
+    }; */}
+
+    const setToken = (newToken) => {
+        setToken_(newToken);
+        if (newToken) {
+            const decodedToken = jwtDecode(newToken);
+            Cookies.set('token', newToken, { expires: decodedToken.exp }); // TODO: FIX, THIS IS IN DAYS
+        } else {
+            Cookies.remove('token');
+        }
     };
+    
 
     useEffect(() => {
         if (token) {
