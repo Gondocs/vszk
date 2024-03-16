@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "../../../../css/FilterButton.css";
 
-function SupportFilter({ SupportData, onSupportChange, Maincategory, Subcategory  }) {
+function SupportFilter({
+  SupportData,
+  onSupportChange,
+  Maincategory,
+  Subcategory,
+}) {
   const [parent] = useAutoAnimate(/* optional config */);
 
   const [isSupportCollapsed, setIsSupportCollapsed] = useState(false);
@@ -22,9 +27,7 @@ function SupportFilter({ SupportData, onSupportChange, Maincategory, Subcategory
     let updatedSupport;
 
     if (selectedSupport.includes(Os)) {
-      updatedSupport = selectedSupport.filter(
-        (selected) => selected !== Os
-      );
+      updatedSupport = selectedSupport.filter((selected) => selected !== Os);
     } else {
       updatedSupport = [...selectedSupport, Os];
     }
@@ -37,7 +40,7 @@ function SupportFilter({ SupportData, onSupportChange, Maincategory, Subcategory
   };
 
   return (
-    <ul ref={parent}>
+    <ul ref={parent} className="no-select">
       <h1
         className={`text-lg text-white my-4 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-600 ${
           isSupportCollapsed

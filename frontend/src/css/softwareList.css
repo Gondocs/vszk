@@ -30,3 +30,10 @@
 .transition-class {
   transition: background-color 0.7s ease;
 }
+
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

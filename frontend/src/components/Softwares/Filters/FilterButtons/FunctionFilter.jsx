@@ -59,7 +59,7 @@ function FunctionFilter({
           const isFuncCollapsed = collapsedCategories[categoryID];
 
           return (
-            <li key={categoryID} ref={parent}>
+            <li key={categoryID} ref={parent} className="no-select">
               <h3
                 className={`text-lg text-white my-4 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-600 ${
                   isFuncCollapsed

@@ -44,7 +44,7 @@ function CompatibilityFilter({
   };
 
   return (
-    <ul ref={parent}>
+    <ul ref={parent}  className="no-select" >
       <h1
         className={`text-lg text-white my-4 p-2 rounded-xl text-center effect effect-5 hover:bg-gray-600 ${
           isCompatibilityCollapsed
