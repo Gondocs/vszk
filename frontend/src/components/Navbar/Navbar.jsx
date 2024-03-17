@@ -15,9 +15,6 @@ import ProfileDropdown from "./ProfileDropdown";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
-
-  const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
-    useState(false);
   const [SoftwareData, setSoftwareData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
@@ -30,10 +27,6 @@ export const Navbar = () => {
   const { setToken } = useAuth();
   const navigate = useNavigate();
   const { token } = useAuth();
-
-  const handleProfileClick = () => {
-    setIsProfileDropdownVisible(!isProfileDropdownVisible);
-  };
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -103,12 +96,6 @@ export const Navbar = () => {
   useEffect(() => {
     filterSoftwareData();
   }, [searchQuery]);
-
-  const handleLogout = () => {
-    setToken();
-    setIsProfileDropdownVisible(false);
-    navigate("/", { replace: true });
-  };
 
   return (
     <nav className="bg-gray-800 px-4 py-5 rounded-b-lg flex-grow sticky top-0 z-50">
