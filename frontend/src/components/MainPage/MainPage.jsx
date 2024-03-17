@@ -172,9 +172,9 @@ export function HomePage() {
         </div>
       </div>
 
-      <div className="bg-slate-100 px-24">
+      <div className={`${isDesktopOrLaptop ? 'rounded-full px-24' : 'rounded-lg' } bg-slate-100 `}>
         <header
-          className="bg-gray-800 py-6 mt-0 rounded-full hover-scale-small:hover hover-scale-small"
+          className={` ${isDesktopOrLaptop ? 'rounded-full' : 'rounded-lg' } bg-gray-800 py-6 mt-0  hover-scale-small:hover hover-scale-small`}
           ref={headerRef}
         >
           <div className="container pl-12 text-white">
@@ -189,20 +189,19 @@ export function HomePage() {
       </div>
 
       <section className="bg-slate-100">
-        <div className="p-16 bg-slate-100">
-          <div className="p-12 flex flex-row items-center justify-center gap-2">
+        <div className={`${isDesktopOrLaptop ? 'p-16' : 'p-0'} bg-slate-100`}>
+        <div className={` flex ${isDesktopOrLaptop ? 'flex-row p-12' : 'flex-col p-6'} items-center justify-center gap-2`}>
             <div
               ref={sectionRef}
               className=" container first-letter:animated-element text-left"
             >
               <Link to={"/osszehasonlitas"} onClick={scrollTop}>
-                <h2 className="text-4xl font-semibold mb-4 hover-scale-small:hover hover-scale-small">
+                <h2 className={`${isDesktopOrLaptop ? 'text-4xl hover-scale-small:hover hover-scale-small' : 'text-2xl text-center'} font-semibold mb-4`}>
                   Próbálja ki az összehasonlítást
                 </h2>
               </Link>
-              <p className="text-gray-700 text-xl">
-                Hasonlítsa össze a szoftvereinket, hogy megtalálja a számára
-                legmegfelelőbbet.
+              <p className={`${isDesktopOrLaptop ? 'text-justify' : 'text-center'} text-gray-700 text-xl`}>
+                Hasonlítsa össze a szoftvereinket, hogy megtalálja a számára legmegfelelőbbet.
               </p>
             </div>
             <div ref={pictureRef} className="">
@@ -210,7 +209,7 @@ export function HomePage() {
                 <img
                   src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
                   alt="Összehasonlítás"
-                  className="rounded-full hover-scale hover-scale:hover ml-0 imagedimension float-right"
+                  className={`rounded-full hover-scale hover-scale:hover ml-0 float-right ${isDesktopOrLaptop ? 'w-[75%]' : 'mt-10 mx-auto'}`}
                 />
               </Link>
             </div>
@@ -231,7 +230,7 @@ export function HomePage() {
             <div className={`grid ${isDesktopOrLaptop ? 'grid-cols-3' : 'grid-cols-1'} gap-8 mb-4`}>
               <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
                 <h3 className="text-xl font-semibold mb-4">
-                  Válasszon ki egy szimpatikus szoftvert
+                  Válasszon egy szoftvert
                 </h3>
                 <p className="text-gray-700">
                   Válasszon ki egy szoftvert a kínálatunkból, amely megfelel az
