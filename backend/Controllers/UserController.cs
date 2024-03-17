@@ -16,5 +16,26 @@ namespace vszk.Controllers
         {
             return await _userService.GetAllUsers();
         }
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult<UserByIdDTO>> GetById(int id)
+        {
+            var user = await _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return new UserByIdDTO
+            {
+                Email = user.Email,
+                FirstName = user.Firstname,
+                LastName = user.Lastname,
+                Role = user.Role,
+                Country = user.Country,
+                Settlement = user.Settlement
+            };
+
+
+        }
     }
 }
