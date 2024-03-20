@@ -13,7 +13,6 @@ import CompanyDetail from "../Companies/CompanyDetail";
 import Compare from "../Compare/Compare";
 import LoginPage from "../Login/loginPage";
 import { Navbar } from "../Navbar/Navbar";
-import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 const Routes = () => {
@@ -99,22 +98,6 @@ const Routes = () => {
       element: (
         <div>
           <Navbar /> <Apitest />
-        </div>
-      ),
-    },
-    {
-      path: "/belepes",
-      element: (
-        <div>
-          <Navbar /> <LoginPage />
-        </div>
-      ),
-    },
-    {
-      path: "/belepes",
-      element: (
-        <div>
-          <Navbar /> <LoginPage />
         </div>
       ),
     },
