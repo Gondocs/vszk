@@ -10,10 +10,11 @@ import {
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { jwtDecode } from "jwt-decode";
-import { useAuth } from "../Auth/Auth";
+import { useAuth } from "../../Auth/Auth";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useMediaQuery } from "react-responsive";
 
 const ProfileDropdown = () => {
   const ref = useRef(null);
@@ -23,6 +24,10 @@ const ProfileDropdown = () => {
   const { token } = useAuth();
   const { setToken } = useAuth();
   const navigate = useNavigate();
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
 
   const handleLogout = () => {
     setToken();
@@ -36,7 +41,7 @@ const ProfileDropdown = () => {
         {...anchorProps}
         className="text-white hover:text-gray-400 block mr-4 text-[1.2rem]"
       >
-        <FontAwesomeIcon icon={faUser} className="fa-xl" />
+        <FontAwesomeIcon icon={faUser} className={`${isDesktopOrLaptop ? 'fa-xl' : 'w-7 h-7' } `} />
       </div>
       <ControlledMenu
         {...hoverProps}
