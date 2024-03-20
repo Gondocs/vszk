@@ -81,7 +81,7 @@ namespace vszk.Services
             return softwares;
         }
 
-        public async Task<SoftwareDTO> GetSoftwareById(int id)
+        public async Task<SoftwareDTO> GetSoftwareById(int id)  
         {
             var software = await _context.Software.FirstOrDefaultAsync(x => x.SoftwareID == id);
        
