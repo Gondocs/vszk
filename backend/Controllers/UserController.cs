@@ -37,5 +37,16 @@ namespace vszk.Controllers
 
 
         }
+
+        [HttpPut("UpdateUserSettlement")]
+        public async Task<ActionResult<User>> UpdateUserSettlement([FromBody] UserSettlementDTO userSettlementDTO)
+        {
+            var user = await _userService.UpdateUserSettlement(userSettlementDTO);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
     }
 }
