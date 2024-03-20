@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from '../Searchbar/SearchBar';
+import SearchBar from '../SearchBar';
 import ProfileDropdown from '../DropdownMenus/ProfileDropdown';
 import { useMediaQuery } from 'react-responsive';
 import NewMenu from '../DropdownMenus/SoftwareCategoriesDropdown';
