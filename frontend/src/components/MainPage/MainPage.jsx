@@ -172,7 +172,7 @@ export function HomePage() {
         </div>
       </div>
 
-      <div className={`${isDesktopOrLaptop ? 'rounded-full px-24' : 'rounded-lg' } bg-slate-100 `}>
+      <div className={`${isDesktopOrLaptop ? 'px-24' : 'rounded-lg' } bg-slate-100 `}>
         <header
           className={` ${isDesktopOrLaptop ? 'rounded-full' : 'rounded-lg' } bg-gray-800 py-6 mt-0  hover-scale-small:hover hover-scale-small`}
           ref={headerRef}
