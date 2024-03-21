@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from '../Searchbar/SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import ProfileDropdown from '../DropdownMenus/ProfileDropdown';
 import { slide as Menu } from "react-burger-menu";
 import "../../../css/sidebar.css";
-import { useMediaQuery } from 'react-responsive';
 import NewMenu from "../DropdownMenus/SoftwareCategoriesDropdown";
 
 const BurgerMenu = ({
@@ -69,6 +68,7 @@ const BurgerMenu = ({
       handleLinkClick={handleLinkClick}
       parent={parent}
       token={token}
+      isDesktopOrLaptop={isDesktopOrLaptop}
     />
   </nav>
 );

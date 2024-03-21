@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from '../Searchbar/SearchBar';
+
 import ProfileDropdown from '../DropdownMenus/ProfileDropdown';
 import { useMediaQuery } from 'react-responsive';
 import NewMenu from '../DropdownMenus/SoftwareCategoriesDropdown';
+import SearchBar from '../SearchBar/SearchBar';
 
 
 const DesktopNavbar = ({
