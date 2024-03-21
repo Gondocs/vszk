@@ -128,6 +128,15 @@ const Routes = () => {
             </div>
           ),
         },
+
+        {
+        path: "/apitest",
+        element: (
+          <div>
+            <Apitest />
+          </div>
+        ),
+      },
       ],
     },
   ];
