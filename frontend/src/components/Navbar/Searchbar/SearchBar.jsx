@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { get } from "../../api/api";
-import { showToast } from "../../toasts/toast";
+import React from "react";
+import { Link } from "react-router-dom";
 import { transliterate } from "../../api/transliteration";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NotFoundSvg from "../../assets/NotFoundSvg";
 import { ClipLoader } from "react-spinners";
-import NewMenu from "../DropdownMenus/SoftwareCategoriesDropdown";
-import { useAuth } from "../../Auth/Auth";
-import ProfileDropdown from "../DropdownMenus/ProfileDropdown";
-import { useMediaQuery } from "react-responsive";
-import { slide as Menu } from "react-burger-menu";
 import "../../../css/sidebar.css";
 
 const SearchBar = ({
@@ -27,10 +19,11 @@ const SearchBar = ({
     handleLinkClick,
     parent,
     token,
+    isDesktopOrLaptop,
   }) => (
     <>
       <div
-        className={`flex-grow relative px-5`}
+        className={`flex-grow relative ${isDesktopOrLaptop ? "" : "py-4"} px-5`}
       >
         <div className="relative">
           <input
