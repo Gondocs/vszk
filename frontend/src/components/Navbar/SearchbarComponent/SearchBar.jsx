@@ -4,23 +4,29 @@ import { transliterate } from "../../api/transliteration";
 import NotFoundSvg from "../../assets/NotFoundSvg";
 import { ClipLoader } from "react-spinners";
 import "../../../css/sidebar.css";
+import { useMediaQuery } from "react-responsive";
 
 const SearchBar = ({
-    searchQuery,
-    handleInputChange,
-    handleSearchFocus,
-    handleSearchBlur,
-    handleSearchEnter,
-    handleSearchButtonClick,
-    isSearchFocused,
-    loading,
-    hasSearchResults,
-    filteredSoftwareData,
-    handleLinkClick,
-    parent,
-    token,
-    isDesktopOrLaptop,
-  }) => (
+  searchQuery,
+  handleInputChange,
+  handleSearchFocus,
+  handleSearchBlur,
+  handleSearchEnter,
+  handleSearchButtonClick,
+  isSearchFocused,
+  loading,
+  hasSearchResults,
+  filteredSoftwareData,
+  handleLinkClick,
+  parent,
+  token,
+}) => {
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+
+  return (
     <>
       <div
         className={`flex-grow relative ${isDesktopOrLaptop ? "" : "py-4"} px-5`}
@@ -115,6 +121,8 @@ const SearchBar = ({
         )}
       </div>
     </>
+
   );
+}
 
 export default SearchBar;

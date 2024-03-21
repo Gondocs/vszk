@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../SearchbarComponent/SearchBar';
 import ProfileDropdown from '../DropdownMenus/ProfileDropdown';
 import { slide as Menu } from "react-burger-menu";
 import "../../../css/sidebar.css";
