@@ -15,7 +15,6 @@ export const Navbar = () => {
   const [SoftwareData, setSoftwareData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSoftwareData, setFilteredSoftwareData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchnavigate = useNavigate();
   const hasSearchResults = filteredSoftwareData.length > 0;
@@ -103,7 +102,6 @@ export const Navbar = () => {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           filteredSoftwareData={filteredSoftwareData}
-          isLoading={isLoading}
           isSearchFocused={isSearchFocused}
           searchnavigate={searchnavigate}
           hasSearchResults={hasSearchResults}
@@ -124,7 +122,6 @@ export const Navbar = () => {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           filteredSoftwareData={filteredSoftwareData}
-          isLoading={isLoading}
           isSearchFocused={isSearchFocused}
           searchnavigate={searchnavigate}
           hasSearchResults={hasSearchResults}
@@ -137,6 +134,7 @@ export const Navbar = () => {
           handleSearchEnter={handleSearchEnter}
           handleSearchButtonClick={handleSearchButtonClick}
           filterSoftwareData={filterSoftwareData}
+          isDesktopOrLaptop={isDesktopOrLaptop}
         />
       )}
     </>
