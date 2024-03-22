@@ -30,18 +30,17 @@ namespace vszk.Controllers
         }
 
         [HttpPut("AddUserFavoriteSoftware")]
-        public async Task<ActionResult<User>> AddUserFavoriteSoftware([FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
+        public async Task<ActionResult<User>> AddUserFavoriteSoftware(
+            [FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
+        )
         {
             var user = await _softwareService.AddUserFavoriteSoftware(userFavoriteSoftwareDTO);
             if (user == null)
             {
                 return NotFound();
             }
-            return new ContentResult 
-            { 
-                Content = "Success, added to favorites", 
-                StatusCode = 200 
-            };        }
+            return new ContentResult { Content = "Success, added to favorites", StatusCode = 200 };
+        }
 
         [HttpGet("GetUserFavoriteSoftware")]
         public async Task<ActionResult<List<SoftwareSmallDTO>>> GetUserFavoriteSoftware(int id)
@@ -55,17 +54,19 @@ namespace vszk.Controllers
         }
 
         [HttpPut("RemoveUserFavoriteSoftware")]
-        public async Task<ActionResult<User>> RemoveUserFavoriteSoftware([FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
+        public async Task<ActionResult<User>> RemoveUserFavoriteSoftware(
+            [FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
+        )
         {
             var user = await _softwareService.RemoveUserFavoriteSoftware(userFavoriteSoftwareDTO);
             if (user == null)
             {
                 return NotFound();
             }
-            return new ContentResult 
-            { 
-                Content = "Success, removed from favorites", 
-                StatusCode = 200 
+            return new ContentResult
+            {
+                Content = "Success, removed from favorites",
+                StatusCode = 200
             };
         }
 
@@ -89,6 +90,12 @@ namespace vszk.Controllers
                 return NotFound();
             }
             return softwareDTO;
+        }
+
+        [HttpGet("GetAllFunctions")]
+        public async Task<ActionResult<List<SoftwareFunctionsDTO>>> GetAllFunctions()
+        {
+            return await _softwareService.GetAllFunctions();
         }
     }
 }

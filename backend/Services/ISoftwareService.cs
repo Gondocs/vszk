@@ -18,5 +18,7 @@ namespace vszk.Services
 
         Task<List<SoftwareDTO>> AddSoftware(SoftwareDTO softwareDTO);
 
+        Task<List<SoftwareFunctionsDTO>> GetAllFunctions();
+
     }
 }

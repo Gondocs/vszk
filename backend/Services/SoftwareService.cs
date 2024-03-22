@@ -439,5 +439,19 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return await GetAllSoftwares();
         }
+
+        public async Task<List<SoftwareFunctionsDTO>> GetAllFunctions()
+        {
+            var functions = await _context
+                .Functionality
+                .Select(x => new SoftwareFunctionsDTO
+                {
+                    SoftwareFunctionID = x.FunctionalityID,
+                    Functionality = x.Funct
+                })
+                .ToListAsync();
+
+            return functions;
+        }
     }
 }
