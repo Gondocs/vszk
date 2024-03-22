@@ -50,5 +50,16 @@ namespace vszk.Controllers
             }
             return software;
         }
+
+        [HttpPut("RemoveUserFavoriteSoftware")]
+        public async Task<ActionResult<User>> RemoveUserFavoriteSoftware([FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
+        {
+            var user = await _softwareService.RemoveUserFavoriteSoftware(userFavoriteSoftwareDTO);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
     }
 }

@@ -275,5 +275,35 @@ namespace vszk.Services
 
             return softwares;
         }
+
+        public async Task<User> RemoveUserFavoriteSoftware(
+            UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
+        )
+        {
+            var user = await _context.User.FindAsync(userFavoriteSoftwareDTO.UserID);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var software = await _context.Software.FindAsync(userFavoriteSoftwareDTO.SoftwareID);
+            if (software == null)
+            {
+                return null;
+            }
+
+            var userSoftwareFavorites = await _context.UserSoftwareFavorites
+                .Where(usf => usf.User == user && usf.Software == software)
+                .FirstOrDefaultAsync();
+
+            if (userSoftwareFavorites == null)
+            {
+                return null;
+            }
+
+            _context.UserSoftwareFavorites.Remove(userSoftwareFavorites);
+            await _context.SaveChangesAsync();
+            return user;
+        }
     }
 }

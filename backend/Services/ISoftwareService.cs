@@ -12,5 +12,7 @@ namespace vszk.Services
 
         Task<List<SoftwareSmallDTO>> GetUserFavoriteSoftware(int id);
 
+        Task<User> RemoveUserFavoriteSoftware(UserFavoriteSoftwareDTO userFavoriteSoftwareDTO);
+
     }
 }
