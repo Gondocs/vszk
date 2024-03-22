@@ -79,5 +79,16 @@ namespace vszk.Controllers
             }
             return software;
         }
+
+        [HttpPost("AddSoftware")]
+        public async Task<ActionResult<SoftwareDTO>> AddSoftware([FromBody] SoftwareDTO softwareDTO)
+        {
+            var software = await _softwareService.AddSoftware(softwareDTO);
+            if (software == null)
+            {
+                return NotFound();
+            }
+            return softwareDTO;
+        }
     }
 }

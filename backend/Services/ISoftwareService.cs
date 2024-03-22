@@ -16,5 +16,7 @@ namespace vszk.Services
 
         Task<List<SoftwareSmallDTO>> GetRecommendedSoftwares(int id);
 
+        Task<List<SoftwareDTO>> AddSoftware(SoftwareDTO softwareDTO);
+
     }
 }
