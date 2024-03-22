@@ -29,5 +29,6 @@ namespace vszk.Data
         public DbSet<Support> Support {get; set;}
         public DbSet<TextRating> TextRating {get; set;}
         public DbSet<User> User {get; set;}
+        public DbSet<UserSoftwareFavorites> UserSoftwareFavorites {get; set;}
     }
 }
