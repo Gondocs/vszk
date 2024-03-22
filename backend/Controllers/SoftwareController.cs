@@ -37,8 +37,11 @@ namespace vszk.Controllers
             {
                 return NotFound();
             }
-            return user;
-        }
+            return new ContentResult 
+            { 
+                Content = "Success, added to favorites", 
+                StatusCode = 200 
+            };        }
 
         [HttpGet("GetUserFavoriteSoftware")]
         public async Task<ActionResult<List<SoftwareSmallDTO>>> GetUserFavoriteSoftware(int id)
@@ -59,7 +62,11 @@ namespace vszk.Controllers
             {
                 return NotFound();
             }
-            return user;
+            return new ContentResult 
+            { 
+                Content = "Success, removed from favorites", 
+                StatusCode = 200 
+            };
         }
     }
 }
