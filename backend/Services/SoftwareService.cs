@@ -305,5 +305,34 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return user;
         }
+
+        public async Task<List<SoftwareSmallDTO>> GetRecommendedSoftwares(int id)
+        {
+            var category = await _context.Category.FindAsync(id);
+            if (category == null)
+            {
+                return null;
+            }
+
+            var softwareDTOs = await _context
+                .Software.Include(x => x.Category)
+                .Include(x => x.Category.CategoryGroup)
+                .Where(x => x.Category == category)
+                .ToListAsync();
+
+            var softwares = softwareDTOs
+                .Select(software => new SoftwareSmallDTO
+                {
+                    SoftwareID = software.SoftwareID,
+                    Name = software.Name,
+                    Category_group = software.Category.CategoryGroup.Name,
+                    Category = software.Category.Name,
+                    Description = software.Description,
+                    Logo_link = software.Logo_link
+                })
+                .ToList();
+
+            return softwares;
+        }
     }
 }

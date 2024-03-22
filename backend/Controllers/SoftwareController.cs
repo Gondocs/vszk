@@ -68,5 +68,16 @@ namespace vszk.Controllers
                 StatusCode = 200 
             };
         }
+
+        [HttpGet("RecommendedSoftwares")]
+        public async Task<ActionResult<List<SoftwareSmallDTO>>> GetRecommendedSoftwares(int id)
+        {
+            var software = await _softwareService.GetRecommendedSoftwares(id);
+            if (software == null)
+            {
+                return NotFound();
+            }
+            return software;
+        }
     }
 }
