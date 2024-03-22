@@ -97,5 +97,12 @@ namespace vszk.Controllers
         {
             return await _softwareService.GetAllFunctions();
         }
+
+        [HttpGet("GetAllRemunerations")]
+        public async Task<ActionResult<List<RemunerationDTO>>>
+            GetAllRemunerations()
+        {
+            return await _softwareService.GetAllRemunerations();
+        }
     }
 }

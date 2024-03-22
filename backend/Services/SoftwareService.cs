@@ -453,5 +453,22 @@ namespace vszk.Services
 
             return functions;
         }
+
+        public async Task<List<RemunerationDTO>> GetAllRemunerations()
+        {
+            var remunerations = await _context
+                .Remuneration
+                .Include(x => x.Level)
+                .Select(x => new RemunerationDTO
+                {
+                    RemunerationID = x.RemunerationID,
+                    Level = x.Level.Name,
+                    Type = x.Type,
+                    Price = x.Price
+                })
+                .ToListAsync();
+
+            return remunerations;
+        }
     }
 }

@@ -20,5 +20,6 @@ namespace vszk.Services
 
         Task<List<SoftwareFunctionsDTO>> GetAllFunctions();
 
+        Task<List<RemunerationDTO>> GetAllRemunerations();
     }
 }
