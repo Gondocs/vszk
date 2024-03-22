@@ -117,6 +117,14 @@ namespace vszk.Services
         public async Task<SoftwareDTO> GetSoftwareById(int id)
         {
             var software = await _context.Software.FirstOrDefaultAsync(x => x.SoftwareID == id);
+            var categoryId = software.Category;
+
+            var softwareList = await _context
+                .Software.Include(x => x.Category)
+                .Include(x => x.Category.CategoryGroup)
+                .Include(x => x.Company)
+                .Where(s => s.SoftwareID == id)
+                .ToListAsync();
 
             if (software is not null)
             {
@@ -252,13 +260,14 @@ namespace vszk.Services
             */
 
             var favoriteSoftwareDTOs = await _context
-                .Software
-                .Include(x => x.Category)
+                .Software.Include(x => x.Category)
                 .Include(x => x.Category.CategoryGroup)
-                .Where(s => _context.UserSoftwareFavorites
-                    .Where(usf => usf.User == user)
-                    .Select(usf => usf.Software.SoftwareID)
-                    .Contains(s.SoftwareID))
+                .Where(s =>
+                    _context
+                        .UserSoftwareFavorites.Where(usf => usf.User == user)
+                        .Select(usf => usf.Software.SoftwareID)
+                        .Contains(s.SoftwareID)
+                )
                 .ToListAsync();
 
             var softwares = favoriteSoftwareDTOs
@@ -292,8 +301,8 @@ namespace vszk.Services
                 return null;
             }
 
-            var userSoftwareFavorites = await _context.UserSoftwareFavorites
-                .Where(usf => usf.User == user && usf.Software == software)
+            var userSoftwareFavorites = await _context
+                .UserSoftwareFavorites.Where(usf => usf.User == user && usf.Software == software)
                 .FirstOrDefaultAsync();
 
             if (userSoftwareFavorites == null)
