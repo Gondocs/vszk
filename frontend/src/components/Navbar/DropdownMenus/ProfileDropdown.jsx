@@ -60,10 +60,8 @@ const ProfileDropdown = () => {
           Üdvözlünk, {jwtDecode(token).given_name}!
           <FontAwesomeIcon icon="fa-regular fa-user" />
         </MenuHeader>
-        <Link to="/felhasznalo">
-        <MenuItem>
-          Profil
-        </MenuItem>
+        <Link to="/fiokbeallitasok">
+          <MenuItem>Fiókbeállítások</MenuItem>
         </Link>
         <MenuItem onClick={handleLogout}>Kijelentkezés</MenuItem>
       </ControlledMenu>

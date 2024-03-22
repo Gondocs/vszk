@@ -111,7 +111,7 @@ const Routes = () => {
       element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
         {
-          path: "/felhasznalo",
+          path: "/fiokbeallitasok",
           element: <div><Navbar/><ProfilePage/></div>,
         },
         {
