@@ -470,5 +470,19 @@ namespace vszk.Services
 
             return remunerations;
         }
+
+        public async Task<List<SoftwareModulsDTO>> GetAllModuls()
+        {
+            var moduls = await _context
+                .Modul
+                .Select(x => new SoftwareModulsDTO
+                {
+                    ModulID = x.ModulID,
+                    Name = x.Name
+                })
+                .ToListAsync();
+
+            return moduls;
+        }
     }
 }
