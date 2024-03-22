@@ -14,6 +14,7 @@ import Compare from "../Compare/Compare";
 import LoginPage from "../Login/loginPage";
 import { Navbar } from "../Navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
+import ProfilePage from "../Profile/ProfilePage";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -110,8 +111,8 @@ const Routes = () => {
       element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
         {
-          path: "/profil",
-          element: <div>User Home Page</div>,
+          path: "/felhasznalo",
+          element: <div><Navbar/><ProfilePage/></div>,
         },
         {
           path: "/authtest",

@@ -41,7 +41,10 @@ const ProfileDropdown = () => {
         {...anchorProps}
         className="text-white hover:text-gray-400 block mr-4 text-[1.2rem]"
       >
-        <FontAwesomeIcon icon={faUser} className={`${isDesktopOrLaptop ? 'fa-xl' : 'w-7 h-7' } `} />
+        <FontAwesomeIcon
+          icon={faUser}
+          className={`${isDesktopOrLaptop ? "fa-xl" : "w-7 h-7"} `}
+        />
       </div>
       <ControlledMenu
         {...hoverProps}
@@ -57,7 +60,11 @@ const ProfileDropdown = () => {
           Üdvözlünk, {jwtDecode(token).given_name}!
           <FontAwesomeIcon icon="fa-regular fa-user" />
         </MenuHeader>
-        <MenuItem>Profil</MenuItem>
+        <Link to="/felhasznalo">
+        <MenuItem>
+          Profil
+        </MenuItem>
+        </Link>
         <MenuItem onClick={handleLogout}>Kijelentkezés</MenuItem>
       </ControlledMenu>
     </>
