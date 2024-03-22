@@ -7,5 +7,10 @@ namespace vszk.Services
         Task<SoftwareDTO> GetSoftwareById(int id);
 
         Task<List<SoftwareSmallDTO>> GetAllSoftwaresInfos();
+
+        Task<User> AddUserFavoriteSoftware(UserFavoriteSoftwareDTO userFavoriteSoftwareDTO);
+
+        Task<List<SoftwareSmallDTO>> GetUserFavoriteSoftware(int id);
+
     }
 }

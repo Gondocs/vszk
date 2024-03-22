@@ -28,5 +28,27 @@ namespace vszk.Controllers
         {
             return await _softwareService.GetAllSoftwaresInfos();
         }
+
+        [HttpPut("AddUserFavoriteSoftware")]
+        public async Task<ActionResult<User>> AddUserFavoriteSoftware([FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
+        {
+            var user = await _softwareService.AddUserFavoriteSoftware(userFavoriteSoftwareDTO);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        [HttpGet("GetUserFavoriteSoftware")]
+        public async Task<ActionResult<List<SoftwareSmallDTO>>> GetUserFavoriteSoftware(int id)
+        {
+            var software = await _softwareService.GetUserFavoriteSoftware(id);
+            if (software == null)
+            {
+                return NotFound();
+            }
+            return software;
+        }
     }
 }
