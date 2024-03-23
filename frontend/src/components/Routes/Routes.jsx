@@ -112,32 +112,44 @@ const Routes = () => {
       children: [
         {
           path: "/fiokbeallitasok",
-          element: <div><Navbar/><ProfilePage/></div>,
+          element: (
+            <div>
+              <Navbar />
+              <ProfilePage />
+            </div>
+          ),
         },
         {
           path: "/authtest",
           element: (
             <div>
-              Auth test:{" "}
-                nameId: {token && jwtDecode(token).nameid} <br />
-                email: {token && jwtDecode(token).email} <br />
-                given_name: {token && jwtDecode(token).given_name} <br />
-                family_name: {token && jwtDecode(token).family_name} <br />
-                role: {token && jwtDecode(token).role} <br />
-                exp: {token && jwtDecode(token).exp} <br />
-                
+              Auth test: nameId: {token && jwtDecode(token).nameid} <br />
+              email: {token && jwtDecode(token).email} <br />
+              given_name: {token && jwtDecode(token).given_name} <br />
+              family_name: {token && jwtDecode(token).family_name} <br />
+              role: {token && jwtDecode(token).role} <br />
+              exp: {token && jwtDecode(token).exp} <br />
             </div>
           ),
         },
 
         {
-        path: "/apitest",
-        element: (
-          <div>
-            <Apitest />
-          </div>
-        ),
-      },
+          path: "/apitest",
+          element: (
+            <div>
+              <Apitest />
+            </div>
+          ),
+        },
+
+        {
+          path: "/kedvencek",
+          element: (
+            <div>
+              <Navbar /> <h1>Kedvencek</h1>
+            </div>
+          ),
+        },
       ],
     },
   ];
