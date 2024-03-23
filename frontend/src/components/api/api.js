@@ -75,12 +75,21 @@ const get = {
   Support: () => {
     return apiConfig.get("/Support/GetAll").then((response) => response.data);
   },
+
+  IsUserFavoriteSoftwareById: (id) => {
+    return apiConfig
+      .get(`/Software/IsUserFavoriteSoftwareById/${id}`)
+      .then((response) => response.data);
+  },
+
+  RecommendedSoftwares: () => {
+    return apiConfig
+      .get("/Software/RecommendedSoftwares")
+      .then((response) => response.data);
+  },
 };
 
-
 const post = {
-
-
   RegisterData: (data) => {
     return apiConfig
       .post("/Auth/register", data)
@@ -99,20 +108,18 @@ const post = {
   },
 
   LoginData: (data) => {
-    return apiConfig.post("/Auth/login", data)
-      .then((response) => {
-        const token = response.data;
-        return { token };
-      });
+    return apiConfig.post("/Auth/login", data).then((response) => {
+      const token = response.data;
+      return { token };
+    });
   },
-  
+
   Logout: () => {
     const { setToken } = useAuth();
     // Clear the authentication token from local storage
     setToken(null);
     localStorage.clear();
   },
-  
 
   /*
       {
@@ -144,4 +151,19 @@ const post = {
   },
 };
 
-export { get, post };
+const put = {
+  AddUserFavoriteSoftware: (data) => {
+    return apiConfig
+      .put("/Software/AddUserFavoriteSoftware", data)
+      .then((response) => response.data);
+  },
+  
+  RemoveUserFavoriteSoftware: (data) => {
+    return apiConfig
+      .put("/Software/RemoveUserFavoriteSoftware", data)
+      .then((response) => response.data);
+  },
+
+};
+
+export { get, post, put };
