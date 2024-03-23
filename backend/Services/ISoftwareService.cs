@@ -23,5 +23,7 @@ namespace vszk.Services
         Task<List<RemunerationDTO>> GetAllRemunerations();
 
         Task<List<SoftwareModulsDTO>> GetAllModuls();
+
+        Task<bool> IsUserFavoriteSoftwareById(int userId, int softwareId);
     }
 }

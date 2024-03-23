@@ -484,5 +484,33 @@ namespace vszk.Services
 
             return moduls;
         }
+
+        public async Task<bool> IsUserFavoriteSoftwareById (int userId, int softwareId)
+        {
+            var user = await _context.User.FindAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            var software = await _context.Software.FindAsync(softwareId);
+            if (software == null)
+            {
+                return false;
+            }
+
+            var userSoftwareFavorites = await _context
+                .UserSoftwareFavorites
+                .Where(usf => usf.User == user && usf.Software == software)
+                .FirstOrDefaultAsync();
+
+            if (userSoftwareFavorites == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

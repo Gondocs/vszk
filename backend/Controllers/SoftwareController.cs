@@ -70,6 +70,12 @@ namespace vszk.Controllers
             };
         }
 
+        [HttpGet("IsUserFavoriteSoftwareById")]
+        public async Task<ActionResult<bool>> IsUserFavoriteSoftwareById(int userId, int softwareId)
+        {
+            return await _softwareService.IsUserFavoriteSoftwareById(userId, softwareId);
+        }
+
         [HttpGet("RecommendedSoftwares")]
         public async Task<ActionResult<List<SoftwareSmallDTO>>> GetRecommendedSoftwares(int id)
         {
