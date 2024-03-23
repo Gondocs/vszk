@@ -29,7 +29,7 @@ namespace vszk.Controllers
             return await _softwareService.GetAllSoftwaresInfos();
         }
 
-        [HttpPut("AddUserFavoriteSoftware")]
+        [HttpPost("AddUserFavoriteSoftware")]
         public async Task<ActionResult<User>> AddUserFavoriteSoftware(
             [FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
         )
