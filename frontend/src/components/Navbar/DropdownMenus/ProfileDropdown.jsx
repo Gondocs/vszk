@@ -63,6 +63,9 @@ const ProfileDropdown = () => {
         <Link to="/fiokbeallitasok">
           <MenuItem>Fiókbeállítások</MenuItem>
         </Link>
+        <Link to="/kedvencek">
+          <MenuItem>Kedvencek</MenuItem>
+        </Link>
         <MenuItem onClick={handleLogout}>Kijelentkezés</MenuItem>
       </ControlledMenu>
     </>
