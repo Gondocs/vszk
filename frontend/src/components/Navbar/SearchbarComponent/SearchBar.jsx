@@ -29,7 +29,7 @@ const SearchBar = ({
   return (
     <>
       <div
-        className={`flex-grow relative ${isDesktopOrLaptop ? "" : "py-4"} px-5`}
+        className={`flex-grow ${isDesktopOrLaptop ? "" : "py-4 pl-16"} px-5`}
       >
         <div className="relative">
           <input
