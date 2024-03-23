@@ -8,6 +8,8 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [token, setToken_] = useState(Cookies.get('token')); // Use Cookies.get
+    const [role, setRole] = useState(); // Add state for role
+
 
     {/*}
     const setToken = (newToken) => {
@@ -19,8 +21,10 @@ const AuthProvider = ({ children }) => {
         setToken_(newToken);
         if (newToken) {
             const decodedToken = jwtDecode(newToken);
+            setRole(decodedToken.role); // Set role
             Cookies.set('token', newToken, { expires: decodedToken.exp }); // TODO: FIX, THIS IS IN DAYS
         } else {
+            setRole(null); // Clear role
             Cookies.remove('token');
         }
     };
@@ -35,13 +39,13 @@ const AuthProvider = ({ children }) => {
             Cookies.remove('token');
         }
     }, [token]);
-
     const contextValue = useMemo(
         () => ({
             token,
             setToken,
+            role, // Add role to context
         }),
-        [token],
+        [token, role], // Add role to dependencies
     );
 
     return (
