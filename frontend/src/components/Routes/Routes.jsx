@@ -15,6 +15,7 @@ import LoginPage from "../Login/loginPage";
 import { Navbar } from "../Navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
+import FavoritesPage from "../Profile/FavoritesPage";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -146,7 +147,7 @@ const Routes = () => {
           path: "/kedvencek",
           element: (
             <div>
-              <Navbar /> <h1>Kedvencek</h1>
+              <Navbar /> <FavoritesPage/>
             </div>
           ),
         },
