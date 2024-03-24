@@ -76,9 +76,13 @@ const get = {
     return apiConfig.get("/Support/GetAll").then((response) => response.data);
   },
 
-  GetUserFavoriteSoftware: () => {
+  GetUserFavoriteSoftware: (id) => {
     return apiConfig
-      .get("/Software/GetUserFavoriteSoftware")
+      .get(`/Software/GetUserFavoriteSoftware`, {
+        params: {
+          id: id
+        }
+      })
       .then((response) => response.data);
   },
 
