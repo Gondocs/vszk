@@ -43,7 +43,7 @@ namespace vszk.Controllers
         }
 
         [HttpGet("GetUserFavoriteSoftware")]
-        public async Task<ActionResult<List<SoftwareSmallDTO>>> GetUserFavoriteSoftware(int id)
+        public async Task<ActionResult<List<UserFavoriteSoftwareListDTO>>> GetUserFavoriteSoftware(int id)
         {
             var software = await _softwareService.GetUserFavoriteSoftware(id);
             if (software == null)

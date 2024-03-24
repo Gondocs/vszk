@@ -245,7 +245,7 @@ namespace vszk.Services
             return user;
         }
 
-        public async Task<List<SoftwareSmallDTO>> GetUserFavoriteSoftware(int id)
+        public async Task<List<UserFavoriteSoftwareListDTO>> GetUserFavoriteSoftware(int id)
         {
             var user = await _context.User.FindAsync(id);
             if (user == null)
@@ -261,6 +261,7 @@ namespace vszk.Services
 
             var favoriteSoftwareDTOs = await _context
                 .Software.Include(x => x.Category)
+                .Include(x => x.Company)
                 .Include(x => x.Category.CategoryGroup)
                 .Where(s =>
                     _context
@@ -271,14 +272,16 @@ namespace vszk.Services
                 .ToListAsync();
 
             var softwares = favoriteSoftwareDTOs
-                .Select(software => new SoftwareSmallDTO
+                .Select(software => new UserFavoriteSoftwareListDTO
                 {
                     SoftwareID = software.SoftwareID,
                     Name = software.Name,
-                    Category_group = software.Category.CategoryGroup.Name,
-                    Category = software.Category.Name,
                     Description = software.Description,
-                    Logo_link = software.Logo_link
+                    Category = software.Category,
+                    Company = software.Company,
+                    Introduction_fee = software.Introduction_fee,
+                    Logo_link = software.Logo_link,
+                    Average_stars = CalculateAverageStars(software),
                 })
                 .ToList();
 
@@ -368,48 +371,48 @@ namespace vszk.Services
                 Logo_link = softwareDTO.Logo_link
             };
 
-            var languages = softwareDTO.Languages
-                .Select(lang => new SoftwareLangConnect
+            var languages = softwareDTO
+                .Languages.Select(lang => new SoftwareLangConnect
                 {
                     Software = software,
                     Language = _context.Language.First(x => x.Lang == lang)
                 })
                 .ToList();
 
-            var supports = softwareDTO.Supports
-                .Select(support => new Support
+            var supports = softwareDTO
+                .Supports.Select(support => new Support
                 {
                     Software = software,
                     Language = _context.Language.First(x => x.Lang == support)
                 })
                 .ToList();
 
-            var os = softwareDTO.OSs
-                .Select(os => new SoftwareOSConnect
+            var os = softwareDTO
+                .OSs.Select(os => new SoftwareOSConnect
                 {
                     Software = software,
                     OS = _context.OS.First(x => x.Os == os)
                 })
                 .ToList();
 
-            var devices = softwareDTO.Devices
-                .Select(device => new SoftwareCompConnect
+            var devices = softwareDTO
+                .Devices.Select(device => new SoftwareCompConnect
                 {
                     Software = software,
                     Compatibility = _context.Compatibility.First(x => x.Device == device)
                 })
                 .ToList();
 
-            var moduls = softwareDTO.Moduls
-                .Select(modul => new SoftwareModulConnect
+            var moduls = softwareDTO
+                .Moduls.Select(modul => new SoftwareModulConnect
                 {
                     Software = software,
                     Modul = _context.Modul.First(x => x.Name == modul)
                 })
                 .ToList();
 
-            var remunerations = softwareDTO.Remunerations
-                .Select(remuneration => new Remuneration
+            var remunerations = softwareDTO
+                .Remunerations.Select(remuneration => new Remuneration
                 {
                     Software = software,
                     Level = _context.Level.First(x => x.Name == remuneration.Level),
@@ -418,8 +421,8 @@ namespace vszk.Services
                 })
                 .ToList();
 
-            var functions = softwareDTO.Functions
-                .Select(func => new SoftwareFunction
+            var functions = softwareDTO
+                .Functions.Select(func => new SoftwareFunction
                 {
                     Software = software,
                     Sfunction = func.Sfunction,
@@ -434,7 +437,7 @@ namespace vszk.Services
             _context.SoftwareModulConnect.AddRange(moduls);
             _context.Remuneration.AddRange(remunerations);
             _context.SoftwareFunction.AddRange(functions);
-            
+
             _context.Software.Add(software);
             await _context.SaveChangesAsync();
             return await GetAllSoftwares();
@@ -443,8 +446,7 @@ namespace vszk.Services
         public async Task<List<SoftwareFunctionsDTO>> GetAllFunctions()
         {
             var functions = await _context
-                .Functionality
-                .Select(x => new SoftwareFunctionsDTO
+                .Functionality.Select(x => new SoftwareFunctionsDTO
                 {
                     SoftwareFunctionID = x.FunctionalityID,
                     Functionality = x.Funct
@@ -457,8 +459,7 @@ namespace vszk.Services
         public async Task<List<RemunerationDTO>> GetAllRemunerations()
         {
             var remunerations = await _context
-                .Remuneration
-                .Include(x => x.Level)
+                .Remuneration.Include(x => x.Level)
                 .Select(x => new RemunerationDTO
                 {
                     RemunerationID = x.RemunerationID,
@@ -474,18 +475,13 @@ namespace vszk.Services
         public async Task<List<SoftwareModulsDTO>> GetAllModuls()
         {
             var moduls = await _context
-                .Modul
-                .Select(x => new SoftwareModulsDTO
-                {
-                    ModulID = x.ModulID,
-                    Name = x.Name
-                })
+                .Modul.Select(x => new SoftwareModulsDTO { ModulID = x.ModulID, Name = x.Name })
                 .ToListAsync();
 
             return moduls;
         }
 
-        public async Task<bool> IsUserFavoriteSoftwareById (int userId, int softwareId)
+        public async Task<bool> IsUserFavoriteSoftwareById(int userId, int softwareId)
         {
             var user = await _context.User.FindAsync(userId);
             if (user == null)
@@ -500,8 +496,7 @@ namespace vszk.Services
             }
 
             var userSoftwareFavorites = await _context
-                .UserSoftwareFavorites
-                .Where(usf => usf.User == user && usf.Software == software)
+                .UserSoftwareFavorites.Where(usf => usf.User == user && usf.Software == software)
                 .FirstOrDefaultAsync();
 
             if (userSoftwareFavorites == null)
@@ -511,6 +506,5 @@ namespace vszk.Services
 
             return true;
         }
-
     }
 }
