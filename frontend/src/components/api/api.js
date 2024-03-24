@@ -76,6 +76,12 @@ const get = {
     return apiConfig.get("/Support/GetAll").then((response) => response.data);
   },
 
+  GetUserFavoriteSoftware: () => {
+    return apiConfig
+      .get("/Software/GetUserFavoriteSoftware")
+      .then((response) => response.data);
+  },
+
   IsUserFavoriteSoftwareById: (id) => {
     return apiConfig
       .get(`/Software/IsUserFavoriteSoftwareById/${id}`)
@@ -149,14 +155,15 @@ const post = {
       }
     */
   },
-};
 
-const put = {
   AddUserFavoriteSoftware: (data) => {
     return apiConfig
       .put("/Software/AddUserFavoriteSoftware", data)
       .then((response) => response.data);
   },
+};
+
+const put = {
   
   RemoveUserFavoriteSoftware: (data) => {
     return apiConfig
