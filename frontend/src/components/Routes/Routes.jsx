@@ -16,6 +16,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
+import TestFav from "../Profile/TestFav";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -72,7 +73,7 @@ const Routes = () => {
       ),
     },
     {
-      path: "/szoftverek/:Maincategory/:SubCategory/:name",
+      path: "/szoftverek/:Maincategory/:SubCategory/:softwareID/:name",
       element: (
         <div>
           <Navbar /> <SoftwareDetail /> <Footer />
@@ -138,7 +139,7 @@ const Routes = () => {
           path: "/apitest",
           element: (
             <div>
-              <Apitest />
+              <Apitest /> <TestFav />
             </div>
           ),
         },
