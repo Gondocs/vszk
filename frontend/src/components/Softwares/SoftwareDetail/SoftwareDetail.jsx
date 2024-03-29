@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NotFound from "../../PageNotFound/PageNotFound";
-import { get } from "../../api/api";
+import { get, post } from "../../api/api";
 import { showToast } from "../../toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
 import { transliterate } from "../../api/transliteration";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useAuth } from "../../Auth/Auth";
+import { jwtDecode } from "jwt-decode";
 
 function SoftwareDetail() {
   const { name } = useParams();
+  const { softwareID } = useParams();
+  const { token } = useAuth();
   const [SoftwareData, setSoftwareData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeButton, setActiveButton] = useState("Properties"); // Default active button is "Tulajdonságok"
   const [parent] = useAutoAnimate(/* optional config */);
+  const [IsFavorite, setIsFavorite] = useState();
+  const [SoftwareID, setSoftwareID] = useState();
+  const [AddFavoriteData, setAddFavoriteData] = useState({});
+  
 
   useEffect(() => {
     get
-      .SoftwareAll()
+      .softwareById(softwareID)
       .then((data) => {
-        const software = data.find(
-          (software) => transliterate(software.name) === name
-        );
-        setSoftwareData(software);
+        setSoftwareData(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -30,7 +35,23 @@ function SoftwareDetail() {
         showToast(error, "error");
         setLoading(false);
       });
-  }, [name]);
+  }, []);
+
+  useEffect(() => {
+    get
+      .IsUserFavoriteSoftwareById(jwtDecode(token).nameid, softwareID)
+      .then((data) => {
+        setIsFavorite(data);
+        console.log(data);
+        console.log("User ID: ", jwtDecode(token).nameid);
+        console.log("SoftwareID: ", softwareID);
+      })
+      .catch((error) => {
+        console.error("Error fetching software data:", error);
+        showToast(error, "error");
+        setLoading(false);
+      });
+  }, [softwareID]);
 
   if (!SoftwareData) {
     return <NotFound />;
@@ -82,6 +103,16 @@ function SoftwareDetail() {
                         >
                           Tovább a szoftver oldalára
                         </button>
+                        {!IsFavorite ? (
+                          <button className=" mt-12 mb-8 ml-8 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small">
+                            {" "}
+                            Kedvencek
+                          </button>
+                        ) : (
+                          <button className=" mt-12 mb-8 ml-8 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small">
+                            Eltávolítás
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
