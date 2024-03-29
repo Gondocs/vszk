@@ -30,16 +30,21 @@ namespace vszk.Controllers
         }
 
         [HttpPost("AddUserFavoriteSoftware")]
-        public async Task<ActionResult<User>> AddUserFavoriteSoftware(
-            [FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
-        )
+        public async Task<IActionResult> AddUserFavoriteSoftware([FromBody] UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
         {
-            var user = await _softwareService.AddUserFavoriteSoftware(userFavoriteSoftwareDTO);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = await _softwareService.AddUserFavoriteSoftware(userFavoriteSoftwareDTO);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                return new ContentResult { Content = "Success, added to favorites", StatusCode = 200 };
             }
-            return new ContentResult { Content = "Success, added to favorites", StatusCode = 200 };
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("GetUserFavoriteSoftware")]

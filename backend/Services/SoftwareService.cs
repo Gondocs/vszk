@@ -218,9 +218,7 @@ namespace vszk.Services
             return softwares;
         }
 
-        public async Task<User> AddUserFavoriteSoftware(
-            UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
-        )
+        public async Task<User> AddUserFavoriteSoftware(UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
         {
             var user = await _context.User.FindAsync(userFavoriteSoftwareDTO.UserID);
             if (user == null)
@@ -232,6 +230,14 @@ namespace vszk.Services
             if (software == null)
             {
                 return null;
+            }
+
+            var existingFavorite = await _context.UserSoftwareFavorites
+                .FirstOrDefaultAsync(usf => usf.User.UserID == userFavoriteSoftwareDTO.UserID && usf.Software.SoftwareID == userFavoriteSoftwareDTO.SoftwareID);
+
+            if (existingFavorite != null)
+            {
+                throw new Exception("Software is already added to favorites.");
             }
 
             var userSoftwareFavorites = new UserSoftwareFavorites
