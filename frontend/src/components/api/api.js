@@ -6,7 +6,7 @@ const get = {
     return apiConfig.get("/Category/GetAll").then((response) => response.data);
   },
 
-  softwareID: (id) => {
+  softwareById: (id) => {
     return apiConfig.get(`/software/${id}`).then((response) => response.data);
   },
 
@@ -86,9 +86,15 @@ const get = {
       .then((response) => response.data);
   },
 
-  IsUserFavoriteSoftwareById: (id) => {
+  IsUserFavoriteSoftwareById: (userId, softwareId) => {
     return apiConfig
-      .get(`/Software/IsUserFavoriteSoftwareById/${id}`)
+      .get(`/Software/IsUserFavoriteSoftwareById`,
+        {
+          params: {
+            userId: userId,
+            softwareId: softwareId
+          }
+        })
       .then((response) => response.data);
   },
 
@@ -162,7 +168,7 @@ const post = {
 
   AddUserFavoriteSoftware: (data) => {
     return apiConfig
-      .put("/Software/AddUserFavoriteSoftware", data)
+      .post("/Software/AddUserFavoriteSoftware", data)
       .then((response) => response.data);
   },
 };
