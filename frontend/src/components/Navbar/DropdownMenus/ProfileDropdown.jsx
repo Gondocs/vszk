@@ -57,8 +57,7 @@ const ProfileDropdown = () => {
       >
         <MenuHeader>
           {" "}
-          Üdvözlünk, {jwtDecode(token).given_name}!
-          <FontAwesomeIcon icon="fa-regular fa-user" />
+          Üdvözlünk, {jwtDecode(token).given_name}! 
         </MenuHeader>
         <Link to="/fiokbeallitasok">
           <MenuItem>Fiókbeállítások</MenuItem>
