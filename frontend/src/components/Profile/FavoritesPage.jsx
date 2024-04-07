@@ -14,14 +14,12 @@ import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../Auth/Auth";
 
 const FavoritesPage = () => {
-  const [parent] = useAutoAnimate(/* optional config */);
+  const [parent] = useAutoAnimate();
 
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
 
   const [searchTerm, setSearchTerm] = useState(searchQuery || "");
-  const { Maincategory, Subcategory } = useParams();
-
   const [SoftwareData, setSoftwareData] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -112,7 +110,7 @@ const FavoritesPage = () => {
                   <Link
                     to={`/szoftverek/${transliterate(
                       software.category.categoryGroup.name
-                    )}/${transliterate(software.category.name)}/${transliterate(
+                    )}/${transliterate(software.category.name)}/${software.softwareID}/${transliterate(
                       software.name
                     )}`}
                     onClick={() => {
@@ -149,7 +147,7 @@ const FavoritesPage = () => {
                             software.category.categoryGroup.name
                           )}/${transliterate(
                             software.category.name
-                          )}/${transliterate(software.name)}`}
+                          )}/${software.softwareID}/${transliterate(software.name)}`}
                           className="text-3xl font-semibold text-black mb-3"
                           onClick={() => {
                             window.scrollTo({
