@@ -174,13 +174,16 @@ const post = {
 };
 
 const put = {
-  
-  RemoveUserFavoriteSoftware: (data) => {
-    return apiConfig
-      .put("/Software/RemoveUserFavoriteSoftware", data)
-      .then((response) => response.data);
-  },
+
 
 };
 
-export { get, post, put };
+const del = {
+  RemoveUserFavoriteSoftware: (data) => {
+    return apiConfig
+      .delete("/Software/RemoveUserFavoriteSoftware", { data })
+      .then((response) => response.data);
+  },
+};
+
+export { get, post, put, del };
