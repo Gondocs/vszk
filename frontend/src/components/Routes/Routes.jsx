@@ -16,7 +16,6 @@ import { Navbar } from "../Navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
-import TestFav from "../Profile/TestFav";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -139,7 +138,7 @@ const Routes = () => {
           path: "/apitest",
           element: (
             <div>
-              <Apitest /> <TestFav />
+              <Apitest />
             </div>
           ),
         },
