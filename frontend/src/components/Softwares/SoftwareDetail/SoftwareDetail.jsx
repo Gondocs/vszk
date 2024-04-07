@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NotFound from "../../PageNotFound/PageNotFound";
-import { get, post } from "../../api/api";
+import { get, post, del } from "../../api/api";
 import { showToast } from "../../toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
-import { transliterate } from "../../api/transliteration";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useAuth } from "../../Auth/Auth";
 import { jwtDecode } from "jwt-decode";
+import { showToastLong } from "../../toasts/toastLong";
 
 function SoftwareDetail() {
-  const { name } = useParams();
   const { softwareID } = useParams();
   const { token } = useAuth();
   const [SoftwareData, setSoftwareData] = useState([]);
@@ -19,9 +18,46 @@ function SoftwareDetail() {
   const [activeButton, setActiveButton] = useState("Properties"); // Default active button is "Tulajdonságok"
   const [parent] = useAutoAnimate(/* optional config */);
   const [IsFavorite, setIsFavorite] = useState();
-  const [SoftwareID, setSoftwareID] = useState();
-  const [AddFavoriteData, setAddFavoriteData] = useState({});
-  
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const handleAddFavorite = async (e) => {
+    setIsButtonDisabled(true); // Disable the button
+    const AddFavoriteData = {
+      userID: jwtDecode(token).nameid,
+      softwareID: softwareID,
+    };
+
+    try {
+      await post.AddUserFavoriteSoftware(AddFavoriteData);
+      showToastLong("Sikeresen hozzáadva a kedvencekhez", "success");
+      setIsFavorite(true); // Directly set IsFavorite to true
+    } catch (error) {
+      showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
+      console.log(error);
+    }
+
+    setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
+  };
+
+  const handleRemoveFavorite = async (e) => {
+    setIsButtonDisabled(true); // Disable the button
+    const RemoveFavoriteData = {
+      userID: jwtDecode(token).nameid,
+      softwareID: softwareID,
+    };
+
+    try {
+      await del.RemoveUserFavoriteSoftware(RemoveFavoriteData);
+      showToastLong("Sikeresen eltávolítva a kedvencek közül", "success");
+      setIsFavorite(false); // Directly set IsFavorite to false
+    } catch (error) {
+      showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
+      console.log(error);
+    }
+
+    setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
+  };
 
   useEffect(() => {
     get
@@ -35,7 +71,7 @@ function SoftwareDetail() {
         showToast(error, "error");
         setLoading(false);
       });
-  }, []);
+  }, [softwareID]);
 
   useEffect(() => {
     get
@@ -43,15 +79,13 @@ function SoftwareDetail() {
       .then((data) => {
         setIsFavorite(data);
         console.log(data);
-        console.log("User ID: ", jwtDecode(token).nameid);
-        console.log("SoftwareID: ", softwareID);
       })
       .catch((error) => {
         console.error("Error fetching software data:", error);
         showToast(error, "error");
         setLoading(false);
       });
-  }, [softwareID]);
+  }, [softwareID, token]);
 
   if (!SoftwareData) {
     return <NotFound />;
@@ -103,16 +137,19 @@ function SoftwareDetail() {
                         >
                           Tovább a szoftver oldalára
                         </button>
-                        {!IsFavorite ? (
-                          <button className=" mt-12 mb-8 ml-8 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small">
-                            {" "}
-                            Kedvencek
-                          </button>
-                        ) : (
-                          <button className=" mt-12 mb-8 ml-8 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small">
-                            Eltávolítás
-                          </button>
-                        )}
+                        <button
+                          disabled={isButtonDisabled}
+                          className={`mt-12 mb-8 ml-8 px-4 py-2 ${
+                            isButtonDisabled ? "bg-yellow-100" : "bg-yellow-300"
+                          } hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small`}
+                          onClick={
+                            IsFavorite
+                              ? handleRemoveFavorite
+                              : handleAddFavorite
+                          }
+                        >
+                          {IsFavorite ? "Eltávolítás" : "Kedvencek"}
+                        </button>
                       </div>
                     </div>
                   </div>
