@@ -16,6 +16,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
+import InsufficentPermissions from "../PageNotFound/InsufficentPermissions";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -109,7 +110,7 @@ const Routes = () => {
   const routesForAuthenticatedOnly = [
     {
       path: "/",
-      element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
+      element: <ProtectedRoute rolesAllowed={['admin', 'user']} />, // Wrap the component in ProtectedRoute
       children: [
         {
           path: "/fiokbeallitasok",
@@ -147,9 +148,37 @@ const Routes = () => {
           path: "/kedvencek",
           element: (
             <div>
-              <Navbar /> <FavoritesPage/>
+              <Navbar /> <FavoritesPage />
             </div>
           ),
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <ProtectedRoute rolesAllowed={["admin"]} />, // Only admins can access this route
+      children: [
+        {
+          path: "", 
+          element: <><Navbar /> <h1>adminpage</h1></> ,
+        },
+        {
+          path: "users",
+          element: <Navbar />,
+          children: [
+            {
+              path: "",
+              element: <Navbar />,
+            },
+            {
+              path: "add",
+              element: <Navbar />,
+            },
+            {
+              path: "edit/:userId",
+              element: <Navbar />,
+            },
+          ],
         },
       ],
     },
