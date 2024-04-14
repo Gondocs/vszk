@@ -52,6 +52,11 @@ const Register = () => {
         test: (password) => password === passwordConfirmation,
         error: "A jelszavak nem egyeznek",
       },
+      {
+        test: (password) => password.length <= 24,
+        error: "Jelszó túl hosszú (max 24 karakter)",
+      },
+      
     ];
 
     passwordValidationRules.forEach((rule) => {
