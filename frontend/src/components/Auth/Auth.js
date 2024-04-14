@@ -8,20 +8,24 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [token, setToken_] = useState(Cookies.get('token')); // Use Cookies.get
-    const [role, setRole] = useState(); // Add state for role
+    const [role, setRole] = useState(() => {
+        // Initialize role from the token stored in cookies
+        const storedToken = Cookies.get('token');
+        if (storedToken) {
+            const decodedToken = jwtDecode(storedToken);
+            return decodedToken.role;
+        } else {
+            return null; // No token, no role
+        }
+    });
 
-
-    {/*}
-    const setToken = (newToken) => {
-        setToken_(newToken);
-        Cookies.set('token', newToken); // Use Cookies.set
-    }; */}
 
     const setToken = (newToken) => {
         setToken_(newToken);
         if (newToken) {
             const decodedToken = jwtDecode(newToken);
             setRole(decodedToken.role); // Set role
+            console.log(decodedToken.role);
             Cookies.set('token', newToken, { expires: decodedToken.exp }); // TODO: FIX, THIS IS IN DAYS
         } else {
             setRole(null); // Clear role
@@ -39,6 +43,8 @@ const AuthProvider = ({ children }) => {
             Cookies.remove('token');
         }
     }, [token]);
+
+    
     const contextValue = useMemo(
         () => ({
             token,
