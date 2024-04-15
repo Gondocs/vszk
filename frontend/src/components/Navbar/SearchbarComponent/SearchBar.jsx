@@ -21,7 +21,6 @@ const SearchBar = ({
   parent,
   token,
 }) => {
-
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
@@ -29,7 +28,9 @@ const SearchBar = ({
   return (
     <>
       <div
-        className={`flex-grow ${isDesktopOrLaptop ? "" : "py-4"} ${token ? "" : "pl-16" } px-5`}
+        className={`flex-grow ${isDesktopOrLaptop ? "" : "py-4"} ${
+          token ? "" : "pl-16"
+        } px-5`}
       >
         <div className="relative">
           <input
@@ -49,19 +50,18 @@ const SearchBar = ({
           >
             Keresés
           </button>
-        </div>
-  
-        {isSearchFocused && searchQuery.length >= 1 && (
+
+          {isSearchFocused && searchQuery.length >= 1 && (
           <div
-            className="absolute mt-2 z-99 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4"
+            className="absolute mt-2 z-99 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4 "
             style={{
-              width: "85%",
-              maxHeight: "32rem",
+              width: isDesktopOrLaptop ? "100%" : "90%",
+              maxHeight: isDesktopOrLaptop ? "32rem" : "24rem",
             }}
             ref={parent}
           >
             {loading ? (
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center ">
                 <ClipLoader color={"#B5B4B4"} loading={loading} size={50} />
               </div>
             ) : hasSearchResults ? (
@@ -120,9 +120,11 @@ const SearchBar = ({
           </div>
         )}
       </div>
-    </>
+        </div>
 
+        
+    </>
   );
-}
+};
 
 export default SearchBar;
