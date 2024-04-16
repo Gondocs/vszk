@@ -27,10 +27,10 @@ namespace vszk.Controllers
             }
             return new UserByIdDTO
             {
+                UserID = user.UserID,
                 Email = user.Email,
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
-                Role = user.Role,
                 Country = user.Country,
                 Settlement = user.Settlement
             };
@@ -42,6 +42,17 @@ namespace vszk.Controllers
         public async Task<ActionResult<User>> UpdateUserSettlement([FromBody] UserSettlementDTO userSettlementDTO)
         {
             var user = await _userService.UpdateUserSettlement(userSettlementDTO);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        [HttpPut("UpdateUserData")]
+        public async Task<ActionResult<User>> UpdateUserData([FromBody] UserDataChangeDTO userDataChangeDTO)
+        {
+            var user = await _userService.UpdateUserData(userDataChangeDTO);
             if (user == null)
             {
                 return NotFound();
