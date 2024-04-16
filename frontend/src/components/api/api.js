@@ -80,27 +80,32 @@ const get = {
     return apiConfig
       .get(`/Software/GetUserFavoriteSoftware`, {
         params: {
-          id: id
-        }
+          id: id,
+        },
       })
       .then((response) => response.data);
   },
 
   IsUserFavoriteSoftwareById: (userId, softwareId) => {
     return apiConfig
-      .get(`/Software/IsUserFavoriteSoftwareById`,
-        {
-          params: {
-            userId: userId,
-            softwareId: softwareId
-          }
-        })
+      .get(`/Software/IsUserFavoriteSoftwareById`, {
+        params: {
+          userId: userId,
+          softwareId: softwareId,
+        },
+      })
       .then((response) => response.data);
   },
 
   RecommendedSoftwares: () => {
     return apiConfig
       .get("/Software/RecommendedSoftwares")
+      .then((response) => response.data);
+  },
+
+  GetUserDataById: (userId)=> {
+    return apiConfig
+      .get("/User/GetById", { params: { id: userId } })
       .then((response) => response.data);
   },
 };
@@ -129,13 +134,7 @@ const post = {
       return { token };
     });
   },
-
-  Logout: () => {
-    const { setToken } = useAuth();
-    // Clear the authentication token from local storage
-    setToken(null);
-    localStorage.clear();
-  },
+  
 
   /*
       {
@@ -171,11 +170,20 @@ const post = {
       .post("/Software/AddUserFavoriteSoftware", data)
       .then((response) => response.data);
   },
+
+  ChangePassword: (data) => {
+    return apiConfig
+      .post("/Auth/changepassword", data)
+      .then((response) => response.data);
+  }
 };
 
 const put = {
-
-
+  UpdateUserData: (data) => {
+    return apiConfig
+      .put("/User/UpdateUserData",  data)
+      .then((response) => response.data);
+  },
 };
 
 const del = {
