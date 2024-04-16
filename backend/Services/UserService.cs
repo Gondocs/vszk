@@ -34,5 +34,24 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return user;
         }
+
+        public async Task<User> UpdateUserData(UserDataChangeDTO userDataChangeDTO)
+        {
+            var user = await _context.User.FindAsync(userDataChangeDTO.UserID);
+            if (user == null)
+            {
+                return null;
+            }
+
+            user.Firstname = userDataChangeDTO.FirstName;
+            user.Lastname = userDataChangeDTO.LastName;
+            user.Email = userDataChangeDTO.Email;
+            user.Country = userDataChangeDTO.Country;
+            user.Settlement = userDataChangeDTO.Settlement;
+
+            _context.User.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
     }
 }
