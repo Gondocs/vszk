@@ -6,6 +6,8 @@ namespace vszk.Services
         Task<User> GetUserById(int id);
 
         Task<User> UpdateUserSettlement(UserSettlementDTO userSettlementDTO);
+
+        Task<User> UpdateUserData(UserDataChangeDTO userDataChangeDTO);
     }
 
 
