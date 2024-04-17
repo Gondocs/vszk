@@ -21,7 +21,7 @@ const ProfileDropdown = () => {
   const [menuState, toggle] = useMenuState({ transition: true });
   const { anchorProps, hoverProps } = useHover(menuState.state, toggle);
 
-  const { token } = useAuth();
+  const { token, role } = useAuth();
   const { setToken } = useAuth();
   const navigate = useNavigate();
 
@@ -55,10 +55,12 @@ const ProfileDropdown = () => {
         overflow="auto"
         onClose={() => toggle(false)}
       >
-        <MenuHeader>
-          {" "}
-          Üdvözlünk, {jwtDecode(token).given_name}! 
-        </MenuHeader>
+        <MenuHeader> Üdvözlünk, {jwtDecode(token).given_name}!</MenuHeader>
+        {role === "admin" && (
+          <Link to="/admin">
+            <MenuItem>Admin</MenuItem>
+          </Link>
+        )}
         <Link to="/fiokbeallitasok">
           <MenuItem>Fiókbeállítások</MenuItem>
         </Link>
