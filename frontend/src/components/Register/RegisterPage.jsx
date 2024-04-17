@@ -8,6 +8,7 @@ import { showToastLong } from "../toasts/toastLong";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { options } from "./CountryConst";
+import { validatePassword } from "./PasswordValidation";
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
 
@@ -33,40 +34,7 @@ const Register = () => {
     });
   };
 
-  const validatePassword = (password, passwordConfirmation) => {
-    const passwordErrors = [];
-    const passwordValidationRules = [
-      {
-        test: (password) => password.length >= 6,
-        error: "Jelszó túl rövid (legalább 6 karakter szükséges)",
-      },
-      {
-        test: (password) => /\d/.test(password),
-        error: "Nincsenek számok a jelszóban",
-      },
-      {
-        test: (password) => /[A-Z]/.test(password),
-        error: "Nincsenek nagybetűk a jelszóban",
-      },
-      {
-        test: (password) => password === passwordConfirmation,
-        error: "A jelszavak nem egyeznek",
-      },
-      {
-        test: (password) => password.length <= 24,
-        error: "Jelszó túl hosszú (max 24 karakter)",
-      },
-      
-    ];
 
-    passwordValidationRules.forEach((rule) => {
-      if (!rule.test(password)) {
-        passwordErrors.push(rule.error);
-      }
-    });
-
-    return passwordErrors;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,7 +43,7 @@ const Register = () => {
       formData.password,
       passwordConfirmation
     );
-    setPasswordErrors(passwordErrors);
+    setPasswordErrors(passwordErrors);  
 
     if (passwordErrors.length > 0) {
       showToast(
@@ -86,18 +54,6 @@ const Register = () => {
     }
 
     console.log("Form Data:", formData);
-
-    try {
-      await post.RegisterData(formData);
-      showToastLong("Sikeres regisztráció!", "success");
-      navigate(-1);
-    } catch (error) {
-      showToastLong(
-        "Hiba történt a regisztráció közben: " + error.response.data,
-        "error"
-      );
-      console.log(error);
-    }
   };
 
   return (
@@ -190,7 +146,7 @@ const Register = () => {
               id="country"
               name="country"
               options={options}
-              className="mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover text-lg z-50"
+              className="mb-4 mt-2 hover-scale-loginandregister hover-scale-loginandregister:hover text-lg z-5"
               onChange={(option) =>
                 handleChange({
                   target: { name: "country", value: option.value },
