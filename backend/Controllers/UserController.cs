@@ -34,12 +34,12 @@ namespace vszk.Controllers
                 Country = user.Country,
                 Settlement = user.Settlement
             };
-
-
         }
 
         [HttpPut("UpdateUserSettlement")]
-        public async Task<ActionResult<User>> UpdateUserSettlement([FromBody] UserSettlementDTO userSettlementDTO)
+        public async Task<ActionResult<User>> UpdateUserSettlement(
+            [FromBody] UserSettlementDTO userSettlementDTO
+        )
         {
             var user = await _userService.UpdateUserSettlement(userSettlementDTO);
             if (user == null)
@@ -50,7 +50,9 @@ namespace vszk.Controllers
         }
 
         [HttpPut("UpdateUserData")]
-        public async Task<ActionResult<User>> UpdateUserData([FromBody] UserDataChangeDTO userDataChangeDTO)
+        public async Task<ActionResult<User>> UpdateUserData(
+            [FromBody] UserDataChangeDTO userDataChangeDTO
+        )
         {
             var user = await _userService.UpdateUserData(userDataChangeDTO);
             if (user == null)
@@ -59,5 +61,26 @@ namespace vszk.Controllers
             }
             return user;
         }
+
+        [HttpGet("GetUserDataBasedOnEmail")]
+        public async Task<ActionResult<AdminUserDataChangeDTO>> GetUserDataBasedOnEmail(string email)
+        {
+            var user = await _userService.GetUserByEmail(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return new AdminUserDataChangeDTO
+            {
+                UserID = user.UserID,
+                Email = user.Email,
+                FirstName = user.Firstname,
+                Role = user.Role,
+                LastName = user.Lastname,
+                Country = user.Country,
+                Settlement = user.Settlement
+            };
+        }
+        
     }
 }

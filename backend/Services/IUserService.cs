@@ -8,7 +8,8 @@ namespace vszk.Services
         Task<User> UpdateUserSettlement(UserSettlementDTO userSettlementDTO);
 
         Task<User> UpdateUserData(UserDataChangeDTO userDataChangeDTO);
+
+        Task<User> GetUserByEmail(string email);
+
     }
-
-
 }

@@ -53,5 +53,11 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return user;
         }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.User.FirstOrDefaultAsync(u => u.Email == email);
+        }
+        
     }
 }
