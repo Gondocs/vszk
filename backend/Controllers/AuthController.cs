@@ -136,5 +136,58 @@ namespace vszk.Controllers
 
             return BadRequest("Invalid input data.");
         }
+
+        [HttpPut("ChangeUserRole")]
+        public IActionResult ChangeUserRole([FromBody] UserRoleChange urc, string requestUserId)
+        {
+            if (ModelState.IsValid)
+            {
+            var requestingUser = _context.User.SingleOrDefault(u => u.UserID == Convert.ToInt32(requestUserId));
+        
+            if (requestingUser == null)
+            {
+                return NotFound("Requesting user not found.");
+            }
+        
+            if (requestingUser.Role != "admin")
+            {
+                return Unauthorized("You do not have permission to change roles.");
+            }
+        
+            if (urc.Role != "admin" && urc.Role != "user")
+            {
+                return BadRequest("Invalid role. Role can only be 'admin' or 'user'.");
+            }
+        
+            var user = _context.User.SingleOrDefault(u => u.UserID == urc.UserID);
+        
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+        
+            user.Role = urc.Role;
+        
+            _context.SaveChanges();
+        
+            return Ok("Role changed successfully.");
+            }
+        
+            return BadRequest("Invalid input data.");
+        }
+
+        
+        [HttpGet("GetUserRole")]
+        public IActionResult GetUserRole(string requestUserId)
+        {
+            var requestingUser = _context.User.SingleOrDefault(u => u.UserID == Convert.ToInt32(requestUserId));
+
+            if (requestingUser == null)
+            {
+                return NotFound("Requesting user not found.");
+            }
+
+            return Ok(requestingUser.Role);
+        }
     }
 }
