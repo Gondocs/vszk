@@ -209,6 +209,12 @@ const del = {
       .delete("/Software/RemoveUserFavoriteSoftware", { data })
       .then((response) => response.data);
   },
+
+  DeleteUser: (id) => {
+    return apiConfig
+      .delete("/User/DeleteUser", { id } )
+      .then((response) => response.data);
+  },
 };
 
 export { get, post, put, del };
