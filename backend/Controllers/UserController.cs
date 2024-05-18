@@ -108,5 +108,19 @@ namespace vszk.Controllers
                 Settlement = user.Settlement
             };
         }
+
+        [HttpDelete("DeleteUser")]
+        public async Task<ActionResult<User>> DeleteUser(int id)
+        {
+            var user = await _userService.DeleteUser(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+        
+
+        
     }
 }

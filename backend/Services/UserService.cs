@@ -96,6 +96,19 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return user;
         }
+
+        public async Task<User> DeleteUser(int id)
+        {
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
+            {
+                return null;
+            }
+
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
         
     }
 }
