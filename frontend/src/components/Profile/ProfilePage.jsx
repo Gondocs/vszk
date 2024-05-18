@@ -128,7 +128,7 @@ function ProfilePage() {
                       <strong>Ország:</strong> {user.country}
                     </p>
                     <p className="">
-                      <strong>Város:</strong> {user.settlement}
+                      <strong> Település:</strong> {user.settlement}
                     </p>
                     <button
                       className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mt-4"
@@ -195,7 +195,7 @@ function ProfilePage() {
                         }}
                         noOptionsMessage={() => "Nincs találat"}
                       />
-                      Város:
+                      Település:
                       <input
                         type="text"
                         name="settlement"
