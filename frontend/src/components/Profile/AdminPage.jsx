@@ -98,17 +98,26 @@ function AdminPage() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const userID = user.userID;
-    try {
-      await del.DeleteUser(userID);
-      showToastLong("Felhasználó sikeresen törölve.", "success");
-    } catch (error) {
-      showToastLong("A felhasználó törlésekor hiba történt: " + error.message, "error");
-      console.log(error);
+    const confirmation = window.confirm(
+      "Biztos, hogy törölni akarod ezt a felhasználót?"
+    );
+    if (confirmation) {
+      const userID = user.userID;
+      try {
+        await del.DeleteUser(userID);
+        showToastLong("Felhasználó sikeresen törölve.", "success");
+      } catch (error) {
+        showToastLong(
+          "A felhasználó törlésekor hiba történt: " + error.message,
+          "error"
+        );
+        console.log(error);
+      }
+      setEditing(false); // Close editing mode after submission
     }
-    setEditing(false); // Close editing mode after submission
   };
 
+  // TODO
   const handlePasswordChange = async (newPassword) => {
     const userID = user.userID;
     try {
@@ -258,14 +267,14 @@ function AdminPage() {
                 <button
                   type="submit"
                   onClick={handleSubmit}
-                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mb-3"
+                  className="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded-md mb-3"
                 >
                   Mentés
                 </button>
                 <button
                   type="submit"
                   onClick={handleDelete}
-                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mb-3"
+                  className="bg-blue-500 hover:bg-red-600 text-white py-2 px-4 rounded-md mb-3"
                 >
                   Felhasználó törlése
                 </button>
