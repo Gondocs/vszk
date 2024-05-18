@@ -210,11 +210,11 @@ const del = {
       .then((response) => response.data);
   },
 
-  DeleteUser: (id) => {
-    return apiConfig
-      .delete("/User/DeleteUser", { id } )
-      .then((response) => response.data);
-  },
+DeleteUser: (id) => {
+  return apiConfig
+    .delete("/User/DeleteUser", { params: { id } })
+    .then((response) => response.data);
+},
 };
 
 export { get, post, put, del };
