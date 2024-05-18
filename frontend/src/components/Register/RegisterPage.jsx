@@ -34,8 +34,6 @@ const Register = () => {
     });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,7 +41,7 @@ const Register = () => {
       formData.password,
       passwordConfirmation
     );
-    setPasswordErrors(passwordErrors);  
+    setPasswordErrors(passwordErrors);
 
     if (passwordErrors.length > 0) {
       showToast(
@@ -51,6 +49,18 @@ const Register = () => {
         "error"
       );
       return;
+    }
+
+    try {
+      await post.RegisterData(formData);
+      showToastLong("Sikeres regisztráció!", "success");
+      navigate(-1);
+    } catch (error) {
+      showToastLong(
+        "Hiba történt a regisztráció közben: " + error.response.data,
+        "error"
+      );
+      console.log(error);
     }
 
     console.log("Form Data:", formData);
