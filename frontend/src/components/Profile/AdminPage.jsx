@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { get, put, post } from "../api/api";
+import { get, put, post, del } from "../api/api";
 import { showToastLong } from "../toasts/toastLong";
 import { ClipLoader } from "react-spinners";
 import { validatePassword } from "../Register/PasswordValidation";
@@ -91,6 +91,19 @@ function AdminPage() {
       showToastLong("Felhasználó adatai sikeresen frissítve.", "success");
     } catch (error) {
       showToastLong("Error updating user data: " + error.message, "error");
+      console.log(error);
+    }
+    setEditing(false); // Close editing mode after submission
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const userID = user.userID;
+    try {
+      await del.DeleteUser(userID);
+      showToastLong("Felhasználó sikeresen törölve.", "success");
+    } catch (error) {
+      showToastLong("A felhasználó törlésekor hiba történt: " + error.message, "error");
       console.log(error);
     }
     setEditing(false); // Close editing mode after submission
@@ -239,16 +252,25 @@ function AdminPage() {
                 noOptionsMessage={() => "No options available"}
                 isDisabled={!editing} // Disable select field when not in editing mode
               />
-
             </form>
             {editing && (
+              <>
                 <button
                   type="submit"
+                  onClick={handleSubmit}
                   className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mb-3"
                 >
                   Mentés
                 </button>
-              )}
+                <button
+                  type="submit"
+                  onClick={handleDelete}
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mb-3"
+                >
+                  Felhasználó törlése
+                </button>
+              </>
+            )}
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
               onClick={() => setEditing(!editing)} // Toggle editing mode
