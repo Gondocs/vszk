@@ -12,9 +12,23 @@ namespace vszk.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<User>>> Get()
+        public async Task<ActionResult<List<AdminUserDataChangeDTO>>> Get()
         {
-            return await _userService.GetAllUsers();
+            var users = await _userService.GetAllUsers();
+            var adminUsers = users
+                .Select(user => new AdminUserDataChangeDTO
+                {
+                    UserID = user.UserID,
+                    Email = user.Email,
+                    FirstName = user.Firstname,
+                    Role = user.Role,
+                    LastName = user.Lastname,
+                    Country = user.Country,
+                    Settlement = user.Settlement
+                })
+                .ToList();
+
+            return Ok(adminUsers);
         }
 
         [HttpGet("GetById")]
@@ -62,8 +76,21 @@ namespace vszk.Controllers
             return user;
         }
 
-        [HttpGet("GetUserDataBasedOnEmail")]
-        public async Task<ActionResult<AdminUserDataChangeDTO>> GetUserDataBasedOnEmail(string email)
+        [HttpPut("UpdateUserDataAdmin")]
+        public async Task<ActionResult<User>> UpdateUserDataAdmin(
+            [FromBody] UserDataChangeAdmin userDataChangeAdmin
+        )
+        {
+            var user = await _userService.UpdateUserDataAdmin(userDataChangeAdmin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        [HttpGet("GetUserDataByEmail")]
+        public async Task<ActionResult<AdminUserDataChangeDTO>> GetUserDataByEmail(string email)
         {
             var user = await _userService.GetUserByEmail(email);
             if (user == null)
@@ -81,6 +108,5 @@ namespace vszk.Controllers
                 Settlement = user.Settlement
             };
         }
-        
     }
 }

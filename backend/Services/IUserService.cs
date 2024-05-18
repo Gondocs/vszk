@@ -11,5 +11,7 @@ namespace vszk.Services
 
         Task<User> GetUserByEmail(string email);
 
+        Task<User> UpdateUserDataAdmin(UserDataChangeAdmin userDataChangeAdmin);
+
     }
 }
