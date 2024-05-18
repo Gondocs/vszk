@@ -103,11 +103,23 @@ const get = {
       .then((response) => response.data);
   },
 
-  GetUserDataById: (userId)=> {
+  GetUserDataById: (userId) => {
     return apiConfig
       .get("/User/GetById", { params: { id: userId } })
       .then((response) => response.data);
   },
+
+  GetUserDataByEmail: (email) => {
+    return apiConfig
+      .get("/User/GetUserDataByEmail", { params: { email: email } })
+      .then((response) => response.data);
+  },
+
+  GetAllUsers: () => {
+    return apiConfig.get("/User/GetAll").then((response) => response.data);
+  },
+
+  
 };
 
 const post = {
@@ -134,7 +146,6 @@ const post = {
       return { token };
     });
   },
-  
 
   /*
       {
@@ -175,13 +186,19 @@ const post = {
     return apiConfig
       .post("/Auth/changepassword", data)
       .then((response) => response.data);
-  }
+  },
 };
 
 const put = {
   UpdateUserData: (data) => {
     return apiConfig
-      .put("/User/UpdateUserData",  data)
+      .put("/User/UpdateUserData", data)
+      .then((response) => response.data);
+  },
+
+  UpdateUserDataAdmin: (data) => {
+    return apiConfig
+      .put("/User/UpdateUserDataAdmin", data)
       .then((response) => response.data);
   },
 };
