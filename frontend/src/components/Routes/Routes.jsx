@@ -17,6 +17,7 @@ import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
 import InsufficentPermissions from "../PageNotFound/InsufficentPermissions";
+import AdminPage from "../Profile/AdminPage";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -110,7 +111,7 @@ const Routes = () => {
   const routesForAuthenticatedOnly = [
     {
       path: "/",
-      element: <ProtectedRoute rolesAllowed={['admin', 'user']} />, // Wrap the component in ProtectedRoute
+      element: <ProtectedRoute rolesAllowed={["admin", "user"]} />, // Wrap the component in ProtectedRoute
       children: [
         {
           path: "/fiokbeallitasok",
@@ -159,8 +160,12 @@ const Routes = () => {
       element: <ProtectedRoute rolesAllowed={["admin"]} />, // Only admins can access this route
       children: [
         {
-          path: "", 
-          element: <><Navbar /> <h1>adminpage</h1></> ,
+          path: "",
+          element: (
+            <>
+              <Navbar /> <AdminPage />
+            </>
+          ),
         },
         {
           path: "users",
