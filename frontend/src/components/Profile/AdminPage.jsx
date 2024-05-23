@@ -168,7 +168,7 @@ function AdminPage() {
                     fontSize: "1rem",
                   }),
                 }}
-                noOptionsMessage={() => "No options available"}
+                noOptionsMessage={() => "Nincs találat."}
               />
             </div>
             <h2 className="text-2xl font-semibold mb-4">Felhasználó adatai</h2>
@@ -224,7 +224,7 @@ function AdminPage() {
                     fontSize: "1rem",
                   }),
                 }}
-                noOptionsMessage={() => "No options available"}
+                noOptionsMessage={() => "Nincs találat."}
                 isDisabled={!editing} // Disable select field when not in editing mode
               />
               Település:
@@ -258,7 +258,7 @@ function AdminPage() {
                     fontSize: "1rem",
                   }),
                 }}
-                noOptionsMessage={() => "No options available"}
+                noOptionsMessage={() => "Nincs találat."}
                 isDisabled={!editing} // Disable select field when not in editing mode
               />
             </form>
