@@ -136,5 +136,16 @@ namespace vszk.Controllers
             return software;
         }
 
+        [HttpDelete("DeleteSoftwareById")]
+        public async Task<ActionResult<List<SoftwareDTO>>> DeleteSoftwareById(int id)
+        {
+            var software = await _softwareService.DeleteSoftwareById(id);
+            if (software == null)
+            {
+                return NotFound();
+            }
+            return software;
+        }
+
     }
 }

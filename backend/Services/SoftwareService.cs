@@ -610,11 +610,55 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return await GetAllSoftwares();
 
+        }
 
+        public async Task<List<SoftwareDTO>> DeleteSoftwareById(int id)
+        {
+            var software = await _context.Software.FindAsync(id);
+            if (software == null)
+            {
+                return null;
+            }
 
+            var languages = _context.SoftwareLangConnect
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
 
+            var supports = _context.Support
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
 
+            var os = _context.SoftwareOSConnect
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
 
+            var devices = _context.SoftwareCompConnect
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
+
+            var moduls = _context.SoftwareModulConnect
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
+
+            var remunerations = _context.Remuneration
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
+
+            var functions = _context.SoftwareFunction
+                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                .ToList();
+
+            _context.SoftwareLangConnect.RemoveRange(languages);
+            _context.Support.RemoveRange(supports);
+            _context.SoftwareOSConnect.RemoveRange(os);
+            _context.SoftwareCompConnect.RemoveRange(devices);
+            _context.SoftwareModulConnect.RemoveRange(moduls);
+            _context.Remuneration.RemoveRange(remunerations);
+            _context.SoftwareFunction.RemoveRange(functions);
+
+            _context.Software.Remove(software);
+            await _context.SaveChangesAsync();
+            return await GetAllSoftwares();
         }
     }
 }
