@@ -277,45 +277,7 @@ function AdminPage() {
             </button>
           </div>
           <div className="bg-white shadow-md rounded-md p-8 flex flex-col justify-between">
-            <h2 className="text-2xl font-semibold mb-4">Jelszóváltoztatás</h2>
-            <input
-              type="password"
-              placeholder="Jelenlegi jelszó"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              autoComplete="new-password"
-            />
-            <input
-              type="password"
-              placeholder="Új jelszó"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              autoComplete="new-password"
-            />
-
-            <input
-              type="password"
-              placeholder="Új jelszó megerősítése"
-              value={newPasswordConfirmation}
-              onChange={(e) => setNewPasswordConfirmation(e.target.value)}
-              className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              autoComplete="new-password"
-            />
-            {passwordErrors.length > 0 && (
-              <div className="w-full text-red-500 mb-3">
-                {passwordErrors.map((error, index) => (
-                  <p key={index}>{error}</p>
-                ))}
-              </div>
-            )}
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
-              onClick={handlePasswordChangeSubmit}
-            >
-              Jelszó megváltoztatása
-            </button>
+            ide
           </div>
         </div>
       </div>
