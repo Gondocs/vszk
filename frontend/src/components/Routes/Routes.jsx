@@ -16,7 +16,6 @@ import { Navbar } from "../Navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
-import InsufficentPermissions from "../PageNotFound/InsufficentPermissions";
 import AdminPage from "../Profile/AdminPage";
 
 const Routes = () => {

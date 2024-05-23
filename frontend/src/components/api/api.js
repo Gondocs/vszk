@@ -1,4 +1,3 @@
-import { useAuth } from "../Auth/Auth";
 import apiConfig from "./apiConfig";
 
 const get = {
@@ -118,8 +117,6 @@ const get = {
   GetAllUsers: () => {
     return apiConfig.get("/User/GetAll").then((response) => response.data);
   },
-
-  
 };
 
 const post = {
@@ -210,11 +207,11 @@ const del = {
       .then((response) => response.data);
   },
 
-DeleteUser: (id) => {
-  return apiConfig
-    .delete("/User/DeleteUser", { params: { id } })
-    .then((response) => response.data);
-},
+  DeleteUser: (id) => {
+    return apiConfig
+      .delete("/User/DeleteUser", { params: { id } })
+      .then((response) => response.data);
+  },
 };
 
 export { get, post, put, del };

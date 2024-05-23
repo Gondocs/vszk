@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../css/softwareList.css";
 import "../../css/Navbar.css";
 import "../../css/dropDown.css";
@@ -9,7 +10,6 @@ import { get } from "../api/api";
 import { showToast } from "../toasts/toast";
 // import Pagination from "../Pagination/pagination";
 import CompareSvg from "../assets/CompareSvg";
-import NotFoundSvg from "../assets/NotFoundSvg";
 
 const Compare = () => {
   const { Maincategory, Subcategory } = useParams();
@@ -150,6 +150,7 @@ const Compare = () => {
 
   useEffect(() => {
     filterSoftwareData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   const handleSearchClick = () => {
@@ -320,7 +321,7 @@ const Compare = () => {
 
       {!currentMainCategoryName ? (
         <div className="m-auto">
-          <div className="flex flex-col align-center p-5 pt-10 bg-white p-10 rounded-25 mr-4 ml-4 shadow-lg border border-gray-400">
+          <div className="flex flex-col align-center p-5 pt-10 bg-white rounded-25 mr-4 ml-4 shadow-lg border border-gray-400">
             <div className="mb-20 text-center text-white bg-gray-800 py-6 mt-0 rounded-25 hover-scale-small:hover">
               <p className="p-2 text-2xl px-16">
                 Használja a szoftver összehasonlító modulunkat és találja meg
@@ -414,7 +415,7 @@ const Compare = () => {
                   {selectedSoftwares.map((id) => (
                     <div
                       onClick={() => removeSelectedSoftware(id)}
-                      className="shadow-custom bg-white w-full px-3 py-2 my-5 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
+                      className="shadow-custom bg-white px-3 py-2 my-5 w-4/5 cursor-pointer rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small"
                       style={{ height: "100px" }}
                     >
                       <button className="text-2xl rounded-25">

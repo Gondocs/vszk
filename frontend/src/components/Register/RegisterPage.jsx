@@ -10,8 +10,6 @@ import Select from "react-select";
 import { options } from "./CountryConst";
 import { validatePassword } from "./PasswordValidation";
 
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
-
 const Register = () => {
   const navigate = useNavigate();
   const [passwordErrors, setPasswordErrors] = useState([]);

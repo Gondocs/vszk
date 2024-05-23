@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { get, put, post, del } from "../api/api";
 import { showToastLong } from "../toasts/toastLong";
@@ -114,18 +115,6 @@ function AdminPage() {
         console.log(error);
       }
       setEditing(false); // Close editing mode after submission
-    }
-  };
-
-  // TODO
-  const handlePasswordChange = async (newPassword) => {
-    const userID = user.userID;
-    try {
-      await post.ChangePassword({ userID, newPassword });
-      showToastLong("Password changed successfully!", "success");
-    } catch (error) {
-      showToastLong("Error changing password: " + error.message, "error");
-      console.log(error);
     }
   };
 
