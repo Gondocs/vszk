@@ -18,6 +18,7 @@ import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
 import InsufficentPermissions from "../PageNotFound/InsufficentPermissions";
 import AdminPage from "../Profile/AdminPage";
+import AddSoftwareForm from "../Profile/TestAdd";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -153,6 +154,14 @@ const Routes = () => {
             </div>
           ),
         },
+        {
+          path: "/add",
+          element: (
+            <div>
+              <Navbar /> <AddSoftwareForm />
+            </div>
+          ),
+        },
       ],
     },
     {
@@ -169,7 +178,7 @@ const Routes = () => {
         },
         {
           path: "users",
-          element: <Navbar />,
+          element: <Navbar /> ,
           children: [
             {
               path: "",
