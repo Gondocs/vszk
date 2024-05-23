@@ -25,5 +25,7 @@ namespace vszk.Services
         Task<List<SoftwareModulsDTO>> GetAllModuls();
 
         Task<bool> IsUserFavoriteSoftwareById(int userId, int softwareId);
+
+        Task<List<SoftwareDTO>> AddNewSoftware(SoftwareDTO softwareDTO);
     }
 }

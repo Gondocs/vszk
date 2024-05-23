@@ -512,5 +512,109 @@ namespace vszk.Services
 
             return true;
         }
+
+        // AddNewSoftware
+
+        public async Task<List<SoftwareDTO>> AddNewSoftware(SoftwareDTO softwareDTO)
+        {
+            var category = await _context.Category.FindAsync(softwareDTO.Category.CategoryID);
+            if (category == null)
+            {
+                return null;
+            }
+
+            var company = await _context.Company.FindAsync(softwareDTO.Company.CompanyID);
+            if (company == null)
+            {
+                return null;
+            }
+
+            var software = new Software
+            {
+                Name = softwareDTO.Name,
+                Description = softwareDTO.Description,
+                Category = category,
+                Company = company,
+                Introduction_fee = softwareDTO.Introduction_fee,
+                Logo_link = softwareDTO.Logo_link
+            };
+
+            var languages = softwareDTO
+                .Languages.Select(lang => new SoftwareLangConnect
+                {
+                    Software = software,
+                    Language = _context.Language.First(x => x.Lang == lang)
+                })
+                .ToList();
+
+            var supports = softwareDTO
+                .Supports.Select(support => new Support
+                {
+                    Software = software,
+                    Language = _context.Language.First(x => x.Lang == support)
+                })
+                .ToList();
+
+            var os = softwareDTO
+                .OSs.Select(os => new SoftwareOSConnect
+                {
+                    Software = software,
+                    OS = _context.OS.First(x => x.Os == os)
+                })
+                .ToList();
+
+            var devices = softwareDTO
+                .Devices.Select(device => new SoftwareCompConnect
+                {
+                    Software = software,
+                    Compatibility = _context.Compatibility.First(x => x.Device == device)
+                })
+                .ToList();
+
+            var moduls = softwareDTO
+                .Moduls.Select(modul => new SoftwareModulConnect
+                {
+                    Software = software,
+                    Modul = _context.Modul.First(x => x.Name == modul)
+                })
+                .ToList();
+
+            var remunerations = softwareDTO
+                .Remunerations.Select(remuneration => new Remuneration
+                {
+                    Software = software,
+                    Level = _context.Level.First(x => x.Name == remuneration.Level),
+                    Type = remuneration.Type,
+                    Price = remuneration.Price
+                })
+                .ToList();
+
+            var functions = softwareDTO
+                .Functions.Select(func => new SoftwareFunction
+                {
+                    Software = software,
+                    Sfunction = func.Sfunction,
+                    Functionality = _context.Functionality.First(x => x.Funct == func.Functionality)
+                })
+                .ToList();
+
+            _context.SoftwareLangConnect.AddRange(languages);
+            _context.Support.AddRange(supports);
+            _context.SoftwareOSConnect.AddRange(os);
+            _context.SoftwareCompConnect.AddRange(devices);
+            _context.SoftwareModulConnect.AddRange(moduls);
+            _context.Remuneration.AddRange(remunerations);
+            _context.SoftwareFunction.AddRange(functions);
+
+            _context.Software.Add(software);
+            await _context.SaveChangesAsync();
+            return await GetAllSoftwares();
+
+
+
+
+
+
+        }
     }
 }

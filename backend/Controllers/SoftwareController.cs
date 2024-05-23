@@ -123,5 +123,18 @@ namespace vszk.Controllers
             return await _softwareService.GetAllModuls();
         }
 
+        [HttpPost("AddNewSoftware")]
+        public async Task<ActionResult<List<SoftwareDTO>>> AddNewSoftware(
+            [FromBody] SoftwareDTO softwareDTO
+        )
+        {
+            var software = await _softwareService.AddNewSoftware(softwareDTO);
+            if (software == null)
+            {
+                return NotFound();
+            }
+            return software;
+        }
+
     }
 }
