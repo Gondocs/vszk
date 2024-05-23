@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuth } from "../Auth/Auth";
-import { json } from "react-router-dom";
 import { get, put, post } from "../api/api";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
@@ -38,7 +37,7 @@ function ProfilePage() {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [token]);
 
   const handlePasswordChangeSubmit = async (e) => {
     e.preventDefault();

@@ -6,9 +6,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useAuth } from "../Auth/Auth";
 import { useMediaQuery } from "react-responsive";
 import "../../css/sidebar.css";
-import  DesktopNavbar  from "./Desktop/DesktopNavbar";
-import  BurgerMenu  from "./Mobile/BurgerMenu";
-
+import DesktopNavbar from "./Desktop/DesktopNavbar";
+import BurgerMenu from "./Mobile/BurgerMenu";
 
 export const Navbar = () => {
   const [parent] = useAutoAnimate(/* optional config */);
@@ -91,6 +90,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     filterSoftwareData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   return (

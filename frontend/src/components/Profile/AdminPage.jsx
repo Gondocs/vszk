@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { get, put, post, del } from "../api/api";
 import { showToastLong } from "../toasts/toastLong";
@@ -114,18 +115,6 @@ function AdminPage() {
         console.log(error);
       }
       setEditing(false); // Close editing mode after submission
-    }
-  };
-
-  // TODO
-  const handlePasswordChange = async (newPassword) => {
-    const userID = user.userID;
-    try {
-      await post.ChangePassword({ userID, newPassword });
-      showToastLong("Password changed successfully!", "success");
-    } catch (error) {
-      showToastLong("Error changing password: " + error.message, "error");
-      console.log(error);
     }
   };
 
@@ -288,45 +277,7 @@ function AdminPage() {
             </button>
           </div>
           <div className="bg-white shadow-md rounded-md p-8 flex flex-col justify-between">
-            <h2 className="text-2xl font-semibold mb-4">Jelszóváltoztatás</h2>
-            <input
-              type="password"
-              placeholder="Jelenlegi jelszó"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              autoComplete="new-password"
-            />
-            <input
-              type="password"
-              placeholder="Új jelszó"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              autoComplete="new-password"
-            />
-
-            <input
-              type="password"
-              placeholder="Új jelszó megerősítése"
-              value={newPasswordConfirmation}
-              onChange={(e) => setNewPasswordConfirmation(e.target.value)}
-              className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              autoComplete="new-password"
-            />
-            {passwordErrors.length > 0 && (
-              <div className="w-full text-red-500 mb-3">
-                {passwordErrors.map((error, index) => (
-                  <p key={index}>{error}</p>
-                ))}
-              </div>
-            )}
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
-              onClick={handlePasswordChangeSubmit}
-            >
-              Jelszó megváltoztatása
-            </button>
+            ide
           </div>
         </div>
       </div>
