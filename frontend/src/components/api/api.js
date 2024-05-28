@@ -117,6 +117,24 @@ const get = {
   GetAllUsers: () => {
     return apiConfig.get("/User/GetAll").then((response) => response.data);
   },
+
+  GetAllModuls: () => {
+    return apiConfig
+      .get("/SoftwareModulConnect/GetAll")
+      .then((response) => response.data);
+  },
+
+  GetAllLevels: () => {
+    return apiConfig
+      .get("/Remuneration/GetAllLevels")
+      .then((response) => response.data);
+  },
+
+  GetAllTypes: () => {
+    return apiConfig
+      .get("/Remuneration/GetAllTypes")
+      .then((response) => response.data);
+  },
 };
 
 const post = {
