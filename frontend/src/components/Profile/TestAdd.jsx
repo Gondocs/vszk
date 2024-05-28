@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { post } from "../api/api";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { post, get } from "../api/api";
 import { showToastLong } from "../toasts/toastLong";
-import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 function AddSoftwareForm() {
@@ -22,7 +22,7 @@ function AddSoftwareForm() {
       logo_link: "",
       email: "",
     },
-    introduction_fee: 0,
+    introduction_fee: null,
     logo_link: "",
     average_stars: 0,
     languages: [],
@@ -33,6 +33,15 @@ function AddSoftwareForm() {
     remunerations: [{ remunerationID: 0, level: "", type: "", price: 0 }],
     functions: [{ softwareFunctionID: 0, sfunction: true, functionality: "" }],
   });
+
+  const [languageData, setLanguageData] = useState([]);
+  const [supportData, setSupportData] = useState([]);
+  const [osData, setOsData] = useState([]);
+  const [deviceData, setDeviceData] = useState([]);
+  const [modulesData, setModulesData] = useState([]);
+  const [functionsData, setFunctionsData] = useState([]);
+  const [levelsData, setLevelsData] = useState([]);
+  const [typesData, setTypesData] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,29 +71,87 @@ function AddSoftwareForm() {
     */
   };
 
-  const languageOptions = [
-    { value: "English", label: "English" },
-    { value: "Spanish", label: "Spanish" },
-    // Add more language options here
-  ];
+  useEffect(() => {
+    get
+      .SoftwareLangConnect()
+      .then((LanguageData) => {
+        setLanguageData(LanguageData);
+        console.log(LanguageData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-  const supportOptions = [
-    { value: "Email", label: "Email" },
-    { value: "Phone", label: "Phone" },
-    // Add more support options here
-  ];
+    get
+      .Support()
+      .then((SupportData) => {
+        setSupportData(SupportData);
+        console.log(SupportData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-  const osOptions = [
-    { value: "Windows", label: "Windows" },
-    { value: "MacOS", label: "MacOS" },
-    // Add more OS options here
-  ];
+    get
+      .SoftwareOSConnect()
+      .then((OsData) => {
+        setOsData(OsData);
+        console.log(OsData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-  const deviceOptions = [
-    { value: "Desktop", label: "Desktop" },
-    { value: "Mobile", label: "Mobile" },
-    // Add more device options here
-  ];
+    get
+      .SoftwareCompConnect()
+      .then((DeviceData) => {
+        setDeviceData(DeviceData);
+        console.log(DeviceData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    get
+      .GetAllModuls()
+      .then((ModulesData) => {
+        setModulesData(ModulesData);
+        console.log(ModulesData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    get
+      .SoftwareFunctions()
+      .then((FunctionsData) => {
+        setFunctionsData(FunctionsData);
+        console.log(FunctionsData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    get
+      .GetAllLevels()
+      .then((LevelsData) => {
+        setLevelsData(LevelsData);
+        console.log(LevelsData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    get
+      .GetAllTypes()
+      .then((TypesData) => {
+        setTypesData(TypesData);
+        console.log(TypesData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
   const handleRemoveRemuneration = (index) => {
     const newRemunerations = [...software.remunerations];
@@ -109,12 +176,12 @@ function AddSoftwareForm() {
     <div className="bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-semibold text-center mb-8">
-          Add New Software
+          Új szoftver hozzáadása
         </h1>
         <div className="bg-white shadow-md rounded-md p-8">
           <form onSubmit={handleSubmit}>
             <div>
-              <label>Name:</label>
+              <label>Szoftver neve:</label>
               <input
                 type="text"
                 name="name"
@@ -124,7 +191,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Description:</label>
+              <label>Leírás:</label>
               <textarea
                 name="description"
                 value={software.description}
@@ -133,7 +200,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Category Name:</label>
+              <label>Kategória neve:</label>
               <input
                 type="text"
                 name="category.name"
@@ -145,7 +212,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Category Group Name:</label>
+              <label>Kategória csoport neve:</label>
               <input
                 type="text"
                 name="categoryGroup.name"
@@ -166,7 +233,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Company Name:</label>
+              <label>Cég neve:</label>
               <input
                 type="text"
                 name="company.name"
@@ -178,7 +245,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Company Location:</label>
+              <label>Cég helyszíne:</label>
               <input
                 type="text"
                 name="company.location"
@@ -190,7 +257,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Company Phone:</label>
+              <label>Cég telefonszáma:</label>
               <input
                 type="text"
                 name="company.phone"
@@ -202,7 +269,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Company Website:</label>
+              <label>Cég weboldala:</label>
               <input
                 type="text"
                 name="company.website"
@@ -214,7 +281,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Company Email:</label>
+              <label>Cég email-címe:</label>
               <input
                 type="email"
                 name="company.email"
@@ -226,7 +293,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Introduction Fee:</label>
+              <label>Bevezetési ár:</label>
               <input
                 type="number"
                 name="introduction_fee"
@@ -246,7 +313,7 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Average Stars:</label>
+              <label>Átlag értékelés:</label>
               <input
                 type="number"
                 name="average_stars"
@@ -256,11 +323,17 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Languages:</label>
+              <label>Nyelvek:</label>
               <CreatableSelect
                 isMulti
-                options={languageOptions}
-                value={software.languages.map((lang) => ({ value: lang, label: lang }))}
+                options={languageData.map((lang) => ({
+                  value: lang,
+                  label: lang,
+                }))}
+                value={software.languages.map((lang) => ({
+                  value: lang,
+                  label: lang,
+                }))}
                 onChange={(selectedOptions) =>
                   setSoftware({
                     ...software,
@@ -285,11 +358,17 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Supports:</label>
+              <label>Támogatás nyelve:</label>
               <CreatableSelect
                 isMulti
-                options={supportOptions}
-                value={software.supports.map((support) => ({ value: support, label: support }))}
+                options={supportData.map((support) => ({
+                  value: support,
+                  label: support,
+                }))}
+                value={software.supports.map((support) => ({
+                  value: support,
+                  label: support,
+                }))}
                 onChange={(selectedOptions) =>
                   setSoftware({
                     ...software,
@@ -314,10 +393,13 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Operating Systems (OSs):</label>
+              <label> Operációs rendszerek (OSs):</label>
               <CreatableSelect
                 isMulti
-                options={osOptions}
+                options={osData.map((os) => ({
+                  value: os,
+                  label: os,
+                }))}
                 value={software.oSs.map((os) => ({ value: os, label: os }))}
                 onChange={(selectedOptions) =>
                   setSoftware({
@@ -343,11 +425,17 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Devices:</label>
+              <label>Eszközök:</label>
               <CreatableSelect
                 isMulti
-                options={deviceOptions}
-                value={software.devices.map((device) => ({ value: device, label: device }))}
+                options={deviceData.map((device) => ({
+                  value: device,
+                  label: device,
+                }))}
+                value={software.devices.map((device) => ({
+                  value: device,
+                  label: device,
+                }))}
                 onChange={(selectedOptions) =>
                   setSoftware({
                     ...software,
@@ -372,159 +460,191 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Modules:</label>
-              <input
-                type="text"
-                name="moduls"
-                value={software.moduls.join(", ")}
-                onChange={(e) =>
+              <label>Modulok:</label>
+              <CreatableSelect
+                isMulti
+                options={modulesData.map((modules) => ({
+                  value: modules,
+                  label: modules,
+                }))}
+                value={software.moduls.map((modules) => ({
+                  value: modules,
+                  label: modules,
+                }))}
+                onChange={(selectedOptions) =>
                   setSoftware({
                     ...software,
-                    moduls: e.target.value.split(",").map((mod) => mod.trim()),
+                    moduls: selectedOptions.map((option) => option.value),
                   })
                 }
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Comma-separated list"
+                onCreateOption={(inputValue) =>
+                  handleCreateOption(inputValue, "moduls")
+                }
+                className="mb-4"
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                    paddingLeft: "6px",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                  }),
+                }}
               />
             </div>
             <div>
-              <label>Remunerations:</label>
-              {software.remunerations.map((remuneration, index) => (
-                <div key={index} className="mb-4">
-                  <input
-                    type="text"
-                    name={`remunerations[${index}].level`}
-                    value={remuneration.level}
-                    onChange={(e) => {
-                      const newRemunerations = [...software.remunerations];
-                      newRemunerations[index].level = e.target.value;
-                      setSoftware({
-                        ...software,
-                        remunerations: newRemunerations,
-                      });
-                    }}
-                    placeholder="Level"
-                    className="mb-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  />
-                  <input
-                    type="text"
-                    name={`remunerations[${index}].type`}
-                    value={remuneration.type}
-                    onChange={(e) => {
-                      const newRemunerations = [...software.remunerations];
-                      newRemunerations[index].type = e.target.value;
-                      setSoftware({
-                        ...software,
-                        remunerations: newRemunerations,
-                      });
-                    }}
-                    placeholder="Type"
-                    className="mb-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  />
-                  <input
-                    type="number"
-                    name={`remunerations[${index}].price`}
-                    value={remuneration.price}
-                    onChange={(e) => {
-                      const newRemunerations = [...software.remunerations];
-                      newRemunerations[index].price = e.target.value;
-                      setSoftware({
-                        ...software,
-                        remunerations: newRemunerations,
-                      });
-                    }}
-                    placeholder="Price"
-                    className="block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveRemuneration(index)}
-                    className="bg-red-500 text-white py-1 px-3 rounded-md mt-2"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={() =>
+              <label>Ár:</label>
+              <CreatableSelect
+                isMulti
+                options={levelsData.map((level) => ({
+                  value: level,
+                  label: level,
+                }))}
+                value={software.remunerations
+                  .filter((remuneration) => remuneration.level !== "")
+                  .map((remuneration) => ({
+                    value: remuneration.level,
+                    label: remuneration.level,
+                  }))}
+                onChange={(selectedOptions) =>
+                  setSoftware({
+                    ...software,
+                    remunerations: selectedOptions.map((option, index) => ({
+                      ...software.remunerations[index],
+                      level: option.value,
+                    })),
+                  })
+                }
+                onCreateOption={(inputValue) =>
                   setSoftware({
                     ...software,
                     remunerations: [
                       ...software.remunerations,
-                      { remunerationID: 0, level: "", type: "", price: 0 },
-                    ],
-                  })
-                }
-                className="bg-gray-500 text-white py-1 px-3 rounded-md"
-              >
-                Add Remuneration
-              </button>
-            </div>
-            <div>
-              <label>Functions:</label>
-              {software.functions.map((func, index) => (
-                <div key={index} className="mb-4">
-                  <input
-                    type="text"
-                    name={`functions[${index}].functionality`}
-                    value={func.functionality}
-                    onChange={(e) => {
-                      const newFunctions = [...software.functions];
-                      newFunctions[index].functionality = e.target.value;
-                      setSoftware({ ...software, functions: newFunctions });
-                    }}
-                    placeholder="Functionality"
-                    className="mb-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  />
-                  <label>
-                    <input
-                      type="checkbox"
-                      name={`functions[${index}].sfunction`}
-                      checked={func.sfunction}
-                      onChange={(e) => {
-                        const newFunctions = [...software.functions];
-                        newFunctions[index].sfunction = e.target.checked;
-                        setSoftware({ ...software, functions: newFunctions });
-                      }}
-                      className="mr-2"
-                    />
-                    Software Function
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveFunction(index)}
-                    className="bg-red-500 text-white py-1 px-3 rounded-md mt-2"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={() =>
-                  setSoftware({
-                    ...software,
-                    functions: [
-                      ...software.functions,
                       {
-                        softwareFunctionID: 0,
-                        sfunction: true,
-                        functionality: "",
+                        remunerationID: software.remunerations.length,
+                        level: inputValue,
+                        type: "",
+                        price: 0,
                       },
                     ],
                   })
                 }
-                className="bg-gray-500 text-white py-1 px-3 rounded-md"
-              >
-                Add Function
-              </button>
+              />
+
+              <CreatableSelect
+                isMulti
+                options={typesData.map((type) => ({
+                  value: type,
+                  label: type,
+                }))}
+                value={software.remunerations
+                  .filter((remuneration) => remuneration.type !== "")
+                  .map((remuneration) => ({
+                    value: remuneration.type,
+                    label: remuneration.type,
+                  }))}
+                onChange={(selectedOptions) =>
+                  setSoftware({
+                    ...software,
+                    remunerations: selectedOptions.map((option, index) => ({
+                      ...software.remunerations[index],
+                      type: option.value,
+                    })),
+                  })
+                }
+                onCreateOption={(inputValue) =>
+                  setSoftware({
+                    ...software,
+                    remunerations: [
+                      ...software.remunerations,
+                      {
+                        remunerationID: software.remunerations.length,
+                        level: "",
+                        type: inputValue,
+                        price: 0,
+                      },
+                    ],
+                  })
+                }
+              />
+
+              <input
+                type="number"
+                value={software.remunerations[0]?.price || ""}
+                onChange={(e) =>
+                  setSoftware({
+                    ...software,
+                    remunerations: software.remunerations.map(
+                      (remuneration, index) =>
+                        index === 0
+                          ? {
+                              ...remuneration,
+                              price: parseInt(e.target.value, 10),
+                            }
+                          : remuneration
+                    ),
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label>Funkciók:</label>
+              <CreatableSelect
+                isMulti
+                options={functionsData.map((functions) => ({
+                  value: functions,
+                  label: functions,
+                }))}
+                value={software.functions
+                  .filter((func) => func.functionality !== "")
+                  .map((func) => ({
+                    value: func.functionality,
+                    label: func.functionality,
+                  }))}
+                onChange={(selectedOptions) =>
+                  setSoftware({
+                    ...software,
+                    functions: selectedOptions.map((option) => ({
+                      softwareFunctionID: 0,
+                      sfunction: true,
+                      functionality: option.value,
+                    })),
+                  })
+                }
+                onCreateOption={(inputValue) => {
+                  setSoftware((prevState) => ({
+                    ...prevState,
+                    functions: [
+                      ...prevState.functions,
+                      {
+                        softwareFunctionID: 0,
+                        sfunction: true,
+                        functionality: inputValue,
+                      },
+                    ],
+                  }));
+                }}
+                className="mb-4"
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                    paddingLeft: "6px",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                  }),
+                }}
+              />
             </div>
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
             >
-              Add Software
+              Szoftver hozzáadása
             </button>
           </form>
         </div>
