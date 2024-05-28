@@ -12,7 +12,7 @@ namespace vszk.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<SoftwareModulConnect>>> Get()
+        public async Task<ActionResult<List<string>>> Get()
         {
             return await _softwareModulConnectService.GetSoftwareModuls();
         }
