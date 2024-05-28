@@ -16,5 +16,17 @@ namespace vszk.Controllers
         {
             return await _remunerationService.GetSoftwareLevels();
         }
+
+        [HttpGet("GetAllLevels")]
+        public async Task<ActionResult<List<string>>> GetAllLevels()
+        {
+            return await _remunerationService.GetAllLevels();
+        }
+
+        [HttpGet("GetAllTypes")]
+        public async Task<ActionResult<List<string>>> GetAllTypes()
+        {
+            return await _remunerationService.GetAllTypes();
+        }
     }
 }
