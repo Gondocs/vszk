@@ -153,16 +153,16 @@ function AddSoftwareForm() {
       });
   }, []);
 
+  const handleSelectChange = (index, field, selectedOption) => {
+    const newRemunerations = [...software.remunerations];
+    newRemunerations[index][field] = selectedOption ? selectedOption.value : "";
+    setSoftware({ ...software, remunerations: newRemunerations });
+  };
+
   const handleRemoveRemuneration = (index) => {
     const newRemunerations = [...software.remunerations];
     newRemunerations.splice(index, 1);
     setSoftware({ ...software, remunerations: newRemunerations });
-  };
-
-  const handleRemoveFunction = (index) => {
-    const newFunctions = [...software.functions];
-    newFunctions.splice(index, 1);
-    setSoftware({ ...software, functions: newFunctions });
   };
 
   const handleCreateOption = (inputValue, key) => {
@@ -495,99 +495,118 @@ function AddSoftwareForm() {
               />
             </div>
             <div>
-              <label>Ár:</label>
-              <CreatableSelect
-                isMulti
-                options={levelsData.map((level) => ({
-                  value: level,
-                  label: level,
-                }))}
-                value={software.remunerations
-                  .filter((remuneration) => remuneration.level !== "")
-                  .map((remuneration) => ({
-                    value: remuneration.level,
-                    label: remuneration.level,
-                  }))}
-                onChange={(selectedOptions) =>
-                  setSoftware({
-                    ...software,
-                    remunerations: selectedOptions.map((option, index) => ({
-                      ...software.remunerations[index],
-                      level: option.value,
-                    })),
-                  })
-                }
-                onCreateOption={(inputValue) =>
-                  setSoftware({
-                    ...software,
-                    remunerations: [
-                      ...software.remunerations,
-                      {
-                        remunerationID: software.remunerations.length,
-                        level: inputValue,
-                        type: "",
-                        price: 0,
-                      },
-                    ],
-                  })
-                }
-              />
-
-              <CreatableSelect
-                isMulti
-                options={typesData.map((type) => ({
-                  value: type,
-                  label: type,
-                }))}
-                value={software.remunerations
-                  .filter((remuneration) => remuneration.type !== "")
-                  .map((remuneration) => ({
-                    value: remuneration.type,
-                    label: remuneration.type,
-                  }))}
-                onChange={(selectedOptions) =>
-                  setSoftware({
-                    ...software,
-                    remunerations: selectedOptions.map((option, index) => ({
-                      ...software.remunerations[index],
-                      type: option.value,
-                    })),
-                  })
-                }
-                onCreateOption={(inputValue) =>
-                  setSoftware({
-                    ...software,
-                    remunerations: [
-                      ...software.remunerations,
-                      {
-                        remunerationID: software.remunerations.length,
-                        level: "",
-                        type: inputValue,
-                        price: 0,
-                      },
-                    ],
-                  })
-                }
-              />
-
-              <input
-                type="number"
-                value={software.remunerations[0]?.price || ""}
-                onChange={(e) =>
-                  setSoftware({
-                    ...software,
-                    remunerations: software.remunerations.map(
-                      (remuneration, index) =>
-                        index === 0
+              {" "}
+              <div>
+                <label>Díjazás:</label>
+                {software.remunerations.map((remuneration, index) => (
+                  <div key={index} className="mb-4">
+                    <CreatableSelect
+                      options={levelsData.map((level) => ({
+                        value: level,
+                        label: level,
+                      }))}
+                      value={
+                        remuneration.level
                           ? {
-                              ...remuneration,
-                              price: parseInt(e.target.value, 10),
+                              value: remuneration.level,
+                              label: remuneration.level,
                             }
-                          : remuneration
-                    ),
-                  })
-                }
-              />
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleSelectChange(index, "level", selectedOption)
+                      }
+                      placeholder="Szint"
+                      className="mb-4"
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          fontSize: "1rem",
+                          paddingLeft: "6px",
+                        }),
+                        option: (provided) => ({
+                          ...provided,
+                          fontSize: "1rem",
+                        }),
+                      }}
+                    />
+                    <CreatableSelect
+                      options={typesData.map((type) => ({
+                        value: type,
+                        label: type,
+                      }))}
+                      value={
+                        remuneration.type
+                          ? {
+                              value: remuneration.type,
+                              label: remuneration.type,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleSelectChange(index, "type", selectedOption)
+                      }
+                      placeholder="Típus"
+                      className="mb-4"
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          fontSize: "1rem",
+                          paddingLeft: "6px",
+                        }),
+                        option: (provided) => ({
+                          ...provided,
+                          fontSize: "1rem",
+                        }),
+                      }}
+                    />
+                    <input
+                      type="number"
+                      name={`remunerations[${index}].price`}
+                      value={remuneration.price}
+                      onChange={(e) => {
+                        const newRemunerations = [...software.remunerations];
+                        newRemunerations[index].price = e.target.value;
+                        setSoftware({
+                          ...software,
+                          remunerations: newRemunerations,
+                        });
+                      }}
+                      placeholder="Ár"
+                      className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveRemuneration(index)}
+                      className="bg-red-500 text-white py-2 px-3 rounded-md mb-4"
+                    >
+                      Díjazás törlése
+                    </button>
+                  </div>
+                ))}
+                <div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSoftware({
+                        ...software,
+                        remunerations: [
+                          ...software.remunerations,
+                          {
+                            remunerationID: software.remunerations.length,
+                            level: "",
+                            type: "",
+                            price: 0,
+                          },
+                        ],
+                      })
+                    }
+                    className="bg-gray-500 text-white py-2 px-3 rounded-md mt-2 mb-2"
+                  >
+                    Díjazás hozzáadása
+                  </button>
+                </div>
+              </div>{" "}
             </div>
             <div>
               <label>Funkciók:</label>
