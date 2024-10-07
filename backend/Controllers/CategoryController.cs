@@ -22,5 +22,17 @@ namespace vszk.Controllers
         {
             return await _categoryService.GetCategoriesFunctions();
         }
+
+        [HttpGet("GetAllCategoryGroups")]
+        public async Task<ActionResult<List<CategoryGroup>>> GetCategoryGroups()
+        {
+            return await _categoryService.GetAllCategoryGroups();
+        }
+
+        [HttpGet("GetAllCategories")]
+        public async Task<ActionResult<List<SmallCategoryDTO>>> GetAllCategories()
+        {
+            return await _categoryService.GetAllSmallCategories();
+        }
     }
 }

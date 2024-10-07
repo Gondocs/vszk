@@ -5,5 +5,9 @@ namespace vszk.Services
         Task<List<Category>> GetAllCategories();
 
         Task<List<CategoryDTO>> GetCategoriesFunctions();
+
+        Task<List<CategoryGroup>> GetAllCategoryGroups();
+
+        Task<List<SmallCategoryDTO>> GetAllSmallCategories();
     }
 }

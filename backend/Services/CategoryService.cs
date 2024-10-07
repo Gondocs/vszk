@@ -30,5 +30,19 @@ namespace vszk.Services
 
             return categoryDTO;
         }
+
+        public async Task<List<CategoryGroup>> GetAllCategoryGroups()
+        {
+            return await _context.CategoryGroup.ToListAsync();
+        }
+
+        public async Task<List<SmallCategoryDTO>> GetAllSmallCategories()
+        {
+            return await _context.Category.Select(x => new SmallCategoryDTO
+            {
+                CategoryID = x.CategoryID,
+                Name = x.Name
+            }).ToListAsync();
+        }
     }
 }
