@@ -254,8 +254,8 @@ function SoftwareDetail() {
                         <h2 className="text-6xl font-semibold pt-4">
                           {SoftwareData.name}
                         </h2>
-                        <p className="text-lg font-semibold pt-4 pb-4  pr-0">
-                          {SoftwareData.rating}
+                        <p className="text-2xl font-semibold pt-4 pb-4  pr-0">
+                          {SoftwareData.average_stars}
                           <StarIcon
                             fontSize="large"
                             className="starmargin"
@@ -369,42 +369,47 @@ function SoftwareDetail() {
                         </div>
 
                         {/* Textual Inputs */}
+                        <h3 className="mt-12 mb-2 text-lg font-semibold">Írja meg értékelését...</h3>
                         <textarea
                           name="all_text"
                           placeholder="Írja meg értékelését..."
                           value={reviewData.all_text}
                           onChange={handleInputChange}
-                          className="textarea mt-4 p-4 border rounded-md w-full"
+                          className="textarea mt-2 p-4 border rounded-md w-full"
                         />
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">Pozitív aspektusok</h3>
                         <textarea
                           name="positive"
                           placeholder="Pozitív aspektusok"
                           value={reviewData.positive}
                           onChange={handleInputChange}
-                          className="textarea mt-4 p-4 border rounded-md w-full"
+                          className="textarea mt-2 p-4 border rounded-md w-full"
                         />
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">Negatív aspektusok</h3>
                         <textarea
                           name="negative"
                           placeholder="Negatív aspektusok"
                           value={reviewData.negative}
                           onChange={handleInputChange}
-                          className="textarea mt-4 p-4 border rounded-md w-full"
+                          className="textarea mt-2 p-4 border rounded-md w-full"
                         />
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">Használat oka</h3>
                         <input
                           type="text"
                           name="reason_of_use"
                           placeholder="Használat oka"
                           value={reviewData.reason_of_use}
                           onChange={handleInputChange}
-                          className="input mt-4 p-4 border rounded-md w-full"
+                          className="input mt-2 p-4 border rounded-md w-full"
                         />
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">Használat időtartama</h3>
                         <input
                           type="text"
                           name="duration_of_use"
                           placeholder="Használat időtartama"
                           value={reviewData.duration_of_use}
                           onChange={handleInputChange}
-                          className="input mt-4 p-4 border rounded-md w-full"
+                          className="input mt-2 p-4 border rounded-md w-full"
                         />
 
                         <button
