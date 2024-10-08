@@ -42,8 +42,8 @@ export function HomePage() {
   const [percentage, setPercentage] = useState(0);
 
   const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 1224px)'
-  })
+    query: "(min-width: 1224px)",
+  });
 
   const scrollTop = () => {
     window.scrollTo({
@@ -143,45 +143,41 @@ export function HomePage() {
   return (
     <>
       <div className="body noSelect bg-slate-100 FadeInSmall">
-        <div
-          className="image-track"
-          id="image-track"
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          data-mouse-down-at={mouseDownAt}
-          data-prev-percentage={prevPercentage}
-        >
-          {imagesWithCaptions.map((item, index) => (
-            <div
-              className="image-container hover-scale-small:hover hover-scale-small"
-              key={index}
-            >
-              <div className="image-aspect-ratio">
-                <img
-                  className="image"
-                  alt={`img${index + 1}`}
-                  src={item.src}
-                  draggable="false"
-                  loading="lazy"
-                />
-              </div>
-              <div className="image-hover-text">{item.caption}</div>
+        <section className="relative h-full">
+          <div className="overlay">
+            <div className="content">
+              <h1
+                className={`${
+                  isDesktopOrLaptop ? "text-5xl" : "text-3xl"
+                } font-bold mb-4`}
+              >
+                {" "}
+                Üdvözlünk a Vállalati Szoftver Kereső oldalán!
+              </h1>
+              <p className="text-xl mb-8">
+                Tudjon meg többet szolgáltatásunkról.
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+        </section>
       </div>
 
-      <div className={`${isDesktopOrLaptop ? 'px-24' : 'rounded-lg' } bg-slate-100 `}>
+      <div
+        className={`${
+          isDesktopOrLaptop ? "px-24" : "rounded-lg"
+        } bg-slate-100 `}
+      >
         <header
-          className={` ${isDesktopOrLaptop ? 'rounded-full' : 'rounded-lg' } bg-gray-800 py-6 mt-0  hover-scale-small:hover hover-scale-small`}
+          className={` ${
+            isDesktopOrLaptop ? "rounded-full" : "rounded-lg"
+          } bg-gray-800 py-6 mt-6 hover-scale-small:hover hover-scale-small`}
           ref={headerRef}
         >
-          <div className="container pl-12 text-white">
-            <h1 className="text-5xl font-semibold mb-4">
+          <div className="container px-12 text-white">
+            <h1 className={`${isDesktopOrLaptop ? "text-5xl" : "text-3xl "} text-center font-semibold mb-4`}>
               Üdvözöljük a Szoftverkereső weboldalon
             </h1>
-            <p className="text-lg">
+            <p className="text-lg text-center">
               Válassza ki az igényeidhez megfelelő szoftvereket kínálatunkból
             </p>
           </div>
@@ -189,19 +185,34 @@ export function HomePage() {
       </div>
 
       <section className="bg-slate-100">
-        <div className={`${isDesktopOrLaptop ? 'p-16' : 'p-0'} bg-slate-100`}>
-        <div className={` flex ${isDesktopOrLaptop ? 'flex-row p-12' : 'flex-col p-6'} items-center justify-center gap-2`}>
+        <div className={`${isDesktopOrLaptop ? "p-16" : "p-0"} bg-slate-100`}>
+          <div
+            className={` flex ${
+              isDesktopOrLaptop ? "flex-row p-12" : "flex-col p-6"
+            } items-center justify-center gap-2`}
+          >
             <div
               ref={sectionRef}
               className=" container first-letter:animated-element text-left"
             >
               <Link to={"/osszehasonlitas"} onClick={scrollTop}>
-                <h2 className={`${isDesktopOrLaptop ? 'text-4xl hover-scale-small:hover hover-scale-small' : 'text-2xl text-center'} font-semibold mb-4`}>
+                <h2
+                  className={`${
+                    isDesktopOrLaptop
+                      ? "text-4xl hover-scale-small:hover hover-scale-small"
+                      : "text-2xl text-center"
+                  } font-semibold mb-4`}
+                >
                   Próbálja ki az összehasonlítást
                 </h2>
               </Link>
-              <p className={`${isDesktopOrLaptop ? 'text-justify' : 'text-center'} text-gray-700 text-xl`}>
-                Hasonlítsa össze a szoftvereinket, hogy megtalálja a számára legmegfelelőbbet.
+              <p
+                className={`${
+                  isDesktopOrLaptop ? "text-justify" : "text-center"
+                } text-gray-700 text-xl`}
+              >
+                Hasonlítsa össze a szoftvereinket, hogy megtalálja a számára
+                legmegfelelőbbet.
               </p>
             </div>
             <div ref={pictureRef} className="">
@@ -209,7 +220,9 @@ export function HomePage() {
                 <img
                   src="https://i.ibb.co/XD8Mk3P/scale-2635397-1920.jpg"
                   alt="Összehasonlítás"
-                  className={`rounded-full hover-scale hover-scale:hover ml-0 float-right ${isDesktopOrLaptop ? 'w-[75%]' : 'mt-10 mx-auto'}`}
+                  className={`rounded-full hover-scale hover-scale:hover ml-0 float-right ${
+                    isDesktopOrLaptop ? "w-[75%]" : "mt-10 mx-auto"
+                  }`}
                 />
               </Link>
             </div>
@@ -217,7 +230,11 @@ export function HomePage() {
         </div>
       </section>
 
-      <div className={`bg-slate-100 pb-16 ${isDesktopOrLaptop ? 'pl-24 pr-24' : 'pl-2 pr-2'} gap-8 mb-4`}>
+      <div
+        className={`bg-slate-100 pb-16 ${
+          isDesktopOrLaptop ? "pl-24 pr-24" : "pl-2 pr-2"
+        } gap-8 mb-4`}
+      >
         <section
           className="bg-slate-200  py-6 rounded-40"
           ref={howtoRef}
@@ -227,7 +244,11 @@ export function HomePage() {
             <h2 className="text-4xl font-semibold mb-8 text-center hover-scale-small:hover hover-scale-small">
               Hogyan működik?
             </h2>
-            <div className={`grid ${isDesktopOrLaptop ? 'grid-cols-3' : 'grid-cols-1'} gap-8 mb-4`}>
+            <div
+              className={`grid ${
+                isDesktopOrLaptop ? "grid-cols-3" : "grid-cols-1"
+              } gap-8 mb-4`}
+            >
               <div className="bg-white rounded-lg p-6 shadow-md hover-scale-small:hover hover-scale-small">
                 <h3 className="text-xl font-semibold mb-4">
                   Válasszon egy szoftvert
