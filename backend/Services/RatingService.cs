@@ -11,8 +11,18 @@ namespace vszk.Services
             _context = context;
         }
 
-        public async Task<Rating> PostFeedBack(RatingDTO rate)
+                public async Task<Rating> PostFeedBack(RatingDTO rate)
         {
+            // Check if the user has already rated this software
+            var existingRating = _context.Rating
+                .FirstOrDefault(r => r.User.UserID == rate.UserID && r.Software.SoftwareID == rate.SoftwareID);
+        
+            if (existingRating != null)
+            {
+                // Handle the case where the rating already exists
+                throw new InvalidOperationException("User has already rated this software.");
+            }
+        
             var star = new Star
             {
                 All = rate.All_star,
@@ -22,7 +32,7 @@ namespace vszk.Services
                 Price_value = rate.Price_value,
                 Recommendation = rate.Recommendation
             };
-
+        
             var text = new TextRating
             {
                 All = rate.All_text,
@@ -31,10 +41,10 @@ namespace vszk.Services
                 Reason_of_use = rate.Reason_of_use,
                 Duration_of_use = rate.Duration_of_use
             };
-
+        
             var software = _context.Software.FirstOrDefault(x => x.SoftwareID == rate.SoftwareID);
             var user = _context.User.FirstOrDefault(x => x.UserID == rate.UserID);
-
+        
             var rating = new Rating
             {
                 Datumido = DateTime.Now,
@@ -43,10 +53,10 @@ namespace vszk.Services
                 Star = star,
                 TextRating = text
             };
-
+        
             _context.Rating.Add(rating);
             await _context.SaveChangesAsync();
-
+        
             return rating;
         }
 
@@ -77,6 +87,31 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
 
             return existingRating;
+        }
+
+        public async Task<Rating> DeleteFeedBack(int id)
+        {
+            var existingRating = await _context.Rating.FirstOrDefaultAsync(x => x.RatingID == id);
+
+            if (existingRating == null)
+            {
+                return null;
+            }
+
+            _context.Rating.Remove(existingRating);
+            await _context.SaveChangesAsync();
+
+            return existingRating;
+        }
+
+        public async Task<List<Rating>> GetAllRatings()
+        {
+            return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).ToListAsync();
+        }
+
+        public async Task<List<Rating>> GetRatingByUserId(int id)
+        {
+            return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).Where(x => x.User.UserID == id).ToListAsync();
         }
     }
 }

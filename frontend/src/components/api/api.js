@@ -135,6 +135,12 @@ const get = {
       .get("/Remuneration/GetAllTypes")
       .then((response) => response.data);
   },
+
+  GetRatingByUserId: (userId) => {
+    return apiConfig
+      .get("/Rating/GetRatingByUserId", { params: { userId: userId } })
+      .then((response) => response.data);
+  },
 };
 
 const post = {

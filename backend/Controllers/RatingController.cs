@@ -22,5 +22,24 @@ namespace vszk.Controllers
         {
             return Ok(await _ratingService.ChangeFeedBack(id, rate));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRating(int id)
+        {
+            return Ok(await _ratingService.DeleteFeedBack(id));
+        }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAllRatings()
+        {
+            return Ok(await _ratingService.GetAllRatings());
+        }
+
+        [HttpGet("GetRatingByUserId/{id}")]
+        public async Task<IActionResult> GetRatingByUserId(int id)
+        {
+            return Ok(await _ratingService.GetRatingByUserId(id));
+        }
+
     }
 }
