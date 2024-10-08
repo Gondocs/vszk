@@ -139,18 +139,15 @@ function SoftwareDetail() {
   useEffect(() => {
     if (typeof token === "string") {
       get
-      .GetRatingByUserId(jwtDecode(token).nameid)
+      .GetRatingByUserId(jwtDecode(token).nameid, softwareID)
       .then((data) => {
         setReviewData(data);
         console.log(data);
       })
       .catch((error) => {
-        console.error("Error fetching review data:", error);
-        showToast(error, "error");
-        setLoading(false);
-      });
+        console.log("Error fetching rating data:", error);});
     }
-  }, [token]);
+  }, [softwareID, token]);
 
   useEffect(() => {
     if (typeof token === "string") {

@@ -136,11 +136,12 @@ const get = {
       .then((response) => response.data);
   },
 
-  GetRatingByUserId: (userId) => {
-    return apiConfig
-      .get("/Rating/GetRatingByUserId", { params: { userId: userId } })
-      .then((response) => response.data);
-  },
+  GetRatingByUserId: (userId, softwareId) => {
+      return apiConfig
+        .get(`/Rating/GetRatingByUserIdAndSoftwareId/${userId}/${softwareId}`)
+        .then((response) => response.data);
+    },
+
 };
 
 const post = {

@@ -35,10 +35,10 @@ namespace vszk.Controllers
             return Ok(await _ratingService.GetAllRatings());
         }
 
-        [HttpGet("GetRatingByUserId/{id}")]
-        public async Task<IActionResult> GetRatingByUserId(int id)
+        [HttpGet("GetRatingByUserIdAndSoftwareId/{userId}/{softwareId}")]
+        public async Task<IActionResult> GetRatingByUserIdAndSoftwareId(int userId, int softwareId)
         {
-            return Ok(await _ratingService.GetRatingByUserId(id));
+            return Ok(await _ratingService.GetRatingByUserIdAndSoftwareId(userId, softwareId));
         }
 
     }

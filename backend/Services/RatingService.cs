@@ -109,9 +109,9 @@ namespace vszk.Services
             return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).ToListAsync();
         }
 
-        public async Task<List<Rating>> GetRatingByUserId(int id)
+        public async Task<Rating> GetRatingByUserIdAndSoftwareId(int userId, int softwareId)
         {
-            return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).Where(x => x.User.UserID == id).ToListAsync();
+            return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).FirstOrDefaultAsync(x => x.User.UserID == userId && x.Software.SoftwareID == softwareId);
         }
     }
 }

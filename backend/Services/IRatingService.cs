@@ -10,6 +10,6 @@ namespace vszk.Services
 
         Task<List<Rating>> GetAllRatings();
 
-        Task<List<Rating>> GetRatingByUserId(int id);
+        Task<Rating> GetRatingByUserIdAndSoftwareId(int userId, int softwareId);
     }
 }
