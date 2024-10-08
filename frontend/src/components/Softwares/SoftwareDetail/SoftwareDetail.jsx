@@ -41,7 +41,6 @@ function SoftwareDetail() {
   const [ExistingRatingData, setExistingRatingData] = useState({});
   const ReloadNavigate = useNavigate();
 
-
   const handleStarClick = (key, value) => {
     setReviewData((prev) => ({ ...prev, [key]: value }));
   };
@@ -58,9 +57,37 @@ function SoftwareDetail() {
       await post.RatingData(reviewPayload);
       showToastLong("Review successfully added!", "success");
       setShowReviewOverlay(false); // Close the overlay
-      ReloadNavigate(0)
+      ReloadNavigate(0);
     } catch (error) {
       showToastLong("Error submitting review: " + error, "error");
+    }
+  };
+
+  const handleDeleteReview = async () => {
+    try {
+      const userID = jwtDecode(token).nameid;
+      await del.RemoveRatingByUserIdAndSoftwareId(userID, softwareID);
+      showToastLong("Értékelés sikeresen törölve!", "success");
+      setShowReviewOverlay(false); // Close the overlay
+      setExistingRatingData({}); // Clear existing rating data
+      setReviewData({
+        userID: 0,
+        softwareID: 0,
+        all_star: 0,
+        simplicity: 0,
+        service: 0,
+        characteristic: 0,
+        price_value: 0,
+        recommendation: 0,
+        all_text: "",
+        positive: "",
+        negative: "",
+        reason_of_use: "",
+        duration_of_use: "",
+      });
+    } catch (error) {
+      showToastLong("Hiba az értékelés törlésénél: " + error, "error");
+      console.log(error);
     }
   };
 
@@ -69,8 +96,12 @@ function SoftwareDetail() {
       const userID = jwtDecode(token).nameid;
       const reviewPayload = { ...reviewData, userID, softwareID };
       console.log(reviewPayload);
-  
-      await put.GetRatingByUserIdAndSoftwareId(userID, softwareID, reviewPayload);
+
+      await put.PutRatingByUserIdAndSoftwareId(
+        userID,
+        softwareID,
+        reviewPayload
+      );
       showToastLong("Értékelés sikeresen módosítva!", "success");
       setShowReviewOverlay(false); // Close the overlay
     } catch (error) {
@@ -369,7 +400,9 @@ function SoftwareDetail() {
                         </div>
 
                         {/* Textual Inputs */}
-                        <h3 className="mt-12 mb-2 text-lg font-semibold">Írja meg értékelését...</h3>
+                        <h3 className="mt-12 mb-2 text-lg font-semibold">
+                          Írja meg értékelését...
+                        </h3>
                         <textarea
                           name="all_text"
                           placeholder="Írja meg értékelését..."
@@ -377,7 +410,9 @@ function SoftwareDetail() {
                           onChange={handleInputChange}
                           className="textarea mt-2 p-4 border rounded-md w-full"
                         />
-                        <h3 className="mt-6 mb-2 text-lg font-semibold">Pozitív aspektusok</h3>
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">
+                          Pozitív aspektusok
+                        </h3>
                         <textarea
                           name="positive"
                           placeholder="Pozitív aspektusok"
@@ -385,7 +420,9 @@ function SoftwareDetail() {
                           onChange={handleInputChange}
                           className="textarea mt-2 p-4 border rounded-md w-full"
                         />
-                        <h3 className="mt-6 mb-2 text-lg font-semibold">Negatív aspektusok</h3>
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">
+                          Negatív aspektusok
+                        </h3>
                         <textarea
                           name="negative"
                           placeholder="Negatív aspektusok"
@@ -393,7 +430,9 @@ function SoftwareDetail() {
                           onChange={handleInputChange}
                           className="textarea mt-2 p-4 border rounded-md w-full"
                         />
-                        <h3 className="mt-6 mb-2 text-lg font-semibold">Használat oka</h3>
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">
+                          Használat oka
+                        </h3>
                         <input
                           type="text"
                           name="reason_of_use"
@@ -402,7 +441,9 @@ function SoftwareDetail() {
                           onChange={handleInputChange}
                           className="input mt-2 p-4 border rounded-md w-full"
                         />
-                        <h3 className="mt-6 mb-2 text-lg font-semibold">Használat időtartama</h3>
+                        <h3 className="mt-6 mb-2 text-lg font-semibold">
+                          Használat időtartama
+                        </h3>
                         <input
                           type="text"
                           name="duration_of_use"
@@ -428,7 +469,14 @@ function SoftwareDetail() {
                         </button>
 
                         <button
-                          className="close-button ml-8 mt-4 px-4 py-2 bg-red-300 hover-bg-red-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
+                          className="delete-button ml-8 mt-4 px-4 py-2 bg-red-300 hover-bg-red-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
+                          onClick={handleDeleteReview}
+                        >
+                          Törlés
+                        </button>
+
+                        <button
+                          className="close-button ml-8 mt-4 px-4 py-2 bg-gray-300 hover-bg-red-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
                           onClick={() => setShowReviewOverlay(false)}
                         >
                           Bezárás

@@ -224,7 +224,7 @@ const put = {
       .then((response) => response.data);
   },
 
-  GetRatingByUserIdAndSoftwareId: (userId, softwareId, reviewPayload) => {
+  PutRatingByUserIdAndSoftwareId: (userId, softwareId, reviewPayload) => {
     return apiConfig
       .put(`/Rating/PutRatingByUserIdAndSoftwareId/${userId}/${softwareId}`, reviewPayload)
       .then((response) => response.data);
@@ -244,6 +244,11 @@ const del = {
       .then((response) => response.data);
   },
 
+  RemoveRatingByUserIdAndSoftwareId: (userId, softwareId) => {
+    return apiConfig
+      .delete(`/Rating/RemoveRatingByUserIdAndSoftwareId/${userId}/${softwareId}`)
+      .then((response) => response.data);
+  },
 
 };
 

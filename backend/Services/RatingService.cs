@@ -89,9 +89,9 @@ namespace vszk.Services
             return existingRating;
         }
 
-        public async Task<Rating> DeleteFeedBack(int id)
+        public async Task<Rating> DeleteFeedBack(int userId, int softwareId)
         {
-            var existingRating = await _context.Rating.FirstOrDefaultAsync(x => x.RatingID == id);
+            var existingRating = await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).FirstOrDefaultAsync(x => x.User.UserID == userId && x.Software.SoftwareID == softwareId);
 
             if (existingRating == null)
             {
@@ -103,6 +103,8 @@ namespace vszk.Services
 
             return existingRating;
         }
+
+
 
         public async Task<List<Rating>> GetAllRatings()
         {

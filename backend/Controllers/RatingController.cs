@@ -19,10 +19,10 @@ namespace vszk.Controllers
 
 
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRating(int id)
+        [HttpDelete("RemoveRatingByUserIdAndSoftwareId/{userId}/{softwareId}")]
+        public async Task<IActionResult> RemoveRatingByUserIdAndSoftwareId(int userId, int softwareId)
         {
-            return Ok(await _ratingService.DeleteFeedBack(id));
+            return Ok(await _ratingService.DeleteFeedBack(userId, softwareId));
         }
 
         [HttpGet("getall")]

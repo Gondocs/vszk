@@ -6,12 +6,12 @@ namespace vszk.Services
 
         Task<Rating> ChangeFeedBack(int id, RatingChangeDTO rate);
 
-        Task<Rating> DeleteFeedBack(int id);
-
+        Task<Rating> DeleteFeedBack(int userId, int softwareId);
         Task<List<Rating>> GetAllRatings();
 
         Task<Rating> GetRatingByUserIdAndSoftwareId(int userId, int softwareId);
 
         Task<Rating> PutRatingByUserIdAndSoftwareId(int userId, int softwareId, RatingDTO rate);
+
     }
 }
