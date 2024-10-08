@@ -96,7 +96,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-semibold text-center mb-8">
           Fiókbeállítások
@@ -260,13 +260,6 @@ function ProfilePage() {
                 >
                   Jelszó megváltoztatása
                 </button>
-              </div>
-              <div className="bg-white shadow-md rounded-md p-8 flex flex-col justify-between">
-                <h2 className="text-2xl font-bg-white bg-white">Értékelések</h2>
-                <p className="mb-4 ">
-                  Jelenleg nincs értékelésed. Ha vásárolsz, és elégedett vagy a
-                  termékkel, értékeld a terméket!
-                </p>
               </div>
             </>
           )}
