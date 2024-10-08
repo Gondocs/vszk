@@ -8,6 +8,7 @@ import { ClipLoader } from "react-spinners";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useAuth } from "../../Auth/Auth";
 import { jwtDecode } from "jwt-decode";
+
 import { showToastLong } from "../../toasts/toastLong";
 
 function SoftwareDetail() {
@@ -18,23 +19,81 @@ function SoftwareDetail() {
   const [activeButton, setActiveButton] = useState("Properties"); // Default active button is "Tulajdonságok"
   const [parent] = useAutoAnimate(/* optional config */);
   const [IsFavorite, setIsFavorite] = useState();
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [showReviewOverlay, setShowReviewOverlay] = useState(false);
+  const [reviewData, setReviewData] = useState({
+    userID: 0,
+    softwareID: 0,
+    all_star: 0,
+    simplicity: 0,
+    service: 0,
+    characteristic: 0,
+    price_value: 0,
+    recommendation: 0,
+    all_text: "",
+    positive: "",
+    negative: "",
+    reason_of_use: "",
+    duration_of_use: "",
+  });
+
+  const handleStarClick = (key, value) => {
+    setReviewData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setReviewData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmitReview = async () => {
+    try {
+      const userID = jwtDecode(token).nameid;
+      const reviewPayload = { ...reviewData, userID, softwareID };
+      await post.RatingData(reviewPayload);
+      showToastLong("Review successfully added!", "success");
+      setShowReviewOverlay(false); // Close the overlay
+    } catch (error) {
+      showToastLong("Error submitting review: " + error, "error");
+    }
+  };
+
+  const renderStars = (key, count) => {
+    return (
+      <div className="star-rating">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <StarIcon
+            key={i}
+            style={{
+              color: i <= count ? "rgb(255, 210, 48)" : "#ccc",
+              cursor: "pointer",
+            }}
+            onClick={() => handleStarClick(key, i)}
+          />
+        ))}
+      </div>
+    );
+  };
 
   const handleAddFavorite = async (e) => {
     setIsButtonDisabled(true); // Disable the button
-    const AddFavoriteData = {
-      userID: jwtDecode(token).nameid,
-      softwareID: softwareID,
-    };
+    if (typeof token === "string") {
+      const AddFavoriteData = {
+        userID: jwtDecode(token).nameid,
+        softwareID: softwareID,
+      };
 
-    try {
-      await post.AddUserFavoriteSoftware(AddFavoriteData);
-      showToastLong("Sikeresen hozzáadva a kedvencekhez", "success");
-      setIsFavorite(true); // Directly set IsFavorite to true
-    } catch (error) {
-      showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
-      console.log(error);
+      try {
+        await post.AddUserFavoriteSoftware(AddFavoriteData);
+        showToastLong("Sikeresen hozzáadva a kedvencekhez", "success");
+        setIsFavorite(true); // Directly set IsFavorite to true
+      } catch (error) {
+        showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
+        console.log(error);
+      }
+    } else {
+      console.error("Invalid token");
     }
 
     setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
@@ -42,18 +101,22 @@ function SoftwareDetail() {
 
   const handleRemoveFavorite = async (e) => {
     setIsButtonDisabled(true); // Disable the button
-    const RemoveFavoriteData = {
-      userID: jwtDecode(token).nameid,
-      softwareID: softwareID,
-    };
+    if (typeof token === "string") {
+      const RemoveFavoriteData = {
+        userID: jwtDecode(token).nameid,
+        softwareID: softwareID,
+      };
 
-    try {
-      await del.RemoveUserFavoriteSoftware(RemoveFavoriteData);
-      showToastLong("Sikeresen eltávolítva a kedvencek közül", "success");
-      setIsFavorite(false); // Directly set IsFavorite to false
-    } catch (error) {
-      showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
-      console.log(error);
+      try {
+        await del.RemoveUserFavoriteSoftware(RemoveFavoriteData);
+        showToastLong("Sikeresen eltávolítva a kedvencek közül", "success");
+        setIsFavorite(false); // Directly set IsFavorite to false
+      } catch (error) {
+        showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
+        console.log(error);
+      }
+    } else {
+      console.error("Invalid token");
     }
 
     setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
@@ -74,17 +137,35 @@ function SoftwareDetail() {
   }, [softwareID]);
 
   useEffect(() => {
-    get
-      .IsUserFavoriteSoftwareById(jwtDecode(token).nameid, softwareID)
+    if (typeof token === "string") {
+      get
+      .GetRatingByUserId(jwtDecode(token).nameid)
       .then((data) => {
-        setIsFavorite(data);
+        setReviewData(data);
         console.log(data);
       })
       .catch((error) => {
-        console.error("Error fetching software data:", error);
+        console.error("Error fetching review data:", error);
         showToast(error, "error");
         setLoading(false);
       });
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (typeof token === "string") {
+      get
+        .IsUserFavoriteSoftwareById(jwtDecode(token).nameid, softwareID)
+        .then((data) => {
+          setIsFavorite(data);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching software data:", error);
+          showToast(error, "error");
+          setLoading(false);
+        });
+    }
   }, [softwareID, token]);
 
   if (!SoftwareData) {
@@ -92,8 +173,8 @@ function SoftwareDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-200 py-8 px-16 FadeInSmall">
-      <div className="p-16">
+    <div className="min-h-screen bg-gray-200 py-8 px-6 FadeInSmall">
+      <div className="p-8">
         <div className="bg-white p-12 rounded-25 shadow-xl">
           <div className="flex items-center">
             {loading ? (
@@ -121,7 +202,7 @@ function SoftwareDetail() {
                         <p className="text-lg font-semibold pt-4 pb-4  pr-0">
                           {SoftwareData.rating}
                           <StarIcon
-                            fontSize="medium"
+                            fontSize="large"
                             className="starmargin"
                             style={{ color: "rgb(255, 210, 48)" }}
                           />
@@ -137,23 +218,133 @@ function SoftwareDetail() {
                         >
                           Tovább a szoftver oldalára
                         </button>
-                        <button
-                          disabled={isButtonDisabled}
-                          className={`mt-12 mb-8 ml-8 px-4 py-2 ${
-                            isButtonDisabled ? "bg-yellow-100" : "bg-yellow-300"
-                          } hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small`}
-                          onClick={
-                            IsFavorite
-                              ? handleRemoveFavorite
-                              : handleAddFavorite
-                          }
-                        >
-                          {IsFavorite ? "Eltávolítás" : "Kedvencek"}
-                        </button>
+                        {token && (
+                          <button
+                            disabled={isButtonDisabled}
+                            className={`mt-12 mb-8 ml-8 px-4 py-2 ${
+                              isButtonDisabled
+                                ? "bg-yellow-100"
+                                : "bg-yellow-300"
+                            } hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small`}
+                            onClick={
+                              IsFavorite
+                                ? handleRemoveFavorite
+                                : handleAddFavorite
+                            }
+                          >
+                            {IsFavorite ? "Eltávolítás" : "Kedvencek"}
+                          </button>
+                        )}
+
+                        {token && (
+                          <button
+                            className="mt-12 ml-8 mb-8 px-4 py-2 bg-green-300 hover-bg-green-400 rounded-md text-gray-900 font-semibold transition duration-300"
+                            onClick={() => setShowReviewOverlay(true)}
+                          >
+                            Vélemény hozzáadása
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
+                  {showReviewOverlay && (
+                    <div className="ratingOverlay">
+                      <div className="modal bg-white p-12">
+                        <div className="rating-section grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center items-center mb-8">
+                          <div className="text-center">
+                            <p className="text-lg font-semibold pt-4">Összegzett értékelés:</p>
+                            <div className="flex justify-center">
+                              {renderStars("all_star", reviewData.all_star)}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-lg font-semibold pt-4">Egyszerűség:</p>
+                            <div className="flex justify-center">
+                              {renderStars("simplicity", reviewData.simplicity)}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-lg font-semibold pt-4">Szolgáltatás:</p>
+                            <div className="flex justify-center">
+                              {renderStars("service", reviewData.service)}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-lg font-semibold pt-4">Jellemzők:</p>
+                            <div className="flex justify-center">
+                              {renderStars("characteristic", reviewData.characteristic)}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-lg font-semibold pt-4">Ár-érték arány:</p>
+                            <div className="flex justify-center">
+                              {renderStars("price_value", reviewData.price_value)}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-lg font-semibold pt-4">Ajánlás:</p>
+                            <div className="flex justify-center">
+                              {renderStars("recommendation", reviewData.recommendation)}
+                            </div>
+                          </div>
+                        </div>
 
+
+                        {/* Textual Inputs */}
+                        <textarea
+                          name="all_text"
+                          placeholder="Írja meg értékelését..."
+                          value={reviewData.all_text}
+                          onChange={handleInputChange}
+                          className="textarea mt-4 p-4 border rounded-md w-full"
+                        />
+                        <textarea
+                          name="positive"
+                          placeholder="Pozitív aspektusok"
+                          value={reviewData.positive}
+                          onChange={handleInputChange}
+                          className="textarea mt-4 p-4 border rounded-md w-full"
+                        />
+                        <textarea
+                          name="negative"
+                          placeholder="Negatív aspektusok"
+                          value={reviewData.negative}
+                          onChange={handleInputChange}
+                          className="textarea mt-4 p-4 border rounded-md w-full"
+                        />
+                        <input
+                          type="text"
+                          name="reason_of_use"
+                          placeholder="Használat oka"
+                          value={reviewData.reason_of_use}
+                          onChange={handleInputChange}
+                          className="input mt-4 p-4 border rounded-md w-full"
+                        />
+                        <input
+                          type="text"
+                          name="duration_of_use"
+                          placeholder="Használat időtartama"
+                          value={reviewData.duration_of_use}
+                          onChange={handleInputChange}
+                          className="input mt-4 p-4 border rounded-md w-full"
+                        />
+
+                        <button
+                          className="submit-button mt-8 mb-4 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
+                          onClick={handleSubmitReview}
+                        >
+                          Értékelés beküldése
+                        </button>
+
+                        <button
+                          className="close-button ml-8 mt-4 px-4 py-2 bg-red-300 hover-bg-red-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
+                          onClick={() => setShowReviewOverlay(false)}
+                        >
+                          Bezárás
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <ul className="p-8 rounded-25" ref={parent}>
                     <div className="flex justify-center mt-6 text-white text-2xl">
                       <button
