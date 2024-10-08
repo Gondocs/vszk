@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import "../../css/softwareList.css";
 import StarIcon from "@mui/icons-material/Star";
@@ -6,15 +5,12 @@ import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
 import { ClipLoader } from "react-spinners";
 import Pagination from "../Pagination/pagination";
-// eslint-disable-next-line no-unused-vars
-import { css } from "@emotion/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import LanguageFilter from "./Filters/FilterButtons/LanguageFilter";
 import CompatibilityFilter from "./Filters/FilterButtons/CompatibilityFilter";
 import OsFilter from "./Filters/FilterButtons/OsFilter";
 import SupportFilter from "./Filters/FilterButtons/SupportFilter";
 import Functionfilter from "./Filters/FilterButtons/FunctionFilter";
-import {} from "./SoftwareList";
 import { SoftwareNotFound } from "../PageNotFound/SoftwareNotFound";
 import { filterSoftwareData } from "./Filters/FilteredSoftwareData";
 import { fetchData } from "./GetData/SoftwareListGetData";
@@ -49,6 +45,8 @@ const SoftwareList = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const searchnavigate = useNavigate();
 
@@ -101,8 +99,20 @@ const SoftwareList = () => {
     setCurrentPage(1);
   };
 
+  const handleSortOrderChange = () => {
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  };
+
+  const sortedSoftwareData = [...SoftwareData].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+  });
+
   const filteredSoftwareData = filterSoftwareData(
-    SoftwareData,
+    sortedSoftwareData,
     Maincategory,
     Subcategory,
     searchTerm,
@@ -229,31 +239,39 @@ const SoftwareList = () => {
       </div>
 
       <div className="w-4/5 p-4 bg-gray-200 rounded-40">
-        {!currentMainCategoryName && !currentSubCategoryName ? (
-          <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
-            Szoftverlista
-          </h1>
-        ) : (
-          <h1 className="text-3xl text-black font-semibold mb-8 mt-2 ml-12">
-            {Maincategory && (
-              <Link to={`/szoftverek/${transliterate(Maincategory)}`}>
-                {currentMainCategoryName}
-              </Link>
-            )}
-            {currentSubCategoryName && Subcategory && (
-              <>
-                &nbsp;&raquo;&nbsp;
-                <Link
-                  to={`/szoftverek/${transliterate(
-                    Maincategory
-                  )}/${transliterate(Subcategory)}`}
-                >
-                  {currentSubCategoryName}
+        <div className="flex justify-between items-center mb-4">
+          {!currentMainCategoryName && !currentSubCategoryName ? (
+            <h1 className="text-2xl text-black font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
+              Szoftverlista
+            </h1>
+          ) : (
+            <h1 className="text-3xl text-black font-semibold mb-8 mt-2 ml-12">
+              {Maincategory && (
+                <Link to={`/szoftverek/${transliterate(Maincategory)}`}>
+                  {currentMainCategoryName}
                 </Link>
-              </>
-            )}
-          </h1>
-        )}
+              )}
+              {currentSubCategoryName && Subcategory && (
+                <>
+                  &nbsp;&raquo;&nbsp;
+                  <Link
+                    to={`/szoftverek/${transliterate(
+                      Maincategory
+                    )}/${transliterate(Subcategory)}`}
+                  >
+                    {currentSubCategoryName}
+                  </Link>
+                </>
+              )}
+            </h1>
+          )}
+          <button
+            onClick={handleSortOrderChange}
+            className="bg-gray-700 text-white px-4 py-2 mr-4 rounded"
+          >
+            Rendezés: {sortOrder === "asc" ? "A-ZS" : "ZS-A"}
+          </button>
+        </div>
 
         {loading ? (
           <div className="flex justify-center items-center mt-40">
