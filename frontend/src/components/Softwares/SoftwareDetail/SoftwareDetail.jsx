@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NotFound from "../../PageNotFound/PageNotFound";
-import { get, post, del } from "../../api/api";
+import { get, post, del, put } from "../../api/api";
 import { showToast } from "../../toasts/toast";
 import StarIcon from "@mui/icons-material/Star";
 import { ClipLoader } from "react-spinners";
@@ -38,6 +38,10 @@ function SoftwareDetail() {
     duration_of_use: "",
   });
 
+  const [ExistingRatingData, setExistingRatingData] = useState({});
+  const ReloadNavigate = useNavigate();
+
+
   const handleStarClick = (key, value) => {
     setReviewData((prev) => ({ ...prev, [key]: value }));
   };
@@ -54,9 +58,47 @@ function SoftwareDetail() {
       await post.RatingData(reviewPayload);
       showToastLong("Review successfully added!", "success");
       setShowReviewOverlay(false); // Close the overlay
+      ReloadNavigate(0)
     } catch (error) {
       showToastLong("Error submitting review: " + error, "error");
     }
+  };
+
+  const handleModifyReview = async () => {
+    try {
+      const userID = jwtDecode(token).nameid;
+      const reviewPayload = { ...reviewData, userID, softwareID };
+      console.log(reviewPayload);
+  
+      await put.GetRatingByUserIdAndSoftwareId(userID, softwareID, reviewPayload);
+      showToastLong("Értékelés sikeresen módosítva!", "success");
+      setShowReviewOverlay(false); // Close the overlay
+    } catch (error) {
+      showToastLong("Hiba az értékelés módosításánál: " + error, "error");
+      console.log(error);
+    }
+  };
+
+  const handleOpenReviewOverlay = () => {
+    if (ExistingRatingData && Object.keys(ExistingRatingData).length > 0) {
+      const userID = jwtDecode(token).nameid;
+      setReviewData({
+        userID: userID,
+        softwareID: softwareID,
+        all_star: ExistingRatingData.star.all || 0,
+        simplicity: ExistingRatingData.star.simplicity || 0,
+        service: ExistingRatingData.star.service || 0,
+        characteristic: ExistingRatingData.star.characteristic || 0,
+        price_value: ExistingRatingData.star.price_value || 0,
+        recommendation: ExistingRatingData.star.recommendation || 0,
+        all_text: ExistingRatingData.textRating.all || "",
+        positive: ExistingRatingData.textRating.positive || "",
+        negative: ExistingRatingData.textRating.negative || "",
+        reason_of_use: ExistingRatingData.textRating.reason_of_use || "",
+        duration_of_use: ExistingRatingData.textRating.duration_of_use || "",
+      });
+    }
+    setShowReviewOverlay(true);
   };
 
   const renderStars = (key, count) => {
@@ -139,13 +181,29 @@ function SoftwareDetail() {
   useEffect(() => {
     if (typeof token === "string") {
       get
-      .GetRatingByUserId(jwtDecode(token).nameid, softwareID)
-      .then((data) => {
-        setReviewData(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log("Error fetching rating data:", error);});
+        .GetRatingByUserIdAndSoftwareId(jwtDecode(token).nameid, softwareID)
+        .then((data) => {
+          setExistingRatingData(data);
+          if (data && data.textRating) {
+            setReviewData({
+              all_text: data.textRating.all || "",
+              positive: data.textRating.positive || "",
+              negative: data.textRating.negative || "",
+              reason_of_use: data.textRating.reason_of_use || "",
+              duration_of_use: data.textRating.duration_of_use || "",
+              all_star: data.star.all || 0,
+              simplicity: data.star.simplicity || 0,
+              service: data.star.service || 0,
+              characteristic: data.star.characteristic || 0,
+              price_value: data.star.price_value || 0,
+              recommendation: data.star.recommendation || 0,
+            });
+          }
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log("Error fetching rating data:", error);
+        });
     }
   }, [softwareID, token]);
 
@@ -236,9 +294,12 @@ function SoftwareDetail() {
                         {token && (
                           <button
                             className="mt-12 ml-8 mb-8 px-4 py-2 bg-green-300 hover-bg-green-400 rounded-md text-gray-900 font-semibold transition duration-300"
-                            onClick={() => setShowReviewOverlay(true)}
+                            onClick={handleOpenReviewOverlay}
                           >
-                            Vélemény hozzáadása
+                            {ExistingRatingData &&
+                            Object.keys(ExistingRatingData).length > 0
+                              ? "Vélemény megváltoztatása"
+                              : "Vélemény hozzáadása"}
                           </button>
                         )}
                       </div>
@@ -249,43 +310,63 @@ function SoftwareDetail() {
                       <div className="modal bg-white p-12">
                         <div className="rating-section grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center items-center mb-8">
                           <div className="text-center">
-                            <p className="text-lg font-semibold pt-4">Összegzett értékelés:</p>
+                            <p className="text-lg font-semibold pt-4">
+                              Összegzett értékelés:
+                            </p>
                             <div className="flex justify-center">
                               {renderStars("all_star", reviewData.all_star)}
                             </div>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-semibold pt-4">Egyszerűség:</p>
+                            <p className="text-lg font-semibold pt-4">
+                              Egyszerűség:
+                            </p>
                             <div className="flex justify-center">
                               {renderStars("simplicity", reviewData.simplicity)}
                             </div>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-semibold pt-4">Szolgáltatás:</p>
+                            <p className="text-lg font-semibold pt-4">
+                              Szolgáltatás:
+                            </p>
                             <div className="flex justify-center">
                               {renderStars("service", reviewData.service)}
                             </div>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-semibold pt-4">Jellemzők:</p>
+                            <p className="text-lg font-semibold pt-4">
+                              Jellemzők:
+                            </p>
                             <div className="flex justify-center">
-                              {renderStars("characteristic", reviewData.characteristic)}
+                              {renderStars(
+                                "characteristic",
+                                reviewData.characteristic
+                              )}
                             </div>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-semibold pt-4">Ár-érték arány:</p>
+                            <p className="text-lg font-semibold pt-4">
+                              Ár-érték arány:
+                            </p>
                             <div className="flex justify-center">
-                              {renderStars("price_value", reviewData.price_value)}
+                              {renderStars(
+                                "price_value",
+                                reviewData.price_value
+                              )}
                             </div>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-semibold pt-4">Ajánlás:</p>
+                            <p className="text-lg font-semibold pt-4">
+                              Ajánlás:
+                            </p>
                             <div className="flex justify-center">
-                              {renderStars("recommendation", reviewData.recommendation)}
+                              {renderStars(
+                                "recommendation",
+                                reviewData.recommendation
+                              )}
                             </div>
                           </div>
                         </div>
-
 
                         {/* Textual Inputs */}
                         <textarea
@@ -328,9 +409,17 @@ function SoftwareDetail() {
 
                         <button
                           className="submit-button mt-8 mb-4 px-4 py-2 bg-yellow-300 hover-bg-yellow-400 rounded-md text-gray-900 font-semibold transition duration-300 inline-block hover-scale-small:hover hover-scale-small"
-                          onClick={handleSubmitReview}
+                          onClick={
+                            ExistingRatingData &&
+                            Object.keys(ExistingRatingData).length > 0
+                              ? handleModifyReview
+                              : handleSubmitReview
+                          }
                         >
-                          Értékelés beküldése
+                          {ExistingRatingData &&
+                          Object.keys(ExistingRatingData).length > 0
+                            ? "Módosítás"
+                            : "Értékelés beküldése"}
                         </button>
 
                         <button

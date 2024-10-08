@@ -113,5 +113,34 @@ namespace vszk.Services
         {
             return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).FirstOrDefaultAsync(x => x.User.UserID == userId && x.Software.SoftwareID == softwareId);
         }
+
+        public async Task<Rating> PutRatingByUserIdAndSoftwareId(int userId, int softwareId, RatingDTO rate)
+        {
+            var existingRating = await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).FirstOrDefaultAsync(x => x.User.UserID == userId && x.Software.SoftwareID == softwareId);
+
+            if (existingRating == null)
+            {
+                return null;
+            }
+
+            existingRating.Datumido = DateTime.Now;
+
+            existingRating.Star.All = rate.All_star;
+            existingRating.Star.Simplicity = rate.Simplicity;
+            existingRating.Star.Service = rate.Service;
+            existingRating.Star.Characteristic = rate.Characteristic;
+            existingRating.Star.Price_value = rate.Price_value;
+            existingRating.Star.Recommendation = rate.Recommendation;
+
+            existingRating.TextRating.All = rate.All_text;
+            existingRating.TextRating.Positive = rate.Positive;
+            existingRating.TextRating.Negative = rate.Negative;
+            existingRating.TextRating.Reason_of_use = rate.Reason_of_use;
+            existingRating.TextRating.Duration_of_use = rate.Duration_of_use;
+
+            await _context.SaveChangesAsync();
+
+            return existingRating;
+        }
     }
 }

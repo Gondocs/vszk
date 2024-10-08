@@ -17,11 +17,7 @@ namespace vszk.Controllers
             return Ok(await _ratingService.PostFeedBack(rate));
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> ChangeRating(int id, [FromBody] RatingChangeDTO rate)
-        {
-            return Ok(await _ratingService.ChangeFeedBack(id, rate));
-        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRating(int id)
@@ -39,6 +35,12 @@ namespace vszk.Controllers
         public async Task<IActionResult> GetRatingByUserIdAndSoftwareId(int userId, int softwareId)
         {
             return Ok(await _ratingService.GetRatingByUserIdAndSoftwareId(userId, softwareId));
+        }
+
+        [HttpPut("PutRatingByUserIdAndSoftwareId/{userId}/{softwareId}")]
+        public async Task<IActionResult> PutRatingByUserIdAndSoftwareId(int userId, int softwareId, [FromBody] RatingDTO rate)
+        {
+            return Ok(await _ratingService.PutRatingByUserIdAndSoftwareId(userId, softwareId, rate));
         }
 
     }

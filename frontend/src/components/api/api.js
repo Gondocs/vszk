@@ -136,7 +136,7 @@ const get = {
       .then((response) => response.data);
   },
 
-  GetRatingByUserId: (userId, softwareId) => {
+  GetRatingByUserIdAndSoftwareId: (userId, softwareId) => {
       return apiConfig
         .get(`/Rating/GetRatingByUserIdAndSoftwareId/${userId}/${softwareId}`)
         .then((response) => response.data);
@@ -223,6 +223,12 @@ const put = {
       .put("/User/UpdateUserDataAdmin", data)
       .then((response) => response.data);
   },
+
+  GetRatingByUserIdAndSoftwareId: (userId, softwareId, reviewPayload) => {
+    return apiConfig
+      .put(`/Rating/PutRatingByUserIdAndSoftwareId/${userId}/${softwareId}`, reviewPayload)
+      .then((response) => response.data);
+  },
 };
 
 const del = {
@@ -237,6 +243,8 @@ const del = {
       .delete("/User/DeleteUser", { params: { id } })
       .then((response) => response.data);
   },
+
+
 };
 
 export { get, post, put, del };
