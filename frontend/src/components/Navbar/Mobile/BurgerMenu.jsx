@@ -22,7 +22,7 @@ const BurgerMenu = ({
   handleSearchButtonClick,
   isDesktopOrLaptop,
 }) => (
-  <nav className="bg-gray-800 rounded-b-lg flex-grow sticky top-0 z-50">
+  <nav className="bg-gray-800 flex-grow sticky top-0 z-50">
     <div className="flex justify-between">
       <Menu>
         <Link to="/" className="menu-item">

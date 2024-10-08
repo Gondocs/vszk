@@ -20,7 +20,7 @@ const DesktopNavbar = ({
     handleSearchEnter,
     handleSearchButtonClick,
   }) => (
-    <nav className="bg-gray-800 px-4 py-6 rounded-b-lg flex-grow sticky top-0 z-50">
+    <nav className="bg-gray-800 px-4 py-6 flex-grow sticky top-0 z-50">
       <div className="flex items-center">
         <Link
           to="/"
