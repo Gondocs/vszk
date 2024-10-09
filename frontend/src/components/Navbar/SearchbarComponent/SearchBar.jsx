@@ -70,7 +70,7 @@ const SearchBar = ({
                   key={software.softwareID}
                   to={`/szoftverek/${transliterate(
                     software.category_group
-                  )}/${transliterate(software.category)}/${transliterate(
+                  )}/${transliterate(software.category)}/${software.softwareID}/${transliterate(
                     software.name
                   )}`}
                   className="flex items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
