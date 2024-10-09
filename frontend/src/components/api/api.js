@@ -142,6 +142,18 @@ const get = {
         .then((response) => response.data);
     },
 
+    GetAllCategoryGroups : () => {
+      return apiConfig
+        .get("/Category/GetAllCategoryGroups")
+        .then((response) => response.data);
+    },
+
+    GetAllCategories : () => {
+      return apiConfig
+        .get("/Category/GetAllCategories")
+        .then((response) => response.data);
+    },
+
 };
 
 const post = {
@@ -209,6 +221,13 @@ const post = {
       .post("/Auth/changepassword", data)
       .then((response) => response.data);
   },
+
+  AddNewSoftware: (data) => {
+    return apiConfig
+      .post("/Software/AddNewSoftware", data)
+      .then((response) => response.data);
+  },
+
 };
 
 const put = {
