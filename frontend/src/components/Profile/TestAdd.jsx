@@ -42,6 +42,9 @@ function AddSoftwareForm() {
   const [functionsData, setFunctionsData] = useState([]);
   const [levelsData, setLevelsData] = useState([]);
   const [typesData, setTypesData] = useState([]);
+  const [categoryGroups, setCategoryGroups] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [companyData, setCompanyData] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,20 +58,61 @@ function AddSoftwareForm() {
     });
   };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(software);
-
-    /*
+  
+    // Clone the software state and add missing fields
+    const softwareData = {
+      softwareID: software.softwareID || 0, // Add softwareID
+      name: software.name,
+      description: software.description,
+      category: {
+        categoryID: software.category.categoryID,
+        name: software.category.name,
+        categoryGroup: {
+          categoryGroupID: software.category.categoryGroup.categoryGroupID,
+          name: software.category.categoryGroup.name,
+        },
+      },
+      company: {
+        companyID: software.company.companyID,
+        name: software.company.name,
+        location: software.company.location,
+        phone: software.company.phone,
+        website: software.company.website,
+        logo_link: software.company.logo_link,
+        email: software.company.email,
+      },
+      introduction_fee: software.introduction_fee !== null ? Number(software.introduction_fee) : null, // Convert to number or keep null
+      logo_link: software.logo_link,
+      average_stars: Number(software.average_stars), // Convert to number
+      languages: software.languages,
+      supports: software.supports,
+      oSs: software.oSs,
+      devices: software.devices,
+      moduls: software.moduls,
+      remunerations: software.remunerations.map((remuneration) => ({
+        remunerationID: remuneration.remunerationID,
+        level: remuneration.level,
+        type: remuneration.type,
+        price: Number(remuneration.price), // Convert to number
+      })),
+      functions: software.functions.map((func) => ({
+        softwareFunctionID: func.softwareFunctionID,
+        sfunction: func.sfunction,
+        functionality: func.functionality,
+      })),
+    };
+  
+    console.log(softwareData);
+  
     try {
-      await post.AddSoftware(software);
+      await post.AddNewSoftware(softwareData);
       showToastLong("Software added successfully!", "success");
     } catch (error) {
       showToastLong("Error adding software: " + error.message, "error");
       console.log(error);
     }
-    */
   };
 
   useEffect(() => {
@@ -151,6 +195,36 @@ function AddSoftwareForm() {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    get
+      .GetAllCategoryGroups()
+      .then((CategoryGroups) => {
+        setCategoryGroups(CategoryGroups);
+        console.log(CategoryGroups);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    get
+      .GetAllCategories()
+      .then((Categories) => {
+        setCategories(Categories);
+        console.log(Categories);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    get
+      .Company()
+      .then((CompanyData) => {
+        setCompanyData(CompanyData);
+        console.log(CompanyData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
 
   const handleSelectChange = (index, field, selectedOption) => {
@@ -201,47 +275,163 @@ function AddSoftwareForm() {
             </div>
             <div>
               <label>Kategória neve:</label>
-              <input
-                type="text"
-                name="category.name"
-                value={software.category.name}
-                onChange={(e) =>
-                  handleNestedChange("category", "name", e.target.value)
+              <CreatableSelect
+                options={categories.map((category) => ({
+                  value: category.categoryID,
+                  label: category.name,
+                }))}
+                value={
+                  software.category.name
+                    ? {
+                        value: software.category.categoryID,
+                        label: software.category.name,
+                      }
+                    : null
                 }
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                onChange={(selectedOption) =>
+                  setSoftware({
+                    ...software,
+                    category: {
+                      ...software.category,
+                      categoryID: selectedOption.value,
+                      name: selectedOption.label,
+                    },
+                  })
+                }
+                onCreateOption={(inputValue) =>
+                  setSoftware({
+                    ...software,
+                    category: {
+                      categoryID: categories.length + 1,
+                      name: inputValue,
+                    },
+                  })
+                }
+                className="mb-4"
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                    paddingLeft: "6px",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                  }),
+                }}
               />
             </div>
             <div>
               <label>Kategória csoport neve:</label>
-              <input
-                type="text"
-                name="categoryGroup.name"
-                value={software.category.categoryGroup.name}
-                onChange={(e) =>
+              <CreatableSelect
+                options={categoryGroups.map((group) => ({
+                  value: group.categoryGroupID,
+                  label: group.name,
+                }))}
+                value={
+                  software.category.categoryGroup.name
+                    ? {
+                        value: software.category.categoryGroup.categoryGroupID,
+                        label: software.category.categoryGroup.name,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
                   setSoftware({
                     ...software,
                     category: {
                       ...software.category,
                       categoryGroup: {
-                        ...software.category.categoryGroup,
-                        name: e.target.value,
+                        categoryGroupID: selectedOption.value,
+                        name: selectedOption.label,
                       },
                     },
                   })
                 }
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                onCreateOption={(inputValue) =>
+                  setSoftware({
+                    ...software,
+                    category: {
+                      ...software.category,
+                      categoryGroup: {
+                        categoryGroupID: categoryGroups.length + 1,
+                        name: inputValue,
+                      },
+                    },
+                  })
+                }
+                className="mb-4"
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                    paddingLeft: "6px",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                  }),
+                }}
               />
             </div>
             <div>
               <label>Cég neve:</label>
-              <input
-                type="text"
-                name="company.name"
-                value={software.company.name}
-                onChange={(e) =>
-                  handleNestedChange("company", "name", e.target.value)
+              <CreatableSelect
+                options={companyData.map((company) => ({
+                  value: company.companyID,
+                  label: company.name,
+                }))}
+                value={
+                  software.company.name
+                    ? {
+                        value: software.company.companyID,
+                        label: software.company.name,
+                      }
+                    : null
                 }
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                onChange={(selectedOption) => {
+                  const selectedCompany = companyData.find(
+                    (company) => company.companyID === selectedOption.value
+                  );
+                  setSoftware({
+                    ...software,
+                    company: {
+                      companyID: selectedCompany.companyID,
+                      name: selectedCompany.name,
+                      location: selectedCompany.location,
+                      phone: selectedCompany.phone,
+                      website: selectedCompany.website,
+                      logo_link: selectedCompany.logo_link,
+                      email: selectedCompany.email,
+                    },
+                  });
+                }}
+                onCreateOption={(inputValue) =>
+                  setSoftware({
+                    ...software,
+                    company: {
+                      companyID: companyData.length + 1,
+                      name: inputValue,
+                      location: "",
+                      phone: "",
+                      website: "",
+                      logo_link: "",
+                      email: "",
+                    },
+                  })
+                }
+                className="mb-4"
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                    paddingLeft: "6px",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    fontSize: "1rem",
+                  }),
+                }}
               />
             </div>
             <div>
