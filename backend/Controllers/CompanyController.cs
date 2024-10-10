@@ -22,5 +22,11 @@ namespace vszk.Controllers
         {
             return await _companyService.GetCompany(id);
         }
+
+        [HttpPost("Add")]
+        public async Task<ActionResult<Company>> Add(Company company)
+        {
+            return await _companyService.AddCompany(company);
+        }
     }
 }

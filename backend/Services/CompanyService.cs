@@ -43,5 +43,12 @@ namespace vszk.Services
             }
             throw new Exception("Software not found");
         }
+
+        public async Task<Company> AddCompany(Company company)
+        {
+            _context.Company.Add(company);
+            await _context.SaveChangesAsync();
+            return company;
+        }
     }
 }
