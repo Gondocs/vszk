@@ -34,6 +34,7 @@ const NewMenu = () => {
   const uniqueCategories = Array.from(
     new Set(mainCategoryData.map((category) => category.categoryGroup.name))
   );
+
   return (
     <>
       <div
@@ -41,7 +42,17 @@ const NewMenu = () => {
         {...anchorProps}
         className="text-white hover:text-gray-400 block mr-12 text-[1.2rem]"
       >
-        <Link to="/szoftverek">Szoftverek</Link>
+        <Link
+          to="/szoftverek"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
+        >
+          Szoftverek
+        </Link>
       </div>
       <ControlledMenu
         {...hoverProps}

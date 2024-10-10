@@ -25,22 +25,40 @@ const DesktopNavbar = ({
         <Link
           to="/"
           className="text-white hover:text-gray-400 block mr-12 ml-4 text-[1.5rem] hover-scale hover-scalemain hover-scalemain:hover"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
         >
           Főoldal
         </Link>
-  
+        
         <NewMenu />
-  
+        
         <Link
           to="/cegek"
           className="text-white hover:text-gray-400 block mr-12 hover-scale hover-scale:hover text-[1.2rem]"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
         >
           Cégek
         </Link>
-  
+        
         <Link
           to="/osszehasonlitas"
           className="text-white hover:text-gray-400 block mr-2 hover-scale hover-scale:hover text-[1.2rem]"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
         >
           Összehasonlítás
         </Link>
