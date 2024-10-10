@@ -17,7 +17,7 @@ import { jwtDecode } from "jwt-decode";
 import ProfilePage from "../Profile/ProfilePage";
 import FavoritesPage from "../Profile/FavoritesPage";
 import AdminPage from "../Profile/AdminPage";
-import AddSoftwareForm from "../Profile/TestAdd";
+import AddSoftwareForm from "../Profile/AddSoftwareFrom";
 
 const Routes = () => {
   const { token } = useAuth();

@@ -8,6 +8,7 @@ import Select from "react-select";
 import { options } from "../Register/CountryConst";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../Auth/Auth";
+import AddSoftwareForm from "./AddSoftwareFrom";
 
 function AdminPage() {
   const [loading, setLoading] = useState(false);
@@ -122,7 +123,7 @@ function AdminPage() {
     <div className="bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-semibold text-center mb-8">Admin</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="gap-8">
           <div className="bg-white shadow-md rounded-md p-8 flex flex-col justify-between">
             <div>
               <h2 className="text-2xl font-semibold mb-4">
@@ -276,10 +277,8 @@ function AdminPage() {
               {editing ? "Mégse" : "Szerkesztés"}
             </button>
           </div>
-          <div className="bg-white shadow-md rounded-md p-8 flex flex-col justify-between">
-            ide
-          </div>
         </div>
+        <AddSoftwareForm/>
       </div>
     </div>
   );
