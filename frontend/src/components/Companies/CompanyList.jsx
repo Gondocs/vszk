@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import StarIcon from "@mui/icons-material/Star";
 import { Link } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
 import { get } from "../api/api";
@@ -10,7 +9,6 @@ import Pagination from "../Pagination/pagination";
 import { css } from "@emotion/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
-import { useParams } from "react-router-dom";
 
 
 export const CompanyList = () => {
@@ -145,7 +143,7 @@ export const CompanyList = () => {
                       style={{ height: "300px" }}
                     >
                       <Link
-                        to={`/cegek/${transliterate(company.name)}`}
+                        to={`/cegek/${(company.companyID)}/${transliterate(company.name)}`}
                         className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
                         onClick={() => {
                           window.scrollTo({
@@ -168,7 +166,7 @@ export const CompanyList = () => {
                       </Link>
                       <div className="w-2/3 flex flex-col justify-center pl-6 pr-4">
                         <Link
-                          to={`/cegek/${transliterate(company.name)}`}
+                          to={`/cegek/${(company.companyID)}/${transliterate(company.name)}`}
                           className="text-3xl font-semibold text-black pb-4"
                           onClick={() => {
                             window.scrollTo({
@@ -179,19 +177,6 @@ export const CompanyList = () => {
                         >
                           {company.name}
                         </Link>
-                        <div className="flex items-center">
-                          <span className="text-black text-lg mr-2">
-                            Vélemények:
-                            <StarIcon
-                              fontSize="medium"
-                              className="starmargin"
-                              style={{ color: "rgb(255, 210, 48)" }}
-                            />
-                          </span>
-                        </div>
-                        <p className="text-black">
-                          Leírás: {company.description}
-                        </p>
                       </div>
                     </div>
                   </li>
