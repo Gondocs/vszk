@@ -34,5 +34,12 @@ namespace vszk.Controllers
         {
             return await _categoryService.GetAllSmallCategories();
         }
+
+        [HttpPost("AddCategory")]
+        public async Task<ActionResult<Category>> AddCategory(Category category)
+        {
+            return await _categoryService.AddCategory(category);
+
+        }
     }
 }

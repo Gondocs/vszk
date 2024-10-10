@@ -44,5 +44,12 @@ namespace vszk.Services
                 Name = x.Name
             }).ToListAsync();
         }
+
+        public async Task<Category> AddCategory(Category category)
+        {
+            _context.Category.Add(category);
+            await _context.SaveChangesAsync();
+            return category;
+        }
     }
 }

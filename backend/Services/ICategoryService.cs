@@ -9,5 +9,7 @@ namespace vszk.Services
         Task<List<CategoryGroup>> GetAllCategoryGroups();
 
         Task<List<SmallCategoryDTO>> GetAllSmallCategories();
+
+        Task<Category> AddCategory(Category category);
     }
 }
