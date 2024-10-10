@@ -8,7 +8,8 @@ import { ClipLoader } from "react-spinners";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useAuth } from "../../Auth/Auth";
 import { jwtDecode } from "jwt-decode";
-
+import { Link } from "react-router-dom";
+import { transliterate } from "../../api/transliteration";
 import { showToastLong } from "../../toasts/toastLong";
 
 function SoftwareDetail() {
@@ -195,6 +196,24 @@ function SoftwareDetail() {
     setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
   };
 
+  const [recommendedSoftwares, setRecommendedSoftwares] = useState([]);
+  const [loading2, setLoading2] = useState(true);
+
+  useEffect(() => {
+    get
+      .RecommendedSoftwares(softwareID)
+      .then((data) => {
+        setRecommendedSoftwares(data || []);
+        console.log(data);
+        setLoading2(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching recommended softwares:", error);
+        showToast(error, "error");
+        setLoading2(false);
+      });
+  }, [softwareID]);
+
   useEffect(() => {
     get
       .softwareById(softwareID)
@@ -261,7 +280,7 @@ function SoftwareDetail() {
   return (
     <div className="min-h-screen bg-gray-200 py-8 px-6 FadeInSmall">
       <div className="p-8">
-        <div className="bg-white p-12 rounded-25 shadow-xl">
+        <div className="bg-white p-8 rounded-25 shadow-xl">
           <div className="flex items-center">
             {loading ? (
               <div className="flex justify-center items-center mx-auto">
@@ -529,7 +548,7 @@ function SoftwareDetail() {
 
                     {activeButton === "Properties" &&
                       SoftwareData.languages.length > 0 && (
-                        <div className="grid grid-cols-3 gap-12 mb-32 shadow-custom p-16 rounded-25 mt-20">
+                        <div className="grid grid-cols-3 gap-12 mb-4 shadow-custom p-16 rounded-25 mt-20">
                           {SoftwareData.languages.length > 0 && (
                             <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                               <h3 className="text-2xl font-semibold">
@@ -640,6 +659,46 @@ function SoftwareDetail() {
                         </div>
                       )}
                   </ul>
+                  <div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
+                      {recommendedSoftwares.length > 0 ? (
+                        recommendedSoftwares.map((software) => (
+                          <Link
+                            key={software.softwareID}
+                            to={`/szoftverek/${transliterate(
+                              software.category_group // Ensure this matches the data property
+                            )}/${transliterate(software.category)}/${software.softwareID}/${transliterate(software.name)}`}
+                            className="bg-white p-6 rounded-lg shadow-custom hover-scale-small:hover hover-scale-small"
+                            onClick={() => {
+                              window.scrollTo({
+                                top: 0,
+                                behavior: "smooth",
+                              });
+                            }}
+                          >
+                            <div>
+                              <img
+                                src={software.logo_link}
+                                alt={software.name}
+                                className="w-full h-32 object-contain mb-4"
+                              />
+                              <h3 className="text-xl font-semibold mb-2">
+                                {software.name}
+                              </h3>
+                              <p className="text-gray-700 mb-2">
+                                {software.category_group} - {software.category}
+                              </p>
+                              <p className="text-gray-600">
+                                {software.description}
+                              </p>
+                            </div>
+                          </Link>
+                        ))
+                      ) : (
+                        <div>Nem található hasonló szoftver</div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </>
             )}
