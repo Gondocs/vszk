@@ -16,9 +16,9 @@ export const CompanyList = () => {
   const [CompanyData, setCompanyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [parent] = useAutoAnimate(/* optional config */);
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
     get
@@ -34,7 +34,19 @@ export const CompanyList = () => {
       });
   }, []);
 
-  const filteredCompanies = CompanyData.filter((company) =>
+  const handleSortOrderChange = () => {
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  };
+
+  const sortedCompanyData = [...CompanyData].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+  });
+
+  const filteredCompanies = sortedCompanyData.filter((company) =>
     company.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -74,7 +86,7 @@ export const CompanyList = () => {
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
-        className="w-1/4 bg-white p-10 rounded-40 mr-4 ml-4 shadow-lg border border-gray-400 sticky sm:top-[20%] z-30"
+        className="w-1/4 bg-white p-10 rounded-lg mr-4 ml-4 shadow-lg border border-gray-400 sticky sm:top-[20%] z-30 overflow-auto"
         style={{ height: "100%", marginTop: "6.3%" }}
       >
         <h2 className="text-lg font-semibold mb-4 hover-scale-element:hover hover-scale-element">
@@ -87,13 +99,22 @@ export const CompanyList = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+
       </div>
 
-      <div className="w-4/5 p-4 bg-gray-200 rounded-40">
-        <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
-          Céglista
-        </h1>
-
+            <div className="w-4/5 p-4 bg-gray-200 rounded-40">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-semibold mb-8 mt-2 ml-12 hover-scale-element:hover hover-scale-element">
+            Céglista
+          </h1>
+          <button
+            onClick={handleSortOrderChange}
+            className="bg-gray-700 text-white px-4 py-2 mr-4 rounded"
+          >
+            Rendezés: {sortOrder === "asc" ? "A-ZS" : "ZS-A"}
+          </button>
+        </div>
+      
         {loading ? (
           <div className="flex justify-center items-center mt-40">
             <ClipLoader color={"#B5B4B4"} loading={loading} size={250} />
