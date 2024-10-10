@@ -96,12 +96,6 @@ const get = {
       .then((response) => response.data);
   },
 
-  RecommendedSoftwares: () => {
-    return apiConfig
-      .get("/Software/RecommendedSoftwares")
-      .then((response) => response.data);
-  },
-
   GetUserDataById: (userId) => {
     return apiConfig
       .get("/User/GetById", { params: { id: userId } })
@@ -137,23 +131,27 @@ const get = {
   },
 
   GetRatingByUserIdAndSoftwareId: (userId, softwareId) => {
-      return apiConfig
-        .get(`/Rating/GetRatingByUserIdAndSoftwareId/${userId}/${softwareId}`)
-        .then((response) => response.data);
-    },
+    return apiConfig
+      .get(`/Rating/GetRatingByUserIdAndSoftwareId/${userId}/${softwareId}`)
+      .then((response) => response.data);
+  },
+  RecommendedSoftwares: (softwareId) => {
+    return apiConfig
+      .get(`/Software/RecommendedSoftwares?id=${softwareId}`)
+      .then((response) => response.data);
+  },
 
-    GetAllCategoryGroups : () => {
-      return apiConfig
-        .get("/Category/GetAllCategoryGroups")
-        .then((response) => response.data);
-    },
+  GetAllCategoryGroups: () => {
+    return apiConfig
+      .get("/Category/GetAllCategoryGroups")
+      .then((response) => response.data);
+  },
 
-    GetAllCategories : () => {
-      return apiConfig
-        .get("/Category/GetAllCategories")
-        .then((response) => response.data);
-    },
-
+  GetAllCategories: () => {
+    return apiConfig
+      .get("/Category/GetAllCategories")
+      .then((response) => response.data);
+  },
 };
 
 const post = {
@@ -227,7 +225,6 @@ const post = {
       .post("/Software/AddNewSoftware", data)
       .then((response) => response.data);
   },
-
 };
 
 const put = {
@@ -245,7 +242,10 @@ const put = {
 
   PutRatingByUserIdAndSoftwareId: (userId, softwareId, reviewPayload) => {
     return apiConfig
-      .put(`/Rating/PutRatingByUserIdAndSoftwareId/${userId}/${softwareId}`, reviewPayload)
+      .put(
+        `/Rating/PutRatingByUserIdAndSoftwareId/${userId}/${softwareId}`,
+        reviewPayload
+      )
       .then((response) => response.data);
   },
 };
@@ -265,10 +265,11 @@ const del = {
 
   RemoveRatingByUserIdAndSoftwareId: (userId, softwareId) => {
     return apiConfig
-      .delete(`/Rating/RemoveRatingByUserIdAndSoftwareId/${userId}/${softwareId}`)
+      .delete(
+        `/Rating/RemoveRatingByUserIdAndSoftwareId/${userId}/${softwareId}`
+      )
       .then((response) => response.data);
   },
-
 };
 
 export { get, post, put, del };

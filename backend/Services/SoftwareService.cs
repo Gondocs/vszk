@@ -326,32 +326,38 @@ namespace vszk.Services
             return user;
         }
 
-        public async Task<List<SoftwareSmallDTO>> GetRecommendedSoftwares(int id)
+        public async Task<List<SoftwareSmallDTO>> GetRecommendedSoftwares(int softwareID)
         {
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var software = await _context.Software
+                .Include(x => x.Category)
+                .ThenInclude(c => c.CategoryGroup)
+                .FirstOrDefaultAsync(s => s.SoftwareID == softwareID);
+        
+            if (software == null)
             {
                 return null;
             }
-
+        
+            var category = software.Category;
+        
             var softwareDTOs = await _context
                 .Software.Include(x => x.Category)
                 .Include(x => x.Category.CategoryGroup)
-                .Where(x => x.Category == category)
+                .Where(x => x.Category == category && x.SoftwareID != softwareID)
                 .ToListAsync();
-
+        
             var softwares = softwareDTOs
-                .Select(software => new SoftwareSmallDTO
+                .Select(s => new SoftwareSmallDTO
                 {
-                    SoftwareID = software.SoftwareID,
-                    Name = software.Name,
-                    Category_group = software.Category.CategoryGroup.Name,
-                    Category = software.Category.Name,
-                    Description = software.Description,
-                    Logo_link = software.Logo_link
+                    SoftwareID = s.SoftwareID,
+                    Name = s.Name,
+                    Category_group = s.Category.CategoryGroup.Name,
+                    Category = s.Category.Name,
+                    Description = s.Description,
+                    Logo_link = s.Logo_link
                 })
                 .ToList();
-
+        
             return softwares;
         }
 
