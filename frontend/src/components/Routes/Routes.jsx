@@ -82,7 +82,7 @@ const Routes = () => {
       ),
     },
     {
-      path: "/cegek/:name",
+      path: "/cegek/:CompanyID/:name",
       element: (
         <div>
           <Navbar /> <CompanyDetail /> <Footer />

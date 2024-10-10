@@ -10,6 +10,8 @@ import Pagination from "../Pagination/pagination";
 import { css } from "@emotion/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import NoSoftwareSvg from "../assets/NoSoftwareSvg";
+import { useParams } from "react-router-dom";
+
 
 export const CompanyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +21,7 @@ export const CompanyList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
+
 
   useEffect(() => {
     get
@@ -124,7 +127,7 @@ export const CompanyList = () => {
             <ul ref={parent}>
               {paginatedCompanies.map((company) => (
                 <Link
-                  to={`/cegek/${transliterate(company.name)}`}
+                  to={`/cegek/${(company.companyID)}/${transliterate(company.name)}`}
                   className="text-3xl font-semibold text-black pb-4"
                   onClick={() => {
                     window.scrollTo({
