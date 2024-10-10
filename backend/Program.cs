@@ -37,6 +37,7 @@ builder.Services.AddScoped<ISoftwareLangConnectService, SoftwareLangConnectServi
 builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<CompanyService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

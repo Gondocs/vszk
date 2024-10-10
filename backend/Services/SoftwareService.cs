@@ -3,10 +3,12 @@ namespace vszk.Services
     public class SoftwareService : ISoftwareService
     {
         private readonly DataContext _context;
+        private readonly CompanyService _companyService;
 
-        public SoftwareService(DataContext context)
+        public SoftwareService(DataContext context, CompanyService companyService)
         {
             _context = context;
+            _companyService = companyService;
         }
 
         private float CalculateAverageStars(Software software)
@@ -526,7 +528,16 @@ namespace vszk.Services
             var company = await _context.Company.FindAsync(softwareDTO.Company.CompanyID);
             if (company == null)
             {
-                return null;
+                // If the company does not exist, add it using CompanyService
+                company = await _companyService.AddCompany(new Company
+                {
+                    Name = softwareDTO.Company.Name,
+                    Location = softwareDTO.Company.Location,
+                    Phone = softwareDTO.Company.Phone,
+                    Website = softwareDTO.Company.Website,
+                    Logo_link = softwareDTO.Company.Logo_link,
+                    Email = softwareDTO.Company.Email
+                });
             }
 
             var software = new Software
@@ -609,7 +620,6 @@ namespace vszk.Services
             _context.Software.Add(software);
             await _context.SaveChangesAsync();
             return await GetAllSoftwares();
-
         }
 
         public async Task<List<SoftwareDTO>> DeleteSoftwareById(int id)
