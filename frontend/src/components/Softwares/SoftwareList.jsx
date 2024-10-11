@@ -288,9 +288,9 @@ const SoftwareList = () => {
                   <Link
                     to={`/szoftverek/${transliterate(
                       software.category.categoryGroup.name
-                    )}/${transliterate(software.category.name)}/${software.softwareID}/${transliterate(
-                      software.name
-                    )}`}
+                    )}/${transliterate(software.category.name)}/${
+                      software.softwareID
+                    }/${transliterate(software.name)}`}
                     onClick={() => {
                       window.scrollTo({
                         top: 0,
@@ -299,11 +299,11 @@ const SoftwareList = () => {
                     }}
                   >
                     <div
-                      className="bg-white rounded-25 pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
+                      className="bg-white rounded-lg pt-12 pb-12 pr-12 pl-6 border border-gray-400 flex shadow-xl"
                       style={{ height: "300px" }}
                     >
                       {/* Container for the image (1/3 of the width) */}
-                      <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25">
+                      <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-lg">
                         <div className="flex items-center">
                           <img
                             src={software.company.logo_link}
@@ -323,9 +323,9 @@ const SoftwareList = () => {
                         <Link
                           to={`/szoftverek/${transliterate(
                             software.category.categoryGroup.name
-                          )}/${transliterate(
-                            software.category.name
-                          )}/${software.softwareID}/${transliterate(software.name)}`}
+                          )}/${transliterate(software.category.name)}/${
+                            software.softwareID
+                          }/${transliterate(software.name)}`}
                           className="text-3xl font-semibold text-black mb-3"
                           onClick={() => {
                             window.scrollTo({
@@ -337,7 +337,10 @@ const SoftwareList = () => {
                           {software.name}
                         </Link>
                         <Link
-                          to={`/cegek/${transliterate(software.company.name)}`}
+                          to={`/cegek/${
+                            software.company.companyID
+                          }/${transliterate(software.company.name)}`}
+                          className="text-3xl font-semibold text-black pb-4"
                           onClick={() => {
                             window.scrollTo({
                               top: 0,

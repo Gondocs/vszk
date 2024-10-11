@@ -77,7 +77,7 @@ export const CompanyList = () => {
   const noResultsMessage =
     paginatedCompanies.length === 0 ? (
       <div className="flex justify-center">
-        <div className="bg-white rounded-25 py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
+        <div className="bg-white rounded-lg py-12 w-full border border-gray-400 shadow-xl text-4xl text-center items-center">
           A keresett cég nem található.
           <NoSoftwareSvg />
         </div>
@@ -139,12 +139,12 @@ export const CompanyList = () => {
                     className="pb-8 px-4 hover-scale-element:hover hover-scale-element"
                   >
                     <div
-                      className="bg-white rounded-25 pr-12 pb-12 pt-12 pl-6 border border-gray-400 flex shadow-xl"
+                      className="bg-white rounded-lg pr-12 pb-12 pt-12 pl-6 border border-gray-400 flex shadow-xl"
                       style={{ height: "300px" }}
                     >
                       <Link
                         to={`/cegek/${(company.companyID)}/${transliterate(company.name)}`}
-                        className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25"
+                        className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-lg"
                         onClick={() => {
                           window.scrollTo({
                             top: 0,
