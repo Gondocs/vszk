@@ -109,7 +109,7 @@ const handleSubmit = (e) => {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
+            {/*<div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
@@ -130,7 +130,7 @@ const handleSubmit = (e) => {
               >
                 Elfelejtetted a jelszódat?
               </a>
-            </div>
+            </div>*/}
           </div>
           <div>
             <button
