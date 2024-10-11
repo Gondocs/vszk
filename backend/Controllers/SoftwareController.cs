@@ -147,5 +147,16 @@ namespace vszk.Controllers
             return software;
         }
 
+        [HttpPost("GetSoftwaresByIDs")]
+        public async Task<ActionResult<List<SoftwareDTO>>> GetSoftwaresByIDs([FromBody] List<int> ids)
+        {
+            var software = await _softwareService.GetSoftwaresByIDs(ids);
+            if (software == null || !software.Any())
+            {
+                return NotFound();
+            }
+            return Ok(software);
+        }
+
     }
 }

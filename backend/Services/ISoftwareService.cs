@@ -29,5 +29,8 @@ namespace vszk.Services
         Task<List<SoftwareDTO>> AddNewSoftware(SoftwareDTO softwareDTO);
 
         Task<List<SoftwareDTO>> DeleteSoftwareById(int id);
+
+        Task<List<SoftwareDTO>> GetSoftwaresByIDs(List<int> ids);
+    
     }
 }

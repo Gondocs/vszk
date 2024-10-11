@@ -158,6 +158,12 @@ const get = {
       .get(`/Rating/GetRatingBySoftwareId/${softwareId}`)
       .then((response) => response.data);
   },
+
+  GetSoftwaresByIDs: (ids) => {
+    return apiConfig
+      .get("/Software/GetSoftwaresByIDs", { params: { ids } })
+      .then((response) => response.data);
+  }, // ids: [1, 2, 3]
 };
 
 const post = {

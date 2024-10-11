@@ -220,7 +220,9 @@ namespace vszk.Services
             return softwares;
         }
 
-        public async Task<User> AddUserFavoriteSoftware(UserFavoriteSoftwareDTO userFavoriteSoftwareDTO)
+        public async Task<User> AddUserFavoriteSoftware(
+            UserFavoriteSoftwareDTO userFavoriteSoftwareDTO
+        )
         {
             var user = await _context.User.FindAsync(userFavoriteSoftwareDTO.UserID);
             if (user == null)
@@ -234,8 +236,10 @@ namespace vszk.Services
                 return null;
             }
 
-            var existingFavorite = await _context.UserSoftwareFavorites
-                .FirstOrDefaultAsync(usf => usf.User.UserID == userFavoriteSoftwareDTO.UserID && usf.Software.SoftwareID == userFavoriteSoftwareDTO.SoftwareID);
+            var existingFavorite = await _context.UserSoftwareFavorites.FirstOrDefaultAsync(usf =>
+                usf.User.UserID == userFavoriteSoftwareDTO.UserID
+                && usf.Software.SoftwareID == userFavoriteSoftwareDTO.SoftwareID
+            );
 
             if (existingFavorite != null)
             {
@@ -328,24 +332,24 @@ namespace vszk.Services
 
         public async Task<List<SoftwareSmallDTO>> GetRecommendedSoftwares(int softwareID)
         {
-            var software = await _context.Software
-                .Include(x => x.Category)
+            var software = await _context
+                .Software.Include(x => x.Category)
                 .ThenInclude(c => c.CategoryGroup)
                 .FirstOrDefaultAsync(s => s.SoftwareID == softwareID);
-        
+
             if (software == null)
             {
                 return null;
             }
-        
+
             var category = software.Category;
-        
+
             var softwareDTOs = await _context
                 .Software.Include(x => x.Category)
                 .Include(x => x.Category.CategoryGroup)
                 .Where(x => x.Category == category && x.SoftwareID != softwareID)
                 .ToListAsync();
-        
+
             var softwares = softwareDTOs
                 .Select(s => new SoftwareSmallDTO
                 {
@@ -357,7 +361,7 @@ namespace vszk.Services
                     Logo_link = s.Logo_link
                 })
                 .ToList();
-        
+
             return softwares;
         }
 
@@ -535,15 +539,17 @@ namespace vszk.Services
             if (company == null)
             {
                 // If the company does not exist, add it using CompanyService
-                company = await _companyService.AddCompany(new Company
-                {
-                    Name = softwareDTO.Company.Name,
-                    Location = softwareDTO.Company.Location,
-                    Phone = softwareDTO.Company.Phone,
-                    Website = softwareDTO.Company.Website,
-                    Logo_link = softwareDTO.Company.Logo_link,
-                    Email = softwareDTO.Company.Email
-                });
+                company = await _companyService.AddCompany(
+                    new Company
+                    {
+                        Name = softwareDTO.Company.Name,
+                        Location = softwareDTO.Company.Location,
+                        Phone = softwareDTO.Company.Phone,
+                        Website = softwareDTO.Company.Website,
+                        Logo_link = softwareDTO.Company.Logo_link,
+                        Email = softwareDTO.Company.Email
+                    }
+                );
             }
 
             var software = new Software
@@ -636,32 +642,32 @@ namespace vszk.Services
                 return null;
             }
 
-            var languages = _context.SoftwareLangConnect
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var languages = _context
+                .SoftwareLangConnect.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
-            var supports = _context.Support
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var supports = _context
+                .Support.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
-            var os = _context.SoftwareOSConnect
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var os = _context
+                .SoftwareOSConnect.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
-            var devices = _context.SoftwareCompConnect
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var devices = _context
+                .SoftwareCompConnect.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
-            var moduls = _context.SoftwareModulConnect
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var moduls = _context
+                .SoftwareModulConnect.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
-            var remunerations = _context.Remuneration
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var remunerations = _context
+                .Remuneration.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
-            var functions = _context.SoftwareFunction
-                .Where(x => x.Software.SoftwareID == software.SoftwareID)
+            var functions = _context
+                .SoftwareFunction.Where(x => x.Software.SoftwareID == software.SoftwareID)
                 .ToList();
 
             _context.SoftwareLangConnect.RemoveRange(languages);
@@ -675,6 +681,83 @@ namespace vszk.Services
             _context.Software.Remove(software);
             await _context.SaveChangesAsync();
             return await GetAllSoftwares();
+        }
+
+        public async Task<List<SoftwareDTO>> GetSoftwaresByIDs(List<int> ids)
+        {
+            var softwareDTOs = await _context
+                .Software.Include(x => x.Category)
+                .Include(x => x.Company)
+                .Include(x => x.Category.CategoryGroup)
+                .Where(s => ids.Contains(s.SoftwareID))
+                .ToListAsync();
+
+            var softwares = softwareDTOs
+                .Select(software => new SoftwareDTO
+                {
+                    SoftwareID = software.SoftwareID,
+                    Name = software.Name,
+                    Description = software.Description,
+                    Category = software.Category,
+                    Company = software.Company,
+                    Introduction_fee = software.Introduction_fee,
+                    Logo_link = software.Logo_link,
+                    Average_stars = CalculateAverageStars(software),
+                    Languages = _context
+                        .SoftwareLangConnect.Include(x => x.Language)
+                        .Include(x => x.Software)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => x.Language.Lang)
+                        .ToList(),
+                    Supports = _context
+                        .Support.Include(x => x.Language)
+                        .Include(x => x.Software)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => x.Language.Lang)
+                        .ToList(),
+                    OSs = _context
+                        .SoftwareOSConnect.Include(x => x.OS)
+                        .Include(x => x.Software)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => x.OS.Os)
+                        .ToList(),
+                    Devices = _context
+                        .SoftwareCompConnect.Include(x => x.Compatibility)
+                        .Include(x => x.Software)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => x.Compatibility.Device)
+                        .ToList(),
+                    Moduls = _context
+                        .SoftwareModulConnect.Include(x => x.Modul)
+                        .Include(x => x.Software)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => x.Modul.Name)
+                        .ToList(),
+                    Remunerations = _context
+                        .Remuneration.Include(x => x.Level)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => new RemunerationDTO
+                        {
+                            RemunerationID = x.RemunerationID,
+                            Level = x.Level.Name,
+                            Type = x.Type,
+                            Price = x.Price
+                        })
+                        .ToList(),
+                    Functions = _context
+                        .SoftwareFunction.Include(x => x.Functionality)
+                        .Where(x => x.Software.SoftwareID == software.SoftwareID)
+                        .Select(x => new SoftwareFunctionsDTO
+                        {
+                            SoftwareFunctionID = x.SoftwareFunctionID,
+                            Sfunction = x.Sfunction,
+                            Functionality = x.Functionality.Funct
+                        })
+                        .ToList()
+                })
+                .ToList();
+
+            return softwares;
         }
     }
 }
