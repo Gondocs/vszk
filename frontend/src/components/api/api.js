@@ -159,11 +159,6 @@ const get = {
       .then((response) => response.data);
   },
 
-  GetSoftwaresByIDs: (ids) => {
-    return apiConfig
-      .get("/Software/GetSoftwaresByIDs", { params: { ids } })
-      .then((response) => response.data);
-  }, // ids: [1, 2, 3]
 };
 
 const post = {
@@ -237,6 +232,13 @@ const post = {
       .post("/Software/AddNewSoftware", data)
       .then((response) => response.data);
   },
+
+  
+  GetSoftwaresByIDs: (ids) => {
+    return apiConfig
+      .post("/Software/GetSoftwaresByIDs", ids)  // Send ids in the body
+      .then((response) => response.data);
+  },
 };
 
 const put = {
@@ -260,6 +262,8 @@ const put = {
       )
       .then((response) => response.data);
   },
+
+  
 };
 
 const del = {

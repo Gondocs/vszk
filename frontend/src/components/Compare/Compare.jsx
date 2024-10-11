@@ -6,7 +6,7 @@ import "../../css/Navbar.css";
 import "../../css/dropDown.css";
 import { useParams } from "react-router-dom";
 import { transliterate } from "../api/transliteration";
-import { get } from "../api/api";
+import { get, post } from "../api/api";
 import { showToast } from "../toasts/toast";
 // import Pagination from "../Pagination/pagination";
 import CompareSvg from "../assets/CompareSvg";
@@ -32,6 +32,7 @@ const Compare = () => {
   const [LanguageData, setLanguageData] = useState([]);
   const [OsData, setOsData] = useState([]);
   const [SupportData, setSupportData] = useState([]);
+  const [ComparisonData, setComparisonData] = useState([]);
 
   const [selectedFunctions, setSelectedFunctions] = useState([]);
   const [selectedCompatibility, setSelectedCompatibility] = useState([]);
@@ -55,6 +56,11 @@ const Compare = () => {
       setIsSearchFocused(true);
     }
   };
+
+  const handleClickOnCompareList = () => {
+    setIsCompareSoftwares(false);
+  };
+
   const handleSearchFocus = () => {
     setIsSearchFocused(true);
   };
@@ -85,24 +91,26 @@ const Compare = () => {
       showToast("Egyszerre csak 4 szoftvert lehet összehasonlítani!", "error");
     } else if (!isContanin) {
       setselectedSoftwares((current) => [...current, id]);
-    
-      const newFunctions = SoftwareData[id].functions.filter((func) => 
-        !selectedSoftwareFunctions.includes(func)
+
+      const newFunctions = SoftwareData[id].functions.filter(
+        (func) => !selectedSoftwareFunctions.includes(func)
       );
-    
+
       if (newFunctions.length > 0) {
-        setselectedSoftwareFunctions((current) => [...current, ...newFunctions]);
+        setselectedSoftwareFunctions((current) => [
+          ...current,
+          ...newFunctions,
+        ]);
       }
-    
+
       console.log("funkciók: ", selectedSoftwareFunctions);
     } else {
       showToast("Ez a szoftver már ki lett választva!", "error");
     }
-    
+
     setSearchQuery(""); // Clear the search query on link click
   };
 
-  
   const removeSelectedSoftware = (id) => {
     setselectedSoftwares((current) =>
       current.filter((thisId) => {
@@ -111,12 +119,20 @@ const Compare = () => {
     );
     setSearchQuery(""); // Clear the search query on link click
   };
+
   const handleClickOnCompare = () => {
     setIsCompareSoftwares(!isCompareSoftwares);
-  };
-  const handleClickOnCompareList = () => {
-    if (isCompareSoftwares) {
-      setIsCompareSoftwares(!isCompareSoftwares);
+    if (!isCompareSoftwares) {
+      post
+        .GetSoftwaresByIDs(selectedSoftwares)
+        .then((data) => {
+          console.log(data);
+          setComparisonData(data);
+        })
+        .catch((error) => {
+          showToast("Hiba történt az adatok lekérése közben", "error");
+          console.log(error);
+        });
     }
   };
 
@@ -233,7 +249,6 @@ const Compare = () => {
         showToast("Hiba történt az adatok lekérése közben", "error");
         console.log(error);
       });
-
   }, []);
 
   return (
@@ -408,79 +423,63 @@ const Compare = () => {
                     </div>
                     <table className="container">
                       <thead className="mb-5">
-                        {selectedSoftwares.map((id) => (
-                          <th className="text-3xl">{SoftwareData[id].name}</th>
+                        {ComparisonData.map((software) => (
+                          <th className="text-3xl">{software.name}</th>
                         ))}
                         <th></th>
                       </thead>
                       <b className="text-2xl">Funkciók: </b>
-                      
                       <tbody>
-                        {selectedSoftwares.map((id) => (
+                        {ComparisonData.map((software) => (
                           <td className="p-3 align-top">
-                            <div>console.log(SoftwareData[id].functions)</div>
-                            {SoftwareData[id].functions.map((func, index) => {
-                              const allSame = selectedSoftwares.every(
-                                (sid) =>
-                                  SoftwareData[sid].functions[index]
-                                    ?.sfunction ===
-                                  SoftwareData[id].functions[index]?.sfunction
-                              );
-                              const isUnique = selectedSoftwares.some(
-                                (sid) =>
-                                  SoftwareData[sid].functions[index]
-                                    ?.sfunction !==
-                                  SoftwareData[id].functions[index]?.sfunction
-                              );
+                            {software.functions
+                              .filter((func) => func.sfunction)
+                              .map((func, index) => {
+                                const countSame = ComparisonData.filter((s) =>
+                                  s.functions.some(
+                                    (f) =>
+                                      f.functionality === func.functionality &&
+                                      f.sfunction
+                                  )
+                                ).length;
+                                const isUnique = countSame < 2;
 
-                              return (
-                                <tr
-                                  key={index}
-                                  className={`shadow-custom p-2 my-1.5 w-full rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                    allSame
-                                      ? "bg-gray-200"
-                                      : isUnique
-                                      ? "bg-green-200"
-                                      : ""
-                                  }`}
-                                  style={{ height: "80px" }}
-                                >
-                                  {func.functionality}
-                                </tr>
-                              );
-                            })}
+                                return (
+                                  <tr
+                                    key={index}
+                                    className={`shadow-custom p-2 my-1.5 w-full rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                      isUnique ? "bg-green-200" : "bg-gray-200"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {func.functionality}
+                                  </tr>
+                                );
+                              })}
                           </td>
                         ))}
                       </tbody>
                       <b className="text-2xl">Kompabilitás: </b>
                       <tbody>
-                        {selectedSoftwares.map((id) => (
+                        {ComparisonData.map((software) => (
                           <td className="p-3">
-                            {CompatibilityData.map((comp, index) => {
-                              const allSame = selectedSoftwares.every(
-                                (sid) =>
-                                  SoftwareData[sid].devices.includes(comp) ===
-                                  SoftwareData[id].devices.includes(comp)
-                              );
-                              const isUnique = selectedSoftwares.some(
-                                (sid) =>
-                                  SoftwareData[sid].devices.includes(comp) !==
-                                  SoftwareData[id].devices.includes(comp)
-                              );
+                            {software.devices.map((device, index) => {
+                              const countSame = ComparisonData.filter(
+                                (s) =>
+                                  s.devices.includes(device) ===
+                                  software.devices.includes(device)
+                              ).length;
+                              const isUnique = countSame < 2;
 
                               return (
                                 <tr
                                   key={index}
                                   className={`shadow-custom p-2 my-1.5 rounded-lg text-xl text-black font-semibold flex flex-col items-center justify-center text-center ${
-                                    allSame
-                                      ? "bg-gray-200"
-                                      : isUnique
-                                      ? "bg-green-200"
-                                      : ""
+                                    isUnique ? "bg-green-200" : "bg-gray-200"
                                   }`}
                                   style={{ height: "80px" }}
                                 >
-                                  {comp}
+                                  {device}
                                 </tr>
                               );
                             })}
@@ -489,29 +488,21 @@ const Compare = () => {
                       </tbody>
                       <b className="text-2xl">Szoftver nyelve: </b>
                       <tbody>
-                        {selectedSoftwares.map((id) => (
+                        {ComparisonData.map((software) => (
                           <td className="p-3">
-                            {LanguageData.map((lang, index) => {
-                              const allSame = selectedSoftwares.every(
-                                (sid) =>
-                                  SoftwareData[sid].languages.includes(lang) ===
-                                  SoftwareData[id].languages.includes(lang)
-                              );
-                              const isUnique = selectedSoftwares.some(
-                                (sid) =>
-                                  SoftwareData[sid].languages.includes(lang) !==
-                                  SoftwareData[id].languages.includes(lang)
-                              );
+                            {software.languages.map((lang, index) => {
+                              const countSame = ComparisonData.filter(
+                                (s) =>
+                                  s.languages.includes(lang) ===
+                                  software.languages.includes(lang)
+                              ).length;
+                              const isUnique = countSame < 2;
 
                               return (
                                 <tr
                                   key={index}
                                   className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                    allSame
-                                      ? "bg-gray-200"
-                                      : isUnique
-                                      ? "bg-green-200"
-                                      : ""
+                                    isUnique ? "bg-green-200" : "bg-gray-200"
                                   }`}
                                   style={{ height: "80px" }}
                                 >
@@ -524,29 +515,21 @@ const Compare = () => {
                       </tbody>
                       <b className="text-2xl">Operációs rendszerek: </b>
                       <tbody>
-                        {selectedSoftwares.map((id) => (
+                        {ComparisonData.map((software) => (
                           <td className="p-3">
-                            {OsData.map((os, index) => {
-                              const allSame = selectedSoftwares.every(
-                                (sid) =>
-                                  SoftwareData[sid].oSs.includes(os) ===
-                                  SoftwareData[id].oSs.includes(os)
-                              );
-                              const isUnique = selectedSoftwares.some(
-                                (sid) =>
-                                  SoftwareData[sid].oSs.includes(os) !==
-                                  SoftwareData[id].oSs.includes(os)
-                              );
+                            {software.oSs.map((os, index) => {
+                              const countSame = ComparisonData.filter(
+                                (s) =>
+                                  s.oSs.includes(os) ===
+                                  software.oSs.includes(os)
+                              ).length;
+                              const isUnique = countSame < 2;
 
                               return (
                                 <tr
                                   key={index}
                                   className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                    allSame
-                                      ? "bg-gray-200"
-                                      : isUnique
-                                      ? "bg-green-200"
-                                      : ""
+                                    isUnique ? "bg-green-200" : "bg-gray-200"
                                   }`}
                                   style={{ height: "80px" }}
                                 >
@@ -559,47 +542,30 @@ const Compare = () => {
                       </tbody>
                       <b className="text-2xl">Támogatás nyelve: </b>
                       <tbody>
-                        {selectedSoftwares.map(
-                          (id) => (
-                            console.log("SELECTED: ", selectedSoftwares),
-                            (
-                              <td className="p-3">
-                                {SupportData.map((supp, index) => {
-                                  const allSame = selectedSoftwares.every(
-                                    (sid) =>
-                                      SoftwareData[sid].supports.includes(
-                                        supp
-                                      ) ===
-                                      SoftwareData[id].supports.includes(supp)
-                                  );
-                                  const isUnique = selectedSoftwares.some(
-                                    (sid) =>
-                                      SoftwareData[sid].supports.includes(
-                                        supp
-                                      ) !==
-                                      SoftwareData[id].supports.includes(supp)
-                                  );
+                        {ComparisonData.map((software) => (
+                          <td className="p-3">
+                            {software.supports.map((support, index) => {
+                              const countSame = ComparisonData.filter(
+                                (s) =>
+                                  s.supports.includes(support) ===
+                                  software.supports.includes(support)
+                              ).length;
+                              const isUnique = countSame < 2;
 
-                                  return (
-                                    <tr
-                                      key={index}
-                                      className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                        allSame
-                                          ? "bg-gray-200"
-                                          : isUnique
-                                          ? "bg-green-200"
-                                          : ""
-                                      }`}
-                                      style={{ height: "80px" }}
-                                    >
-                                      {supp}
-                                    </tr>
-                                  );
-                                })}
-                              </td>
-                            )
-                          )
-                        )}
+                              return (
+                                <tr
+                                  key={index}
+                                  className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                    isUnique ? "bg-green-200" : "bg-gray-200"
+                                  }`}
+                                  style={{ height: "80px" }}
+                                >
+                                  {support}
+                                </tr>
+                              );
+                            })}
+                          </td>
+                        ))}
                       </tbody>
                     </table>
                   </div>
