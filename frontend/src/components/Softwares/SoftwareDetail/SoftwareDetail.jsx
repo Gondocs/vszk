@@ -21,6 +21,7 @@ function SoftwareDetail() {
   const [parent] = useAutoAnimate(/* optional config */);
   const [IsFavorite, setIsFavorite] = useState();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [ratings, setRatings] = useState([]);
 
   const [showReviewOverlay, setShowReviewOverlay] = useState(false);
   const [reviewData, setReviewData] = useState({
@@ -197,7 +198,6 @@ function SoftwareDetail() {
   };
 
   const [recommendedSoftwares, setRecommendedSoftwares] = useState([]);
-  const [loading2, setLoading2] = useState(true);
 
   useEffect(() => {
     get
@@ -205,12 +205,21 @@ function SoftwareDetail() {
       .then((data) => {
         setRecommendedSoftwares(data || []);
         console.log(data);
-        setLoading2(false);
       })
       .catch((error) => {
         console.error("Error fetching recommended softwares:", error);
         showToast(error, "error");
-        setLoading2(false);
+      });
+
+    get
+      .GetRatingBySoftwareId(softwareID)
+      .then((data) => {
+        setRatings(data || []);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching recommended softwares:", error);
+        showToast(error, "error");
       });
   }, [softwareID]);
 
@@ -280,7 +289,7 @@ function SoftwareDetail() {
   return (
     <div className="min-h-screen bg-gray-200 py-8 px-6 FadeInSmall">
       <div className="p-8">
-        <div className="bg-white p-8 rounded-25 shadow-xl">
+        <div className="bg-white p-8 rounded-lg shadow-xl">
           <div className="flex items-center">
             {loading ? (
               <div className="flex justify-center items-center mx-auto">
@@ -289,8 +298,8 @@ function SoftwareDetail() {
             ) : (
               <>
                 <div className="w-full p-4">
-                  <div className="flex border-gray-200 rounded-25">
-                    <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-25">
+                  <div className="flex border-gray-200 rounded-lg">
+                    <div className="w-1/3 flex justify-center items-center shadow-custom m-4 rounded-lg">
                       <img
                         src={SoftwareData.logo_link}
                         alt="Software Logo"
@@ -299,7 +308,7 @@ function SoftwareDetail() {
                       />
                     </div>
 
-                    <div className="w-2/3 rounded-25">
+                    <div className="w-2/3 rounded-lg">
                       <div className="pt-8 pb-8 pr-12 pl-16">
                         <h2 className="text-6xl font-semibold pt-4">
                           {SoftwareData.name}
@@ -503,7 +512,7 @@ function SoftwareDetail() {
                       </div>
                     </div>
                   )}
-                  <ul className="p-8 rounded-25" ref={parent}>
+                  <ul className="p-8 rounded-lg" ref={parent}>
                     <div className="flex justify-center mt-6 text-white text-2xl">
                       <button
                         className={`mx-2 p-2 w-1/3 rounded-xl py-4 ${
@@ -548,9 +557,9 @@ function SoftwareDetail() {
 
                     {activeButton === "Properties" &&
                       SoftwareData.languages.length > 0 && (
-                        <div className="grid grid-cols-3 gap-12 mb-4 shadow-custom p-16 rounded-25 mt-20">
+                        <div className="grid grid-cols-3 gap-12 mb-4 shadow-custom p-16 rounded-lg mt-20">
                           {SoftwareData.languages.length > 0 && (
-                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                            <div className="shadow-custom p-4 rounded-lg flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                               <h3 className="text-2xl font-semibold">
                                 Nyelvek
                               </h3>
@@ -561,29 +570,29 @@ function SoftwareDetail() {
                           )}
 
                           {SoftwareData.supports.length > 0 && (
-                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                            <div className="shadow-custom p-4 rounded-lg flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                               <h3 className="text-2xl font-semibold">
                                 Támogatás nyelve
                               </h3>
-                              <p className="text-lg mt-2 rounded-25">
+                              <p className="text-lg mt-2 rounded-lg">
                                 {SoftwareData.supports.join(", ")}
                               </p>
                             </div>
                           )}
 
                           {SoftwareData.oSs.length > 0 && (
-                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                            <div className="shadow-custom p-4 rounded-lg flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                               <h3 className="text-2xl font-semibold">
                                 Operációs rendszerek
                               </h3>
-                              <p className="text-lg mt-2 rounded-25">
+                              <p className="text-lg mt-2 rounded-lg">
                                 {SoftwareData.oSs.join(", ")}
                               </p>
                             </div>
                           )}
 
                           {SoftwareData.devices.length > 0 && (
-                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                            <div className="shadow-custom p-4 rounded-lg flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                               <h3 className="text-2xl font-semibold">
                                 Eszközök
                               </h3>
@@ -594,7 +603,7 @@ function SoftwareDetail() {
                           )}
 
                           {SoftwareData.moduls.length > 0 && (
-                            <div className="shadow-custom p-4 rounded-25 flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
+                            <div className="shadow-custom p-4 rounded-lg flex flex-col items-center justify-center text-center hover-scale-small:hover hover-scale-small">
                               <h3 className="text-2xl font-semibold">
                                 Modulok
                               </h3>
@@ -608,13 +617,13 @@ function SoftwareDetail() {
 
                     {activeButton === "functionalities" &&
                       SoftwareData.functions.length > 0 && (
-                        <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-25 mt-20">
+                        <div className="flex flex-wrap gap-8 shadow-custom p-16 rounded-lg mt-20">
                           {SoftwareData.functions
                             .filter((func) => func.sfunction === true)
                             .map((func) => (
                               <div
                                 key={func.softwareFunctionID}
-                                className="bg-white rounded-25 shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small "
+                                className="bg-white rounded-lg shadow-custom p-2 flex-grow hover-scale-small:hover hover-scale-small "
                               >
                                 <h3 className="text-2xl m-2 text-center">
                                   {func.functionality}
@@ -627,8 +636,8 @@ function SoftwareDetail() {
                     {activeButton === "remunerations" &&
                       SoftwareData.remunerations.length > 0 && (
                         // Render the content for remunerations
-                        <div className="flex flex-wrap gap-8 mt-20 shadow-custom p-16 rounded-25">
-                          <div className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
+                        <div className="flex flex-wrap gap-8 mt-20 shadow-custom p-16 rounded-lg">
+                          <div className="bg-white rounded-lg shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element">
                             <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
                               BEVEZETÉSI ÁR
                             </h3>
@@ -642,7 +651,7 @@ function SoftwareDetail() {
                           {SoftwareData.remunerations.map((remuneration) => (
                             <div
                               key={remuneration.remunerationID}
-                              className="bg-white rounded-25 shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
+                              className="bg-white rounded-lg shadow-custom p-4 flex-grow hover-scale-element:hover hover-scale-element"
                             >
                               <h3 className="text-2xl font-semibold m-2 text-center border-2 rounded">
                                 {remuneration.level.toUpperCase()}
@@ -660,14 +669,76 @@ function SoftwareDetail() {
                       )}
                   </ul>
                   <div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
+                    <div className="grid grid-cols-1 gap-8 p-8">
+                      {ratings.length > 0 ? (
+                        ratings.map((rating) => (
+                          <div
+                            key={rating.ratingID}
+                            className="bg-white p-6 rounded-lg shadow-custom mb-4"
+                          >
+                            <p className="text-gray-800 mb-2 font-semibold text-lg">
+                              {rating.user.firstname} {rating.user.lastname} -{" "}
+                              {rating.user.country}
+                            </p>
+                            <div className="text-gray-700 mb-2 flex items-center"></div>
+                            <div className="text-gray-700 mb-2 grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-3 gap-4">
+                              <div className="text-center">
+                                <span className="font-bold block">Összegzett értékelés:</span>
+                                <span className="block">{renderStars("overall", rating.star.all)}</span>
+                              </div>
+                              <div className="text-center">
+                                <span className="font-bold block">Egyszerűség:</span>
+                                <span className="block">{renderStars("simplicity", rating.star.simplicity)}</span>
+                              </div>
+                              <div className="text-center">
+                                <span className="font-bold block">Szolgáltatás:</span>
+                                <span className="block">{renderStars("service", rating.star.service)}</span>
+                              </div>
+                              <div className="text-center">
+                                <span className="font-bold block">Jellemzők:</span>
+                                <span className="block">{renderStars("characteristic", rating.star.characteristic)}</span>
+                              </div>
+                              <div className="text-center">
+                                <span className="font-bold block">Ár-érték arány:</span>
+                                <span className="block">{renderStars("price_value", rating.star.price_value)}</span>
+                              </div>
+                              <div className="text-center">
+                                <span className="font-bold block">Ajánlás:</span>
+                                <span className="block">{renderStars("recommendation", rating.star.recommendation)}</span>
+                              </div>
+                            </div>
+                            <p className="text-gray-700 mb-4">
+                              <span className="font-bold">Pozitív aspektusok:</span>{" "}
+                              {rating.textRating.positive}
+                            </p>
+                            <p className="text-gray-700 mb-4">
+                              <span className="font-bold">Negatív aspektusok:</span>{" "}
+                              {rating.textRating.negative}
+                            </p>
+                            <p className="text-gray-700 mb-4">
+                              <span className="font-bold">Használat oka:</span>{" "}
+                              {rating.textRating.reason_of_use}
+                            </p>
+                            <p className="text-gray-700 mb-4">
+                              <span className="font-bold">Használat időtartama:</span>{" "}
+                              {rating.textRating.duration_of_use}
+                            </p>
+                          </div>
+                        ))
+                      ) : (
+                        <div>Nem található értékelés</div>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-3 gap-8 p-8">
                       {recommendedSoftwares.length > 0 ? (
                         recommendedSoftwares.map((software) => (
                           <Link
                             key={software.softwareID}
                             to={`/szoftverek/${transliterate(
                               software.category_group // Ensure this matches the data property
-                            )}/${transliterate(software.category)}/${software.softwareID}/${transliterate(software.name)}`}
+                            )}/${transliterate(software.category)}/${
+                              software.softwareID
+                            }/${transliterate(software.name)}`}
                             className="bg-white p-6 rounded-lg shadow-custom hover-scale-small:hover hover-scale-small"
                             onClick={() => {
                               window.scrollTo({
