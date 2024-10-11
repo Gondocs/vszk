@@ -12,6 +12,7 @@ namespace vszk.Services
         Task<Rating> GetRatingByUserIdAndSoftwareId(int userId, int softwareId);
 
         Task<Rating> PutRatingByUserIdAndSoftwareId(int userId, int softwareId, RatingDTO rate);
-
+        
+        Task<List<Rating>> GetRatingBySoftwareId(int softwareId);
     }
 }

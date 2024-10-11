@@ -144,5 +144,10 @@ namespace vszk.Services
 
             return existingRating;
         }
+
+        public async Task<List<Rating>> GetRatingBySoftwareId(int softwareId)
+        {
+            return await _context.Rating.Include(x => x.Star).Include(x => x.TextRating).Include(x => x.User).Include(x => x.Software).Where(x => x.Software.SoftwareID == softwareId).ToListAsync();
+        }
     }
 }

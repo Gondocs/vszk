@@ -152,6 +152,12 @@ const get = {
       .get("/Category/GetAllCategories")
       .then((response) => response.data);
   },
+
+  GetRatingBySoftwareId: (softwareId) => {
+    return apiConfig
+      .get(`/Rating/GetRatingBySoftwareId/${softwareId}`)
+      .then((response) => response.data);
+  },
 };
 
 const post = {
