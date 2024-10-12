@@ -59,6 +59,11 @@ const Compare = () => {
 
   const handleClickOnCompareList = () => {
     setIsCompareSoftwares(false);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
   };
 
   const handleSearchFocus = () => {
@@ -257,7 +262,7 @@ const Compare = () => {
         className="w-1/4 bg-white p-10 rounded-lg mr-4 ml-4 shadow-lg border border-gray-400"
         style={{ height: "100%", marginTop: "6.3%", minWidth: "300px" }}
       >
-        <h2 className="text-3xl font-semibold mb-4 hover-scale-element:hover hover-scale-element">
+        <h2 className="text-xl font-semibold mb-4 hover-scale-element:hover hover-scale-element">
           Szoftver kategóriák
         </h2>
         <ul>
@@ -268,9 +273,9 @@ const Compare = () => {
                   setCurrentMainCategoryName(mainCategory.name),
                   handleClickOnCompareList(),
                 ]}
-                className={`text-xl text-white my-1 p-3 rounded-xl text-center effect effect-5 hover:bg-gray-700 bg-gray-600 transition-class ${
+                className={`text-lg text-white my-1 p-3 rounded-xl text-center effect effect-5 hover:bg-gray-600 bg-gray-700 transition-class ${
                   currentMainCategoryName === mainCategory.name
-                    ? "bg-gray-800 opacity-100 text-white"
+                    ? "bg-gray-700 opacity-100 text-white"
                     : ""
                 }`}
               >
@@ -284,8 +289,8 @@ const Compare = () => {
       {!currentMainCategoryName ? (
         <div className="m-auto">
           <div className="flex flex-col align-center p-5 pt-10 bg-white rounded-lg mr-4 ml-4 shadow-lg border border-gray-400">
-            <div className="mb-20 text-center text-white bg-gray-800 py-6 mt-0 rounded-lg hover-scale-small:hover">
-              <p className="p-2 text-2xl px-16">
+            <div className="mb-20 text-center text-white bg-gray-800 py-6 mt-0 rounded-lg">
+              <p className="p-2 text-lg px-16">
                 Használja a szoftver összehasonlító modulunkat és találja meg
                 számára a legmegefelőbbet.<br></br> <br></br> Hasonlítsa össze a
                 szoftvereinket funkció, kompabilitás, nyelv, operációs rendszer
@@ -423,10 +428,29 @@ const Compare = () => {
                     </div>
                     <table className="container">
                       <thead className="mb-5">
-                        {ComparisonData.map((software) => (
-                          <th className="text-3xl">{software.name}</th>
-                        ))}
-                        <th></th>
+                        <tr>
+                          {ComparisonData.map((software) => (
+                            <th
+                              className="text-3xl text-center"
+                              key={software.softwareID}
+                            >
+                              <div className="flex flex-col items-center mt-8 mb-5">
+                                <span className="mb-5">{software.name}</span>
+                                <img
+                                  src={software.logo_link}
+                                  alt={`${software.name} logo`}
+                                  style={{
+                                    width: "auto",
+                                    height: "auto",
+                                    maxHeight: "80px",
+                                    paddingLeft: "",
+                                  }}
+                                />
+                              </div>
+                            </th>
+                          ))}
+                          <th></th>
+                        </tr>
                       </thead>
                       <b className="text-2xl">Funkciók: </b>
                       <tbody>
@@ -459,10 +483,10 @@ const Compare = () => {
                           </td>
                         ))}
                       </tbody>
-                      <b className="text-2xl">Kompabilitás: </b>
+                      <b className="text-2xl ">Kompabilitás: </b>
                       <tbody>
                         {ComparisonData.map((software) => (
-                          <td className="p-3">
+                          <td className="p-3 align-top">
                             {software.devices.map((device, index) => {
                               const countSame = ComparisonData.filter(
                                 (s) =>
@@ -489,7 +513,7 @@ const Compare = () => {
                       <b className="text-2xl">Szoftver nyelve: </b>
                       <tbody>
                         {ComparisonData.map((software) => (
-                          <td className="p-3">
+                          <td className="p-3 align-top">
                             {software.languages.map((lang, index) => {
                               const countSame = ComparisonData.filter(
                                 (s) =>
@@ -516,7 +540,7 @@ const Compare = () => {
                       <b className="text-2xl">Operációs rendszerek: </b>
                       <tbody>
                         {ComparisonData.map((software) => (
-                          <td className="p-3">
+                          <td className="p-3 align-top">
                             {software.oSs.map((os, index) => {
                               const countSame = ComparisonData.filter(
                                 (s) =>
@@ -543,7 +567,7 @@ const Compare = () => {
                       <b className="text-2xl">Támogatás nyelve: </b>
                       <tbody>
                         {ComparisonData.map((software) => (
-                          <td className="p-3">
+                          <td className="p-3 align-top">
                             {software.supports.map((support, index) => {
                               const countSame = ComparisonData.filter(
                                 (s) =>
