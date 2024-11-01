@@ -10,6 +10,7 @@ import { get, post } from "../api/api";
 import { showToast } from "../toasts/toast";
 // import Pagination from "../Pagination/pagination";
 import CompareSvg from "../assets/CompareSvg";
+import StarIcon from "@mui/icons-material/Star";
 
 const Compare = () => {
   const { Maincategory, Subcategory } = useParams();
@@ -249,6 +250,21 @@ const Compare = () => {
       });
   }, []);
 
+  const renderStars = (count) => {
+    return (
+      <div className="star-rating">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <StarIcon
+            key={i}
+            style={{
+              color: i <= count ? "rgb(255, 210, 48)" : "#ccc",
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       <div
@@ -438,6 +454,9 @@ const Compare = () => {
                                     paddingLeft: "",
                                   }}
                                 />
+                                <div className="mt-2">
+                                  {renderStars(software.average_stars)}
+                                </div>
                               </div>
                             </th>
                           ))}
