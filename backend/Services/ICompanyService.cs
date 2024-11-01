@@ -7,5 +7,7 @@ namespace vszk.Services
         Task<CompanyDTO> GetCompany(int id);
 
         Task<Company> AddCompany(Company company);
+
+        Task<List<Software>> GetCompanySoftwares(int id);
     }
 }

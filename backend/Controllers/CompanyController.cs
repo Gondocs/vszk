@@ -28,5 +28,12 @@ namespace vszk.Controllers
         {
             return await _companyService.AddCompany(company);
         }
+
+        [HttpGet("GetCompanySoftwares/{id}")]
+        public async Task<ActionResult<List<Software>>> GetCompanySoftwares(int id)
+        {
+            return await _companyService.GetCompanySoftwares(id);
+        }
+
     }
 }

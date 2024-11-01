@@ -57,7 +57,7 @@ function SoftwareDetail() {
       const userID = jwtDecode(token).nameid;
       const reviewPayload = { ...reviewData, userID, softwareID };
       await post.RatingData(reviewPayload);
-      showToastLong("Review successfully added!", "success");
+      showToastLong("Értékelés hozzáadása sikeres!", "success");
       setShowReviewOverlay(false); // Close the overlay
       ReloadNavigate(0);
     } catch (error) {

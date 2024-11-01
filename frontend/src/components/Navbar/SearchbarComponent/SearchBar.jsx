@@ -55,8 +55,8 @@ const SearchBar = ({
           <div
             className="absolute mt-2 z-99 bg-white rounded-lg shadow-md max-h-96 overflow-y-auto p-4 "
             style={{
-              width: isDesktopOrLaptop ? "100%" : "90%",
-              maxHeight: isDesktopOrLaptop ? "32rem" : "24rem",
+              width: isDesktopOrLaptop ? "100%" : "100%",
+              maxHeight: isDesktopOrLaptop ? "32rem" : "26rem",
             }}
             ref={parent}
           >

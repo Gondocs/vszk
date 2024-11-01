@@ -159,6 +159,13 @@ const get = {
       .then((response) => response.data);
   },
 
+  GetCompanySoftwares: (companyId
+    ) => {
+      return apiConfig
+        .get(`/Company/GetCompanySoftwares/${companyId}`)
+        .then((response) => response.data);
+    }
+
 };
 
 const post = {

@@ -50,5 +50,15 @@ namespace vszk.Services
             await _context.SaveChangesAsync();
             return company;
         }
+
+        public async Task<List<Software>> GetCompanySoftwares(int id)
+        {
+            return await _context.Software
+                .Include(s => s.Category)
+                .Include(s => s.Company)
+                .Include(s => s.Category.CategoryGroup)
+                .Where(s => s.Company.CompanyID == id)
+                .ToListAsync();
+        }
     }
 }

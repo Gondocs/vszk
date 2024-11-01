@@ -4,32 +4,6 @@ import "../../css/Mainpage.css";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
-const imagesWithCaptions = [
-  {
-    src: "https://i.ibb.co/KGS5ZZD/photo-1454165804606-c3d57bc86b40.png",
-    caption: "Tanácsadás",
-  },
-  {
-    src: "https://i.ibb.co/V2pRpbd/photo-1647268357361-5a20b90c1f8b.png",
-    caption: "Magyar nyelvű szoftverek",
-  },
-  {
-    src: "https://i.ibb.co/0mqFYjQ/still-life-with-scales-justice.jpg",
-    caption: "Szoftverek összehasonlítása",
-  },
-  {
-    src: "https://i.ibb.co/611S9vx/glenn-carstens-peters-RLw-UC03-Gwc-unsplash.jpg",
-    caption: "Szoftver szűrés",
-  },
-  {
-    src: "https://i.ibb.co/qxBPkzK/josh-appel-Ne-TPASr-bm-Q-unsplash.jpg",
-    caption: "Legjobb ár-érték arány",
-  },
-  {
-    src: "https://i.ibb.co/0YNS14k/jamie-street-Y602i-Pc-Tq28-unsplash.jpg",
-    caption: "Felhasználóbarát felület",
-  },
-];
 
 export function HomePage() {
   const headerRef = useRef(null);
@@ -97,48 +71,6 @@ export function HomePage() {
       pictureObserver.disconnect();
     };
   }, []);
-
-  const handleMouseDown = (e) => {
-    setMouseDownAt(e.clientX);
-  };
-
-  const handleMouseUp = () => {
-    setMouseDownAt(0);
-    setPrevPercentage(percentage);
-  };
-
-  const handleMouseMove = (e) => {
-    if (mouseDownAt === 0) return;
-
-    const mouseDelta = mouseDownAt - e.clientX;
-    const maxDelta = window.innerWidth / 2;
-
-    const newPercentage = (mouseDelta / maxDelta) * -100;
-    const nextPercentage = Math.min(
-      Math.max(prevPercentage + newPercentage, -40.5),
-      0
-    );
-
-    setPercentage(nextPercentage);
-
-    const track = document.getElementById("image-track");
-    track.animate(
-      {
-        transform: `translate(${nextPercentage}%, -50%)`,
-      },
-      { duration: 1000, fill: "forwards" }
-    );
-
-    const images = document.getElementsByClassName("image");
-    for (const image of images) {
-      image.animate(
-        {
-          objectPosition: `${100 + nextPercentage}% center`,
-        },
-        { duration: 1000, fill: "forwards" }
-      );
-    }
-  };
 
   return (
     <>
