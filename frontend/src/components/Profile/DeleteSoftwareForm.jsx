@@ -42,10 +42,10 @@ function DeleteSoftwareForm() {
   };
 
   return (
-    <div className="bg-gray-200">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-semibold text-center mb-8">Szoftver törlése</h1>
-        <div className="bg-white shadow-md rounded-md p-8">
+    <div className="">
+      <div className="">
+        <h1 className="text-3xl font-semibold text-center mb-8 mt-8">Szoftver törlése</h1>
+        <div className="">
           <form onSubmit={handleSubmit}>
             <div>
               <label>Szoftver neve:</label>

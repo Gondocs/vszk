@@ -21,6 +21,7 @@ function AdminPage() {
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState("");
   const [passwordErrors, setPasswordErrors] = useState([]);
   const { token } = useAuth();
+  const [selectedAction, setSelectedAction] = useState("userEdit"); // State to track selected action
 
   const Roleoptions = [
     { value: "user", label: "user" },
@@ -121,166 +122,207 @@ function AdminPage() {
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-semibold text-center mb-8">Admin</h1>
         <div className="gap-8">
           <div className="bg-white shadow-md rounded-md p-8 flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">
-                Felhasználó keresése email alapján
-              </h2>
-              <Select
-                id="emailsearch"
-                name="emailsearch"
-                autofill="false"
-                autocomplete="off"
-                options={allUsers.map((user) => ({
-                  value: user.email,
-                  label: user.email,
-                }))}
-                className="mb-4 mt-2 text-lg z-5"
-                onChange={(selectedOption) => {
-                  const selectedUser = allUsers.find(
-                    (user) => user.email === selectedOption.value
-                  );
-                  setUser(selectedUser);
-                }}
-                value={options.find((option) => option.value === user.email)}
-                placeholder="Email cím"
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    fontSize: "1rem",
-                    paddingLeft: "6px",
-                  }),
-                  option: (provided) => ({
-                    ...provided,
-                    fontSize: "1rem",
-                  }),
-                }}
-                noOptionsMessage={() => "Nincs találat."}
-              />
+            <div className="flex justify-center mb-4">
+              <button
+                className={`mx-2 p-2 w-1/3 rounded-xl py-4 ${
+                  selectedAction === "userEdit" ? "bg-gray-500" : "bg-gray-700"
+                } text-white`}
+                onClick={() => setSelectedAction("userEdit")}
+                style={{ transition: "background-color 1s ease-in-out" }}
+              >
+                Felhasználói adatok módosítása
+              </button>
+              <button
+                className={`mx-2 p-2 w-1/3 rounded-xl py-4 ${
+                  selectedAction === "addSoftware"
+                    ? "bg-gray-500"
+                    : "bg-gray-700"
+                } text-white`}
+                onClick={() => setSelectedAction("addSoftware")}
+                style={{ transition: "background-color 1s ease-in-out" }}
+              >
+                Új szoftver hozzáadása
+              </button>
+              <button
+                className={`mx-2 p-2 w-1/3 rounded-xl py-4 ${
+                  selectedAction === "deleteSoftware"
+                    ? "bg-gray-500"
+                    : "bg-gray-700"
+                } text-white`}
+                onClick={() => setSelectedAction("deleteSoftware")}
+                style={{ transition: "background-color 1s ease-in-out" }}
+              >
+                Szoftver törlése
+              </button>
             </div>
-            <h2 className="text-2xl font-semibold mb-4">Felhasználó adatai</h2>
-            <form onSubmit={handleSubmit}>
-              Vezetékév:
-              <input
-                type="text"
-                name="firstName"
-                value={user.firstName}
-                onChange={handleChange}
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                disabled={!editing} // Disable input field when not in editing mode
-              />
-              Keresztnév:
-              <input
-                type="text"
-                name="lastName"
-                value={user.lastName}
-                onChange={handleChange}
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                disabled={!editing} // Disable input field when not in editing mode
-              />
-              Email cím:
-              <input
-                type="email"
-                name="email"
-                value={user.email}
-                onChange={handleChange}
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                disabled={!editing} // Disable input field when not in editing mode
-              />
-              Ország:
-              <Select
-                id="country"
-                name="country"
-                options={options}
-                className="mb-4 text-lg z-5"
-                onChange={(option) =>
-                  handleChange({
-                    target: { name: "country", value: option.value },
-                  })
-                }
-                value={options.find((option) => option.value === user.country)}
-                placeholder="Országok"
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    fontSize: "1rem",
-                    paddingLeft: "6px",
-                  }),
-                  option: (provided) => ({
-                    ...provided,
-                    fontSize: "1rem",
-                  }),
-                }}
-                noOptionsMessage={() => "Nincs találat."}
-                isDisabled={!editing} // Disable select field when not in editing mode
-              />
-              Település:
-              <input
-                type="text"
-                name="settlement"
-                value={user.settlement}
-                onChange={handleChange}
-                className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                disabled={!editing} // Disable input field when not in editing mode
-              />
-              Jogosultság:
-              <Select
-                value={Roleoptions.find((option) => option.value === user.role)}
-                onChange={(selectedOption) =>
-                  handleChange({
-                    target: { name: "role", value: selectedOption.value },
-                  })
-                }
-                options={Roleoptions}
-                className="mb-4 text-lg z-5"
-                placeholder="Jogosultságok"
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    fontSize: "1rem",
-                    paddingLeft: "6px",
-                  }),
-                  option: (provided) => ({
-                    ...provided,
-                    fontSize: "1rem",
-                  }),
-                }}
-                noOptionsMessage={() => "Nincs találat."}
-                isDisabled={!editing} // Disable select field when not in editing mode
-              />
-            </form>
-            {editing && (
+            {selectedAction === "userEdit" && (
               <>
+                <h3 className="text-3xl font-semibold text-center mb-8 mt-8">
+                  Felhasználó keresése email alapján
+                </h3>
+                <Select
+                  id="emailsearch"
+                  name="emailsearch"
+                  autofill="false"
+                  autocomplete="off"
+                  options={allUsers.map((user) => ({
+                    value: user.email,
+                    label: user.email,
+                  }))}
+                  className="mb-4 mt-2 text-lg z-5"
+                  onChange={(selectedOption) => {
+                    const selectedUser = allUsers.find(
+                      (user) => user.email === selectedOption.value
+                    );
+                    setUser(selectedUser);
+                  }}
+                  value={options.find((option) => option.value === user.email)}
+                  placeholder="Email cím"
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      fontSize: "1rem",
+                      paddingLeft: "6px",
+                    }),
+                    option: (provided) => ({
+                      ...provided,
+                      fontSize: "1rem",
+                    }),
+                  }}
+                  noOptionsMessage={() => "Nincs találat."}
+                />
+                <h2 className="text-2xl font-semibold mb-4">
+                  Felhasználó adatai
+                </h2>
+                <form onSubmit={handleSubmit}>
+                  Vezetékév:
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={user.firstName}
+                    onChange={handleChange}
+                    className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    disabled={!editing} // Disable input field when not in editing mode
+                  />
+                  Keresztnév:
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={user.lastName}
+                    onChange={handleChange}
+                    className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    disabled={!editing} // Disable input field when not in editing mode
+                  />
+                  Email cím:
+                  <input
+                    type="email"
+                    name="email"
+                    value={user.email}
+                    onChange={handleChange}
+                    className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    disabled={!editing} // Disable input field when not in editing mode
+                  />
+                  Ország:
+                  <Select
+                    id="country"
+                    name="country"
+                    options={options}
+                    className="mb-4 text-lg z-5"
+                    onChange={(option) =>
+                      handleChange({
+                        target: { name: "country", value: option.value },
+                      })
+                    }
+                    value={options.find(
+                      (option) => option.value === user.country
+                    )}
+                    placeholder="Országok"
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        fontSize: "1rem",
+                        paddingLeft: "6px",
+                      }),
+                      option: (provided) => ({
+                        ...provided,
+                        fontSize: "1rem",
+                      }),
+                    }}
+                    noOptionsMessage={() => "Nincs találat."}
+                    isDisabled={!editing} // Disable select field when not in editing mode
+                  />
+                  Település:
+                  <input
+                    type="text"
+                    name="settlement"
+                    value={user.settlement}
+                    onChange={handleChange}
+                    className="mb-4 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    disabled={!editing} // Disable input field when not in editing mode
+                  />
+                  Jogosultság:
+                  <Select
+                    value={Roleoptions.find(
+                      (option) => option.value === user.role
+                    )}
+                    onChange={(selectedOption) =>
+                      handleChange({
+                        target: { name: "role", value: selectedOption.value },
+                      })
+                    }
+                    options={Roleoptions}
+                    className="mb-4 text-lg z-5"
+                    placeholder="Jogosultságok"
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        fontSize: "1rem",
+                        paddingLeft: "6px",
+                      }),
+                      option: (provided) => ({
+                        ...provided,
+                        fontSize: "1rem",
+                      }),
+                    }}
+                    noOptionsMessage={() => "Nincs találat."}
+                    isDisabled={!editing} // Disable select field when not in editing mode
+                  />
+                </form>
+                {editing && (
+                  <>
+                    <button
+                      type="submit"
+                      onClick={handleSubmit}
+                      className="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded-md mb-3"
+                    >
+                      Mentés
+                    </button>
+                    <button
+                      type="submit"
+                      onClick={handleDelete}
+                      className="bg-blue-500 hover:bg-red-600 text-white py-2 px-4 rounded-md mb-3"
+                    >
+                      Felhasználó törlése
+                    </button>
+                  </>
+                )}
                 <button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded-md mb-3"
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
+                  onClick={() => setEditing(!editing)} // Toggle editing mode
                 >
-                  Mentés
-                </button>
-                <button
-                  type="submit"
-                  onClick={handleDelete}
-                  className="bg-blue-500 hover:bg-red-600 text-white py-2 px-4 rounded-md mb-3"
-                >
-                  Felhasználó törlése
+                  {editing ? "Mégse" : "Szerkesztés"}
                 </button>
               </>
             )}
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
-              onClick={() => setEditing(!editing)} // Toggle editing mode
-            >
-              {editing ? "Mégse" : "Szerkesztés"}
-            </button>
+            {selectedAction === "addSoftware" && <AddSoftwareForm />}
+            {selectedAction === "deleteSoftware" && <DeleteSoftwareForm />}
           </div>
         </div>
-        <AddSoftwareForm/>
-        <DeleteSoftwareForm/>
       </div>
     </div>
   );
