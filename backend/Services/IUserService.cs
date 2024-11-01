@@ -16,5 +16,7 @@ namespace vszk.Services
         Task<User> DeleteUser(int id);
 
         Task SendEmailToAllUsers(string subject, string message);
+
+        Task SendEmailToUser(string email, string subject, string message);
     }
 }

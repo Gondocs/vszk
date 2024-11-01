@@ -103,6 +103,9 @@ public async Task SendEmailAsync(string email, string subject, string message)
                     <p class='subheader'>Kedves látogató,</p>
                     <p>Örömmel mutatjuk be a legújabb funkciókat és szoftvereket, amelyekkel még könnyebbé és hatékonyabbá válik a keresés!</p>
                     
+                    <div class='subheader'>Üzenet</div>
+                    <p>{message}</p>
+
                     <div class='subheader'>Új Funkciók</div>
                     <ul class='feature-list'>
                         <li>Gyorsabb keresés valós idejű szűréssel</li>

@@ -130,5 +130,15 @@ namespace vszk.Services
             }
         }
 
+        public async Task SendEmailToUser(string email, string subject, string message)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+            await _emailService.SendEmailAsync(email, subject, message);
+        }
+
     }
 }

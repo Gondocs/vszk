@@ -126,5 +126,19 @@ namespace vszk.Controllers
             await _userService.SendEmailToAllUsers(emailDTO.Subject, emailDTO.Message);
             return Ok();
         }
+
+        [HttpPost("SendEmailToUser")]
+        public async Task<IActionResult> SendEmailToUser([FromBody] SingleEmailDTO emailDTO)
+        {
+            try
+            {
+                await _userService.SendEmailToUser(emailDTO.Email, emailDTO.Subject, emailDTO.Message);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
