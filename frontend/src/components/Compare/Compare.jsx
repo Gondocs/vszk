@@ -64,7 +64,6 @@ const Compare = () => {
       top: 0,
       behavior: "smooth",
     });
-
   };
 
   const handleSearchFocus = () => {
@@ -85,28 +84,28 @@ const Compare = () => {
 
   const handleChooseSoftware = (id) => {
     const isContain = selectedSoftwares.some((element) => element === id);
-  
+
     if (selectedSoftwares.length >= 4) {
       showToast("Egyszerre csak 4 szoftvert lehet összehasonlítani!", "error");
     } else if (!isContain) {
       setselectedSoftwares((current) => [...current, id]);
-  
-      const newFunctions = SoftwareData.find((software) => software.softwareID === id).functions.filter(
-        (func) => !selectedSoftwareFunctions.includes(func)
-      );
-  
+
+      const newFunctions = SoftwareData.find(
+        (software) => software.softwareID === id
+      ).functions.filter((func) => !selectedSoftwareFunctions.includes(func));
+
       if (newFunctions.length > 0) {
         setselectedSoftwareFunctions((current) => [
           ...current,
           ...newFunctions,
         ]);
       }
-  
+
       console.log("funkciók: ", selectedSoftwareFunctions);
     } else {
       showToast("Ez a szoftver már ki lett választva!", "error");
     }
-  
+
     setSearchQuery(""); // Clear the search query on link click
   };
 
@@ -267,33 +266,35 @@ const Compare = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
-      <div
-        className="w-1/4 bg-white p-10 rounded-lg mr-4 ml-4 shadow-lg border border-gray-400"
-        style={{ height: "100%", marginTop: "6.3%", minWidth: "300px" }}
-      >
-        <h2 className="text-xl font-semibold mb-4 hover-scale-element:hover hover-scale-element">
-          Szoftver kategóriák
-        </h2>
-        <ul>
-          {MainCategoryData.map((mainCategory, index) => (
-            <h1 key={index}>
-              <button
-                onClick={() => [
-                  setCurrentMainCategoryName(mainCategory.name),
-                  handleClickOnCompareList(),
-                ]}
-                className={`text-lg text-white my-1 p-3 rounded-xl text-center effect effect-5 hover:bg-gray-600 bg-gray-700 transition-class ${
-                  currentMainCategoryName === mainCategory.name
-                    ? "bg-gray-700 opacity-100 text-white"
-                    : ""
-                }`}
-              >
-                {mainCategory.name}
-              </button>
-            </h1>
-          ))}
-        </ul>
-      </div>
+      {!isCompareSoftwares && (
+        <div
+          className="w-1/4 bg-white p-10 rounded-lg mr-4 ml-4 shadow-lg border border-gray-400"
+          style={{ height: "100%", marginTop: "6.3%", minWidth: "300px" }}
+        >
+          <h2 className="text-xl font-semibold mb-4 hover-scale-element:hover hover-scale-element">
+            Szoftver kategóriák
+          </h2>
+          <ul>
+            {MainCategoryData.map((mainCategory, index) => (
+              <h1 key={index}>
+                <button
+                  onClick={() => [
+                    setCurrentMainCategoryName(mainCategory.name),
+                    handleClickOnCompareList(),
+                  ]}
+                  className={`text-lg text-white my-1 p-3 rounded-xl text-center effect effect-5 hover:bg-gray-600 bg-gray-700 transition-class ${
+                    currentMainCategoryName === mainCategory.name
+                      ? "bg-gray-700 opacity-100 text-white"
+                      : ""
+                  }`}
+                >
+                  {mainCategory.name}
+                </button>
+              </h1>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {!currentMainCategoryName ? (
         <div className="m-auto">
@@ -341,13 +342,18 @@ const Compare = () => {
                         maxHeight: "32rem",
                       }}
                     >
-                                            {filteredSoftwareData
-                        .filter((category) => category.category.name === currentMainCategoryName)
+                      {filteredSoftwareData
+                        .filter(
+                          (category) =>
+                            category.category.name === currentMainCategoryName
+                        )
                         .map((software) => (
                           <button
                             key={software.softwareID}
                             className="flex w-full items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                            onClick={() => handleChooseSoftware(software.softwareID)}
+                            onClick={() =>
+                              handleChooseSoftware(software.softwareID)
+                            }
                             style={{ height: "130px" }}
                           >
                             <div className="w-1/3">
@@ -359,7 +365,8 @@ const Compare = () => {
                                   style={{
                                     width: "auto",
                                     height: "auto",
-                                    maxHeight: "80px",
+                                    maxHeight: "200px",
+                                    paddingLeft: "30%",
                                     paddingLeft: "30%",
                                   }}
                                 />
@@ -382,7 +389,9 @@ const Compare = () => {
                 </div>
                 <div className="w-full px-8 relative float-left">
                   {selectedSoftwares.map((id) => {
-                    const software = SoftwareData.find((software) => software.softwareID === id);
+                    const software = SoftwareData.find(
+                      (software) => software.softwareID === id
+                    );
                     return (
                       <div
                         key={id}
@@ -392,15 +401,18 @@ const Compare = () => {
                       >
                         <div className="w-1/3 flex items-center justify-center">
                           <img
+                            style={{
+                              width: "auto",
+                              height: "auto",
+                              maxHeight: "150px",
+                            }}
                             src={software.logo_link}
                             alt="Software Logo"
                             className="h-full object-contain p-8"
                           />
                         </div>
                         <div className="w-1/3 flex items-center justify-center">
-                          <span className="text-2xl">
-                            {software.name}
-                          </span>
+                          <span className="text-2xl">{software.name}</span>
                         </div>
                         <div className="w-1/3 flex items-center justify-center">
                           <button className="text-2xl rounded-lg text-red-500 font-bold">
@@ -434,175 +446,180 @@ const Compare = () => {
                         Vissza
                       </button>
                     </div>
-                    <table className="container">
-                      <thead className="mb-5">
-                        <tr>
-                          {ComparisonData.map((software) => (
-                            <th
-                              className="text-3xl text-center"
-                              key={software.softwareID}
-                            >
-                              <div className="flex flex-col items-center mt-8 mb-5">
-                                <span className="mb-5">{software.name}</span>
-                                <img
-                                  src={software.logo_link}
-                                  alt={`${software.name} logo`}
-                                  style={{
-                                    width: "auto",
-                                    height: "auto",
-                                    maxHeight: "80px",
-                                    paddingLeft: "",
-                                  }}
-                                />
-                                <div className="mt-2">
-                                  {renderStars(software.average_stars)}
+                    <div className="flex justify-center"> {/* Add this div */}
+                      <table className="container">
+                        <thead className="mb-5">
+                          <tr>
+                            {ComparisonData.map((software) => (
+                              <th
+                                className="text-3xl text-center"
+                                key={software.softwareID}
+                              >
+                                <div className="flex flex-col items-center mt-8 mb-5">
+                                  <span className="mb-10">{software.name}</span>
+                                  <img
+                                    src={software.logo_link}
+                                    alt={`${software.name} logo`}
+                                    style={{
+                                      width: "auto",
+                                      height: "auto",
+                                      maxHeight: "150x",
+                                      maxWidth: "300px",
+                                    }}
+                                  />
+                                  <div className="mt-2">
+                                    {renderStars(software.average_stars)}
+                                  </div>
                                 </div>
-                              </div>
-                            </th>
+                              </th>
+                            ))}
+                            <th></th>
+                          </tr>
+                        </thead>
+                        {/* ...existing code... */}
+                        <b className="text-2xl">Funkciók: </b>
+                        <tbody>
+                          {ComparisonData.map((software) => (
+                            <td className="p-3 align-top">
+                              {software.functions
+                                .filter((func) => func.sfunction)
+                                .map((func, index) => {
+                                  const countSame = ComparisonData.filter((s) =>
+                                    s.functions.some(
+                                      (f) =>
+                                        f.functionality === func.functionality &&
+                                        f.sfunction
+                                    )
+                                  ).length;
+                                  const isUnique = countSame < 2;
+
+                                  return (
+                                    <tr
+                                      key={index}
+                                      className={`shadow-custom p-2 my-1.5 w-full rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                        isUnique
+                                          ? "bg-green-200"
+                                          : "bg-gray-200"
+                                      }`}
+                                      style={{ height: "80px" }}
+                                    >
+                                      {func.functionality}
+                                    </tr>
+                                  );
+                                })}
+                            </td>
                           ))}
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <b className="text-2xl">Funkciók: </b>
-                      <tbody>
-                        {ComparisonData.map((software) => (
-                          <td className="p-3 align-top">
-                            {software.functions
-                              .filter((func) => func.sfunction)
-                              .map((func, index) => {
-                                const countSame = ComparisonData.filter((s) =>
-                                  s.functions.some(
-                                    (f) =>
-                                      f.functionality === func.functionality &&
-                                      f.sfunction
-                                  )
+                        </tbody>
+                        <b className="text-2xl ">Kompabilitás: </b>
+                        <tbody>
+                          {ComparisonData.map((software) => (
+                            <td className="p-3 align-top">
+                              {software.devices.map((device, index) => {
+                                const countSame = ComparisonData.filter(
+                                  (s) =>
+                                    s.devices.includes(device) ===
+                                    software.devices.includes(device)
                                 ).length;
                                 const isUnique = countSame < 2;
 
                                 return (
                                   <tr
                                     key={index}
-                                    className={`shadow-custom p-2 my-1.5 w-full rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                    className={`shadow-custom p-2 my-1.5 rounded-lg text-xl text-black font-semibold flex flex-col items-center justify-center text-center ${
                                       isUnique ? "bg-green-200" : "bg-gray-200"
                                     }`}
                                     style={{ height: "80px" }}
                                   >
-                                    {func.functionality}
+                                    {device}
                                   </tr>
                                 );
                               })}
-                          </td>
-                        ))}
-                      </tbody>
-                      <b className="text-2xl ">Kompabilitás: </b>
-                      <tbody>
-                        {ComparisonData.map((software) => (
-                          <td className="p-3 align-top">
-                            {software.devices.map((device, index) => {
-                              const countSame = ComparisonData.filter(
-                                (s) =>
-                                  s.devices.includes(device) ===
-                                  software.devices.includes(device)
-                              ).length;
-                              const isUnique = countSame < 2;
+                            </td>
+                          ))}
+                        </tbody>
+                        <b className="text-2xl">Szoftver nyelve: </b>
+                        <tbody>
+                          {ComparisonData.map((software) => (
+                            <td className="p-3 align-top">
+                              {software.languages.map((lang, index) => {
+                                const countSame = ComparisonData.filter(
+                                  (s) =>
+                                    s.languages.includes(lang) ===
+                                    software.languages.includes(lang)
+                                ).length;
+                                const isUnique = countSame < 2;
 
-                              return (
-                                <tr
-                                  key={index}
-                                  className={`shadow-custom p-2 my-1.5 rounded-lg text-xl text-black font-semibold flex flex-col items-center justify-center text-center ${
-                                    isUnique ? "bg-green-200" : "bg-gray-200"
-                                  }`}
-                                  style={{ height: "80px" }}
-                                >
-                                  {device}
-                                </tr>
-                              );
-                            })}
-                          </td>
-                        ))}
-                      </tbody>
-                      <b className="text-2xl">Szoftver nyelve: </b>
-                      <tbody>
-                        {ComparisonData.map((software) => (
-                          <td className="p-3 align-top">
-                            {software.languages.map((lang, index) => {
-                              const countSame = ComparisonData.filter(
-                                (s) =>
-                                  s.languages.includes(lang) ===
-                                  software.languages.includes(lang)
-                              ).length;
-                              const isUnique = countSame < 2;
+                                return (
+                                  <tr
+                                    key={index}
+                                    className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                      isUnique ? "bg-green-200" : "bg-gray-200"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {lang}
+                                  </tr>
+                                );
+                              })}
+                            </td>
+                          ))}
+                        </tbody>
+                        <b className="text-2xl">Operációs rendszerek: </b>
+                        <tbody>
+                          {ComparisonData.map((software) => (
+                            <td className="p-3 align-top">
+                              {software.oSs.map((os, index) => {
+                                const countSame = ComparisonData.filter(
+                                  (s) =>
+                                    s.oSs.includes(os) ===
+                                    software.oSs.includes(os)
+                                ).length;
+                                const isUnique = countSame < 2;
 
-                              return (
-                                <tr
-                                  key={index}
-                                  className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                    isUnique ? "bg-green-200" : "bg-gray-200"
-                                  }`}
-                                  style={{ height: "80px" }}
-                                >
-                                  {lang}
-                                </tr>
-                              );
-                            })}
-                          </td>
-                        ))}
-                      </tbody>
-                      <b className="text-2xl">Operációs rendszerek: </b>
-                      <tbody>
-                        {ComparisonData.map((software) => (
-                          <td className="p-3 align-top">
-                            {software.oSs.map((os, index) => {
-                              const countSame = ComparisonData.filter(
-                                (s) =>
-                                  s.oSs.includes(os) ===
-                                  software.oSs.includes(os)
-                              ).length;
-                              const isUnique = countSame < 2;
+                                return (
+                                  <tr
+                                    key={index}
+                                    className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                      isUnique ? "bg-green-200" : "bg-gray-200"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {os}
+                                  </tr>
+                                );
+                              })}
+                            </td>
+                          ))}
+                        </tbody>
+                        <b className="text-2xl">Támogatás nyelve: </b>
+                        <tbody>
+                          {ComparisonData.map((software) => (
+                            <td className="p-3 align-top">
+                              {software.supports.map((support, index) => {
+                                const countSame = ComparisonData.filter(
+                                  (s) =>
+                                    s.supports.includes(support) ===
+                                    software.supports.includes(support)
+                                ).length;
+                                const isUnique = countSame < 2;
 
-                              return (
-                                <tr
-                                  key={index}
-                                  className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                    isUnique ? "bg-green-200" : "bg-gray-200"
-                                  }`}
-                                  style={{ height: "80px" }}
-                                >
-                                  {os}
-                                </tr>
-                              );
-                            })}
-                          </td>
-                        ))}
-                      </tbody>
-                      <b className="text-2xl">Támogatás nyelve: </b>
-                      <tbody>
-                        {ComparisonData.map((software) => (
-                          <td className="p-3 align-top">
-                            {software.supports.map((support, index) => {
-                              const countSame = ComparisonData.filter(
-                                (s) =>
-                                  s.supports.includes(support) ===
-                                  software.supports.includes(support)
-                              ).length;
-                              const isUnique = countSame < 2;
-
-                              return (
-                                <tr
-                                  key={index}
-                                  className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
-                                    isUnique ? "bg-green-200" : "bg-gray-200"
-                                  }`}
-                                  style={{ height: "80px" }}
-                                >
-                                  {support}
-                                </tr>
-                              );
-                            })}
-                          </td>
-                        ))}
-                      </tbody>
-                    </table>
+                                return (
+                                  <tr
+                                    key={index}
+                                    className={`shadow-custom p-2 my-1.5 rounded-lg flex text-xl text-black font-semibold flex-col items-center justify-center text-center ${
+                                      isUnique ? "bg-green-200" : "bg-gray-200"
+                                    }`}
+                                    style={{ height: "80px" }}
+                                  >
+                                    {support}
+                                  </tr>
+                                );
+                              })}
+                            </td>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div> {/* Close the added div */}
                   </div>
                 ) : null}
               </div>
