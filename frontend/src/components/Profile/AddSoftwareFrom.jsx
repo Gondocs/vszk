@@ -108,7 +108,7 @@ function AddSoftwareForm() {
   
     try {
       await post.AddNewSoftware(softwareData);
-      showToastLong("Software added successfully!", "success");
+      showToastLong("Szoftver hozzáadása sikeres!", "success");
     } catch (error) {
       showToastLong("Error adding software: " + error.message, "error");
       console.log(error);

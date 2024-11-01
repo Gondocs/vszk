@@ -293,6 +293,12 @@ const del = {
       )
       .then((response) => response.data);
   },
+
+  DeleteSoftwareById: (id) => {
+      return apiConfig
+        .delete(`/Software/DeleteSoftwareById`, { params: { id } })
+        .then((response) => response.data);
+    },
 };
 
 export { get, post, put, del };

@@ -9,6 +9,7 @@ import { options } from "../Register/CountryConst";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../Auth/Auth";
 import AddSoftwareForm from "./AddSoftwareFrom";
+import DeleteSoftwareForm from "./DeleteSoftwareForm";
 
 function AdminPage() {
   const [loading, setLoading] = useState(false);
@@ -279,6 +280,7 @@ function AdminPage() {
           </div>
         </div>
         <AddSoftwareForm/>
+        <DeleteSoftwareForm/>
       </div>
     </div>
   );
