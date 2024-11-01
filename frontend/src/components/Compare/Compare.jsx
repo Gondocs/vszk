@@ -83,36 +83,29 @@ const Compare = () => {
   };
 
   const handleChooseSoftware = (id) => {
-    const isContanin = selectedSoftwares.some((element) => {
-      if (element === id) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    //------------------Compare functions-----------------------
+    const isContain = selectedSoftwares.some((element) => element === id);
+  
     if (selectedSoftwares.length >= 4) {
       showToast("Egyszerre csak 4 szoftvert lehet összehasonlítani!", "error");
-    } else if (!isContanin) {
+    } else if (!isContain) {
       setselectedSoftwares((current) => [...current, id]);
-
-      const newFunctions = SoftwareData[id].functions.filter(
+  
+      const newFunctions = SoftwareData.find((software) => software.softwareID === id).functions.filter(
         (func) => !selectedSoftwareFunctions.includes(func)
       );
-
+  
       if (newFunctions.length > 0) {
         setselectedSoftwareFunctions((current) => [
           ...current,
           ...newFunctions,
         ]);
       }
-
+  
       console.log("funkciók: ", selectedSoftwareFunctions);
     } else {
       showToast("Ez a szoftver már ki lett választva!", "error");
     }
-
+  
     setSearchQuery(""); // Clear the search query on link click
   };
 
@@ -332,18 +325,13 @@ const Compare = () => {
                         maxHeight: "32rem",
                       }}
                     >
-                      {filteredSoftwareData
-                        .filter(
-                          (category) =>
-                            category.category.name === currentMainCategoryName
-                        )
+                                            {filteredSoftwareData
+                        .filter((category) => category.category.name === currentMainCategoryName)
                         .map((software) => (
                           <button
                             key={software.softwareID}
                             className="flex w-full items-center px-4 py-2 hover:bg-gray-200 text-gray-800 hover:text-black hover:rounded-lg"
-                            onClick={() =>
-                              handleChooseSoftware(software.softwareID - 1)
-                            }
+                            onClick={() => handleChooseSoftware(software.softwareID)}
                             style={{ height: "130px" }}
                           >
                             <div className="w-1/3">
@@ -377,31 +365,35 @@ const Compare = () => {
                   )}
                 </div>
                 <div className="w-full px-8 relative float-left">
-                  {selectedSoftwares.map((id) => (
-                    <div
-                      onClick={() => removeSelectedSoftware(id)}
-                      className="shadow-custom bg-white px-3 py-2 my-5 w-full cursor-pointer rounded-lg flex items-center justify-center text-center hover-scale-small:hover hover-scale-small"
-                      style={{ height: "100px" }}
-                    >
-                      <div className="w-1/3 flex items-center justify-center">
-                        <img
-                          src={SoftwareData[id].logo_link}
-                          alt="Software Logo"
-                          className="h-full object-contain p-8"
-                        />
+                  {selectedSoftwares.map((id) => {
+                    const software = SoftwareData.find((software) => software.softwareID === id);
+                    return (
+                      <div
+                        key={id}
+                        onClick={() => removeSelectedSoftware(id)}
+                        className="shadow-custom bg-white px-3 py-2 my-5 w-full cursor-pointer rounded-lg flex items-center justify-center text-center hover-scale-small:hover hover-scale-small"
+                        style={{ height: "100px" }}
+                      >
+                        <div className="w-1/3 flex items-center justify-center">
+                          <img
+                            src={software.logo_link}
+                            alt="Software Logo"
+                            className="h-full object-contain p-8"
+                          />
+                        </div>
+                        <div className="w-1/3 flex items-center justify-center">
+                          <span className="text-2xl">
+                            {software.name}
+                          </span>
+                        </div>
+                        <div className="w-1/3 flex items-center justify-center">
+                          <button className="text-2xl rounded-lg text-red-500 font-bold">
+                            X
+                          </button>
+                        </div>
                       </div>
-                      <div className="w-1/3 flex items-center justify-center">
-                        <span className="text-2xl">
-                          {SoftwareData[id].name}
-                        </span>
-                      </div>
-                      <div className="w-1/3 flex items-center justify-center">
-                        <button className="text-2xl rounded-lg text-red-500 font-bold">
-                          X
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                   {selectedSoftwares.length >= 2 ? (
                     <div className="flex justify-center mt-8">
                       <button
