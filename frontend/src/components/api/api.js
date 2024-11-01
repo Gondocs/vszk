@@ -246,6 +246,12 @@ const post = {
       .post("/Software/GetSoftwaresByIDs", ids)  // Send ids in the body
       .then((response) => response.data);
   },
+
+  SendEmailToAllUsers: (data) => {
+    return apiConfig
+      .post("/User/SendEmailToAllUsers", data)
+      .then((response) => response.data);
+  },
 };
 
 const put = {
