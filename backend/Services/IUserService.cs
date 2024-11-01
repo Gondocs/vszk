@@ -14,5 +14,7 @@ namespace vszk.Services
         Task<User> UpdateUserDataAdmin(UserDataChangeAdmin userDataChangeAdmin);
 
         Task<User> DeleteUser(int id);
+
+        Task SendEmailToAllUsers(string subject, string message);
     }
 }

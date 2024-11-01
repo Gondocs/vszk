@@ -3,10 +3,12 @@ namespace vszk.Services
     public class UserService : IUserService
     {
         private readonly DataContext _context;
+        private readonly IEmailService _emailService;
 
-        public UserService(DataContext context)
+        public UserService(DataContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<List<User>> GetAllUsers()
@@ -108,6 +110,15 @@ namespace vszk.Services
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
             return user;
+        }
+
+        public async Task SendEmailToAllUsers(string subject, string message)
+        {
+            var users = await _context.User.ToListAsync();
+            foreach (var user in users)
+            {
+                await _emailService.SendEmailAsync(user.Email, subject, message);
+            }
         }
         
     }
