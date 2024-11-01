@@ -252,6 +252,12 @@ const post = {
       .post("/User/SendEmailToAllUsers", data)
       .then((response) => response.data);
   },
+
+  SendEmailToUser: (data) => {
+    return apiConfig
+      .post("/User/SendEmailToUser", data)
+      .then((response) => response.data);
+  },
 };
 
 const put = {
