@@ -112,6 +112,15 @@ namespace vszk.Services
             return user;
         }
 
+        public async Task SendWeeklyNewsletter(string subject, string message)
+        {
+            var users = await _context.User.ToListAsync();
+            foreach (var user in users)
+            {
+                await _emailService.SendEmailAsync(user.Email, subject, message);
+            }
+        }
+
         public async Task SendEmailToAllUsers(string subject, string message)
         {
             var users = await _context.User.ToListAsync();
@@ -120,6 +129,6 @@ namespace vszk.Services
                 await _emailService.SendEmailAsync(user.Email, subject, message);
             }
         }
-        
+
     }
 }
