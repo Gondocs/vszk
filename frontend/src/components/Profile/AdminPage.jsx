@@ -10,6 +10,7 @@ import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../Auth/Auth";
 import AddSoftwareForm from "./AddSoftwareFrom";
 import DeleteSoftwareForm from "./DeleteSoftwareForm";
+import SendNewsletterForm from "./SendNewsletterForm";
 
 function AdminPage() {
   const [loading, setLoading] = useState(false);
@@ -158,6 +159,15 @@ function AdminPage() {
                 style={{ transition: "background-color 1s ease-in-out" }}
               >
                 Szoftver törlése
+              </button>
+              <button
+                className={`mx-2 p-2 w-1/3 rounded-xl py-4 ${
+                  selectedAction === "sendNewsletter" ? "bg-gray-500" : "bg-gray-700"
+                } text-white`}
+                onClick={() => setSelectedAction("sendNewsletter")}
+                style={{ transition: "background-color 1s ease-in-out" }}
+              >
+                Hírlevél küldése
               </button>
             </div>
             {selectedAction === "userEdit" && (
@@ -321,6 +331,7 @@ function AdminPage() {
             )}
             {selectedAction === "addSoftware" && <AddSoftwareForm />}
             {selectedAction === "deleteSoftware" && <DeleteSoftwareForm />}
+            {selectedAction === "sendNewsletter" && <SendNewsletterForm />}
           </div>
         </div>
       </div>
