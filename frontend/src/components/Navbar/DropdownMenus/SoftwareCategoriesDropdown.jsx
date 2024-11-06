@@ -63,14 +63,14 @@ const NewMenu = () => {
         onClose={() => toggle(false)}
         overflow="auto"
       >
-        <MenuHeader>Fő kategóriák</MenuHeader>
+        <MenuHeader>Főkategóriák</MenuHeader>
         {uniqueCategories.map((categoryName) => (
           <Link
             key={categoryName}
             to={`/szoftverek/${transliterate(categoryName)}`}
           >
             <SubMenu label={categoryName}>
-              <MenuHeader>Mellék kategóriák</MenuHeader>
+              <MenuHeader>Mellékkategóriák</MenuHeader>
 
               {mainCategoryData
                 .filter(
