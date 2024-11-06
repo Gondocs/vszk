@@ -152,7 +152,7 @@ function SoftwareDetail() {
   };
 
   const handleAddFavorite = async (e) => {
-    setIsButtonDisabled(true); // Disable the button
+    setIsButtonDisabled(true); 
     if (typeof token === "string") {
       const AddFavoriteData = {
         userID: jwtDecode(token).nameid,
@@ -162,16 +162,16 @@ function SoftwareDetail() {
       try {
         await post.AddUserFavoriteSoftware(AddFavoriteData);
         showToastLong("Sikeresen hozzáadva a kedvencekhez", "success");
-        setIsFavorite(true); // Directly set IsFavorite to true
+        setIsFavorite(true);
       } catch (error) {
         showToastLong("Hiba történt a hozzáadás közben: " + error, "error");
         console.log(error);
       }
     } else {
-      console.error("Invalid token");
+      console.error("Hibás token");
     }
 
-    setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
+    setTimeout(() => setIsButtonDisabled(false), 3000); 
   };
 
   const handleRemoveFavorite = async (e) => {
@@ -191,7 +191,7 @@ function SoftwareDetail() {
         console.log(error);
       }
     } else {
-      console.error("Invalid token");
+      console.error("Hibás token");
     }
 
     setTimeout(() => setIsButtonDisabled(false), 3000); // Enable the button after 3 seconds
@@ -429,7 +429,7 @@ function SoftwareDetail() {
 
                         {/* Textual Inputs */}
                         <h3 className="mt-12 mb-2 text-lg font-semibold">
-                          Írja meg értékelését...
+                          Összegzés
                         </h3>
                         <textarea
                           name="all_text"
@@ -439,21 +439,21 @@ function SoftwareDetail() {
                           className="textarea mt-2 p-4 border rounded-md w-full"
                         />
                         <h3 className="mt-6 mb-2 text-lg font-semibold">
-                          Pozitív aspektusok
+                          Pozitív
                         </h3>
                         <textarea
                           name="positive"
-                          placeholder="Pozitív aspektusok"
+                          placeholder="Pozitív"
                           value={reviewData.positive}
                           onChange={handleInputChange}
                           className="textarea mt-2 p-4 border rounded-md w-full"
                         />
                         <h3 className="mt-6 mb-2 text-lg font-semibold">
-                          Negatív aspektusok
+                          Negatív
                         </h3>
                         <textarea
                           name="negative"
-                          placeholder="Negatív aspektusok"
+                          placeholder="Negatív"
                           value={reviewData.negative}
                           onChange={handleInputChange}
                           className="textarea mt-2 p-4 border rounded-md w-full"
@@ -676,43 +676,88 @@ function SoftwareDetail() {
                             key={rating.ratingID}
                             className="bg-white p-6 rounded-lg shadow-custom mb-4"
                           >
-                            <p className="text-gray-800 mb-2 font-semibold text-lg">
+                            <p className="text-gray-800 font-semibold text-lg">
                               {rating.user.firstname} {rating.user.lastname} -{" "}
                               {rating.user.country}
+                            </p>
+                            <p className="text-gray-800 text-lg mb-2">
+                              {new Date(rating.datumido).toLocaleDateString(
+                                "hu-HU"
+                              )}
                             </p>
                             <div className="text-gray-700 mb-2 flex items-center"></div>
                             <div className="text-gray-700 mb-2 grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-3 gap-4">
                               <div className="text-center">
-                                <span className="font-bold block">Összegzett értékelés:</span>
-                                <span className="block">{renderStars("overall", rating.star.all)}</span>
+                                <span className="font-bold block">
+                                  Összegzett értékelés:
+                                </span>
+                                <span className="block">
+                                  {renderStars("overall", rating.star.all)}
+                                </span>
                               </div>
                               <div className="text-center">
-                                <span className="font-bold block">Egyszerűség:</span>
-                                <span className="block">{renderStars("simplicity", rating.star.simplicity)}</span>
+                                <span className="font-bold block">
+                                  Egyszerűség:
+                                </span>
+                                <span className="block">
+                                  {renderStars(
+                                    "simplicity",
+                                    rating.star.simplicity
+                                  )}
+                                </span>
                               </div>
                               <div className="text-center">
-                                <span className="font-bold block">Szolgáltatás:</span>
-                                <span className="block">{renderStars("service", rating.star.service)}</span>
+                                <span className="font-bold block">
+                                  Szolgáltatás:
+                                </span>
+                                <span className="block">
+                                  {renderStars("service", rating.star.service)}
+                                </span>
                               </div>
                               <div className="text-center">
-                                <span className="font-bold block">Jellemzők:</span>
-                                <span className="block">{renderStars("characteristic", rating.star.characteristic)}</span>
+                                <span className="font-bold block">
+                                  Jellemzők:
+                                </span>
+                                <span className="block">
+                                  {renderStars(
+                                    "characteristic",
+                                    rating.star.characteristic
+                                  )}
+                                </span>
                               </div>
                               <div className="text-center">
-                                <span className="font-bold block">Ár-érték arány:</span>
-                                <span className="block">{renderStars("price_value", rating.star.price_value)}</span>
+                                <span className="font-bold block">
+                                  Ár-érték arány:
+                                </span>
+                                <span className="block">
+                                  {renderStars(
+                                    "price_value",
+                                    rating.star.price_value
+                                  )}
+                                </span>
                               </div>
                               <div className="text-center">
-                                <span className="font-bold block">Ajánlás:</span>
-                                <span className="block">{renderStars("recommendation", rating.star.recommendation)}</span>
+                                <span className="font-bold block">
+                                  Ajánlás:
+                                </span>
+                                <span className="block">
+                                  {renderStars(
+                                    "recommendation",
+                                    rating.star.recommendation
+                                  )}
+                                </span>
                               </div>
                             </div>
                             <p className="text-gray-700 mb-4">
-                              <span className="font-bold">Pozitív aspektusok:</span>{" "}
+                              <span className="font-bold">
+                                Pozitív aspektusok:
+                              </span>{" "}
                               {rating.textRating.positive}
                             </p>
                             <p className="text-gray-700 mb-4">
-                              <span className="font-bold">Negatív aspektusok:</span>{" "}
+                              <span className="font-bold">
+                                Negatív aspektusok:
+                              </span>{" "}
                               {rating.textRating.negative}
                             </p>
                             <p className="text-gray-700 mb-4">
@@ -720,7 +765,9 @@ function SoftwareDetail() {
                               {rating.textRating.reason_of_use}
                             </p>
                             <p className="text-gray-700 mb-4">
-                              <span className="font-bold">Használat időtartama:</span>{" "}
+                              <span className="font-bold">
+                                Használat időtartama:
+                              </span>{" "}
                               {rating.textRating.duration_of_use}
                             </p>
                           </div>
@@ -735,7 +782,7 @@ function SoftwareDetail() {
                           <Link
                             key={software.softwareID}
                             to={`/szoftverek/${transliterate(
-                              software.category_group // Ensure this matches the data property
+                              software.category_group
                             )}/${transliterate(software.category)}/${
                               software.softwareID
                             }/${transliterate(software.name)}`}
@@ -766,7 +813,7 @@ function SoftwareDetail() {
                           </Link>
                         ))
                       ) : (
-                        <div>Nem található hasonló szoftver</div>
+                        <div>Nem található hasonló szoftver.</div>
                       )}
                     </div>
                   </div>
