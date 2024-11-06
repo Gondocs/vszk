@@ -13,10 +13,8 @@ import CompareSvg from "../assets/CompareSvg";
 import StarIcon from "@mui/icons-material/Star";
 
 const Compare = () => {
-  const { Maincategory, Subcategory } = useParams();
 
   const [currentMainCategoryName, setCurrentMainCategoryName] = useState("");
-  const [currentSubCategoryName, setCurrentSubCategoryName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   // const [ClickedSearch, setClickedSearch] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -28,18 +26,8 @@ const Compare = () => {
   const [isCompareSoftwares, setIsCompareSoftwares] = useState(false);
 
   const [SoftwareData, setSoftwareData] = useState([]);
-  const [FunctionsData, setFunctionsData] = useState([]);
-  const [CompatibilityData, setCompatibilityData] = useState([]);
-  const [LanguageData, setLanguageData] = useState([]);
-  const [OsData, setOsData] = useState([]);
-  const [SupportData, setSupportData] = useState([]);
   const [ComparisonData, setComparisonData] = useState([]);
 
-  const [selectedFunctions, setSelectedFunctions] = useState([]);
-  const [selectedCompatibility, setSelectedCompatibility] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState([]);
-  const [selectedOs, setSelectedOs] = useState([]);
-  const [selectedSupport, setSelectedSupport] = useState([]);
   const searchnavigate = useNavigate();
   const [MainCategoryData, setMainCategoryData] = useState([]);
 
@@ -182,59 +170,6 @@ const Compare = () => {
         console.log(error);
         setLoading(false);
       });
-
-    get
-      .GetAllWithFunctions()
-      .then((functionsData) => {
-        setFunctionsData(functionsData);
-      })
-      .catch((error) => {
-        showToast(
-          "Hiba történt az adatok lekérése közben (AllFunctions)",
-          "error"
-        );
-        console.log(error);
-      });
-
-    get
-      .SoftwareCompConnect()
-      .then((compatibiliyData) => {
-        setCompatibilityData(compatibiliyData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
-
-    get
-      .SoftwareLangConnect()
-      .then((LanguageData) => {
-        setLanguageData(LanguageData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
-
-    get
-      .SoftwareOSConnect()
-      .then((OsData) => {
-        setOsData(OsData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
-
-    get
-      .Support()
-      .then((SupportData) => {
-        setSupportData(SupportData);
-      })
-      .catch((error) => {
-        showToast("Hiba történt az adatok lekérése közben", "error");
-        console.log(error);
-      });
   }, []);
 
   useEffect(() => {
@@ -268,7 +203,7 @@ const Compare = () => {
     <div className="flex min-h-screen bg-gray-200 py-8 px-8 FadeInSmall">
       {!isCompareSoftwares && (
         <div
-          className="w-1/4 bg-white p-10 rounded-lg mr-4 ml-4 shadow-lg border border-gray-400"
+          className="w-1/3 bg-white p-10 rounded-lg mr-4 ml-4 shadow-lg border border-gray-400"
           style={{ height: "100%", marginTop: "6.3%", minWidth: "300px" }}
         >
           <h2 className="text-xl font-semibold mb-4 hover-scale-element:hover hover-scale-element">
@@ -367,7 +302,6 @@ const Compare = () => {
                                     height: "auto",
                                     maxHeight: "200px",
                                     paddingLeft: "30%",
-                                    paddingLeft: "30%",
                                   }}
                                 />
                               </div>
@@ -464,7 +398,7 @@ const Compare = () => {
                                       width: "auto",
                                       height: "auto",
                                       maxHeight: "150x",
-                                      maxWidth: "300px",
+                                      maxWidth: "200px",
                                     }}
                                   />
                                   <div className="mt-2">
@@ -476,7 +410,6 @@ const Compare = () => {
                             <th></th>
                           </tr>
                         </thead>
-                        {/* ...existing code... */}
                         <b className="text-2xl">Funkciók: </b>
                         <tbody>
                           {ComparisonData.map((software) => (
