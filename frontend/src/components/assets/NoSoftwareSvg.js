@@ -8,7 +8,7 @@ function NoSoftwareSvg() {
         width="862.70323"
         height="644.78592"
         viewBox="0 0 862.70323 644.78592"
-        style={{ height: 'auto', width: '60%', margin: 'auto', marginBottom: '30px'}}
+        style={{ height: 'auto', width: '35%', margin: 'auto', marginBottom: '30px'}}
         className="pt-16"
       >
         <polygon
