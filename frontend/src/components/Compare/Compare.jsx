@@ -94,7 +94,7 @@ const Compare = () => {
       showToast("Ez a szoftver már ki lett választva!", "error");
     }
 
-    setSearchQuery(""); // Clear the search query on link click
+    setSearchQuery("");
   };
 
   const removeSelectedSoftware = (id) => {
@@ -300,7 +300,7 @@ const Compare = () => {
                                   style={{
                                     width: "auto",
                                     height: "auto",
-                                    maxHeight: "200px",
+                                    maxHeight: "100px",
                                     paddingLeft: "30%",
                                   }}
                                 />
