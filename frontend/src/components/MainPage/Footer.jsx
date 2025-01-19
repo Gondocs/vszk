@@ -27,7 +27,7 @@ export function Footer() {
         <footer className="bg-gray-800 py-3 border-t-4 border-white footer rounded-lg">
           <div className="text-center text-white">
             <p className="text-lg hover-scale-small:hover hover-scale-small">
-              2023 SzoftverKereső
+              2025 SzoftverKereső
             </p>
           </div>
         </footer>

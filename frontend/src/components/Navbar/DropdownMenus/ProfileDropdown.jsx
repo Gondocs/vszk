@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
+import { showToast } from "../../toasts/toast";
 
 const ProfileDropdown = () => {
   const ref = useRef(null);
@@ -32,6 +33,7 @@ const ProfileDropdown = () => {
   const handleLogout = () => {
     setToken();
     navigate("/", { replace: true });
+    showToast("Kijelentkezés sikeres!", "success");
   };
 
   return (
